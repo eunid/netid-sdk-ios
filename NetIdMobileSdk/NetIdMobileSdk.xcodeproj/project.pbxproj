@@ -1,0 +1,838 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 55;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		B66A07CA287D62C100A68E08 /* NetIdMobileSdk.docc in Sources */ = {isa = PBXBuildFile; fileRef = B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */; };
+		B66A07D0287D62C100A68E08 /* NetIdMobileSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */; };
+		B66A07D5287D62C100A68E08 /* NetIdMobileSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07D4287D62C100A68E08 /* NetIdMobileSdkTests.swift */; };
+		B66A07D6287D62C100A68E08 /* NetIdMobileSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B66A07E6287D641800A68E08 /* NetIdMobileSdk_AppApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07E5287D641800A68E08 /* NetIdMobileSdk_AppApp.swift */; };
+		B66A07E8287D641800A68E08 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07E7287D641800A68E08 /* ContentView.swift */; };
+		B66A07EA287D641900A68E08 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B66A07E9287D641900A68E08 /* Assets.xcassets */; };
+		B66A07ED287D641900A68E08 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B66A07EC287D641900A68E08 /* Preview Assets.xcassets */; };
+		B66A07F7287D641900A68E08 /* NetIdMobileSdk_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07F6287D641900A68E08 /* NetIdMobileSdk_AppTests.swift */; };
+		B66A0801287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */; };
+		B66A0803287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		B66A07D1287D62C100A68E08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B66A07BC287D62C000A68E08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B66A07C4287D62C100A68E08;
+			remoteInfo = NetIdMobileSdk;
+		};
+		B66A07F3287D641900A68E08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B66A07BC287D62C000A68E08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B66A07E2287D641800A68E08;
+			remoteInfo = "NetIdMobileSdk-App";
+		};
+		B66A07FD287D641900A68E08 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B66A07BC287D62C000A68E08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B66A07E2287D641800A68E08;
+			remoteInfo = "NetIdMobileSdk-App";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetIdMobileSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetIdMobileSdk.h; sourceTree = "<group>"; };
+		B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = NetIdMobileSdk.docc; sourceTree = "<group>"; };
+		B66A07CF287D62C100A68E08 /* NetIdMobileSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetIdMobileSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		B66A07D4287D62C100A68E08 /* NetIdMobileSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdkTests.swift; sourceTree = "<group>"; };
+		B66A07E3287D641800A68E08 /* NetIdMobileSdk-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NetIdMobileSdk-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B66A07E5287D641800A68E08 /* NetIdMobileSdk_AppApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppApp.swift; sourceTree = "<group>"; };
+		B66A07E7287D641800A68E08 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		B66A07E9287D641900A68E08 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		B66A07EC287D641900A68E08 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		B66A07F2287D641900A68E08 /* NetIdMobileSdk-AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NetIdMobileSdk-AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B66A07F6287D641900A68E08 /* NetIdMobileSdk_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppTests.swift; sourceTree = "<group>"; };
+		B66A07FC287D641900A68E08 /* NetIdMobileSdk-AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NetIdMobileSdk-AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITests.swift; sourceTree = "<group>"; };
+		B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		B66A07C2287D62C100A68E08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07CC287D62C100A68E08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A07D0287D62C100A68E08 /* NetIdMobileSdk.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07E0287D641800A68E08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07EF287D641900A68E08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07F9287D641900A68E08 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		B66A07BB287D62C000A68E08 = {
+			isa = PBXGroup;
+			children = (
+				B66A07C7287D62C100A68E08 /* NetIdMobileSdk */,
+				B66A07D3287D62C100A68E08 /* NetIdMobileSdkTests */,
+				B66A07E4287D641800A68E08 /* NetIdMobileSdk-App */,
+				B66A07F5287D641900A68E08 /* NetIdMobileSdk-AppTests */,
+				B66A07FF287D641900A68E08 /* NetIdMobileSdk-AppUITests */,
+				B66A07C6287D62C100A68E08 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		B66A07C6287D62C100A68E08 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */,
+				B66A07CF287D62C100A68E08 /* NetIdMobileSdkTests.xctest */,
+				B66A07E3287D641800A68E08 /* NetIdMobileSdk-App.app */,
+				B66A07F2287D641900A68E08 /* NetIdMobileSdk-AppTests.xctest */,
+				B66A07FC287D641900A68E08 /* NetIdMobileSdk-AppUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		B66A07C7287D62C100A68E08 /* NetIdMobileSdk */ = {
+			isa = PBXGroup;
+			children = (
+				B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */,
+				B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */,
+			);
+			path = NetIdMobileSdk;
+			sourceTree = "<group>";
+		};
+		B66A07D3287D62C100A68E08 /* NetIdMobileSdkTests */ = {
+			isa = PBXGroup;
+			children = (
+				B66A07D4287D62C100A68E08 /* NetIdMobileSdkTests.swift */,
+			);
+			path = NetIdMobileSdkTests;
+			sourceTree = "<group>";
+		};
+		B66A07E4287D641800A68E08 /* NetIdMobileSdk-App */ = {
+			isa = PBXGroup;
+			children = (
+				B66A07E5287D641800A68E08 /* NetIdMobileSdk_AppApp.swift */,
+				B66A07E7287D641800A68E08 /* ContentView.swift */,
+				B66A07E9287D641900A68E08 /* Assets.xcassets */,
+				B66A07EB287D641900A68E08 /* Preview Content */,
+			);
+			path = "NetIdMobileSdk-App";
+			sourceTree = "<group>";
+		};
+		B66A07EB287D641900A68E08 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				B66A07EC287D641900A68E08 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		B66A07F5287D641900A68E08 /* NetIdMobileSdk-AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				B66A07F6287D641900A68E08 /* NetIdMobileSdk_AppTests.swift */,
+			);
+			path = "NetIdMobileSdk-AppTests";
+			sourceTree = "<group>";
+		};
+		B66A07FF287D641900A68E08 /* NetIdMobileSdk-AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */,
+				B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */,
+			);
+			path = "NetIdMobileSdk-AppUITests";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		B66A07C0287D62C100A68E08 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A07D6287D62C100A68E08 /* NetIdMobileSdk.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		B66A07C4287D62C100A68E08 /* NetIdMobileSdk */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B66A07D9287D62C100A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk" */;
+			buildPhases = (
+				B66A07C0287D62C100A68E08 /* Headers */,
+				B66A07C1287D62C100A68E08 /* Sources */,
+				B66A07C2287D62C100A68E08 /* Frameworks */,
+				B66A07C3287D62C100A68E08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = NetIdMobileSdk;
+			productName = NetIdMobileSdk;
+			productReference = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		B66A07CE287D62C100A68E08 /* NetIdMobileSdkTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B66A07DC287D62C100A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdkTests" */;
+			buildPhases = (
+				B66A07CB287D62C100A68E08 /* Sources */,
+				B66A07CC287D62C100A68E08 /* Frameworks */,
+				B66A07CD287D62C100A68E08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B66A07D2287D62C100A68E08 /* PBXTargetDependency */,
+			);
+			name = NetIdMobileSdkTests;
+			productName = NetIdMobileSdkTests;
+			productReference = B66A07CF287D62C100A68E08 /* NetIdMobileSdkTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B66A07E2287D641800A68E08 /* NetIdMobileSdk-App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B66A0804287D641900A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk-App" */;
+			buildPhases = (
+				B66A07DF287D641800A68E08 /* Sources */,
+				B66A07E0287D641800A68E08 /* Frameworks */,
+				B66A07E1287D641800A68E08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "NetIdMobileSdk-App";
+			productName = "NetIdMobileSdk-App";
+			productReference = B66A07E3287D641800A68E08 /* NetIdMobileSdk-App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		B66A07F1287D641900A68E08 /* NetIdMobileSdk-AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B66A0807287D641900A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk-AppTests" */;
+			buildPhases = (
+				B66A07EE287D641900A68E08 /* Sources */,
+				B66A07EF287D641900A68E08 /* Frameworks */,
+				B66A07F0287D641900A68E08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B66A07F4287D641900A68E08 /* PBXTargetDependency */,
+			);
+			name = "NetIdMobileSdk-AppTests";
+			productName = "NetIdMobileSdk-AppTests";
+			productReference = B66A07F2287D641900A68E08 /* NetIdMobileSdk-AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		B66A07FB287D641900A68E08 /* NetIdMobileSdk-AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B66A080A287D641900A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk-AppUITests" */;
+			buildPhases = (
+				B66A07F8287D641900A68E08 /* Sources */,
+				B66A07F9287D641900A68E08 /* Frameworks */,
+				B66A07FA287D641900A68E08 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				B66A07FE287D641900A68E08 /* PBXTargetDependency */,
+			);
+			name = "NetIdMobileSdk-AppUITests";
+			productName = "NetIdMobileSdk-AppUITests";
+			productReference = B66A07FC287D641900A68E08 /* NetIdMobileSdk-AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		B66A07BC287D62C000A68E08 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1340;
+				LastUpgradeCheck = 1340;
+				TargetAttributes = {
+					B66A07C4287D62C100A68E08 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					B66A07CE287D62C100A68E08 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					B66A07E2287D641800A68E08 = {
+						CreatedOnToolsVersion = 13.4.1;
+					};
+					B66A07F1287D641900A68E08 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = B66A07E2287D641800A68E08;
+					};
+					B66A07FB287D641900A68E08 = {
+						CreatedOnToolsVersion = 13.4.1;
+						TestTargetID = B66A07E2287D641800A68E08;
+					};
+				};
+			};
+			buildConfigurationList = B66A07BF287D62C000A68E08 /* Build configuration list for PBXProject "NetIdMobileSdk" */;
+			compatibilityVersion = "Xcode 13.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = B66A07BB287D62C000A68E08;
+			productRefGroup = B66A07C6287D62C100A68E08 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				B66A07C4287D62C100A68E08 /* NetIdMobileSdk */,
+				B66A07CE287D62C100A68E08 /* NetIdMobileSdkTests */,
+				B66A07E2287D641800A68E08 /* NetIdMobileSdk-App */,
+				B66A07F1287D641900A68E08 /* NetIdMobileSdk-AppTests */,
+				B66A07FB287D641900A68E08 /* NetIdMobileSdk-AppUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		B66A07C3287D62C100A68E08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07CD287D62C100A68E08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07E1287D641800A68E08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A07ED287D641900A68E08 /* Preview Assets.xcassets in Resources */,
+				B66A07EA287D641900A68E08 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07F0287D641900A68E08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07FA287D641900A68E08 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		B66A07C1287D62C100A68E08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A07CA287D62C100A68E08 /* NetIdMobileSdk.docc in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07CB287D62C100A68E08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A07D5287D62C100A68E08 /* NetIdMobileSdkTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07DF287D641800A68E08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A07E8287D641800A68E08 /* ContentView.swift in Sources */,
+				B66A07E6287D641800A68E08 /* NetIdMobileSdk_AppApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07EE287D641900A68E08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A07F7287D641900A68E08 /* NetIdMobileSdk_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B66A07F8287D641900A68E08 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				B66A0803287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift in Sources */,
+				B66A0801287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		B66A07D2287D62C100A68E08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B66A07C4287D62C100A68E08 /* NetIdMobileSdk */;
+			targetProxy = B66A07D1287D62C100A68E08 /* PBXContainerItemProxy */;
+		};
+		B66A07F4287D641900A68E08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B66A07E2287D641800A68E08 /* NetIdMobileSdk-App */;
+			targetProxy = B66A07F3287D641900A68E08 /* PBXContainerItemProxy */;
+		};
+		B66A07FE287D641900A68E08 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = B66A07E2287D641800A68E08 /* NetIdMobileSdk-App */;
+			targetProxy = B66A07FD287D641900A68E08 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		B66A07D7287D62C100A68E08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		B66A07D8287D62C100A68E08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		B66A07DA287D62C100A68E08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.netid.mobile.sdk.NetIdMobileSdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B66A07DB287D62C100A68E08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.netid.mobile.sdk.NetIdMobileSdk;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = NO;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B66A07DD287D62C100A68E08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.netid.mobile.sdk.NetIdMobileSdkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B66A07DE287D62C100A68E08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = de.netid.mobile.sdk.NetIdMobileSdkTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B66A0805287D641900A68E08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NetIdMobileSdk-App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		B66A0806287D641900A68E08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"NetIdMobileSdk-App/Preview Content\"";
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		B66A0808287D641900A68E08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NetIdMobileSdk-App.app/NetIdMobileSdk-App";
+			};
+			name = Debug;
+		};
+		B66A0809287D641900A68E08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.5;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/NetIdMobileSdk-App.app/NetIdMobileSdk-App";
+			};
+			name = Release;
+		};
+		B66A080B287D641900A68E08 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "NetIdMobileSdk-App";
+			};
+			name = Debug;
+		};
+		B66A080C287D641900A68E08 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "NetIdMobileSdk-App";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		B66A07BF287D62C000A68E08 /* Build configuration list for PBXProject "NetIdMobileSdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B66A07D7287D62C100A68E08 /* Debug */,
+				B66A07D8287D62C100A68E08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B66A07D9287D62C100A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B66A07DA287D62C100A68E08 /* Debug */,
+				B66A07DB287D62C100A68E08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B66A07DC287D62C100A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdkTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B66A07DD287D62C100A68E08 /* Debug */,
+				B66A07DE287D62C100A68E08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B66A0804287D641900A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk-App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B66A0805287D641900A68E08 /* Debug */,
+				B66A0806287D641900A68E08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B66A0807287D641900A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk-AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B66A0808287D641900A68E08 /* Debug */,
+				B66A0809287D641900A68E08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B66A080A287D641900A68E08 /* Build configuration list for PBXNativeTarget "NetIdMobileSdk-AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				B66A080B287D641900A68E08 /* Debug */,
+				B66A080C287D641900A68E08 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = B66A07BC287D62C000A68E08 /* Project object */;
+}
