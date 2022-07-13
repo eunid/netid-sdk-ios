@@ -20,6 +20,11 @@
 		B66A07F7287D641900A68E08 /* NetIdMobileSdk_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07F6287D641900A68E08 /* NetIdMobileSdk_AppTests.swift */; };
 		B66A0801287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */; };
 		B66A0803287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */; };
+		D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AECFE5C71DDD154FCC3A /* Logger.swift */; };
+		D692A7D6C6D7405A6C1329C1 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A969E36F89F39914A503 /* Webservice.swift */; };
+		D692A9E4151DD1CF4ED1AEB9 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A32646CA35E8E031BDDF /* BaseRequest.swift */; };
+		D692AA57D95E955120FBFED8 /* RequestQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AAFA685C38A14BB1B529 /* RequestQuery.swift */; };
+		D692AA6C6725960AF6DC01B7 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A9528B4B97FD743663AC /* HttpMethod.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,6 +69,11 @@
 		B66A07FC287D641900A68E08 /* NetIdMobileSdk-AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NetIdMobileSdk-AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITests.swift; sourceTree = "<group>"; };
 		B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		D692A32646CA35E8E031BDDF /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
+		D692A9528B4B97FD743663AC /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
+		D692A969E36F89F39914A503 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
+		D692AAFA685C38A14BB1B529 /* RequestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestQuery.swift; sourceTree = "<group>"; };
+		D692AECFE5C71DDD154FCC3A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +155,8 @@
 				B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */,
 				B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */,
 				2FF2DB58D173116137DD18CE /* api */,
+				D692AC0C9C87EF2738DEBB6B /* webservice */,
+				D692A89B8CCB0AF20188F653 /* util */,
 			);
 			path = NetIdMobileSdk;
 			sourceTree = "<group>";
@@ -191,6 +203,33 @@
 				B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */,
 			);
 			path = "NetIdMobileSdk-AppUITests";
+			sourceTree = "<group>";
+		};
+		D692A35A48947C6F3353FEA2 /* request */ = {
+			isa = PBXGroup;
+			children = (
+				D692A32646CA35E8E031BDDF /* BaseRequest.swift */,
+				D692AAFA685C38A14BB1B529 /* RequestQuery.swift */,
+				D692A9528B4B97FD743663AC /* HttpMethod.swift */,
+			);
+			path = request;
+			sourceTree = "<group>";
+		};
+		D692A89B8CCB0AF20188F653 /* util */ = {
+			isa = PBXGroup;
+			children = (
+				D692AECFE5C71DDD154FCC3A /* Logger.swift */,
+			);
+			path = util;
+			sourceTree = "<group>";
+		};
+		D692AC0C9C87EF2738DEBB6B /* webservice */ = {
+			isa = PBXGroup;
+			children = (
+				D692A35A48947C6F3353FEA2 /* request */,
+				D692A969E36F89F39914A503 /* Webservice.swift */,
+			);
+			path = webservice;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -395,6 +434,11 @@
 				B66A07CA287D62C100A68E08 /* NetIdMobileSdk.docc in Sources */,
 				2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */,
 				2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */,
+				D692A9E4151DD1CF4ED1AEB9 /* BaseRequest.swift in Sources */,
+				D692AA57D95E955120FBFED8 /* RequestQuery.swift in Sources */,
+				D692AA6C6725960AF6DC01B7 /* HttpMethod.swift in Sources */,
+				D692A7D6C6D7405A6C1329C1 /* Webservice.swift in Sources */,
+				D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
