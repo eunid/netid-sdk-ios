@@ -7,7 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2FF2D05273895B8683B75C7F /* NetIdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */; };
+		2FF2D2CB682F57417BBDBAAC /* NetIdServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */; };
+		2FF2D2F7E130CEDA49607E9C /* NetIdErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */; };
 		2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */; };
+		2FF2DE1C64DF1EB53AD4B0AF /* NetIdErrorProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */; };
 		2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */; };
 		B66A07CA287D62C100A68E08 /* NetIdMobileSdk.docc in Sources */ = {isa = PBXBuildFile; fileRef = B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */; };
 		B66A07D0287D62C100A68E08 /* NetIdMobileSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */; };
@@ -52,8 +56,12 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdServiceDelegate.swift; sourceTree = "<group>"; };
 		2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdConfig.swift; sourceTree = "<group>"; };
+		2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdError.swift; sourceTree = "<group>"; };
 		2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdService.swift; sourceTree = "<group>"; };
+		2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorCode.swift; sourceTree = "<group>"; };
+		2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorProcess.swift; sourceTree = "<group>"; };
 		B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetIdMobileSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetIdMobileSdk.h; sourceTree = "<group>"; };
 		B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = NetIdMobileSdk.docc; sourceTree = "<group>"; };
@@ -121,6 +129,10 @@
 			children = (
 				2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */,
 				2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */,
+				2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */,
+				2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */,
+				2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */,
+				2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -439,6 +451,10 @@
 				D692AA6C6725960AF6DC01B7 /* HttpMethod.swift in Sources */,
 				D692A7D6C6D7405A6C1329C1 /* Webservice.swift in Sources */,
 				D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */,
+				2FF2D05273895B8683B75C7F /* NetIdError.swift in Sources */,
+				2FF2D2F7E130CEDA49607E9C /* NetIdErrorCode.swift in Sources */,
+				2FF2DE1C64DF1EB53AD4B0AF /* NetIdErrorProcess.swift in Sources */,
+				2FF2D2CB682F57417BBDBAAC /* NetIdServiceDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
