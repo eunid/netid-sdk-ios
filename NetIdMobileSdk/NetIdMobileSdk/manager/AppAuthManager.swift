@@ -38,4 +38,8 @@ class AppAuthManager: NSObject {
             }
         }
     }
+
+    public func requestAuthorizationCode() {
+
+    }
 }

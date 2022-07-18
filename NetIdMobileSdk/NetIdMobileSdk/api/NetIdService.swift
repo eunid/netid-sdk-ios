@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import UIKit
 import Foundation
 
 class NetIdService: NSObject {
@@ -39,13 +40,36 @@ class NetIdService: NSObject {
         netIdConfig
     }
 
-    public func authorize() {
+    public func authorize() {}
+
+    public func checkNetIdPossibility() {
+        let asset = NSDataAsset(name: "netIdAppIdentifiers", bundle: Bundle.main)
+        let json = try? JSONSerialization.jsonObject(with: asset!.data, options: JSONSerialization.ReadingOptions.allowFragments)
+        if let appIdentifiers = json["appIdentifiers"] as? [String] {
+            for item in appIdentifiers {
+                if isAppInstalled(item) {
+                    Logger.shared.debug("App is installed: " + item)
+                }
+            }
+        }
+    }
+
+    private func isAppInstalled(_ appName: String) -> Bool {
+        let appScheme = "\(appName)://app"
+        let appUrl = URL(string: appScheme)
+
+        if UIApplication.shared.canOpenURL(appUrl! as URL) {
+            return true
+        } else {
+            return false
+        }
+
     }
 }
 
 extension NetIdService: AppAuthManagerDelegate {
     func didReceiveConfig() {
-        
+
     }
 
     func didReceiveError() {

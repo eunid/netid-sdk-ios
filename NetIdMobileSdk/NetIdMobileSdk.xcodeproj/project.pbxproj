@@ -27,6 +27,7 @@
 		B66A07F7287D641900A68E08 /* NetIdMobileSdk_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07F6287D641900A68E08 /* NetIdMobileSdk_AppTests.swift */; };
 		B66A0801287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */; };
 		B66A0803287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */; };
+		B66E34C328858697001C937D /* netIdAppIdentifiers.json in Resources */ = {isa = PBXBuildFile; fileRef = B66E34C228858697001C937D /* netIdAppIdentifiers.json */; };
 		B6B22D232880276300F45264 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B6B22D222880276300F45264 /* AppAuth */; };
 		B6B22D252880276300F45264 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = B6B22D242880276300F45264 /* AppAuthCore */; };
 		D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AECFE5C71DDD154FCC3A /* Logger.swift */; };
@@ -85,6 +86,7 @@
 		B66A07FC287D641900A68E08 /* NetIdMobileSdk-AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "NetIdMobileSdk-AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITests.swift; sourceTree = "<group>"; };
 		B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		B66E34C228858697001C937D /* netIdAppIdentifiers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = netIdAppIdentifiers.json; sourceTree = "<group>"; };
 		D692A32646CA35E8E031BDDF /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		D692A9528B4B97FD743663AC /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		D692A969E36F89F39914A503 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
@@ -134,6 +136,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2FF2D5C954FCEDDD092358ED /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				B66E34C228858697001C937D /* netIdAppIdentifiers.json */,
+			);
+			path = assets;
+			sourceTree = "<group>";
+		};
 		2FF2D7A7538FA596DA383263 /* manager */ = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +199,7 @@
 				D692AC0C9C87EF2738DEBB6B /* webservice */,
 				D692A89B8CCB0AF20188F653 /* util */,
 				2FF2D7A7538FA596DA383263 /* manager */,
+				2FF2D5C954FCEDDD092358ED /* assets */,
 			);
 			path = NetIdMobileSdk;
 			sourceTree = "<group>";
@@ -431,6 +442,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B66E34C328858697001C937D /* netIdAppIdentifiers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
