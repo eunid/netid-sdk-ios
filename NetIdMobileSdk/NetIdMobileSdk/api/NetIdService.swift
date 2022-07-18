@@ -18,6 +18,7 @@ import Foundation
 class NetIdService: NSObject {
 
     static let sharedInstance = NetIdService()
+
     private var netIdConfig: NetIdConfig?
     private var netIdListener: [NetIdServiceDelegate] = []
     private var appAuthManager: AppAuthManager?
@@ -40,16 +41,24 @@ class NetIdService: NSObject {
         netIdConfig
     }
 
-    public func authorize() {}
+    public func authorize() {
+    }
 
     public func checkNetIdPossibility() {
-        let asset = NSDataAsset(name: "netIdAppIdentifiers", bundle: Bundle.main)
-        let json = try? JSONSerialization.jsonObject(with: asset!.data, options: JSONSerialization.ReadingOptions.allowFragments)
-        if let appIdentifiers = json["appIdentifiers"] as? [String] {
-            for item in appIdentifiers {
-                if isAppInstalled(item) {
-                    Logger.shared.debug("App is installed: " + item)
+        if let path = Bundle.main.path(forResource: "netIdAppIdentifiers", ofType: "json") {
+            do {
+                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
+                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
+                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>,
+                   let appIdentifiers = jsonResult["appIdentifiers"] as? [String] {
+                    for item in appIdentifiers {
+                        if isAppInstalled(item) {
+                            Logger.shared.debug("App is installed: " + item)
+                        }
+                    }
                 }
+            } catch {
+                Logger.shared.error("App identifier json parse error")
             }
         }
     }
