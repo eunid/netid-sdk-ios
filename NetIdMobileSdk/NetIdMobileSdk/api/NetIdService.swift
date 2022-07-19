@@ -41,7 +41,7 @@ class NetIdService: NSObject {
         netIdConfig
     }
 
-    public func checkForNetIdAuthPossibility(currentViewController: UIViewController) -> UIViewController {
+    public func getAuthorizationViewController(currentViewController: UIViewController) -> UIViewController {
         if let netIdApps = AuthorizationWayUtil.checkNetIdAuthWay() {
             if netIdApps.count > 0 {
                 //TODO return view controller with multiple app login
@@ -73,6 +73,7 @@ extension NetIdService: AppAuthManagerDelegate {
     func didReceiveToken() {
         if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
             Logger.shared.debug("Received access token in NetIdService" + accessToken)
+            didReceiveToken
         }
     }
 
