@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import UIKit
 import Foundation
+import UIKit
 
 class NetIdService: NSObject {
 
@@ -41,38 +41,27 @@ class NetIdService: NSObject {
         netIdConfig
     }
 
-    public func authorize() {
-    }
+    public func checkForNetIdAuthPossibility(currentViewController: UIViewController) -> UIViewController {
+        if let netIdApps = AuthorizationWayUtil.checkNetIdAuthWay() {
+            if netIdApps.count > 0 {
+                //TODO return view controller with multiple app login
+                for item in netIdApps {
 
-    public func checkNetIdPossibility() {
-        if let path = Bundle.main.path(forResource: "netIdAppIdentifiers", ofType: "json") {
-            do {
-                let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let jsonResult = try JSONSerialization.jsonObject(with: data, options: .mutableLeaves)
-                if let jsonResult = jsonResult as? Dictionary<String, AnyObject>,
-                   let appIdentifiers = jsonResult["appIdentifiers"] as? [String] {
-                    for item in appIdentifiers {
-                        if isAppInstalled(item) {
-                            Logger.shared.debug("App is installed: " + item)
-                        }
-                    }
                 }
-            } catch {
-                Logger.shared.error("App identifier json parse error")
+            } else {
+                //TODO return view controller with web login
             }
+        } else {
+            //TODO return view controller with web login
         }
     }
 
-    private func isAppInstalled(_ appName: String) -> Bool {
-        let appScheme = "\(appName)://app"
-        let appUrl = URL(string: appScheme)
-
-        if UIApplication.shared.canOpenURL(appUrl! as URL) {
-            return true
+    public func authorize(bundleIdentifier: String?, currentViewController: UIViewController) {
+        if let bundleIdent = bundleIdentifier?.isEmpty {
+            //TODO jump into app2app flow (deeplink?)
         } else {
-            return false
+            appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
         }
-
     }
 }
 
@@ -81,7 +70,13 @@ extension NetIdService: AppAuthManagerDelegate {
 
     }
 
-    func didReceiveError() {
+    func didReceiveToken() {
+        if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
+            Logger.shared.debug("Received access token in NetIdService" + accessToken)
+        }
+    }
+
+    func didReceiveError(process: NetIdErrorProcess) {
 
     }
 }

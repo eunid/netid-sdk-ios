@@ -13,6 +13,7 @@
 		2FF2D3D113E89AC5C3BDC61D /* AppAuthManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */; };
 		2FF2D689722CE99CF54C03F3 /* AppAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DD44382CBB7F3DDF845B /* AppAuthManager.swift */; };
 		2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */; };
+		2FF2DE0624C75427A6702D26 /* AuthorizationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */; };
 		2FF2DE1C64DF1EB53AD4B0AF /* NetIdErrorProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */; };
 		2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */; };
 		B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */; };
@@ -70,6 +71,7 @@
 		2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorCode.swift; sourceTree = "<group>"; };
 		2FF2DD44382CBB7F3DDF845B /* AppAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthManager.swift; sourceTree = "<group>"; };
 		2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorProcess.swift; sourceTree = "<group>"; };
+		2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationUtil.swift; sourceTree = "<group>"; };
 		B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebserviceConstants.swift; sourceTree = "<group>"; };
 		B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetIdMobileSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetIdMobileSdk.h; sourceTree = "<group>"; };
@@ -263,6 +265,7 @@
 			children = (
 				D692AECFE5C71DDD154FCC3A /* Logger.swift */,
 				B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */,
+				2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -422,7 +425,7 @@
 			);
 			mainGroup = B66A07BB287D62C000A68E08;
 			packageReferences = (
-				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */,
+				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 			);
 			productRefGroup = B66A07C6287D62C100A68E08 /* Products */;
 			projectDirPath = "";
@@ -498,6 +501,7 @@
 				2FF2D2CB682F57417BBDBAAC /* NetIdServiceDelegate.swift in Sources */,
 				2FF2D689722CE99CF54C03F3 /* AppAuthManager.swift in Sources */,
 				2FF2D3D113E89AC5C3BDC61D /* AppAuthManagerDelegate.swift in Sources */,
+				2FF2DE0624C75427A6702D26 /* AuthorizationUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -960,7 +964,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */ = {
+		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
 			requirement = {
@@ -973,12 +977,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B6B22D222880276300F45264 /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
 		};
 		B6B22D242880276300F45264 /* AppAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuthCore;
 		};
 /* End XCSwiftPackageProductDependency section */

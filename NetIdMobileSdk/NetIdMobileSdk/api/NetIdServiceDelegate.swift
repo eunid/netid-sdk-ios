@@ -15,7 +15,7 @@
 import Foundation
 
 protocol NetIdServiceDelegate: AnyObject {
-    func didInitialized()
+    func ()
     
     func didReceiveToken(_ accessToken: String)
 
