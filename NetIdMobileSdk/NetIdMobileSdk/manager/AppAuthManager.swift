@@ -64,9 +64,7 @@ class AppAuthManager: NSObject {
                                 self.delegate?.didReceiveError(process: .Authentication)
                             }
                         }
-                }
             }
         }
     }
-
 }

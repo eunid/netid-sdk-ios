@@ -46,7 +46,7 @@ class NetIdService: NSObject {
             if netIdApps.count > 0 {
                 //TODO return view controller with multiple app login
                 for item in netIdApps {
-
+                    Logger.shared.debug(item + " will be added as option to the authorization ViewController")
                 }
             } else {
                 //TODO return view controller with web login
@@ -54,11 +54,14 @@ class NetIdService: NSObject {
         } else {
             //TODO return view controller with web login
         }
+        return UIViewController()
     }
 
     public func authorize(bundleIdentifier: String?, currentViewController: UIViewController) {
-        if let bundleIdent = bundleIdentifier?.isEmpty {
-            //TODO jump into app2app flow (deeplink?)
+        if let bundleIdentifier = bundleIdentifier {
+            if bundleIdentifier.isEmpty {
+                //TODO jump into app2app flow (deeplink?)
+            }
         } else {
             appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
         }
@@ -73,11 +76,10 @@ extension NetIdService: AppAuthManagerDelegate {
     func didReceiveToken() {
         if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
             Logger.shared.debug("Received access token in NetIdService" + accessToken)
-            didReceiveToken
         }
     }
 
     func didReceiveError(process: NetIdErrorProcess) {
-
+        netIdListener[0].didReceiveError(NetIdError(code: .NoAuth, process: process))
     }
 }

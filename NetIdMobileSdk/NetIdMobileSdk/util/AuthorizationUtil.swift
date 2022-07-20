@@ -32,6 +32,7 @@ class AuthorizationWayUtil {
                 Logger.shared.error("App identifier json parse error")
             }
         }
+        return nil
     }
 
     static public func isAppInstalled(_ appName: String) -> Bool {
