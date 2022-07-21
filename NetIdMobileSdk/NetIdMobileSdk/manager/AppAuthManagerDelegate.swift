@@ -12,17 +12,13 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import SwiftUI
+import Foundation
 
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
-    }
+protocol AppAuthManagerDelegate: AnyObject {
+    func didReceiveConfig()
+
+    func didReceiveToken()
+
+    func didReceiveError(process: NetIdErrorProcess)
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
-}

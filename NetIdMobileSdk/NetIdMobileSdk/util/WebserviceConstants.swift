@@ -12,17 +12,9 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import SwiftUI
+import Foundation
 
-struct ContentView: View {
-    var body: some View {
-        Text("Hello, world!")
-            .padding()
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
-    }
+struct WebserviceConstants {
+    static let PROTOCOL: String = "https"
+    static let WELL_KNOWN_CONFIG_PATH: String = "/.well-known/openid-configuration"
 }
