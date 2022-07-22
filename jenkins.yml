@@ -1,0 +1,8 @@
+coverage:
+  enabled: NO
+
+maven:  
+  root: .
+  xcodeproj: NetIdMobileSdk/NetIdMobileSdk.xcodeproj
+  profiles:
+
