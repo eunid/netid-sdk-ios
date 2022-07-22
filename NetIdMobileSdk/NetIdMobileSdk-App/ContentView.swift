@@ -16,8 +16,7 @@ import SwiftUI
 
 struct ContentView: View {
     
-    // TODO Use state variable from observable object
-    @State private var logText = "Logs:\n\n"
+    @EnvironmentObject var serviceViewModel: ServiceViewModel
 
     var body: some View {
         VStack(alignment: .center, spacing: 10) {
@@ -27,7 +26,7 @@ struct ContentView: View {
 
             HStack(alignment: .center, spacing: 50) {
                 Button("initialize_button_title") {
-
+                    serviceViewModel.initializeNetIdService()
                 }
                         .tint(Color.white)
                         .frame(maxWidth: .infinity)
@@ -36,14 +35,15 @@ struct ContentView: View {
                         .cornerRadius(5)
 
                 Circle()
-                        .fill(Color.gray)
+                    .fill(serviceViewModel.initializationStatusColor)
                         .frame(width: 20, height: 20, alignment: .center)
             }
             .padding(.horizontal, 20)
+            .disabled(!serviceViewModel.initializationEnabled)
             
             HStack(alignment: .center, spacing: 50) {
                 Button("authorize_button_title") {
-                    
+                    serviceViewModel.authorizeNetIdService()
                 }
                 .tint(Color.white)
                 .frame(maxWidth: .infinity)
@@ -52,12 +52,15 @@ struct ContentView: View {
                 .cornerRadius(5)
                 
                 Circle()
-                    .fill(Color.gray)
+                    .fill(serviceViewModel.authenticationStatusColor)
                     .frame(width: 20, height: 20, alignment: .center)
             }
             .padding(.horizontal, 20)
+            .disabled(!serviceViewModel.authenticationEnabled)
             
-            TextEditor(text: $logText)
+            Text(serviceViewModel.logText)
+                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                .padding(.horizontal, 20)
                 .font(Font.system(size: 13))
         }
     }
@@ -65,6 +68,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        ContentView().environmentObject(ServiceViewModel())
     }
 }

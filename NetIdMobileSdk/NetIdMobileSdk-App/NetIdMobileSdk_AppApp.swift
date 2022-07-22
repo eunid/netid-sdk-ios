@@ -17,9 +17,11 @@ import SwiftUI
 @main
 struct NetIdMobileSdk_AppApp: App {
 
+    let serviceViewModel = ServiceViewModel()
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(serviceViewModel)
         }
     }
 }
