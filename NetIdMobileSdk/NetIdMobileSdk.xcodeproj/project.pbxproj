@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */; };
 		2BEE602428883BC30064661C /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE602328883BC30064661C /* AuthorizationView.swift */; };
 		2BEE602628883D6D0064661C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BEE602528883D6D0064661C /* Assets.xcassets */; };
 		2FF2D05273895B8683B75C7F /* NetIdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */; };
@@ -34,6 +35,7 @@
 		B6B22D232880276300F45264 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B6B22D222880276300F45264 /* AppAuth */; };
 		B6B22D252880276300F45264 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = B6B22D242880276300F45264 /* AppAuthCore */; };
 		D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AECFE5C71DDD154FCC3A /* Logger.swift */; };
+		D692A5B324DB3046EE5067CC /* LocalizableUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AEA622C9D0187769924E /* LocalizableUtil.swift */; };
 		D692A7D6C6D7405A6C1329C1 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A969E36F89F39914A503 /* Webservice.swift */; };
 		D692A9E4151DD1CF4ED1AEB9 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A32646CA35E8E031BDDF /* BaseRequest.swift */; };
 		D692AA57D95E955120FBFED8 /* RequestQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AAFA685C38A14BB1B529 /* RequestQuery.swift */; };
@@ -65,6 +67,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2BE4ECDA28898E02000722C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
+		2BE4ECDC28898E03000722C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BEE602328883BC30064661C /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		2BEE602528883D6D0064661C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthManagerDelegate.swift; sourceTree = "<group>"; };
@@ -97,6 +101,7 @@
 		D692A9528B4B97FD743663AC /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		D692A969E36F89F39914A503 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		D692AAFA685C38A14BB1B529 /* RequestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestQuery.swift; sourceTree = "<group>"; };
+		D692AEA622C9D0187769924E /* LocalizableUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizableUtil.swift; sourceTree = "<group>"; };
 		D692AECFE5C71DDD154FCC3A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -142,6 +147,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2B3FC655288A9C6A00EF824B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
 		2BEE602228883B470064661C /* UI */ = {
 			isa = PBXGroup;
 			children = (
@@ -208,6 +221,7 @@
 		B66A07C7287D62C100A68E08 /* NetIdMobileSdk */ = {
 			isa = PBXGroup;
 			children = (
+				2B3FC655288A9C6A00EF824B /* SupportingFiles */,
 				2BEE602228883B470064661C /* UI */,
 				B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */,
 				B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */,
@@ -280,6 +294,7 @@
 				D692AECFE5C71DDD154FCC3A /* Logger.swift */,
 				B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */,
 				2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */,
+				D692AEA622C9D0187769924E /* LocalizableUtil.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -436,6 +451,7 @@
 			knownRegions = (
 				en,
 				Base,
+				de,
 			);
 			mainGroup = B66A07BB287D62C000A68E08;
 			packageReferences = (
@@ -460,6 +476,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2BEE602628883D6D0064661C /* Assets.xcassets in Resources */,
+				2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */,
 				B66E34C328858697001C937D /* netIdAppIdentifiers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +535,7 @@
 				2FF2D689722CE99CF54C03F3 /* AppAuthManager.swift in Sources */,
 				2FF2D3D113E89AC5C3BDC61D /* AppAuthManagerDelegate.swift in Sources */,
 				2FF2DE0624C75427A6702D26 /* AuthorizationUtil.swift in Sources */,
+				D692A5B324DB3046EE5067CC /* LocalizableUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,11 +593,24 @@
 		};
 /* End PBXTargetDependency section */
 
+/* Begin PBXVariantGroup section */
+		2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2BE4ECDA28898E02000722C0 /* en */,
+				2BE4ECDC28898E03000722C0 /* de */,
+			);
+			name = NetIdMobileSdkLocalizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
 /* Begin XCBuildConfiguration section */
 		B66A07D7287D62C100A68E08 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -633,6 +664,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -643,6 +675,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -689,6 +722,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";

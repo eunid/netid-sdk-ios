@@ -18,26 +18,27 @@ struct AuthorizationView: View {
     
     // TODO Add localizables
     
-    @State private var infoText = "Indem Sie Ihre Einwilligung erteilen, geben Sie uns die Erlaubnis, Sie beim Besuch dieses Werbeangebots als netID-Nutzer..."
+    private let bundle = Bundle(for: NetIdService.self)
     
-    @State private var netIdButtonText = "Zustimmen und weiter mit netID"
+    @State private var infoText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info")
     
     var body: some View {
         VStack(spacing: 10) {
-        Image("logo_net_id", bundle: Bundle(identifier: "de.netid.mobile.sdk.NetIdMobileSdk"))
+            Image("logo_net_id", bundle: bundle)
             .resizable()
             .scaledToFit()
             .frame(width: 100, height: 30, alignment: .center)
             
-            Text("Privatsphäre-Einstellungen sicher speichern")
+            Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
                 .multilineTextAlignment(.center)
             
             // TODO Use a dynamic height
             TextEditor(text: $infoText)
-                .frame(minWidth: 0,minHeight: 0, maxHeight: 100)
+                .frame(minWidth: 0, minHeight: 0, maxHeight: 150)
                 .multilineTextAlignment(.center)
+                .font(Font.system(size: 11))
             
-            Button("Zustimmen und weiter mit netID") {
+            Button(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")) {
                 // TODO Handle button tap
             }
             .frame(maxWidth: .infinity)
@@ -47,7 +48,7 @@ struct AuthorizationView: View {
             .padding(.horizontal, 20)
             .foregroundColor(Color.white)
             
-            Button("Schließen") {
+            Button(LocalizableUtil.netIdLocalizable("authorization_view_close")) {
                 // TODO Handle button tap
             }
             .frame(maxWidth: .infinity)
