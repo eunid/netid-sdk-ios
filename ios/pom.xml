@@ -47,7 +47,7 @@
 		  <buildXCArchiveEnabled>true</buildXCArchiveEnabled>
 		  <configuration>${configuration.type}</configuration>
                   <xcodeVersion>${xcode.version}</xcodeVersion>
-                  <codeSignIdentity>EnID - European netID Foundation - 8G463Z6GPS</codeSignIdentity>
+                  <!--codeSignIdentity>EnID - European netID Foundation - 8G463Z6GPS</codeSignIdentity-->
                   <keychainPath>${user.home}/Library/Keychains/netid.keychain</keychainPath>
                   <keychainPassword></keychainPassword>
                   <provisioningProfileName></provisioningProfileName>
