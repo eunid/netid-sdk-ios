@@ -1,3 +1,3 @@
-library('shared-pipeline-maven-ios')
-maveniOSPipeline()
+library('shared-pipeline-fastlane-ios')
+fastlaneIosPipeline()
 
