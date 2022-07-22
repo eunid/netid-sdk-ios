@@ -14,6 +14,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 class NetIdService: NSObject {
 
@@ -49,10 +50,10 @@ class NetIdService: NSObject {
                     Logger.shared.debug(item + " will be added as option to the authorization ViewController")
                 }
             } else {
-                //TODO return view controller with web login
+                return UIHostingController(rootView: AuthorizationView())
             }
         } else {
-            //TODO return view controller with web login
+            return UIHostingController(rootView: AuthorizationView())
         }
         return UIViewController()
     }

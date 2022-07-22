@@ -15,9 +15,51 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    // TODO Use state variable from observable object
+    @State private var logText = "Logs:\n\n"
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        VStack(alignment: .center, spacing: 10) {
+            Text("net_id_service_title")
+                    .padding()
+                    .font(.title2)
+
+            HStack(alignment: .center, spacing: 50) {
+                Button("initialize_button_title") {
+
+                }
+                        .tint(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(10)
+                        .background(Color.green)
+                        .cornerRadius(5)
+
+                Circle()
+                        .fill(Color.gray)
+                        .frame(width: 20, height: 20, alignment: .center)
+            }
+            .padding(.horizontal, 20)
+            
+            HStack(alignment: .center, spacing: 50) {
+                Button("authorize_button_title") {
+                    
+                }
+                .tint(Color.white)
+                .frame(maxWidth: .infinity)
+                .padding(10)
+                .background(Color.blue)
+                .cornerRadius(5)
+                
+                Circle()
+                    .fill(Color.gray)
+                    .frame(width: 20, height: 20, alignment: .center)
+            }
+            .padding(.horizontal, 20)
+            
+            TextEditor(text: $logText)
+                .font(Font.system(size: 13))
+        }
     }
 }
 

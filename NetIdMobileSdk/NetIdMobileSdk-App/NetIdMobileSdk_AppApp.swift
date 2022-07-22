@@ -16,6 +16,7 @@ import SwiftUI
 
 @main
 struct NetIdMobileSdk_AppApp: App {
+
     var body: some Scene {
         WindowGroup {
             ContentView()

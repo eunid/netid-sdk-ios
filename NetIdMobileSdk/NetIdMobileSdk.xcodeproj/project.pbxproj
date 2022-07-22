@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2B3FC659288AAAE400EF824B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FC65B288AAAE400EF824B /* Localizable.strings */; };
 		2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */; };
 		2BEE602428883BC30064661C /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE602328883BC30064661C /* AuthorizationView.swift */; };
 		2BEE602628883D6D0064661C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BEE602528883D6D0064661C /* Assets.xcassets */; };
@@ -67,6 +68,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2B3FC65A288AAAE400EF824B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2B3FC65C288AAAE500EF824B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2BE4ECDA28898E02000722C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BE4ECDC28898E03000722C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BEE602328883BC30064661C /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
@@ -151,6 +154,14 @@
 			isa = PBXGroup;
 			children = (
 				2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */,
+			);
+			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		2B3FC656288AAAD000EF824B /* SupportingFiles */ = {
+			isa = PBXGroup;
+			children = (
+				2B3FC65B288AAAE400EF824B /* Localizable.strings */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -245,6 +256,7 @@
 		B66A07E4287D641800A68E08 /* NetIdMobileSdk-App */ = {
 			isa = PBXGroup;
 			children = (
+				2B3FC656288AAAD000EF824B /* SupportingFiles */,
 				B66A07E5287D641800A68E08 /* NetIdMobileSdk_AppApp.swift */,
 				B66A07E7287D641800A68E08 /* ContentView.swift */,
 				B66A07E9287D641900A68E08 /* Assets.xcassets */,
@@ -493,6 +505,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B66A07ED287D641900A68E08 /* Preview Assets.xcassets in Resources */,
+				2B3FC659288AAAE400EF824B /* Localizable.strings in Resources */,
 				B66A07EA287D641900A68E08 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -594,6 +607,15 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2B3FC65B288AAAE400EF824B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2B3FC65A288AAAE400EF824B /* en */,
+				2B3FC65C288AAAE500EF824B /* de */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
