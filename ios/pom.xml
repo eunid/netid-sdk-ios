@@ -34,24 +34,25 @@
                 <goals>
                   <goal>build</goal>
                   <goal>package</goal>
-                  <!--goal>deploy</goal-->
+                  <goal>deploy</goal>
                 </goals>
                 <configuration>
                   <appName>${project.name}</appName>
                   <projectName>${project.name}</projectName>
                   <displayName>netID-SDK</displayName>
                   <scheme>${scheme.name}</scheme>
-                  <infoPlist>NetIdMobileSdk/Info.plist</infoPlist>
+                  <!--infoPlist>NetIdMobileSdk-App/Info.plist</infoPlist-->
                   <ipaVersion>${project.version}</ipaVersion>
-                  <buildId>1</buildId>
-                  <configuration>Release</configuration>
+		  <buildId>1</buildId>
+		  <buildXCArchiveEnabled>true</buildXCArchiveEnabled>
+		  <configuration>${configuration.type}</configuration>
                   <xcodeVersion>${xcode.version}</xcodeVersion>
-                  <codeSignIdentity></codeSignIdentity>
+                  <codeSignIdentity>EnID - European netID Foundation - 8G463Z6GPS</codeSignIdentity>
                   <keychainPath>${user.home}/Library/Keychains/netid.keychain</keychainPath>
                   <keychainPassword></keychainPassword>
                   <provisioningProfileName></provisioningProfileName>
-                  <bundleIdentifier>de.netid.mobile.sdk</bundleIdentifier>
-                  <xcTestsScheme>NetIdMobileSdk</xcTestsScheme>
+                  <bundleIdentifier>de.netid.mobile.sdk.NetIdMobileSdk-App</bundleIdentifier>
+                  <xcTestsScheme>NetIdMobileSdkTests</xcTestsScheme>
                   <xcTestsDestination>platform=iOS Simulator,name=iPhone 11,OS=latest</xcTestsDestination>
                   <releaseTask>TestFlight</releaseTask>
                   <iTunesConnectUsername>${itunesConnect.developer.username}</iTunesConnectUsername>
