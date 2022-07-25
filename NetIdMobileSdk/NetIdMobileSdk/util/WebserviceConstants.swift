@@ -16,7 +16,7 @@ import Foundation
 
 struct WebserviceConstants {
     static let PROTOCOL = "https"
-    static let USER_INFO = "userinfo"
+    static let USER_INFO = "/userinfo"
     static let AUTHORIZATION_HTTP_HEADER_KEY = "Authorization"
     static let AUTHORIZATION_HTTP_HEADER_BEARER = "Bearer"
 }
