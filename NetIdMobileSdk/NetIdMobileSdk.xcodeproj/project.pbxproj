@@ -176,6 +176,17 @@
 			path = api;
 			sourceTree = "<group>";
 		};
+		B6616172288E856A004F7ACB /* model */ = {
+			isa = PBXGroup;
+			children = (
+				2FF2D3B0995127D1DE754B73 /* AppIdentifier.swift */,
+				B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */,
+				B661616E288E72C7004F7ACB /* NetIdAppIdentifiers.swift */,
+				B6616170288E7332004F7ACB /* AppDetailsAndroid.swift */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		B66A07BB287D62C000A68E08 = {
 			isa = PBXGroup;
 			children = (
@@ -203,6 +214,7 @@
 		B66A07C7287D62C100A68E08 /* NetIdMobileSdk */ = {
 			isa = PBXGroup;
 			children = (
+				B6616172288E856A004F7ACB /* model */,
 				B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */,
 				B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */,
 				2FF2DB58D173116137DD18CE /* api */,
@@ -274,10 +286,6 @@
 				D692AECFE5C71DDD154FCC3A /* Logger.swift */,
 				B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */,
 				2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */,
-				2FF2D3B0995127D1DE754B73 /* AppIdentifier.swift */,
-				B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */,
-				B661616E288E72C7004F7ACB /* NetIdAppIdentifiers.swift */,
-				B6616170288E7332004F7ACB /* AppDetailsAndroid.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
