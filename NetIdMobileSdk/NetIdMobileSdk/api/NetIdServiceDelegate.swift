@@ -20,4 +20,6 @@ public protocol NetIdServiceDelegate: AnyObject {
     func didFinishAuthentication(_ accessToken: String)
     
     func didFinishAuthenticationWithError(_ error: NetIdError?)
+
+    func didEndSession()
 }

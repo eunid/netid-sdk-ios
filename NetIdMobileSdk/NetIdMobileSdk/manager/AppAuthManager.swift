@@ -71,5 +71,7 @@ class AppAuthManager: NSObject {
 
     public func endSession() {
         authState = nil
+        currentAuthorizationFlow = nil
+        delegate?.didEndSession()
     }
 }

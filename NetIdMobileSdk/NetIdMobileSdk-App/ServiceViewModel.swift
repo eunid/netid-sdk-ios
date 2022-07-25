@@ -46,7 +46,7 @@ class ServiceViewModel: NSObject, ObservableObject {
 
     func endSession() {
         endSessionEnabled = false
-        //TODO end current session
+        NetIdService.sharedInstance.endSession()
     }
 }
 
@@ -80,5 +80,13 @@ extension ServiceViewModel: NetIdServiceDelegate {
             authenticationStatusColor = Color.green
             logText.append("Net ID service authorization successfully\n")
         }
+    }
+
+    public func didEndSession() {
+        logText.append("Net ID service did end session successfully\n")
+        authenticationStatusColor = Color.gray
+        userInfoStatusColor = Color.gray
+        authenticationEnabled = true
+        userInfoEnabled = false
     }
 }

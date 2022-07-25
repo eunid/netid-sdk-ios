@@ -18,5 +18,7 @@ protocol AppAuthManagerDelegate: AnyObject {
     func didFinishInitializationWithError(_ error: NetIdError?)
 
     func didFinishAuthenticationWithError(_ error: NetIdError?)
+
+    func didEndSession()
 }
 

@@ -67,6 +67,10 @@ open class NetIdService: NSObject {
             appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
         }
     }
+
+    public func endSession() {
+        appAuthManager?.endSession()
+    }
 }
 
 extension NetIdService: AppAuthManagerDelegate {
@@ -85,7 +89,6 @@ extension NetIdService: AppAuthManagerDelegate {
             if let error = error {
                 item.didFinishAuthenticationWithError(error)
             } else {
-                item.didFinishInitializationWithError(nil)
                 if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
                     Logger.shared.debug("Received access token in NetIdService" + accessToken)
                     item.didFinishAuthentication(accessToken)
@@ -93,6 +96,12 @@ extension NetIdService: AppAuthManagerDelegate {
                     item.didFinishAuthenticationWithError(NetIdError(code: .NoAuth, process: .Authentication))
                 }
             }
+        }
+    }
+
+    func didEndSession() {
+        for item in netIdListener {
+            item.didEndSession()
         }
     }
 }
