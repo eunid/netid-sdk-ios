@@ -42,11 +42,11 @@ class NetIdService: NSObject {
     }
 
     public func getAuthorizationViewController(currentViewController: UIViewController) -> UIViewController {
-        if let netIdApps = AuthorizationWayUtil.checkNetIdAuthWay() {
+        if let netIdApps = AuthorizationWayUtil.checkNetIdAuth() {
             if netIdApps.count > 0 {
                 //TODO return view controller with multiple app login
                 for item in netIdApps {
-                    Logger.shared.debug(item + " will be added as option to the authorization ViewController")
+                    Logger.shared.debug(item.iOS.scheme + " will be added as option to the authorization ViewController")
                 }
             } else {
                 //TODO return view controller with web login
@@ -80,6 +80,7 @@ extension NetIdService: AppAuthManagerDelegate {
     }
 
     func didReceiveError(process: NetIdErrorProcess) {
+        //TODO send callback to all listeners
         netIdListener[0].didReceiveError(NetIdError(code: .NoAuth, process: process))
     }
 }

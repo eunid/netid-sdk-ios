@@ -15,8 +15,12 @@
 		2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */; };
 		2FF2DE0624C75427A6702D26 /* AuthorizationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */; };
 		2FF2DE1C64DF1EB53AD4B0AF /* NetIdErrorProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */; };
+		2FF2DE1D368A69BE44D9561A /* AppIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D3B0995127D1DE754B73 /* AppIdentifier.swift */; };
 		2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */; };
 		B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */; };
+		B661616D288E6AA8004F7ACB /* AppDetailsIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */; };
+		B661616F288E72C7004F7ACB /* NetIdAppIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661616E288E72C7004F7ACB /* NetIdAppIdentifiers.swift */; };
+		B6616171288E7332004F7ACB /* AppDetailsAndroid.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6616170288E7332004F7ACB /* AppDetailsAndroid.swift */; };
 		B66A07CA287D62C100A68E08 /* NetIdMobileSdk.docc in Sources */ = {isa = PBXBuildFile; fileRef = B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */; };
 		B66A07D0287D62C100A68E08 /* NetIdMobileSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */; };
 		B66A07D5287D62C100A68E08 /* NetIdMobileSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07D4287D62C100A68E08 /* NetIdMobileSdkTests.swift */; };
@@ -66,6 +70,7 @@
 		2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthManagerDelegate.swift; sourceTree = "<group>"; };
 		2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdServiceDelegate.swift; sourceTree = "<group>"; };
 		2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdConfig.swift; sourceTree = "<group>"; };
+		2FF2D3B0995127D1DE754B73 /* AppIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIdentifier.swift; sourceTree = "<group>"; };
 		2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdError.swift; sourceTree = "<group>"; };
 		2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdService.swift; sourceTree = "<group>"; };
 		2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorCode.swift; sourceTree = "<group>"; };
@@ -73,6 +78,9 @@
 		2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorProcess.swift; sourceTree = "<group>"; };
 		2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationUtil.swift; sourceTree = "<group>"; };
 		B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebserviceConstants.swift; sourceTree = "<group>"; };
+		B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsIOS.swift; sourceTree = "<group>"; };
+		B661616E288E72C7004F7ACB /* NetIdAppIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdAppIdentifiers.swift; sourceTree = "<group>"; };
+		B6616170288E7332004F7ACB /* AppDetailsAndroid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsAndroid.swift; sourceTree = "<group>"; };
 		B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetIdMobileSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetIdMobileSdk.h; sourceTree = "<group>"; };
 		B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = NetIdMobileSdk.docc; sourceTree = "<group>"; };
@@ -266,6 +274,10 @@
 				D692AECFE5C71DDD154FCC3A /* Logger.swift */,
 				B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */,
 				2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */,
+				2FF2D3B0995127D1DE754B73 /* AppIdentifier.swift */,
+				B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */,
+				B661616E288E72C7004F7ACB /* NetIdAppIdentifiers.swift */,
+				B6616170288E7332004F7ACB /* AppDetailsAndroid.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -493,15 +505,19 @@
 				B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */,
 				D692AA57D95E955120FBFED8 /* RequestQuery.swift in Sources */,
 				D692AA6C6725960AF6DC01B7 /* HttpMethod.swift in Sources */,
+				B661616F288E72C7004F7ACB /* NetIdAppIdentifiers.swift in Sources */,
 				D692A7D6C6D7405A6C1329C1 /* Webservice.swift in Sources */,
 				D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */,
+				B6616171288E7332004F7ACB /* AppDetailsAndroid.swift in Sources */,
 				2FF2D05273895B8683B75C7F /* NetIdError.swift in Sources */,
 				2FF2D2F7E130CEDA49607E9C /* NetIdErrorCode.swift in Sources */,
 				2FF2DE1C64DF1EB53AD4B0AF /* NetIdErrorProcess.swift in Sources */,
 				2FF2D2CB682F57417BBDBAAC /* NetIdServiceDelegate.swift in Sources */,
 				2FF2D689722CE99CF54C03F3 /* AppAuthManager.swift in Sources */,
+				B661616D288E6AA8004F7ACB /* AppDetailsIOS.swift in Sources */,
 				2FF2D3D113E89AC5C3BDC61D /* AppAuthManagerDelegate.swift in Sources */,
 				2FF2DE0624C75427A6702D26 /* AuthorizationUtil.swift in Sources */,
+				2FF2DE1D368A69BE44D9561A /* AppIdentifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

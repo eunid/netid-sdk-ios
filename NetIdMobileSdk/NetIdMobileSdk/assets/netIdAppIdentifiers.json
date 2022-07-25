@@ -1,6 +1,24 @@
 {
-    "appIdentifier": [
-        "fb",
-        "kortpress"
-    ]
+  "netIdAppIdentifiers": [
+    {
+      "name": "GMX",
+      "iOS": {
+        "bundleIdentifier": "de.gmx.mobile.ios.mail",
+        "scheme": "gmxmail"
+      },
+      "android": {
+        "applicationId": "de.gmx.mobile.android.mail"
+      }
+    },
+    {
+      "name": "WEB.DE",
+      "iOS": {
+        "bundleIdentifier": "de.web.mobile.ios.mail",
+        "scheme": "webdemail"
+      },
+      "android": {
+        "applicationId": "de.web.mobile.android.mail"
+      }
+    }
+  ]
 }
