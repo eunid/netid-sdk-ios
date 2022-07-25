@@ -17,11 +17,14 @@
 		2FF2D2F7E130CEDA49607E9C /* NetIdErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */; };
 		2FF2D3D113E89AC5C3BDC61D /* AppAuthManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */; };
 		2FF2D689722CE99CF54C03F3 /* AppAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DD44382CBB7F3DDF845B /* AppAuthManager.swift */; };
+		2FF2D7369B75FA88C4468B64 /* UIApplication+NetIdMobileSdkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D165E3EDAF64CC7914F8 /* UIApplication+NetIdMobileSdkApp.swift */; };
 		2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */; };
 		2FF2DE0624C75427A6702D26 /* AuthorizationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */; };
 		2FF2DE1C64DF1EB53AD4B0AF /* NetIdErrorProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */; };
 		2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */; };
 		B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */; };
+		B6616175288E9339004F7ACB /* NetIdMobileSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */; platformFilter = ios; };
+		B6616176288E9339004F7ACB /* NetIdMobileSdk.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		B66A07CA287D62C100A68E08 /* NetIdMobileSdk.docc in Sources */ = {isa = PBXBuildFile; fileRef = B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */; };
 		B66A07D0287D62C100A68E08 /* NetIdMobileSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */; };
 		B66A07D5287D62C100A68E08 /* NetIdMobileSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07D4287D62C100A68E08 /* NetIdMobileSdkTests.swift */; };
@@ -45,6 +48,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		B6616177288E9339004F7ACB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B66A07BC287D62C000A68E08 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = B66A07C4287D62C100A68E08;
+			remoteInfo = NetIdMobileSdk;
+		};
 		B66A07D1287D62C100A68E08 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B66A07BC287D62C000A68E08 /* Project object */;
@@ -68,6 +78,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		B6616179288E9339004F7ACB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				B6616176288E9339004F7ACB /* NetIdMobileSdk.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		2B3FC65A288AAAE400EF824B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2B3FC65C288AAAE500EF824B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -77,6 +101,7 @@
 		2BEE602328883BC30064661C /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
 		2BEE602528883D6D0064661C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthManagerDelegate.swift; sourceTree = "<group>"; };
+		2FF2D165E3EDAF64CC7914F8 /* UIApplication+NetIdMobileSdkApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+NetIdMobileSdkApp.swift"; sourceTree = "<group>"; };
 		2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdServiceDelegate.swift; sourceTree = "<group>"; };
 		2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdConfig.swift; sourceTree = "<group>"; };
 		2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdError.swift; sourceTree = "<group>"; };
@@ -86,6 +111,8 @@
 		2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorProcess.swift; sourceTree = "<group>"; };
 		2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationUtil.swift; sourceTree = "<group>"; };
 		B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebserviceConstants.swift; sourceTree = "<group>"; };
+		B6616173288E9320004F7ACB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		B661617A288EBA11004F7ACB /* NetIdMobileSdkApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NetIdMobileSdkApp.entitlements; sourceTree = "<group>"; };
 		B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetIdMobileSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetIdMobileSdk.h; sourceTree = "<group>"; };
 		B66A07C9287D62C100A68E08 /* NetIdMobileSdk.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = NetIdMobileSdk.docc; sourceTree = "<group>"; };
@@ -132,6 +159,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B6616175288E9339004F7ACB /* NetIdMobileSdk.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -194,6 +222,14 @@
 			path = manager;
 			sourceTree = "<group>";
 		};
+		2FF2D91FE51FEBCB8CE6AEEE /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				2FF2D165E3EDAF64CC7914F8 /* UIApplication+NetIdMobileSdkApp.swift */,
+			);
+			path = extension;
+			sourceTree = "<group>";
+		};
 		2FF2DB58D173116137DD18CE /* api */ = {
 			isa = PBXGroup;
 			children = (
@@ -207,6 +243,13 @@
 			path = api;
 			sourceTree = "<group>";
 		};
+		B6616174288E9339004F7ACB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		B66A07BB287D62C000A68E08 = {
 			isa = PBXGroup;
 			children = (
@@ -216,6 +259,7 @@
 				B66A07F5287D641900A68E08 /* NetIdMobileSdk-AppTests */,
 				B66A07FF287D641900A68E08 /* NetIdMobileSdk-AppUITests */,
 				B66A07C6287D62C100A68E08 /* Products */,
+				B6616174288E9339004F7ACB /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -258,12 +302,15 @@
 		B66A07E4287D641800A68E08 /* NetIdMobileSdk-App */ = {
 			isa = PBXGroup;
 			children = (
+				B6616173288E9320004F7ACB /* Info.plist */,
 				2B3FC656288AAAD000EF824B /* SupportingFiles */,
 				B66A07E5287D641800A68E08 /* NetIdMobileSdk_AppApp.swift */,
 				B66A07E7287D641800A68E08 /* ContentView.swift */,
 				B66A07E9287D641900A68E08 /* Assets.xcassets */,
 				B66A07EB287D641900A68E08 /* Preview Content */,
 				2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */,
+				2FF2D91FE51FEBCB8CE6AEEE /* extension */,
+				B661617A288EBA11004F7ACB /* NetIdMobileSdkApp.entitlements */,
 			);
 			path = "NetIdMobileSdk-App";
 			sourceTree = "<group>";
@@ -384,10 +431,12 @@
 				B66A07DF287D641800A68E08 /* Sources */,
 				B66A07E0287D641800A68E08 /* Frameworks */,
 				B66A07E1287D641800A68E08 /* Resources */,
+				B6616179288E9339004F7ACB /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				B6616178288E9339004F7ACB /* PBXTargetDependency */,
 			);
 			name = "NetIdMobileSdk-App";
 			productName = "NetIdMobileSdk-App";
@@ -570,6 +619,7 @@
 				B66A07E8287D641800A68E08 /* ContentView.swift in Sources */,
 				2B3FC65E288B1A3F00EF824B /* ServiceViewModel.swift in Sources */,
 				B66A07E6287D641800A68E08 /* NetIdMobileSdk_AppApp.swift in Sources */,
+				2FF2D7369B75FA88C4468B64 /* UIApplication+NetIdMobileSdkApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +643,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		B6616178288E9339004F7ACB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = B66A07C4287D62C100A68E08 /* NetIdMobileSdk */;
+			targetProxy = B6616177288E9339004F7ACB /* PBXContainerItemProxy */;
+		};
 		B66A07D2287D62C100A68E08 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B66A07C4287D62C100A68E08 /* NetIdMobileSdk */;
@@ -853,12 +909,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "NetIdMobileSdk-App/NetIdMobileSdkApp.entitlements";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NetIdMobileSdk-App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NetIdMobileSdk-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -869,7 +927,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
+				PRODUCT_BUNDLE_IDENTIFIER = de.netid.mobile.sdk.NetIdMobileSdkApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -883,12 +941,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = "NetIdMobileSdk-App/NetIdMobileSdkApp.entitlements";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"NetIdMobileSdk-App/Preview Content\"";
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "NetIdMobileSdk-App/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -899,7 +959,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
+				PRODUCT_BUNDLE_IDENTIFIER = de.netid.mobile.sdk.NetIdMobileSdkApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

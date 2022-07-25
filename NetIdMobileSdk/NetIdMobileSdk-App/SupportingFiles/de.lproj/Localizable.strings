@@ -9,3 +9,5 @@
 "net_id_service_title" = "NetID Service";
 "initialize_button_title" = "Service initialisieren";
 "authorize_button_title" = "Authorisieren";
+"user_info_button_title" = "UserInfo laden";
+"end_session_button_title" = "Session beenden";

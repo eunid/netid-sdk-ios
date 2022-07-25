@@ -16,9 +16,9 @@ import Foundation
 import UIKit
 import SwiftUI
 
-class NetIdService: NSObject {
+open class NetIdService: NSObject {
 
-    static let sharedInstance = NetIdService()
+    public static let sharedInstance = NetIdService()
 
     private var netIdConfig: NetIdConfig?
     private var netIdListener: [NetIdServiceDelegate] = []
@@ -70,17 +70,29 @@ class NetIdService: NSObject {
 }
 
 extension NetIdService: AppAuthManagerDelegate {
-    func didReceiveConfig() {
-
-    }
-
-    func didReceiveToken() {
-        if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
-            Logger.shared.debug("Received access token in NetIdService" + accessToken)
+    func didFinishInitializationWithError(_ error: NetIdError?) {
+        for item in netIdListener {
+            if let error = error {
+                item.didFinishInitializationWithError(error)
+            } else {
+                item.didFinishInitializationWithError(nil)
+            }
         }
     }
 
-    func didReceiveError(process: NetIdErrorProcess) {
-        netIdListener[0].didReceiveError(NetIdError(code: .NoAuth, process: process))
+    func didFinishAuthenticationWithError(_ error: NetIdError?) {
+        for item in netIdListener {
+            if let error = error {
+                item.didFinishAuthenticationWithError(error)
+            } else {
+                item.didFinishInitializationWithError(nil)
+                if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
+                    Logger.shared.debug("Received access token in NetIdService" + accessToken)
+                    item.didFinishAuthentication(accessToken)
+                } else {
+                    item.didFinishAuthenticationWithError(NetIdError(code: .NoAuth, process: .Authentication))
+                }
+            }
+        }
     }
 }

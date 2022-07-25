@@ -15,10 +15,8 @@
 import Foundation
 
 protocol AppAuthManagerDelegate: AnyObject {
-    func didReceiveConfig()
+    func didFinishInitializationWithError(_ error: NetIdError?)
 
-    func didReceiveToken()
-
-    func didReceiveError(process: NetIdErrorProcess)
+    func didFinishAuthenticationWithError(_ error: NetIdError?)
 }
 

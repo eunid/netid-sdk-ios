@@ -15,7 +15,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+
     @EnvironmentObject var serviceViewModel: ServiceViewModel
 
     var body: some View {
@@ -35,35 +35,69 @@ struct ContentView: View {
                         .cornerRadius(5)
 
                 Circle()
-                    .fill(serviceViewModel.initializationStatusColor)
+                        .fill(serviceViewModel.initializationStatusColor)
                         .frame(width: 20, height: 20, alignment: .center)
             }
-            .padding(.horizontal, 20)
-            .disabled(!serviceViewModel.initializationEnabled)
-            
+                    .padding(.horizontal, 20)
+                    .disabled(!serviceViewModel.initializationEnabled)
+
             HStack(alignment: .center, spacing: 50) {
                 Button("authorize_button_title") {
                     serviceViewModel.authorizeNetIdService()
                 }
-                .tint(Color.white)
-                .frame(maxWidth: .infinity)
-                .padding(10)
-                .background(Color.blue)
-                .cornerRadius(5)
-                
+                        .tint(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(10)
+                        .background(Color.blue)
+                        .cornerRadius(5)
+
                 Circle()
-                    .fill(serviceViewModel.authenticationStatusColor)
-                    .frame(width: 20, height: 20, alignment: .center)
+                        .fill(serviceViewModel.authenticationStatusColor)
+                        .frame(width: 20, height: 20, alignment: .center)
             }
-            .padding(.horizontal, 20)
-            .disabled(!serviceViewModel.authenticationEnabled)
-            
-            Text(serviceViewModel.logText)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20)
-                .font(Font.system(size: 13))
+                    .padding(.horizontal, 20)
+                    .disabled(!serviceViewModel.authenticationEnabled)
+
+            HStack(alignment: .center, spacing: 50) {
+                Button("user_info_button_title") {
+                    serviceViewModel.fetchUserInfo()
+                }
+                        .tint(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(10)
+                        .background(Color.yellow)
+                        .cornerRadius(5)
+
+                Circle()
+                        .fill(serviceViewModel.userInfoStatusColor)
+                        .frame(width: 20, height: 20, alignment: .center)
+            }
+                    .padding(.horizontal, 20)
+                    .disabled(!serviceViewModel.userInfoEnabled)
+
+
+            ScrollView {
+                Text(serviceViewModel.logText)
+                        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                        .padding(.horizontal, 20)
+                        .font(Font.system(size: 13))
+            }
+
+            HStack(alignment: .center, spacing: 50) {
+                Button("end_session_button_title") {
+                    serviceViewModel.endSession()
+                }
+                        .tint(Color.white)
+                        .frame(maxWidth: .infinity)
+                        .padding(10)
+                        .background(Color.red)
+                        .cornerRadius(5)
+            }
+                    .padding(.horizontal, 20)
+                    .disabled(!serviceViewModel.endSessionEnabled)
         }
     }
+
 }
 
 struct ContentView_Previews: PreviewProvider {

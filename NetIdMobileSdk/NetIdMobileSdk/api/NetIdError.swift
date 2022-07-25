@@ -14,7 +14,7 @@
 
 import Foundation
 
-struct NetIdError {
-    var code: NetIdErrorCode
-    var process: NetIdErrorProcess
+public struct NetIdError {
+    public var code: NetIdErrorCode
+    public var process: NetIdErrorProcess
 }

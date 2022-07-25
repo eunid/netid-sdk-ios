@@ -30,15 +30,15 @@ class AppAuthManager: NSObject {
     public func fetchConfiguration(_ host: String) {
         var urlComponents = URLComponents()
         urlComponents.host = host
-        urlComponents.path = WebserviceConstants.WELL_KNOWN_CONFIG_PATH
         urlComponents.scheme = WebserviceConstants.PROTOCOL
         if let url = urlComponents.url {
             OIDAuthorizationService.discoverConfiguration(forIssuer: url) { [self] configuration, error in
                 if error == nil {
                     authConfiguration = configuration
-                    delegate?.didReceiveConfig()
+                    delegate?.didFinishInitializationWithError(nil)
                 } else {
-                    delegate?.didReceiveError(process: .Configuration)
+                    delegate?.didFinishInitializationWithError(
+                            NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Configuration))
                 }
             }
         }
@@ -49,7 +49,7 @@ class AppAuthManager: NSObject {
            let redirectUri = NetIdService.sharedInstance.getNedIdConfig()?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
                 let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
-                        clientId: clientId.uuidString, scopes: [OIDScopeOpenID, OIDScopeProfile],
+                        clientId: clientId.uuidString.lowercased(), scopes: [OIDScopeOpenID, OIDScopeProfile],
                         redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: nil)
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { authState, error in
@@ -57,14 +57,19 @@ class AppAuthManager: NSObject {
                                 self.authState = authState
                                 Logger.shared.debug("Got authorization tokens. Access token: " +
                                         "\(authState.lastTokenResponse?.accessToken ?? "nil")")
-                                self.delegate?.didReceiveToken()
+                                self.delegate?.didFinishAuthenticationWithError(nil)
                             } else {
                                 Logger.shared.debug("Authorization error: \(error?.localizedDescription ?? "Unknown error")")
                                 self.authState = nil
-                                self.delegate?.didReceiveError(process: .Authentication)
+                                self.delegate?.didFinishAuthenticationWithError(
+                                        NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Authentication))
                             }
                         }
             }
         }
+    }
+
+    public func endSession() {
+        authState = nil
     }
 }

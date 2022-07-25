@@ -14,6 +14,6 @@
 
 import Foundation
 
-enum NetIdErrorCode {
+public enum NetIdErrorCode: String {
     case Timeout, NoAuth
 }
