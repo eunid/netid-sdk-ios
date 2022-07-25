@@ -71,6 +71,10 @@ open class NetIdService: NSObject {
     public func endSession() {
         appAuthManager?.endSession()
     }
+
+    public func fetchUserInfo() {
+        appAuthManager?.fetchUserInfo()
+    }
 }
 
 extension NetIdService: AppAuthManagerDelegate {
@@ -102,6 +106,18 @@ extension NetIdService: AppAuthManagerDelegate {
     func didEndSession() {
         for item in netIdListener {
             item.didEndSession()
+        }
+    }
+
+    func didFetchUserInfo(_ userInfo: UserInfo) {
+        for item in netIdListener {
+            item.didFetchUserInfo(userInfo)
+        }
+    }
+
+    func didFetchUserInfoWithError(_ error: NetIdError) {
+        for item in netIdListener {
+            item.didFetchUserInfoWithError(error)
         }
     }
 }

@@ -41,7 +41,7 @@ class ServiceViewModel: NSObject, ObservableObject {
 
     func fetchUserInfo() {
         userInfoEnabled = false
-        //TODO fetch userinfo
+        NetIdService.sharedInstance.fetchUserInfo()
     }
 
     func endSession() {
@@ -74,12 +74,23 @@ extension ServiceViewModel: NetIdServiceDelegate {
         authenticationStatusColor = Color.red
         if let errorCode = error?.code.rawValue {
             authenticationStatusColor = Color.red
-            logText.append("Net ID service authorization failed \n" + errorCode + "\n")
+            logText.append("Net ID service authorization failed: " + errorCode + "\n")
             authenticationEnabled = true
         } else {
             authenticationStatusColor = Color.green
             logText.append("Net ID service authorization successfully\n")
         }
+    }
+
+    public func didFetchUserInfo(_ userInfo: UserInfo) {
+        userInfoStatusColor = Color.green
+        logText.append("Fetched user info successfully:\n" + userInfo + "\n")
+    }
+
+    public func didFetchUserInfoWithError(_ error: NetIdError) {
+        userInfoEnabled = true
+        userInfoStatusColor = Color.red
+        logText.append("User info fetch failed: " + error.code.rawValue + "\n")
     }
 
     public func didEndSession() {

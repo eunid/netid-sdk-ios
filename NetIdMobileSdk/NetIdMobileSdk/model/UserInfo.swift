@@ -1,22 +1,43 @@
+// Copyright 2022 European netID Foundation (https://enid.foundation)
 //
-//  UserInfo.swift
-//  NetIdMobileSdk
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
 //
-//  Created by Felix Hug on 25.07.22.
+// http://www.apache.org/licenses/LICENSE-2.0
 //
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
 
 import Foundation
 
-struct UserInfo: Decodable {
-    let sub: String
-    let birthdate: String
-    let emailVerified: Bool
-    let address: Address
-    let gender: String
-    let shippingAddress: ShippingAddress
-    let givenName: String
-    let familyName: String
-    let email: String
+public struct UserInfo: Decodable {
+
+    public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
+                givenName: String, familyName: String, email: String) {
+        self.sub = sub
+        self.birthdate = birthdate
+        self.emailVerified = emailVerified
+        self.address = address
+        self.gender = gender
+        self.shippingAddress = shippingAddress
+        self.givenName = givenName
+        self.familyName = familyName
+        self.email = email
+    }
+
+    public let sub: String
+    public let birthdate: String
+    public let emailVerified: Bool
+    public let address: Address
+    public let gender: String
+    public let shippingAddress: ShippingAddress
+    public let givenName: String
+    public let familyName: String
+    public let email: String
 
     private enum CodingKeys: String, CodingKey {
         case sub, birthdate, emailVerified = "email_verified", address, gender,

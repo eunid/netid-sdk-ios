@@ -69,6 +69,28 @@ class AppAuthManager: NSObject {
         }
     }
 
+    public func fetchUserInfo() {
+        if let host = NetIdService.sharedInstance.getNedIdConfig()?.host, let accessToken = authState?.lastTokenResponse?.accessToken {
+            let userInfoRequest = UserInfoRequest(host: host, accessToken: accessToken)
+            Webservice.shared.performRequest(userInfoRequest, callback: { data, error in
+                guard let data = data else {
+                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .Authentication)
+                    )
+                    return
+                }
+
+                if let userInfo = try? JSONDecoder().decode(UserInfo.self, from: data) {
+                    self.delegate?.didFetchUserInfo(userInfo)
+                } else {
+                    // TODO Invalid JSON error
+                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .Authentication))
+                }
+            })
+        } else {
+            delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .Authentication))
+        }
+    }
+
     public func endSession() {
         authState = nil
         currentAuthorizationFlow = nil
