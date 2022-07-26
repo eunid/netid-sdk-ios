@@ -15,32 +15,42 @@
 import Foundation
 
 public struct UserInfo: Decodable {
-
-    public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
-                givenName: String, familyName: String, email: String) {
+    public init(sub: String, birthdate: String, givenName: String, familyName: String) {
         self.sub = sub
         self.birthdate = birthdate
-        self.emailVerified = emailVerified
-        self.address = address
-        self.gender = gender
-        self.shippingAddress = shippingAddress
         self.givenName = givenName
         self.familyName = familyName
-        self.email = email
     }
+
+//    public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
+//                givenName: String, familyName: String, email: String) {
+//        self.sub = sub
+//        self.birthdate = birthdate
+//        self.emailVerified = emailVerified
+//        self.address = address
+//        self.gender = gender
+//        self.shippingAddress = shippingAddress
+//        self.givenName = givenName
+//        self.familyName = familyName
+//        self.email = email
+//    }
 
     public let sub: String
     public let birthdate: String
-    public let emailVerified: Bool
-    public let address: Address
-    public let gender: String
-    public let shippingAddress: ShippingAddress
+//    public let emailVerified: Bool
+//    public let address: Address
+//    public let gender: String
+//    public let shippingAddress: ShippingAddress
     public let givenName: String
     public let familyName: String
-    public let email: String
+//    public let email: String
 
     private enum CodingKeys: String, CodingKey {
-        case sub, birthdate, emailVerified = "email_verified", address, gender,
-             shippingAddress = "shipping_address", givenName = "given_name", familyName = "family_name", email
+        case sub, birthdate, givenName = "given_name", familyName = "family_name"
     }
+
+//    private enum CodingKeys: String, CodingKey {
+//        case sub, birthdate, emailVerified = "email_verified", address, gender,
+//             shippingAddress = "shipping_address", givenName = "given_name", familyName = "family_name", email
+//    }
 }
