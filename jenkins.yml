@@ -14,9 +14,9 @@ fastlane:
       - scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
         test_scheme: NetIdMobileSdk-AppTests
-        export_method: enterprise
+        export_method: ad-hoc
         plist: NetIdMobileSdk-App/Info.plist
-        keychain: netid
+        keychain: netid-appstore
         testflight:
           team_id: 8G463Z6GPS
 
