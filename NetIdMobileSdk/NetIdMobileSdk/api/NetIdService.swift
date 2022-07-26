@@ -51,17 +51,7 @@ open class NetIdService: NSObject {
         }
         let viewController: UIViewController
         if let netIdApps = AuthorizationWayUtil.checkNetIdAuth() {
-            if netIdApps.count > 0 {
-                //TODO return view controller with multiple app login
-                for item in netIdApps {
-                    Logger.shared.debug(item.iOS.scheme + " will be added as option to the authorization ViewController")
-                }
-                viewController = UIViewController()
-            } else {
-                var authView = AuthorizationView()
-                authView.delegate = self
-                viewController = UIHostingController(rootView: authView)
-            }
+            viewController = UIHostingController(rootView: AuthorizationView(delegate: self, appIdentifiers: netIdApps))
         } else {
             var authView = AuthorizationView()
             authView.delegate = self

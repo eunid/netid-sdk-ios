@@ -22,10 +22,10 @@ class AuthorizationWayUtil {
     }
 
     static public func checkNetIdAuth() -> [AppIdentifier]? {
-        if let path = Bundle.main.path(forResource: Constants.netIdAppIdentifiers, ofType: Constants.jsonFileType) {
+        if let path = Bundle(for: self).path(forResource: Constants.netIdAppIdentifiers, ofType: Constants.jsonFileType) {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
-                let appIdentifiers: NetIdAppIdentifiers = try! JSONDecoder().decode(NetIdAppIdentifiers.self, from: data)
+                let appIdentifiers: NetIdAppIdentifiers = try JSONDecoder().decode(NetIdAppIdentifiers.self, from: data)
                 return appIdentifiers.netIdAppIdentifiers
             } catch {
                 Logger.shared.error("App identifier json parse error")
