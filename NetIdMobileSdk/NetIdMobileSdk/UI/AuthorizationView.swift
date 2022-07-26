@@ -40,7 +40,7 @@ struct AuthorizationView: View {
 
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
-                    delegate?.didTapContinue(bundleIdentifier: result.iOS.bundleIdentifier)
+                    delegate?.didTapContinue(bundleIdentifier: result.iOS.scheme)
                 } label: {
                     Text(result.name)
                             .kerning(1.25)
