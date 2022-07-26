@@ -120,7 +120,7 @@ extension NetIdService: AppAuthManagerDelegate {
                 item.didFinishAuthenticationWithError(error)
             } else {
                 if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
-                    Logger.shared.info("NetID Service received access token in NetIdService" + accessToken)
+                    Logger.shared.info("NetID Service received access token: " + accessToken)
                     item.didFinishAuthentication(accessToken)
                 } else {
                     let error = NetIdError(code: .NoAuth, process: .Authentication)

@@ -84,6 +84,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
 
     public func didFetchUserInfo(_ userInfo: UserInfo) {
         userInfoStatusColor = Color.green
+        userInfoEnabled = true
         logText.append("Fetched user info successfully:\n" + "\n")
     }
 
