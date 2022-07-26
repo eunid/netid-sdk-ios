@@ -26,4 +26,6 @@ public protocol NetIdServiceDelegate: AnyObject {
     func didFetchUserInfoWithError(_ error: NetIdError)
 
     func didEndSession()
+
+    func didEncounterNetworkError()
 }

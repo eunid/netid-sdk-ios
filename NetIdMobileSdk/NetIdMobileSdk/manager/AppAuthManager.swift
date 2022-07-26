@@ -38,7 +38,7 @@ class AppAuthManager: NSObject {
                     delegate?.didFinishInitializationWithError(nil)
                 } else {
                     delegate?.didFinishInitializationWithError(
-                            NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Configuration))
+                            NetIdError(code: .InvalidDiscoveryDocument, process: .Configuration))
                 }
             }
         }
@@ -74,7 +74,7 @@ class AppAuthManager: NSObject {
             let userInfoRequest = UserInfoRequest(host: host, accessToken: accessToken)
             Webservice.shared.performRequest(userInfoRequest, callback: { data, error in
                 guard let data = data else {
-                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .Authentication)
+                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .Unknown, process: .UserInfo)
                     )
                     return
                 }
@@ -82,12 +82,11 @@ class AppAuthManager: NSObject {
                 if let userInfo = try? JSONDecoder().decode(UserInfo.self, from: data) {
                     self.delegate?.didFetchUserInfo(userInfo)
                 } else {
-                    // TODO Invalid JSON error
-                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .Authentication))
+                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .JsonDeserializationError, process: .UserInfo))
                 }
             })
         } else {
-            delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .Authentication))
+            delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .UserInfo))
         }
     }
 
