@@ -40,7 +40,7 @@ struct AuthorizationView: View {
 
             ForEach(appIdentifiers, id: \.id) { result in
                 Button(result.name) {
-                    delegate?.didTapContinue(bundleIdentifier: nil)
+                    delegate?.didTapContinue(bundleIdentifier: result.iOS.scheme)
                 }
                         .frame(maxWidth: .infinity)
                         .padding(12)

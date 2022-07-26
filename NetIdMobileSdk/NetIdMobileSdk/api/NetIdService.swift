@@ -167,7 +167,19 @@ extension NetIdService: AuthorizationViewDelegate {
         if let presentingViewController = authenticationHostingViewController?.presentingViewController {
             authenticationHostingViewController?.dismiss(animated: true)
             authenticationHostingViewController = nil
-            NetIdService.sharedInstance.authorize(bundleIdentifier: bundleIdentifier, currentViewController: presentingViewController)
+            if let scheme = bundleIdentifier {
+                if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme) {
+                    UIApplication.shared.open(url, completionHandler: { success in
+                        if success {
+                            Logger.shared.info("NetID Service successfully opened: \(url)")
+                        } else {
+                            Logger.shared.error("NetID Service could not open: \(url)")
+                        }
+                    })
+                }
+            } else {
+                NetIdService.sharedInstance.authorize(bundleIdentifier: bundleIdentifier, currentViewController: presentingViewController)
+            }
         }
     }
 }

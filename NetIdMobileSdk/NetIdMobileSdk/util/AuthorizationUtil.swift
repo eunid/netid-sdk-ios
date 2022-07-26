@@ -18,15 +18,22 @@ import UIKit
 class AuthorizationWayUtil {
     struct Constants {
         static let netIdAppIdentifiers = "netIdAppIdentifiers"
+        static let netIdAuthorizePath = "://netid_authorize"
         static let jsonFileType = "json"
     }
 
-    static public func checkNetIdAuth() -> [AppIdentifier]? {
+    class func checkNetIdAuth() -> [AppIdentifier]? {
         if let path = Bundle(for: self).path(forResource: Constants.netIdAppIdentifiers, ofType: Constants.jsonFileType) {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let appIdentifiers: NetIdAppIdentifiers = try JSONDecoder().decode(NetIdAppIdentifiers.self, from: data)
-                return appIdentifiers.netIdAppIdentifiers
+                var installedAppIdentifiers = [AppIdentifier]()
+                for item in appIdentifiers.netIdAppIdentifiers {
+                    if isAppInstalled(item.iOS.scheme) {
+                        installedAppIdentifiers.append(item)
+                    }
+                }
+                return installedAppIdentifiers
             } catch {
                 Logger.shared.error("App identifier json parse error")
             }
@@ -34,8 +41,8 @@ class AuthorizationWayUtil {
         return nil
     }
 
-    static public func isAppInstalled(_ appName: String) -> Bool {
-        let appScheme = "\(appName)://app"
+    class func isAppInstalled(_ urlScheme: String) -> Bool {
+        let appScheme = "\(urlScheme)://app"
         let appUrl = URL(string: appScheme)
 
         if UIApplication.shared.canOpenURL(appUrl! as URL) {
@@ -43,5 +50,9 @@ class AuthorizationWayUtil {
         } else {
             return false
         }
+    }
+
+    class func createAuthorizeDeepLink(_ scheme: String) -> URL? {
+        URL(string: scheme + Constants.netIdAuthorizePath)
     }
 }
