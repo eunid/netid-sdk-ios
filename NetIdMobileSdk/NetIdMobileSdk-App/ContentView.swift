@@ -25,56 +25,61 @@ struct ContentView: View {
                     .font(.title2)
 
             HStack(alignment: .center, spacing: 50) {
-                Button("initialize_button_title") {
+                Button {
                     serviceViewModel.initializeNetIdService()
+                } label: {
+                    Text("initialize_button_title")
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(serviceViewModel.initializationEnabled ? Color.white : Color.gray)
                 }
-                        .tint(Color.white)
-                        .frame(maxWidth: .infinity)
                         .padding(10)
                         .background(Color.green)
                         .cornerRadius(5)
+                        .disabled(!serviceViewModel.initializationEnabled)
 
                 Circle()
                         .fill(serviceViewModel.initializationStatusColor)
                         .frame(width: 20, height: 20, alignment: .center)
             }
                     .padding(.horizontal, 20)
-                    .disabled(!serviceViewModel.initializationEnabled)
 
             HStack(alignment: .center, spacing: 50) {
-                Button("authorize_button_title") {
+                Button {
                     serviceViewModel.authorizeNetIdService()
+                } label: {
+                    Text("authorize_button_title")
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(serviceViewModel.authenticationEnabled ? Color.white : Color.gray)
                 }
-                        .tint(Color.white)
-                        .frame(maxWidth: .infinity)
                         .padding(10)
                         .background(Color.blue)
                         .cornerRadius(5)
+                        .disabled(!serviceViewModel.authenticationEnabled)
 
                 Circle()
                         .fill(serviceViewModel.authenticationStatusColor)
                         .frame(width: 20, height: 20, alignment: .center)
             }
                     .padding(.horizontal, 20)
-                    .disabled(!serviceViewModel.authenticationEnabled)
 
             HStack(alignment: .center, spacing: 50) {
-                Button("user_info_button_title") {
+                Button {
                     serviceViewModel.fetchUserInfo()
+                } label: {
+                    Text("user_info_button_title")
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(serviceViewModel.userInfoEnabled ? Color.white : Color.gray)
                 }
-                        .tint(Color.white)
-                        .frame(maxWidth: .infinity)
                         .padding(10)
                         .background(Color.yellow)
                         .cornerRadius(5)
+                        .disabled(!serviceViewModel.userInfoEnabled)
 
                 Circle()
                         .fill(serviceViewModel.userInfoStatusColor)
                         .frame(width: 20, height: 20, alignment: .center)
             }
                     .padding(.horizontal, 20)
-                    .disabled(!serviceViewModel.userInfoEnabled)
-
 
             ScrollView {
                 Text(serviceViewModel.logText)
@@ -83,21 +88,20 @@ struct ContentView: View {
                         .font(Font.system(size: 13))
             }
 
-            HStack(alignment: .center, spacing: 50) {
-                Button("end_session_button_title") {
-                    serviceViewModel.endSession()
-                }
-                        .tint(Color.white)
+            Button {
+                serviceViewModel.endSession()
+            } label: {
+                Text("end_session_button_title")
                         .frame(maxWidth: .infinity)
-                        .padding(10)
-                        .background(Color.red)
-                        .cornerRadius(5)
+                        .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
             }
-                    .padding(.horizontal, 20)
+                    .padding(10)
+                    .background(Color.red)
+                    .cornerRadius(5)
                     .disabled(!serviceViewModel.endSessionEnabled)
         }
+                .padding(.horizontal, 20)
     }
-
 }
 
 struct ContentView_Previews: PreviewProvider {

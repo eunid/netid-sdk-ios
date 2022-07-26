@@ -39,42 +39,51 @@ struct AuthorizationView: View {
                     .padding(.horizontal, 20)
 
             ForEach(appIdentifiers, id: \.id) { result in
-                Button(result.name) {
-                    delegate?.didTapContinue(bundleIdentifier: nil)
+                Button {
+                    delegate?.didTapContinue(bundleIdentifier: result.iOS.bundleIdentifier)
+                } label: {
+                    Text(result.name)
+                            .kerning(1.25)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color(hex: result.foregroundColor))
+                            .font(Font.robotoMedium(size: 14))
                 }
-                        .frame(maxWidth: .infinity)
                         .padding(12)
-                        .background(Color.init(hex: result.backgroundColor))
+                        .background(Color(hex: result.backgroundColor))
                         .cornerRadius(5)
                         .padding(.horizontal, 20)
-                        .foregroundColor(Color.init(hex: result.foregroundColor))
-                        .font(Font.robotoMedium(size: 14))
             }
 
             if appIdentifiers.isEmpty {
-                Button(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")) {
+                Button {
                     delegate?.didTapContinue(bundleIdentifier: nil)
+                } label: {
+                    Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
+                            .kerning(1.25)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color.white)
+                            .font(Font.robotoMedium(size: 14))
                 }
-                        .frame(maxWidth: .infinity)
                         .padding(12)
                         .background(Color.netIdGreenColor)
                         .cornerRadius(5)
                         .padding(.horizontal, 20)
-                        .foregroundColor(Color.white)
-                        .font(Font.robotoMedium(size: 14))
             }
 
-            Button(LocalizableUtil.netIdLocalizable("authorization_view_close")) {
+            Button {
                 delegate?.didTapDismiss()
+            } label: {
+                Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
+                        .kerning(1.25)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color.closeButtonGrayColor)
+                        .font(Font.robotoMedium(size: 14))
             }
-                    .frame(maxWidth: .infinity)
                     .padding(12)
                     .background(Color.white)
                     .cornerRadius(5)
                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.closeButtonGrayColor))
                     .padding(.horizontal, 20)
-                    .foregroundColor(Color.closeButtonGrayColor)
-                    .font(Font.robotoMedium(size: 14))
         }
     }
 }
@@ -82,14 +91,9 @@ struct AuthorizationView: View {
 struct AuthorizationView_Previews: PreviewProvider {
 
     static var previews: some View {
-        var appIdentifiers = [AppIdentifier]()
-        appIdentifiers.append(AppIdentifier(id: 0, name: "WEB.de", backgroundColor: "#000000FF", foregroundColor: "#000000FF", icon: "jheC",
-                iOS: AppDetailsIOS(bundleIdentifier: "HWDWQH", scheme: "EHFHEWUJ"), android: AppDetailsAndroid(applicationId: "sndkhucwh")))
-        return Group {
-            AuthorizationView(delegate: nil, appIdentifiers: appIdentifiers)
+        Group {
+            AuthorizationView()
                     .onAppear {
-
-
                         Font.loadCustomFonts()
                     }
         }
