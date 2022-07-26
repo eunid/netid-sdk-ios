@@ -10,6 +10,8 @@ root: NetIdMobileSdk
 fastlane:
     keychain: netid
     xcode_version: 13
+    build:
+      {}
     scheme: NetIdMobileSdk-App
     target: NetIdMobileSdk-App
     test_scheme: NetIdMobileSdk-AppTests
