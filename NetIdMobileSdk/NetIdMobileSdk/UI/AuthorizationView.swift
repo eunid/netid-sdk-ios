@@ -15,13 +15,10 @@
 import SwiftUI
 
 struct AuthorizationView: View {
-    
-    // TODO Add localizables
+
+    var delegate: AuthorizationViewDelegate?
     
     private let bundle = Bundle(for: NetIdService.self)
-    var delegate: AuthorizationViewDelegate?
-
-    @State private var infoText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info")
     
     var body: some View {
         VStack(spacing: 10) {
@@ -32,13 +29,13 @@ struct AuthorizationView: View {
             
             Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
                 .multilineTextAlignment(.center)
-            
-            // TODO Use a dynamic height
-            TextEditor(text: $infoText)
-                .frame(minWidth: 0, minHeight: 0, maxHeight: 150)
+                .font(Font.ibmPlexSansSemiBold(size: 16))
+
+            Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
+                .font(Font.ibmPlexSansMedium(size: 10))
                 .multilineTextAlignment(.center)
-                .font(Font.system(size: 11))
-            
+                .padding(.horizontal, 20)
+
             Button(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")) {
                 delegate?.didTapContinue(bundleIdentifier: nil)
             }

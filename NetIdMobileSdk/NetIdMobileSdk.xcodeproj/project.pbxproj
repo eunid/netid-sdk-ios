@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2B3FC659288AAAE400EF824B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FC65B288AAAE400EF824B /* Localizable.strings */; };
 		2B3FC65E288B1A3F00EF824B /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */; };
+		2B708266288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B708265288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf */; };
+		2B70826B28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */; };
 		2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */; };
 		2BEE602428883BC30064661C /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE602328883BC30064661C /* AuthorizationView.swift */; };
 		2BEE602628883D6D0064661C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BEE602528883D6D0064661C /* Assets.xcassets */; };
@@ -52,6 +54,7 @@
 		D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AECFE5C71DDD154FCC3A /* Logger.swift */; };
 		D692A5B324DB3046EE5067CC /* LocalizableUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AEA622C9D0187769924E /* LocalizableUtil.swift */; };
 		D692A7D6C6D7405A6C1329C1 /* Webservice.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A969E36F89F39914A503 /* Webservice.swift */; };
+		D692A8322CFAC7BC42943585 /* Font+NetIdMobileSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AC35C561E8598673F1DD /* Font+NetIdMobileSdk.swift */; };
 		D692A9E4151DD1CF4ED1AEB9 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A32646CA35E8E031BDDF /* BaseRequest.swift */; };
 		D692AA57D95E955120FBFED8 /* RequestQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AAFA685C38A14BB1B529 /* RequestQuery.swift */; };
 		D692AA6C6725960AF6DC01B7 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A9528B4B97FD743663AC /* HttpMethod.swift */; };
@@ -106,6 +109,9 @@
 		2B3FC65A288AAAE400EF824B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2B3FC65C288AAAE500EF824B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewModel.swift; sourceTree = "<group>"; };
+		2B708265288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Medium.ttf"; sourceTree = "<group>"; };
+		2B708269288FE90E00F4D3DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		2BE4ECDA28898E02000722C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BE4ECDC28898E03000722C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BEE602328883BC30064661C /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
@@ -153,6 +159,7 @@
 		D692A969E36F89F39914A503 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
 		D692AAFA685C38A14BB1B529 /* RequestQuery.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RequestQuery.swift; sourceTree = "<group>"; };
 		D692ABA93CF874069DC0E636 /* UserInfoRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoRequest.swift; sourceTree = "<group>"; };
+		D692AC35C561E8598673F1DD /* Font+NetIdMobileSdk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Font+NetIdMobileSdk.swift"; sourceTree = "<group>"; };
 		D692AEA622C9D0187769924E /* LocalizableUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LocalizableUtil.swift; sourceTree = "<group>"; };
 		D692AECFE5C71DDD154FCC3A /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -203,6 +210,7 @@
 		2B3FC655288A9C6A00EF824B /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				2B708262288FE4E000F4D3DC /* Fonts */,
 				2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */,
 			);
 			path = SupportingFiles;
@@ -214,6 +222,15 @@
 				2B3FC65B288AAAE400EF824B /* Localizable.strings */,
 			);
 			path = SupportingFiles;
+			sourceTree = "<group>";
+		};
+		2B708262288FE4E000F4D3DC /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */,
+				2B708265288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf */,
+			);
+			path = Fonts;
 			sourceTree = "<group>";
 		};
 		2BEE602228883B470064661C /* UI */ = {
@@ -313,6 +330,7 @@
 		B66A07C7287D62C100A68E08 /* NetIdMobileSdk */ = {
 			isa = PBXGroup;
 			children = (
+				2B708269288FE90E00F4D3DC /* Info.plist */,
 				2B3FC655288A9C6A00EF824B /* SupportingFiles */,
 				B6616172288E856A004F7ACB /* model */,
 				2BEE602228883B470064661C /* UI */,
@@ -323,6 +341,7 @@
 				D692A89B8CCB0AF20188F653 /* util */,
 				2FF2D7A7538FA596DA383263 /* manager */,
 				2FF2D5C954FCEDDD092358ED /* assets */,
+				D692AAB52376FAE9867300A3 /* extension */,
 			);
 			path = NetIdMobileSdk;
 			sourceTree = "<group>";
@@ -405,6 +424,14 @@
 				2FF2D776C2E10A28425C9BCB /* ReachabilityUtil.swift */,
 			);
 			path = util;
+			sourceTree = "<group>";
+		};
+		D692AAB52376FAE9867300A3 /* extension */ = {
+			isa = PBXGroup;
+			children = (
+				D692AC35C561E8598673F1DD /* Font+NetIdMobileSdk.swift */,
+			);
+			path = extension;
 			sourceTree = "<group>";
 		};
 		D692AC0C9C87EF2738DEBB6B /* webservice */ = {
@@ -565,7 +592,7 @@
 			);
 			mainGroup = B66A07BB287D62C000A68E08;
 			packageReferences = (
-				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */,
+				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 			);
 			productRefGroup = B66A07C6287D62C100A68E08 /* Products */;
 			projectDirPath = "";
@@ -587,6 +614,8 @@
 			files = (
 				2BEE602628883D6D0064661C /* Assets.xcassets in Resources */,
 				2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */,
+				2B70826B28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf in Resources */,
+				2B708266288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf in Resources */,
 				B66E34C328858697001C937D /* netIdAppIdentifiers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -657,6 +686,7 @@
 				D692A4A1B8C8F360A887DEBF /* UserInfoRequest.swift in Sources */,
 				2FF2D62D5B11D8FD4AFD0728 /* ReachabilityUtil.swift in Sources */,
 				2FF2D173F158E9E547F1D6CC /* AuthorizationViewDelegate.swift in Sources */,
+				D692A8322CFAC7BC42943585 /* Font+NetIdMobileSdk.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -880,6 +910,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NetIdMobileSdk/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -911,6 +942,7 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = NetIdMobileSdk/Info.plist;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1156,7 +1188,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */ = {
+		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
 			requirement = {
@@ -1169,12 +1201,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B6B22D222880276300F45264 /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
 		};
 		B6B22D242880276300F45264 /* AppAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuthCore;
 		};
 /* End XCSwiftPackageProductDependency section */
