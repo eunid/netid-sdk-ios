@@ -35,7 +35,9 @@ class ServiceViewModel: NSObject, ObservableObject {
     func authorizeNetIdService() {
         authenticationEnabled = false
         if let currentViewController = UIApplication.shared.visibleViewController {
-            NetIdService.sharedInstance.authorize(bundleIdentifier: nil, currentViewController: currentViewController)
+            currentViewController.present(
+                    NetIdService.sharedInstance.getAuthorizationViewController(currentViewController: currentViewController),
+                    animated: true)
         }
     }
 
@@ -122,5 +124,20 @@ extension ServiceViewModel: NetIdServiceDelegate {
             }
         })
         UIApplication.shared.visibleViewController?.present(alert, animated: true)
+    }
+
+    public func didCancelAuthentication(_ error: NetIdError) {
+        logText.append("Net ID service user did cancel authentication in process: \(error.process)\n")
+        switch error.process {
+        case .Configuration:
+            initializationStatusColor = Color.yellow
+            initializationEnabled = true
+        case .Authentication:
+            authenticationStatusColor = Color.yellow
+            authenticationEnabled = true
+        case .UserInfo:
+            userInfoStatusColor = Color.yellow
+            userInfoEnabled = true
+        }
     }
 }

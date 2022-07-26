@@ -19,7 +19,8 @@ struct AuthorizationView: View {
     // TODO Add localizables
     
     private let bundle = Bundle(for: NetIdService.self)
-    
+    var delegate: AuthorizationViewDelegate?
+
     @State private var infoText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info")
     
     var body: some View {
@@ -39,7 +40,7 @@ struct AuthorizationView: View {
                 .font(Font.system(size: 11))
             
             Button(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")) {
-                // TODO Handle button tap
+                delegate?.didTapContinue(bundleIdentifier: nil)
             }
             .frame(maxWidth: .infinity)
             .padding(12)
@@ -49,7 +50,7 @@ struct AuthorizationView: View {
             .foregroundColor(Color.white)
             
             Button(LocalizableUtil.netIdLocalizable("authorization_view_close")) {
-                // TODO Handle button tap
+                delegate?.didTapDismiss()
             }
             .frame(maxWidth: .infinity)
             .padding(12)

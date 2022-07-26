@@ -19,7 +19,7 @@ import SwiftUI
 open class NetIdService: NSObject {
 
     public static let sharedInstance = NetIdService()
-
+    private var authenticationHostingViewController: UIViewController?
     private var netIdConfig: NetIdConfig?
     private var netIdListener: [NetIdServiceDelegate] = []
     private var appAuthManager: AppAuthManager?
@@ -45,19 +45,29 @@ open class NetIdService: NSObject {
     }
 
     public func getAuthorizationViewController(currentViewController: UIViewController) -> UIViewController {
+        if let authenticationViewController = authenticationHostingViewController {
+            return authenticationViewController
+        }
+        let viewController: UIViewController
         if let netIdApps = AuthorizationWayUtil.checkNetIdAuth() {
             if netIdApps.count > 0 {
                 //TODO return view controller with multiple app login
                 for item in netIdApps {
                     Logger.shared.debug(item.iOS.scheme + " will be added as option to the authorization ViewController")
                 }
+                viewController = UIViewController()
             } else {
-                return UIHostingController(rootView: AuthorizationView())
+                var authView = AuthorizationView()
+                authView.delegate = self
+                viewController = UIHostingController(rootView: authView)
             }
         } else {
-            return UIHostingController(rootView: AuthorizationView())
+            var authView = AuthorizationView()
+            authView.delegate = self
+            viewController = UIHostingController(rootView: authView)
         }
-        return UIViewController()
+        authenticationHostingViewController = viewController
+        return viewController
     }
 
     public func authorize(bundleIdentifier: String?, currentViewController: UIViewController) {
@@ -149,6 +159,24 @@ extension NetIdService: AppAuthManagerDelegate {
         Logger.shared.error("NetID Service user info fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
             item.didFetchUserInfoWithError(error)
+        }
+    }
+}
+
+extension NetIdService: AuthorizationViewDelegate {
+    public func didTapDismiss() {
+        authenticationHostingViewController?.dismiss(animated: true)
+        authenticationHostingViewController = nil
+        for item in netIdListener {
+            item.didCancelAuthentication(NetIdError(code: .AuthorizationCanceledByUser, process: .Authentication))
+        }
+    }
+
+    public func didTapContinue(bundleIdentifier: String?) {
+        if let presentingViewController = authenticationHostingViewController?.presentingViewController {
+            authenticationHostingViewController?.dismiss(animated: true)
+            authenticationHostingViewController = nil
+            NetIdService.sharedInstance.authorize(bundleIdentifier: bundleIdentifier, currentViewController: presentingViewController)
         }
     }
 }
