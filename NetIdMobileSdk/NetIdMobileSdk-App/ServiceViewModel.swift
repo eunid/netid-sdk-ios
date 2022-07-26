@@ -100,4 +100,26 @@ extension ServiceViewModel: NetIdServiceDelegate {
         authenticationEnabled = true
         userInfoEnabled = false
     }
+
+    func didEncounterNetworkError(_ error: NetIdError) {
+        logText.append("Net ID service did encounter a network error in process: \(error.process)\n")
+        let alert = UIAlertController(title: NSLocalizedString("network_error_alert_title", comment: ""),
+                message: NSLocalizedString("network_error_alert_description", comment: ""),
+                preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: NSLocalizedString("network_error_alert_action", comment: ""), style: .default) { _ in
+            alert.dismiss(animated: true)
+            switch error.process {
+            case .Configuration:
+                self.initializationStatusColor = Color.red
+                self.initializationEnabled = true
+            case .Authentication:
+                self.authenticationStatusColor = Color.red
+                self.authenticationEnabled = true
+            case .UserInfo:
+                self.userInfoStatusColor = Color.red
+                self.userInfoEnabled = true
+            }
+        })
+        UIApplication.shared.visibleViewController?.present(alert, animated: true)
+    }
 }

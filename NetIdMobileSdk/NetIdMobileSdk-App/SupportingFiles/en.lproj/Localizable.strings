@@ -11,3 +11,6 @@
 "authorize_button_title" = "Authorisieren";
 "user_info_button_title" = "UserInfo laden";
 "end_session_button_title" = "Session beenden";
+"network_error_alert_title" = "Netzwerkfehler";
+"network_error_alert_description" = "Bitte stelle sicher, dass eine Netzwerkverbindung besteht.";
+"network_error_alert_action" = "Verstanden";

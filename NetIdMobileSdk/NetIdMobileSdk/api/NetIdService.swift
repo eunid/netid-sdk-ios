@@ -29,7 +29,7 @@ open class NetIdService: NSObject {
     }
 
     public func initialize(_ netIdConfig: NetIdConfig) {
-        if handleConnection() {
+        if handleConnection(.Configuration) {
             if self.netIdConfig != nil {
                 Logger.shared.debug("Configuration already been set.")
             } else {
@@ -61,14 +61,14 @@ open class NetIdService: NSObject {
     }
 
     public func authorize(bundleIdentifier: String?, currentViewController: UIViewController) {
-        if handleConnection() {
+        if handleConnection(.Authentication) {
             if let bundleIdentifier = bundleIdentifier {
                 if !bundleIdentifier.isEmpty {
-                    Logger.shared.debug("NetID Service will authorize via App2App.")
+                    Logger.shared.info("NetID Service will authorize via App2App.")
                     //TODO jump into app2app flow (deeplink?)
                 }
             } else {
-                Logger.shared.debug("NetID Service will authorize via web.")
+                Logger.shared.info("NetID Service will authorize via web.")
                 appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
             }
         }
@@ -80,20 +80,20 @@ open class NetIdService: NSObject {
     }
 
     public func fetchUserInfo() {
-        if handleConnection() {
-            Logger.shared.debug("NetID Service will fetch user info.")
+        if handleConnection(.UserInfo) {
+            Logger.shared.info("NetID Service will fetch user info.")
             appAuthManager?.fetchUserInfo()
         }
     }
 
-    private func handleConnection() -> Bool {
+    private func handleConnection(_ process: NetIdErrorProcess) -> Bool {
         if Reachability.hasConnection() {
-            Logger.shared.debug("NetID Service Device has network connection.")
+            Logger.shared.info("NetID Service Device has network connection.")
             return true
         } else {
             Logger.shared.error("NetID Service device has no network connection.")
             for item in netIdListener {
-                item.didEncounterNetworkError()
+                item.didEncounterNetworkError(NetIdError(code: .NetworkError, process: process))
             }
             return false
         }
@@ -107,7 +107,7 @@ extension NetIdService: AppAuthManagerDelegate {
                 Logger.shared.error("NetID Service initialization failed with error: " + error.code.rawValue)
                 item.didFinishInitializationWithError(error)
             } else {
-                Logger.shared.debug("NetID Service initialization finished")
+                Logger.shared.info("NetID Service initialization finished")
                 item.didFinishInitializationWithError(nil)
             }
         }
@@ -120,7 +120,7 @@ extension NetIdService: AppAuthManagerDelegate {
                 item.didFinishAuthenticationWithError(error)
             } else {
                 if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
-                    Logger.shared.debug("NetID Service received access token in NetIdService" + accessToken)
+                    Logger.shared.info("NetID Service received access token in NetIdService" + accessToken)
                     item.didFinishAuthentication(accessToken)
                 } else {
                     let error = NetIdError(code: .NoAuth, process: .Authentication)
@@ -132,14 +132,14 @@ extension NetIdService: AppAuthManagerDelegate {
     }
 
     func didEndSession() {
-        Logger.shared.debug("NetID Service did end session")
+        Logger.shared.info("NetID Service did end session")
         for item in netIdListener {
             item.didEndSession()
         }
     }
 
     func didFetchUserInfo(_ userInfo: UserInfo) {
-        Logger.shared.debug("NetID Service received user info")
+        Logger.shared.info("NetID Service received user info")
         for item in netIdListener {
             item.didFetchUserInfo(userInfo)
         }

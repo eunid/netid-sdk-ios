@@ -17,8 +17,5 @@ import Foundation
 public enum NetIdErrorProcess {
     case Configuration,
          Authentication,
-         UserInfo,
-         Login,
-         CodeExchange,
-         Refresh
+         UserInfo
 }

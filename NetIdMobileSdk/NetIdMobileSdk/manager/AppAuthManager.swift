@@ -59,7 +59,8 @@ class AppAuthManager: NSObject {
                                         "\(authState.lastTokenResponse?.accessToken ?? "nil")")
                                 self.delegate?.didFinishAuthenticationWithError(nil)
                             } else {
-                                Logger.shared.debug("Authorization error: \(error?.localizedDescription ?? "Unknown error")")
+                                Logger.shared
+                                        .error("Authorization with clientID: \(clientId) and redirectUri: \(redirectUri) failed with error: \(error?.localizedDescription ?? "Unknown error")")
                                 self.authState = nil
                                 self.delegate?.didFinishAuthenticationWithError(
                                         NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Authentication))

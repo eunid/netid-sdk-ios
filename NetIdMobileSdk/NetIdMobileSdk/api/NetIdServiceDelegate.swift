@@ -27,5 +27,5 @@ public protocol NetIdServiceDelegate: AnyObject {
 
     func didEndSession()
 
-    func didEncounterNetworkError()
+    func didEncounterNetworkError(_ error: NetIdError)
 }
