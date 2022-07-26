@@ -30,9 +30,11 @@ struct AuthorizationView: View {
             Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
                 .multilineTextAlignment(.center)
                 .font(Font.ibmPlexSansSemiBold(size: 16))
+                .foregroundColor(Color.authorizationTitleColor)
 
             Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
-                .font(Font.ibmPlexSansMedium(size: 10))
+                .font(Font.verdana(size: 12))
+                .foregroundColor(Color.legalInfoColor)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
 
@@ -41,10 +43,11 @@ struct AuthorizationView: View {
             }
             .frame(maxWidth: .infinity)
             .padding(12)
-            .background(Color.green)
+            .background(Color.netIdGreenColor)
             .cornerRadius(5)
             .padding(.horizontal, 20)
             .foregroundColor(Color.white)
+            .font(Font.robotoMedium(size: 14))
             
             Button(LocalizableUtil.netIdLocalizable("authorization_view_close")) {
                 delegate?.didTapDismiss()
@@ -53,17 +56,22 @@ struct AuthorizationView: View {
             .padding(12)
             .background(Color.white)
             .cornerRadius(5)
-            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
+            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.closeButtonGrayColor))
             .padding(.horizontal, 20)
-            .foregroundColor(Color.gray)
+            .foregroundColor(Color.closeButtonGrayColor)
+            .font(Font.robotoMedium(size: 14))
         }
     }
 }
 
 struct AuthorizationView_Previews: PreviewProvider {
+    
     static var previews: some View {
         Group {
             AuthorizationView()
+                .onAppear {
+                    Font.loadCustomFonts()
+                }
         }
     }
 }

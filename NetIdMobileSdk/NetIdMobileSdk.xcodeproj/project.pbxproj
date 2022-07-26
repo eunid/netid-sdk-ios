@@ -9,8 +9,8 @@
 /* Begin PBXBuildFile section */
 		2B3FC659288AAAE400EF824B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FC65B288AAAE400EF824B /* Localizable.strings */; };
 		2B3FC65E288B1A3F00EF824B /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */; };
-		2B708266288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B708265288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf */; };
 		2B70826B28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */; };
+		2B70826F2890329900F4D3DC /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B70826E2890329900F4D3DC /* Roboto-Medium.ttf */; };
 		2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */; };
 		2BEE602428883BC30064661C /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE602328883BC30064661C /* AuthorizationView.swift */; };
 		2BEE602628883D6D0064661C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BEE602528883D6D0064661C /* Assets.xcassets */; };
@@ -58,6 +58,7 @@
 		D692A9E4151DD1CF4ED1AEB9 /* BaseRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A32646CA35E8E031BDDF /* BaseRequest.swift */; };
 		D692AA57D95E955120FBFED8 /* RequestQuery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AAFA685C38A14BB1B529 /* RequestQuery.swift */; };
 		D692AA6C6725960AF6DC01B7 /* HttpMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A9528B4B97FD743663AC /* HttpMethod.swift */; };
+		D692AD163D95176CBB95C38E /* Color+NetIdMobileSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692A04642DF3C3F86C68331 /* Color+NetIdMobileSdk.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -109,9 +110,9 @@
 		2B3FC65A288AAAE400EF824B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2B3FC65C288AAAE500EF824B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewModel.swift; sourceTree = "<group>"; };
-		2B708265288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-Medium.ttf"; sourceTree = "<group>"; };
 		2B708269288FE90E00F4D3DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-SemiBold.ttf"; sourceTree = "<group>"; };
+		2B70826E2890329900F4D3DC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
 		2BE4ECDA28898E02000722C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BE4ECDC28898E03000722C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BEE602328883BC30064661C /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
@@ -154,6 +155,7 @@
 		B66A0800287D641900A68E08 /* NetIdMobileSdk_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITests.swift; sourceTree = "<group>"; };
 		B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdk_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B66E34C228858697001C937D /* netIdAppIdentifiers.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = netIdAppIdentifiers.json; sourceTree = "<group>"; };
+		D692A04642DF3C3F86C68331 /* Color+NetIdMobileSdk.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Color+NetIdMobileSdk.swift"; sourceTree = "<group>"; };
 		D692A32646CA35E8E031BDDF /* BaseRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BaseRequest.swift; sourceTree = "<group>"; };
 		D692A9528B4B97FD743663AC /* HttpMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HttpMethod.swift; sourceTree = "<group>"; };
 		D692A969E36F89F39914A503 /* Webservice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Webservice.swift; sourceTree = "<group>"; };
@@ -227,8 +229,8 @@
 		2B708262288FE4E000F4D3DC /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				2B70826E2890329900F4D3DC /* Roboto-Medium.ttf */,
 				2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */,
-				2B708265288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -430,6 +432,7 @@
 			isa = PBXGroup;
 			children = (
 				D692AC35C561E8598673F1DD /* Font+NetIdMobileSdk.swift */,
+				D692A04642DF3C3F86C68331 /* Color+NetIdMobileSdk.swift */,
 			);
 			path = extension;
 			sourceTree = "<group>";
@@ -612,10 +615,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B70826F2890329900F4D3DC /* Roboto-Medium.ttf in Resources */,
 				2BEE602628883D6D0064661C /* Assets.xcassets in Resources */,
 				2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */,
 				2B70826B28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf in Resources */,
-				2B708266288FE5B200F4D3DC /* IBMPlexSans-Medium.ttf in Resources */,
 				B66E34C328858697001C937D /* netIdAppIdentifiers.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -687,6 +690,7 @@
 				2FF2D62D5B11D8FD4AFD0728 /* ReachabilityUtil.swift in Sources */,
 				2FF2D173F158E9E547F1D6CC /* AuthorizationViewDelegate.swift in Sources */,
 				D692A8322CFAC7BC42943585 /* Font+NetIdMobileSdk.swift in Sources */,
+				D692AD163D95176CBB95C38E /* Color+NetIdMobileSdk.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

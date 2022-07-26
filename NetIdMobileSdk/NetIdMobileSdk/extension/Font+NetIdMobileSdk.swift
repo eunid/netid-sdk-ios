@@ -18,15 +18,41 @@ import SwiftUI
 extension Font {
 
     private struct Constants {
-        static let ibmPlexSansMediumFontName = "IBMPlexSans-Medium"
         static let ibmPlexSansSemiBoldFontName = "IBMPlexSans-SemiBold"
-    }
-
-    static func ibmPlexSansMedium(size: CGFloat) -> Font {
-        Font.custom(Constants.ibmPlexSansMediumFontName, size: size)
+        static let robotoMediumFontName = "Roboto-Medium"
+        static let verdanaFontName = "Verdana"
+        static let fontsExtension = "ttf"
     }
 
     static func ibmPlexSansSemiBold(size: CGFloat) -> Font {
         Font.custom(Constants.ibmPlexSansSemiBoldFontName, size: size)
+    }
+
+    static func robotoMedium(size: CGFloat) -> Font {
+        Font.custom(Constants.robotoMediumFontName, size: size)
+    }
+
+    static func verdana(size: CGFloat) -> Font {
+        Font.custom(Constants.verdanaFontName, size: size)
+    }
+
+    static func loadCustomFonts() {
+        loadCustomFont(fontName: Constants.ibmPlexSansSemiBoldFontName)
+        loadCustomFont(fontName: Constants.robotoMediumFontName)
+    }
+
+    private static func loadCustomFont(fontName: String) {
+        if let fontUrl = Bundle(for: NetIdService.self).url(forResource: fontName, withExtension: Constants.fontsExtension),
+           let dataProvider = CGDataProvider(url: fontUrl as CFURL),
+           let newFont = CGFont(dataProvider) {
+            var error: Unmanaged<CFError>?
+            if !CTFontManagerRegisterGraphicsFont(newFont, &error) {
+                Logger.shared.error("Error registering font with name " + fontName)
+            } else {
+                Logger.shared.debug("Successfully registered font with name " + fontName)
+            }
+        } else {
+            Logger.shared.error("Error registering font with name " + fontName)
+        }
     }
 }
