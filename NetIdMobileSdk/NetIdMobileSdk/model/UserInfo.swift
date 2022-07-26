@@ -14,7 +14,7 @@
 
 import Foundation
 
-public struct UserInfo: Decodable {
+public struct UserInfo: Decodable, CustomStringConvertible {
     public init(sub: String, birthdate: String, givenName: String, familyName: String) {
         self.sub = sub
         self.birthdate = birthdate
@@ -49,6 +49,9 @@ public struct UserInfo: Decodable {
         case sub, birthdate, givenName = "given_name", familyName = "family_name"
     }
 
+    public var description: String {
+        "UserInfo(sub: \(sub), birthdate: \(birthdate), givenName: \(givenName), familyName: \(familyName))"
+    }
 //    private enum CodingKeys: String, CodingKey {
 //        case sub, birthdate, emailVerified = "email_verified", address, gender,
 //             shippingAddress = "shipping_address", givenName = "given_name", familyName = "family_name", email
