@@ -10,11 +10,13 @@ root: NetIdMobileSdk
 fastlane:
     keychain: netid
     xcode_version: 13
-    scheme: NetIdMobileSdk-App
-    target: NetIdMobileSdk-App
-    test_scheme: NetIdMobileSdk-AppTests
-    export_method: enterprise
-    plist: NetIdMobileSdk-App/Info.plist
-    testflight:
-        team_id: 8G463Z6GPS
+    build:
+      - scheme: NetIdMobileSdk
+        target: NetIdMobileSdk-App
+        test_scheme: NetIdMobileSdk
+        export_method: ad-hoc
+        plist: NetIdMobileSdk-App/Info.plist
+        keychain: netid-appstore
+        testflight:
+          team_id: 8G463Z6GPS
 
