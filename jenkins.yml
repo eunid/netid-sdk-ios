@@ -1,21 +1,23 @@
-coverage:
-  enabled: NO
-
-maven:  
-  root: .
-  xcodeproj: NetIdMobileSdk/NetIdMobileSdk.xcodeproj
-  profiles:
-
-root: NetIdMobileSdk
 fastlane:
-    keychain: netid
     xcode_version: 13
     build:
-      - scheme: NetIdMobileSdk
+      - 
+        branch: main
+        scheme: NetIdMobileSdk
         target: NetIdMobileSdk-App
         test_scheme: NetIdMobileSdk
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
+        export_method: enterprise
+    release:
+      -
+        branch: main
+        scheme: NetIdMobileSdk
+        target: NetIdMobileSdk-App
+        test_scheme: NetIdMobileSdk
+        plist: NetIdMobileSdk-App/Info.plist
+        keychain: netid-appstore
+        export_method: enterprise
         testflight:
           team_id: 8G463Z6GPS
 
