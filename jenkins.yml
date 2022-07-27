@@ -4,7 +4,7 @@ fastlane:
     build:
       - 
         branch: main
-        scheme: NetIdMobileSdk
+        scheme: NetIdMobileSdk/NetIdMobileSdk
         target: NetIdMobileSdk-App
         test_scheme: NetIdMobileSdk
         plist: NetIdMobileSdk-App/Info.plist
