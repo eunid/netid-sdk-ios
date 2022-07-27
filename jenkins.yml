@@ -1,5 +1,6 @@
 fastlane:
     xcode_version: 13
+    project: NetIdMobileSdk.xcworkspace
     build:
       - 
         branch: main
