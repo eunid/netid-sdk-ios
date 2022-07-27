@@ -1,6 +1,6 @@
 fastlane:
     xcode_version: 13
-    project: NetIdMobileSdk.xcodeproj
+      #    project: NetIdMobileSdk.xcworkspace
     build:
       - 
         branch: build
@@ -10,6 +10,7 @@ fastlane:
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
         export_method: enterprise
+        configuration: Release
     release:
       -
         branch: build
