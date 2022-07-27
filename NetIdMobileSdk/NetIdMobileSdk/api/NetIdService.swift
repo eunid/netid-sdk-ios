@@ -61,12 +61,20 @@ open class NetIdService: NSObject {
         return viewController
     }
 
-    public func authorize(bundleIdentifier: String?, currentViewController: UIViewController) {
+    public func authorize(scheme: String?, currentViewController: UIViewController) {
         if handleConnection(.Authentication) {
-            if let bundleIdentifier = bundleIdentifier {
+            if let bundleIdentifier = scheme {
                 if !bundleIdentifier.isEmpty {
                     Logger.shared.info("NetID Service will authorize via App2App.")
-                    //TODO jump into app2app flow (deeplink?)
+                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(bundleIdentifier) {
+                        UIApplication.shared.open(url, completionHandler: { success in
+                            if success {
+                                Logger.shared.info("NetID Service successfully opened: \(url)")
+                            } else {
+                                Logger.shared.error("NetID Service could not open: \(url)")
+                            }
+                        })
+                    }
                 }
             } else {
                 Logger.shared.info("NetID Service will authorize via web.")
@@ -178,7 +186,7 @@ extension NetIdService: AuthorizationViewDelegate {
                     })
                 }
             } else {
-                NetIdService.sharedInstance.authorize(bundleIdentifier: bundleIdentifier, currentViewController: presentingViewController)
+                NetIdService.sharedInstance.authorize(scheme: bundleIdentifier, currentViewController: presentingViewController)
             }
         }
     }
