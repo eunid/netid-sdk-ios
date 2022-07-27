@@ -3,8 +3,8 @@ fastlane:
     project: NetIdMobileSdk.xcworkspace
     build:
       - 
-        branch: main
-        scheme: NetIdMobileSdk/NetIdMobileSdk
+        branch: build
+        scheme: NetIdMobileSdk
         target: NetIdMobileSdk-App
         test_scheme: NetIdMobileSdk
         plist: NetIdMobileSdk-App/Info.plist
@@ -12,7 +12,7 @@ fastlane:
         export_method: enterprise
     release:
       -
-        branch: main
+        branch: build
         scheme: NetIdMobileSdk
         target: NetIdMobileSdk-App
         test_scheme: NetIdMobileSdk
