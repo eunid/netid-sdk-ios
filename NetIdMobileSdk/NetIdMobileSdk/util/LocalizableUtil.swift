@@ -14,22 +14,14 @@
 
 import Foundation
 
-public enum NetIdErrorCode: String {
-    case Timeout,
-         NoAuth,
-         NetworkError,
-         JsonDeserializationError,
-         InvalidDiscoveryDocument,
-         Unknown,
-         AuthorizationCanceledByUser,
-         MissingBrowser,
-         InvalidRequest,
-         UnauthorizedClient,
-         AccessDenied,
-         UnsupportedResponseType,
-         InvalidScope,
-         ServerError,
-         TemporarilyUnavailable,
-         ClientError,
-         StateMismatch
+class LocalizableUtil {
+
+    private struct Constants {
+        static let localizableTableName = "NetIdMobileSdkLocalizable"
+    }
+
+    static func netIdLocalizable(_ localizableKey: String) -> String {
+        String(localized: String.LocalizationValue(localizableKey), table: Constants.localizableTableName,
+                bundle: Bundle(for: LocalizableUtil.self), locale: Locale.current, comment: "")
+    }
 }

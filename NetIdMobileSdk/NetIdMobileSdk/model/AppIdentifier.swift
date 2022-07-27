@@ -14,22 +14,13 @@
 
 import Foundation
 
-public enum NetIdErrorCode: String {
-    case Timeout,
-         NoAuth,
-         NetworkError,
-         JsonDeserializationError,
-         InvalidDiscoveryDocument,
-         Unknown,
-         AuthorizationCanceledByUser,
-         MissingBrowser,
-         InvalidRequest,
-         UnauthorizedClient,
-         AccessDenied,
-         UnsupportedResponseType,
-         InvalidScope,
-         ServerError,
-         TemporarilyUnavailable,
-         ClientError,
-         StateMismatch
+struct AppIdentifier: Identifiable, Decodable {
+    var id: Int
+    let name: String
+    let backgroundColor: String
+    let foregroundColor: String
+    let icon: String
+    let iOS: AppDetailsIOS
+    let android: AppDetailsAndroid
 }
+

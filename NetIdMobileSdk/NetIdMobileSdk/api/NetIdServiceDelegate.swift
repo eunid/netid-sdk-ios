@@ -14,9 +14,20 @@
 
 import Foundation
 
-protocol NetIdServiceDelegate: AnyObject {
+public protocol NetIdServiceDelegate: AnyObject {
+    func didFinishInitializationWithError(_ error: NetIdError?)
+    
+    func didFinishAuthentication(_ accessToken: String)
+    
+    func didFinishAuthenticationWithError(_ error: NetIdError?)
 
-    func didReceiveToken(_ accessToken: String)
+    func didFetchUserInfo(_ userInfo: UserInfo)
 
-    func didReceiveError(_ error: NetIdError)
+    func didFetchUserInfoWithError(_ error: NetIdError)
+
+    func didEndSession()
+
+    func didEncounterNetworkError(_ error: NetIdError)
+
+    func didCancelAuthentication(_ error: NetIdError)
 }

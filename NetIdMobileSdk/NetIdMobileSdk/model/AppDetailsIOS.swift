@@ -14,22 +14,7 @@
 
 import Foundation
 
-public enum NetIdErrorCode: String {
-    case Timeout,
-         NoAuth,
-         NetworkError,
-         JsonDeserializationError,
-         InvalidDiscoveryDocument,
-         Unknown,
-         AuthorizationCanceledByUser,
-         MissingBrowser,
-         InvalidRequest,
-         UnauthorizedClient,
-         AccessDenied,
-         UnsupportedResponseType,
-         InvalidScope,
-         ServerError,
-         TemporarilyUnavailable,
-         ClientError,
-         StateMismatch
+struct AppDetailsIOS: Decodable {
+    let bundleIdentifier: String
+    let scheme: String
 }

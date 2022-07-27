@@ -14,10 +14,8 @@
 
 import Foundation
 
-enum NetIdErrorProcess {
+public enum NetIdErrorProcess {
     case Configuration,
          Authentication,
-         Login,
-         CodeExchange,
-         Refresh
+         UserInfo
 }

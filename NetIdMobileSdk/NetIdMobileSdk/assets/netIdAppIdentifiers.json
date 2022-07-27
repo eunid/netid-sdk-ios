@@ -1,6 +1,32 @@
 {
-    "appIdentifier": [
-        "fb",
-        "kortpress"
-    ]
+  "netIdAppIdentifiers": [
+    {
+      "id": 1,
+      "name": "GMX",
+      "icon": "",
+      "backgroundColor": "#402FD2FF",
+      "foregroundColor": "#FFFFFFFF",
+      "iOS": {
+        "bundleIdentifier": "de.gmx.mobile.ios.mail",
+        "scheme": "gmxmail"
+      },
+      "android": {
+        "applicationId": "de.gmx.mobile.android.mail"
+      }
+    },
+    {
+      "id": 2,
+      "name": "WEB.DE",
+      "backgroundColor": "#F7AD0AFF",
+      "foregroundColor": "#212121FF",
+      "icon": "",
+      "iOS": {
+        "bundleIdentifier": "de.web.mobile.ios.mail",
+        "scheme": "webdemail"
+      },
+      "android": {
+        "applicationId": "de.web.mobile.android.mail"
+      }
+    }
+  ]
 }

@@ -15,56 +15,87 @@
 import SwiftUI
 
 struct AuthorizationView: View {
-    
-    // TODO Add localizables
-    
-    @State private var infoText = "Indem Sie Ihre Einwilligung erteilen, geben Sie uns die Erlaubnis, Sie beim Besuch dieses Werbeangebots als netID-Nutzer..."
-    
-    @State private var netIdButtonText = "Zustimmen und weiter mit netID"
-    
+
+    var delegate: AuthorizationViewDelegate?
+    var appIdentifiers = [AppIdentifier]()
+    private let bundle = Bundle(for: NetIdService.self)
+
     var body: some View {
         VStack(spacing: 10) {
-        Image("logo_net_id", bundle: Bundle(identifier: "de.netid.mobile.sdk.NetIdMobileSdk"))
-            .resizable()
-            .scaledToFit()
-            .frame(width: 100, height: 30, alignment: .center)
-            
-            Text("Privatsphäre-Einstellungen sicher speichern")
-                .multilineTextAlignment(.center)
-            
-            // TODO Use a dynamic height
-            TextEditor(text: $infoText)
-                .frame(minWidth: 0,minHeight: 0, maxHeight: 100)
-                .multilineTextAlignment(.center)
-            
-            Button("Zustimmen und weiter mit netID") {
-                // TODO Handle button tap
+            Image("logo_net_id", bundle: bundle)
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 100, height: 30, alignment: .center)
+
+            Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
+                    .multilineTextAlignment(.center)
+                    .font(Font.ibmPlexSansSemiBold(size: 16))
+                    .foregroundColor(Color.authorizationTitleColor)
+
+            Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
+                    .font(Font.verdana(size: 12))
+                    .foregroundColor(Color.legalInfoColor)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 20)
+
+            ForEach(appIdentifiers, id: \.id) { result in
+                Button {
+                    delegate?.didTapContinue(bundleIdentifier: result.iOS.scheme)
+                } label: {
+                    Text(result.name)
+                            .kerning(1.25)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color(hex: result.foregroundColor))
+                            .font(Font.robotoMedium(size: 14))
+                }
+                        .padding(12)
+                        .background(Color(hex: result.backgroundColor))
+                        .cornerRadius(5)
+                        .padding(.horizontal, 20)
             }
-            .frame(maxWidth: .infinity)
-            .padding(12)
-            .background(Color.green)
-            .cornerRadius(5)
-            .padding(.horizontal, 20)
-            .foregroundColor(Color.white)
-            
-            Button("Schließen") {
-                // TODO Handle button tap
+
+            if appIdentifiers.isEmpty {
+                Button {
+                    delegate?.didTapContinue(bundleIdentifier: nil)
+                } label: {
+                    Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
+                            .kerning(1.25)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color.white)
+                            .font(Font.robotoMedium(size: 14))
+                }
+                        .padding(12)
+                        .background(Color.netIdGreenColor)
+                        .cornerRadius(5)
+                        .padding(.horizontal, 20)
             }
-            .frame(maxWidth: .infinity)
-            .padding(12)
-            .background(Color.white)
-            .cornerRadius(5)
-            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.gray))
-            .padding(.horizontal, 20)
-            .foregroundColor(Color.gray)
+
+            Button {
+                delegate?.didTapDismiss()
+            } label: {
+                Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
+                        .kerning(1.25)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color.closeButtonGrayColor)
+                        .font(Font.robotoMedium(size: 14))
+            }
+                    .padding(12)
+                    .background(Color.white)
+                    .cornerRadius(5)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.closeButtonGrayColor))
+                    .padding(.horizontal, 20)
         }
     }
 }
 
 struct AuthorizationView_Previews: PreviewProvider {
+
     static var previews: some View {
         Group {
             AuthorizationView()
+                    .onAppear {
+                        Font.loadCustomFonts()
+                    }
         }
     }
 }

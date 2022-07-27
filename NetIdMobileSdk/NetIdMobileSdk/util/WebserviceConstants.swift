@@ -15,6 +15,8 @@
 import Foundation
 
 struct WebserviceConstants {
-    static let PROTOCOL: String = "https"
-    static let WELL_KNOWN_CONFIG_PATH: String = "/.well-known/openid-configuration"
+    static let PROTOCOL = "https"
+    static let USER_INFO = "/userinfo"
+    static let AUTHORIZATION_HTTP_HEADER_KEY = "Authorization"
+    static let AUTHORIZATION_HTTP_HEADER_BEARER = "Bearer"
 }

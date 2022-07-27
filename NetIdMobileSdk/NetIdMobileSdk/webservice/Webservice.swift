@@ -25,7 +25,7 @@ class Webservice {
 
     }
 
-    func performRequest(_ request: BaseRequest, callback: @escaping (_ responseData: Dictionary<String, Any>?, _ error: Error?) -> Void) {
+    func performRequest(_ request: BaseRequest, callback: @escaping (_ responseData: Data?, _ error: Error?) -> Void) {
         guard let url = request.getUrlComponents().url else {
             log.error("Unable to get components URL")
             return
@@ -50,23 +50,8 @@ class Webservice {
             }
 
             if let data = data {
-                do {
-                    let jsonResponseObject = try JSONSerialization.jsonObject(with: data, options: .fragmentsAllowed)
-                    if let responseDictionary = jsonResponseObject as? Dictionary<String, Any> {
-                        DispatchQueue.main.async {
-                            callback(responseDictionary, nil)
-                        }
-                    } else {
-                        log.error("Response data has an invalid format")
-                        DispatchQueue.main.async {
-                            callback(nil, nil)
-                        }
-                    }
-                } catch {
-                    log.error("Response data is invalid")
-                    DispatchQueue.main.async {
-                        callback(nil, nil)
-                    }
+                DispatchQueue.main.async {
+                    callback(data, nil)
                 }
             } else {
                 log.error("Response does not contain any data")

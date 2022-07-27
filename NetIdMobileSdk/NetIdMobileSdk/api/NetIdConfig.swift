@@ -14,9 +14,14 @@
 
 import Foundation
 
-struct NetIdConfig {
-    var host: String
-    var clientId: UUID
-    var clientSecret: UUID
-    var redirectUri: String
+public struct NetIdConfig {
+    public init(host: String, clientId: UUID, redirectUri: String) {
+        self.host = host
+        self.clientId = clientId
+        self.redirectUri = redirectUri
+    }
+
+    public var host: String
+    public var clientId: UUID
+    public var redirectUri: String
 }

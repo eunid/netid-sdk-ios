@@ -14,11 +14,12 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
-class NetIdService: NSObject {
+open class NetIdService: NSObject {
 
-    static let sharedInstance = NetIdService()
-
+    public static let sharedInstance = NetIdService()
+    private var authenticationHostingViewController: UIViewController?
     private var netIdConfig: NetIdConfig?
     private var netIdListener: [NetIdServiceDelegate] = []
     private var appAuthManager: AppAuthManager?
@@ -28,12 +29,15 @@ class NetIdService: NSObject {
     }
 
     public func initialize(_ netIdConfig: NetIdConfig) {
-        if self.netIdConfig != nil {
-            Logger.shared.debug("Configuration already been set.")
-        } else {
-            self.netIdConfig = netIdConfig
-            appAuthManager = AppAuthManager(delegate: self)
-            appAuthManager?.fetchConfiguration(netIdConfig.host)
+        if handleConnection(.Configuration) {
+            if self.netIdConfig != nil {
+                Logger.shared.debug("Configuration already been set.")
+            } else {
+                self.netIdConfig = netIdConfig
+                Font.loadCustomFonts()
+                appAuthManager = AppAuthManager(delegate: self)
+                appAuthManager?.fetchConfiguration(netIdConfig.host)
+            }
         }
     }
 
@@ -42,44 +46,148 @@ class NetIdService: NSObject {
     }
 
     public func getAuthorizationViewController(currentViewController: UIViewController) -> UIViewController {
-        if let netIdApps = AuthorizationWayUtil.checkNetIdAuthWay() {
-            if netIdApps.count > 0 {
-                //TODO return view controller with multiple app login
-                for item in netIdApps {
-                    Logger.shared.debug(item + " will be added as option to the authorization ViewController")
-                }
-            } else {
-                //TODO return view controller with web login
-            }
-        } else {
-            //TODO return view controller with web login
+        if let authenticationViewController = authenticationHostingViewController {
+            return authenticationViewController
         }
-        return UIViewController()
+        let viewController: UIViewController
+        if let netIdApps = AuthorizationWayUtil.checkNetIdAuth() {
+            viewController = UIHostingController(rootView: AuthorizationView(delegate: self, appIdentifiers: netIdApps))
+        } else {
+            var authView = AuthorizationView()
+            authView.delegate = self
+            viewController = UIHostingController(rootView: authView)
+        }
+        authenticationHostingViewController = viewController
+        return viewController
     }
 
-    public func authorize(bundleIdentifier: String?, currentViewController: UIViewController) {
-        if let bundleIdentifier = bundleIdentifier {
-            if bundleIdentifier.isEmpty {
-                //TODO jump into app2app flow (deeplink?)
+    public func authorize(scheme: String?, currentViewController: UIViewController) {
+        if handleConnection(.Authentication) {
+            if let bundleIdentifier = scheme {
+                if !bundleIdentifier.isEmpty {
+                    Logger.shared.info("NetID Service will authorize via App2App.")
+                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(bundleIdentifier) {
+                        UIApplication.shared.open(url, completionHandler: { success in
+                            if success {
+                                Logger.shared.info("NetID Service successfully opened: \(url)")
+                            } else {
+                                Logger.shared.error("NetID Service could not open: \(url)")
+                            }
+                        })
+                    }
+                }
+            } else {
+                Logger.shared.info("NetID Service will authorize via web.")
+                appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
             }
+        }
+    }
+
+    public func endSession() {
+        Logger.shared.debug("NetID Service will end session.")
+        appAuthManager?.endSession()
+    }
+
+    public func fetchUserInfo() {
+        if handleConnection(.UserInfo) {
+            Logger.shared.info("NetID Service will fetch user info.")
+            appAuthManager?.fetchUserInfo()
+        }
+    }
+
+    private func handleConnection(_ process: NetIdErrorProcess) -> Bool {
+        if Reachability.hasConnection() {
+            Logger.shared.info("NetID Service Device has network connection.")
+            return true
         } else {
-            appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
+            Logger.shared.error("NetID Service device has no network connection.")
+            for item in netIdListener {
+                item.didEncounterNetworkError(NetIdError(code: .NetworkError, process: process))
+            }
+            return false
         }
     }
 }
 
 extension NetIdService: AppAuthManagerDelegate {
-    func didReceiveConfig() {
-
-    }
-
-    func didReceiveToken() {
-        if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
-            Logger.shared.debug("Received access token in NetIdService" + accessToken)
+    func didFinishInitializationWithError(_ error: NetIdError?) {
+        for item in netIdListener {
+            if let error = error {
+                Logger.shared.error("NetID Service initialization failed with error: " + error.code.rawValue)
+                item.didFinishInitializationWithError(error)
+            } else {
+                Logger.shared.info("NetID Service initialization finished")
+                item.didFinishInitializationWithError(nil)
+            }
         }
     }
 
-    func didReceiveError(process: NetIdErrorProcess) {
-        netIdListener[0].didReceiveError(NetIdError(code: .NoAuth, process: process))
+    func didFinishAuthenticationWithError(_ error: NetIdError?) {
+        for item in netIdListener {
+            if let error = error {
+                Logger.shared.error("NetID Service authentication failed with error: " + error.code.rawValue)
+                item.didFinishAuthenticationWithError(error)
+            } else {
+                if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
+                    Logger.shared.info("NetID Service received access token: " + accessToken)
+                    item.didFinishAuthentication(accessToken)
+                } else {
+                    let error = NetIdError(code: .NoAuth, process: .Authentication)
+                    Logger.shared.error("NetID Service authentication failed with error: " + error.code.rawValue)
+                    item.didFinishAuthenticationWithError(error)
+                }
+            }
+        }
+    }
+
+    func didEndSession() {
+        Logger.shared.info("NetID Service did end session")
+        for item in netIdListener {
+            item.didEndSession()
+        }
+    }
+
+    func didFetchUserInfo(_ userInfo: UserInfo) {
+        Logger.shared.info("NetID Service received user info")
+        for item in netIdListener {
+            item.didFetchUserInfo(userInfo)
+        }
+    }
+
+    func didFetchUserInfoWithError(_ error: NetIdError) {
+        Logger.shared.error("NetID Service user info fetch failed with error: " + error.code.rawValue)
+        for item in netIdListener {
+            item.didFetchUserInfoWithError(error)
+        }
+    }
+}
+
+extension NetIdService: AuthorizationViewDelegate {
+    public func didTapDismiss() {
+        authenticationHostingViewController?.dismiss(animated: true)
+        authenticationHostingViewController = nil
+        for item in netIdListener {
+            item.didCancelAuthentication(NetIdError(code: .AuthorizationCanceledByUser, process: .Authentication))
+        }
+    }
+
+    public func didTapContinue(bundleIdentifier: String?) {
+        if let presentingViewController = authenticationHostingViewController?.presentingViewController {
+            authenticationHostingViewController?.dismiss(animated: true)
+            authenticationHostingViewController = nil
+            if let scheme = bundleIdentifier {
+                if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme) {
+                    UIApplication.shared.open(url, completionHandler: { success in
+                        if success {
+                            Logger.shared.info("NetID Service successfully opened: \(url)")
+                        } else {
+                            Logger.shared.error("NetID Service could not open: \(url)")
+                        }
+                    })
+                }
+            } else {
+                NetIdService.sharedInstance.authorize(scheme: bundleIdentifier, currentViewController: presentingViewController)
+            }
+        }
     }
 }

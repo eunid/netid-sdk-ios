@@ -14,22 +14,8 @@
 
 import Foundation
 
-public enum NetIdErrorCode: String {
-    case Timeout,
-         NoAuth,
-         NetworkError,
-         JsonDeserializationError,
-         InvalidDiscoveryDocument,
-         Unknown,
-         AuthorizationCanceledByUser,
-         MissingBrowser,
-         InvalidRequest,
-         UnauthorizedClient,
-         AccessDenied,
-         UnsupportedResponseType,
-         InvalidScope,
-         ServerError,
-         TemporarilyUnavailable,
-         ClientError,
-         StateMismatch
+public protocol AuthorizationViewDelegate: AnyObject {
+    func didTapDismiss()
+
+    func didTapContinue(bundleIdentifier: String?)
 }
