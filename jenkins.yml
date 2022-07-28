@@ -1,3 +1,4 @@
+root: NetIdMobileSdk
 fastlane:
     xcode_version: 13
     project: NetIdMobileSdk.xcodeproj
