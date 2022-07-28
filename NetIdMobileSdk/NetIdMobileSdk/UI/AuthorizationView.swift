@@ -54,7 +54,7 @@ struct AuthorizationView: View {
                         .padding(.horizontal, 20)
             }
 
-            if appIdentifiers.isEmpty {
+//            if appIdentifiers.isEmpty {
                 Button {
                     delegate?.didTapContinue(bundleIdentifier: nil)
                 } label: {
@@ -68,7 +68,7 @@ struct AuthorizationView: View {
                         .background(Color.netIdGreenColor)
                         .cornerRadius(5)
                         .padding(.horizontal, 20)
-            }
+//            }
 
             Button {
                 delegate?.didTapDismiss()
