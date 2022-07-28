@@ -34,8 +34,6 @@ extension UIApplication {
                 .first
     }
 
-
-
     var visibleViewController: UIViewController? {
 
         guard let rootViewController = currentKeyWindow?.rootViewController else {
