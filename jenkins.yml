@@ -10,7 +10,7 @@ fastlane:
         test_scheme: NetIdMobileSdk
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
-        export_method: enterprise
+        export_method: app-store
         configuration: Release
     release:
       -
@@ -20,7 +20,7 @@ fastlane:
         test_scheme: NetIdMobileSdk
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
-        export_method: enterprise
+        export_method: app-store
         testflight:
           team_id: 8G463Z6GPS
 
