@@ -43,6 +43,7 @@ public struct UserInfo: Decodable, CustomStringConvertible {
 //    public let shippingAddress: ShippingAddress
     public let givenName: String
     public let familyName: String
+
 //    public let email: String
 
     private enum CodingKeys: String, CodingKey {

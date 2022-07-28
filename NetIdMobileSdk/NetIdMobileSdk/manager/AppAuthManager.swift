@@ -56,7 +56,7 @@ class AppAuthManager: NSObject {
                             if let authState = authState {
                                 self.authState = authState
                                 Logger.shared.debug("Got authorization tokens. Access token: " +
-                                        "\(authState.lastTokenResponse?.accessToken ?? "nil")")
+                                        "\(authState.lastTokenResponse?.idToken ?? "nil")")
                                 self.delegate?.didFinishAuthenticationWithError(nil)
                             } else {
                                 Logger.shared

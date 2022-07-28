@@ -30,11 +30,11 @@ struct AuthorizationView: View {
             Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
                     .multilineTextAlignment(.center)
                     .font(Font.ibmPlexSansSemiBold(size: 16))
-                    .foregroundColor(Color.authorizationTitleColor)
+                    .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
 
             Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
                     .font(Font.verdana(size: 12))
-                    .foregroundColor(Color.legalInfoColor)
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
 
@@ -55,19 +55,19 @@ struct AuthorizationView: View {
             }
 
 //            if appIdentifiers.isEmpty {
-                Button {
-                    delegate?.didTapContinue(bundleIdentifier: nil)
-                } label: {
-                    Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
-                            .kerning(1.25)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(Color.white)
-                            .font(Font.robotoMedium(size: 14))
-                }
-                        .padding(12)
-                        .background(Color.netIdGreenColor)
-                        .cornerRadius(5)
-                        .padding(.horizontal, 20)
+            Button {
+                delegate?.didTapContinue(bundleIdentifier: nil)
+            } label: {
+                Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
+                        .kerning(1.25)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color.white)
+                        .font(Font.robotoMedium(size: 14))
+            }
+                    .padding(12)
+                    .background(Color("netIdGreenColor", bundle: bundle))
+                    .cornerRadius(5)
+                    .padding(.horizontal, 20)
 //            }
 
             Button {
@@ -76,14 +76,15 @@ struct AuthorizationView: View {
                 Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(Color.closeButtonGrayColor)
+                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
                         .font(Font.robotoMedium(size: 14))
             }
                     .padding(12)
-                    .background(Color.white)
+                    .background(Color("closeButtonBackground", bundle: bundle))
                     .cornerRadius(5)
-                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.closeButtonGrayColor))
                     .padding(.horizontal, 20)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
+                            .padding(.horizontal, 20))
         }
     }
 }
