@@ -17,6 +17,7 @@ import SwiftUI
 struct AuthorizationView: View {
 
     var delegate: AuthorizationViewDelegate?
+    var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
     private let bundle = Bundle(for: NetIdService.self)
 
@@ -40,7 +41,7 @@ struct AuthorizationView: View {
 
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
-                    delegate?.didTapContinue(bundleIdentifier: result.iOS.scheme)
+                    delegate?.didTapContinue(destinationScheme: result.iOS.scheme, presentingViewController: presentingViewController)
                 } label: {
                     Text(result.name)
                             .kerning(1.25)
@@ -56,7 +57,7 @@ struct AuthorizationView: View {
 
 //            if appIdentifiers.isEmpty {
             Button {
-                delegate?.didTapContinue(bundleIdentifier: nil)
+                delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController)
             } label: {
                 Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
                         .kerning(1.25)
@@ -80,7 +81,6 @@ struct AuthorizationView: View {
                         .font(Font.robotoMedium(size: 14))
             }
                     .padding(12)
-                    .background(Color("closeButtonBackground", bundle: bundle))
                     .cornerRadius(5)
                     .padding(.horizontal, 20)
                     .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
@@ -93,10 +93,10 @@ struct AuthorizationView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            AuthorizationView()
-                    .onAppear {
-                        Font.loadCustomFonts()
-                    }
+//            AuthorizationView(UIViewController())
+//                    .onAppear {
+//                        Font.loadCustomFonts()
+//                    }
         }
     }
 }
