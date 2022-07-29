@@ -7,7 +7,7 @@ fastlane:
         branch: build
         scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
-        test_scheme: NetIdMobileSdk
+        test_scheme: NetIdMobileSdk-App
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
         export_method: app-store
@@ -16,7 +16,7 @@ fastlane:
         branch: build
         scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
-        test_scheme: NetIdMobileSdk
+        test_scheme: NetIdMobileSdk-App
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
         export_method: app-store
