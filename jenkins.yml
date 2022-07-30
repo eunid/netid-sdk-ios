@@ -1,24 +1,25 @@
+root: NetIdMobileSdk
 fastlane:
     xcode_version: 13
-    project: NetIdMobileSdk.xcworkspace
+    project: NetIdMobileSdk.xcodeproj
     build:
       - 
-        branch: main
-        scheme: NetIdMobileSdk/NetIdMobileSdk
+        branch: build
+        scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
-        test_scheme: NetIdMobileSdk
+          #        test_scheme: NetIdMobileSdk-App
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
-        export_method: enterprise
+        export_method: app-store
     release:
       -
-        branch: main
-        scheme: NetIdMobileSdk
+        branch: build
+        scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
-        test_scheme: NetIdMobileSdk
+          #        test_scheme: NetIdMobileSdk-App
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
-        export_method: enterprise
+        export_method: app-store
         testflight:
           team_id: 8G463Z6GPS
 
