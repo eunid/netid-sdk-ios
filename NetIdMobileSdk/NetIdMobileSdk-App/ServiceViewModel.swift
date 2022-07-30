@@ -28,6 +28,7 @@ class ServiceViewModel: NSObject, ObservableObject {
     @Published var userInfoStatusColor = Color.gray
 
     @Published var logText = "Logs:\n\n"
+    private var authenticationViewController: UIViewController?
 
     func initializeNetIdService() {
         initializationEnabled = false
@@ -40,11 +41,14 @@ class ServiceViewModel: NSObject, ObservableObject {
     }
 
     func authorizeNetIdService() {
+        let viewController: UIViewController
         authenticationEnabled = false
         if let currentViewController = UIApplication.shared.visibleViewController {
+            viewController = NetIdService.sharedInstance.getAuthorizationViewController(currentViewController: currentViewController)
             currentViewController.present(
-                    NetIdService.sharedInstance.getAuthorizationViewController(currentViewController: currentViewController),
+                    viewController,
                     animated: true)
+            authenticationViewController = viewController
         }
     }
 
@@ -73,6 +77,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
     }
 
     func didFinishAuthentication(_ accessToken: String) {
+        authenticationViewController?.dismiss(animated: true)
+        authenticationViewController = nil
         authenticationStatusColor = Color.green
         userInfoEnabled = true
         endSessionEnabled = true
@@ -80,6 +86,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
     }
 
     func didFinishAuthenticationWithError(_ error: NetIdError?) {
+        authenticationViewController?.dismiss(animated: true)
+        authenticationViewController = nil
         authenticationStatusColor = Color.red
         if let errorCode = error?.code.rawValue {
             authenticationStatusColor = Color.red
@@ -135,6 +143,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
 
     public func didCancelAuthentication(_ error: NetIdError) {
         logText.append("Net ID service user did cancel authentication in process: \(error.process)\n")
+        authenticationViewController?.dismiss(animated: true)
+        authenticationViewController = nil
         switch error.process {
         case .Configuration:
             initializationStatusColor = Color.yellow

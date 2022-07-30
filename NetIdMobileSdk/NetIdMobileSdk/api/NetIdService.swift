@@ -19,7 +19,6 @@ import SwiftUI
 open class NetIdService: NSObject {
 
     public static let sharedInstance = NetIdService()
-    private var authenticationHostingViewController: UIViewController?
     private var netIdConfig: NetIdConfig?
     private var netIdListener: [NetIdServiceDelegate] = []
     private var appAuthManager: AppAuthManager?
@@ -46,18 +45,11 @@ open class NetIdService: NSObject {
     }
 
     public func getAuthorizationViewController(currentViewController: UIViewController) -> UIViewController {
-        if let authenticationViewController = authenticationHostingViewController {
-            return authenticationViewController
-        }
         let viewController: UIViewController
-        if let netIdApps = AuthorizationWayUtil.checkNetIdAuth() {
-            viewController = UIHostingController(rootView: AuthorizationView(delegate: self, appIdentifiers: netIdApps))
-        } else {
-            var authView = AuthorizationView()
-            authView.delegate = self
-            viewController = UIHostingController(rootView: authView)
-        }
-        authenticationHostingViewController = viewController
+        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
+        viewController = UIHostingController(
+                rootView: AuthorizationView(delegate: self, presentingViewController: currentViewController,
+                        appIdentifiers: netIdApps ?? []))
         return viewController
     }
 
@@ -164,30 +156,25 @@ extension NetIdService: AppAuthManagerDelegate {
 
 extension NetIdService: AuthorizationViewDelegate {
     public func didTapDismiss() {
-        authenticationHostingViewController?.dismiss(animated: true)
-        authenticationHostingViewController = nil
         for item in netIdListener {
             item.didCancelAuthentication(NetIdError(code: .AuthorizationCanceledByUser, process: .Authentication))
         }
     }
 
-    public func didTapContinue(bundleIdentifier: String?) {
-        if let presentingViewController = authenticationHostingViewController?.presentingViewController {
-            authenticationHostingViewController?.dismiss(animated: true)
-            authenticationHostingViewController = nil
-            if let scheme = bundleIdentifier {
-                if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme) {
-                    UIApplication.shared.open(url, completionHandler: { success in
-                        if success {
-                            Logger.shared.info("NetID Service successfully opened: \(url)")
-                        } else {
-                            Logger.shared.error("NetID Service could not open: \(url)")
-                        }
-                    })
-                }
-            } else {
-                NetIdService.sharedInstance.authorize(scheme: bundleIdentifier, currentViewController: presentingViewController)
+    public func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController) {
+        if let scheme = destinationScheme {
+            //TODO discuss about the url scheme of the sdk using app
+            if let url = (AuthorizationWayUtil.createAuthorizeDeepLink("netIdExample", destinationScheme: scheme)) {
+                UIApplication.shared.open(url, completionHandler: { success in
+                    if success {
+                        Logger.shared.info("NetID Service successfully opened: \(url)")
+                    } else {
+                        Logger.shared.error("NetID Service could not open: \(url)")
+                    }
+                })
             }
+        } else {
+            NetIdService.sharedInstance.authorize(scheme: destinationScheme, currentViewController: presentingViewController)
         }
     }
 }

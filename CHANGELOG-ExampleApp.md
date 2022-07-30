@@ -6,9 +6,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 ### Added
-- Project setup
-- Integration of AppAuth library
-- NetIdService and related API functions
-- AppAuthManager for the library authentication communication  
-- Authorization UI 
-- Necessary App2App utilities 
+- Basic UI setup
+- Intgeration of NetIdMobileSdk
+- Web Authorization 

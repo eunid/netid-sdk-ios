@@ -13,9 +13,10 @@
 // limitations under the License.
 
 import Foundation
+import UIKit
 
 public protocol AuthorizationViewDelegate: AnyObject {
     func didTapDismiss()
 
-    func didTapContinue(bundleIdentifier: String?)
+    func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController)
 }

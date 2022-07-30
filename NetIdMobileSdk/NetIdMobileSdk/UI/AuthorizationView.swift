@@ -17,6 +17,7 @@ import SwiftUI
 struct AuthorizationView: View {
 
     var delegate: AuthorizationViewDelegate?
+    var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
     private let bundle = Bundle(for: NetIdService.self)
 
@@ -30,17 +31,17 @@ struct AuthorizationView: View {
             Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
                     .multilineTextAlignment(.center)
                     .font(Font.ibmPlexSansSemiBold(size: 16))
-                    .foregroundColor(Color.authorizationTitleColor)
+                    .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
 
             Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
                     .font(Font.verdana(size: 12))
-                    .foregroundColor(Color.legalInfoColor)
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
                     .multilineTextAlignment(.center)
                     .padding(.horizontal, 20)
 
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
-                    delegate?.didTapContinue(bundleIdentifier: result.iOS.scheme)
+                    delegate?.didTapContinue(destinationScheme: result.iOS.scheme, presentingViewController: presentingViewController)
                 } label: {
                     Text(result.name)
                             .kerning(1.25)
@@ -54,21 +55,21 @@ struct AuthorizationView: View {
                         .padding(.horizontal, 20)
             }
 
-            if appIdentifiers.isEmpty {
-                Button {
-                    delegate?.didTapContinue(bundleIdentifier: nil)
-                } label: {
-                    Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
-                            .kerning(1.25)
-                            .frame(maxWidth: .infinity)
-                            .foregroundColor(Color.white)
-                            .font(Font.robotoMedium(size: 14))
-                }
-                        .padding(12)
-                        .background(Color.netIdGreenColor)
-                        .cornerRadius(5)
-                        .padding(.horizontal, 20)
+//            if appIdentifiers.isEmpty {
+            Button {
+                delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController)
+            } label: {
+                Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
+                        .kerning(1.25)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color.white)
+                        .font(Font.robotoMedium(size: 14))
             }
+                    .padding(12)
+                    .background(Color("netIdGreenColor", bundle: bundle))
+                    .cornerRadius(5)
+                    .padding(.horizontal, 20)
+//            }
 
             Button {
                 delegate?.didTapDismiss()
@@ -76,14 +77,14 @@ struct AuthorizationView: View {
                 Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(Color.closeButtonGrayColor)
+                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
                         .font(Font.robotoMedium(size: 14))
             }
                     .padding(12)
-                    .background(Color.white)
                     .cornerRadius(5)
-                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color.closeButtonGrayColor))
                     .padding(.horizontal, 20)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
+                            .padding(.horizontal, 20))
         }
     }
 }
@@ -92,10 +93,10 @@ struct AuthorizationView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            AuthorizationView()
-                    .onAppear {
-                        Font.loadCustomFonts()
-                    }
+//            AuthorizationView(UIViewController())
+//                    .onAppear {
+//                        Font.loadCustomFonts()
+//                    }
         }
     }
 }

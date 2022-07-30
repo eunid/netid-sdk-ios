@@ -18,7 +18,7 @@ import UIKit
 class AuthorizationWayUtil {
     struct Constants {
         static let netIdAppIdentifiers = "netIdAppIdentifiers"
-        static let netIdAuthorizePath = "://netid_authorize"
+        static let netIdAuthorizePath = "://scheme?"
         static let jsonFileType = "json"
     }
 
@@ -28,6 +28,10 @@ class AuthorizationWayUtil {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let appIdentifiers: NetIdAppIdentifiers = try JSONDecoder().decode(NetIdAppIdentifiers.self, from: data)
                 var installedAppIdentifiers = [AppIdentifier]()
+//                installedAppIdentifiers.append(
+//                        AppIdentifier(id: 1, name: "Kortpress", backgroundColor: "#FFFFFFFF", foregroundColor: "#00000000", icon: "",
+//                                iOS: AppDetailsIOS(bundleIdentifier: "io.kortpress.app", scheme: "kort"),
+//                                android: AppDetailsAndroid(applicationId: "")))
                 for item in appIdentifiers.netIdAppIdentifiers {
                     if isAppInstalled(item.iOS.scheme) {
                         installedAppIdentifiers.append(item)
@@ -52,7 +56,7 @@ class AuthorizationWayUtil {
         }
     }
 
-    class func createAuthorizeDeepLink(_ scheme: String) -> URL? {
-        URL(string: scheme + Constants.netIdAuthorizePath)
+    class func createAuthorizeDeepLink(_ scheme: String, destinationScheme: String) -> URL? {
+        URL(string: destinationScheme + Constants.netIdAuthorizePath + scheme)
     }
 }
