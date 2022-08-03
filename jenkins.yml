@@ -4,7 +4,7 @@ fastlane:
     project: NetIdMobileSdk.xcodeproj
     build:
       - 
-        branch: build
+        branch: main
         scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
           #        test_scheme: NetIdMobileSdk-App
@@ -13,7 +13,7 @@ fastlane:
         export_method: app-store
     release:
       -
-        branch: build
+        branch: main
         scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
           #        test_scheme: NetIdMobileSdk-App
