@@ -53,12 +53,12 @@ open class NetIdService: NSObject {
         return viewController
     }
 
-    public func authorize(scheme: String?, currentViewController: UIViewController) {
+    public func authorize(destinationScheme: String?, currentViewController: UIViewController) {
         if handleConnection(.Authentication) {
-            if let bundleIdentifier = scheme {
-                if !bundleIdentifier.isEmpty {
+            if let scheme = destinationScheme, let originScheme = netIdConfig?.originUrlScheme {
+                if !scheme.isEmpty {
                     Logger.shared.info("NetID Service will authorize via App2App.")
-                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(bundleIdentifier) {
+                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme, originScheme: originScheme) {
                         UIApplication.shared.open(url, completionHandler: { success in
                             if success {
                                 Logger.shared.info("NetID Service successfully opened: \(url)")
@@ -162,19 +162,6 @@ extension NetIdService: AuthorizationViewDelegate {
     }
 
     public func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController) {
-        if let scheme = destinationScheme {
-            //TODO discuss about the url scheme of the sdk using app
-            if let url = (AuthorizationWayUtil.createAuthorizeDeepLink("netIdExample", destinationScheme: scheme)) {
-                UIApplication.shared.open(url, completionHandler: { success in
-                    if success {
-                        Logger.shared.info("NetID Service successfully opened: \(url)")
-                    } else {
-                        Logger.shared.error("NetID Service could not open: \(url)")
-                    }
-                })
-            }
-        } else {
-            NetIdService.sharedInstance.authorize(scheme: destinationScheme, currentViewController: presentingViewController)
-        }
+        authorize(destinationScheme: destinationScheme, currentViewController: presentingViewController)
     }
 }
