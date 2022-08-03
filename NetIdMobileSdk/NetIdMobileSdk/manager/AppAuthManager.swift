@@ -49,7 +49,7 @@ class AppAuthManager: NSObject {
            let redirectUri = NetIdService.sharedInstance.getNedIdConfig()?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
                 let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
-                        clientId: clientId.uuidString.lowercased(), scopes: [OIDScopeOpenID, OIDScopeProfile],
+                        clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, "permission_management"],
                         redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: nil)
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { authState, error in

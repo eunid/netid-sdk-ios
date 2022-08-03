@@ -12,3 +12,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - AppAuthManager for the library authentication communication  
 - Authorization UI 
 - Necessary App2App utilities 
+
+### Fixed
+- Url schemes error
