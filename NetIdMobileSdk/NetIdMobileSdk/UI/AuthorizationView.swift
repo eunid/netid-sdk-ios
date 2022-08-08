@@ -22,69 +22,70 @@ struct AuthorizationView: View {
     private let bundle = Bundle(for: NetIdService.self)
 
     var body: some View {
-        VStack(spacing: 10) {
-            Image("logo_net_id", bundle: bundle)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 100, height: 30, alignment: .center)
+            VStack(spacing: 10) {
+                Image("logo_net_id", bundle: bundle)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 100, height: 30, alignment: .center)
 
-            Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
-                    .multilineTextAlignment(.center)
-                    .font(Font.ibmPlexSansSemiBold(size: 16))
-                    .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
+                Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
+                        .multilineTextAlignment(.center)
+                        .font(Font.ibmPlexSansSemiBold(size: 16))
+                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
 
-            Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
-                    .font(Font.verdana(size: 12))
-                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
+                Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
+                        .font(Font.verdana(size: 12))
+                        .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, 20)
 
-            ForEach(appIdentifiers, id: \.id) { result in
+                ForEach(appIdentifiers, id: \.id) { result in
+                    Button {
+                        delegate?.didTapContinue(destinationScheme: result.iOS.scheme, presentingViewController: presentingViewController)
+                    } label: {
+                        Text(result.name)
+                                .kerning(1.25)
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(Color(hex: result.foregroundColor))
+                                .font(Font.robotoMedium(size: 14))
+                    }
+                            .padding(12)
+                            .background(Color(hex: result.backgroundColor))
+                            .cornerRadius(5)
+                            .padding(.horizontal, 20)
+                }
+
+//            if appIdentifiers.isEmpty {
                 Button {
-                    delegate?.didTapContinue(destinationScheme: result.iOS.scheme, presentingViewController: presentingViewController)
+                    delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController)
                 } label: {
-                    Text(result.name)
+                    Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
                             .kerning(1.25)
                             .frame(maxWidth: .infinity)
-                            .foregroundColor(Color(hex: result.foregroundColor))
+                            .foregroundColor(Color.white)
                             .font(Font.robotoMedium(size: 14))
                 }
                         .padding(12)
-                        .background(Color(hex: result.backgroundColor))
+                        .background(Color("netIdGreenColor", bundle: bundle))
                         .cornerRadius(5)
                         .padding(.horizontal, 20)
-            }
-
-//            if appIdentifiers.isEmpty {
-            Button {
-                delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController)
-            } label: {
-                Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
-                        .kerning(1.25)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color.white)
-                        .font(Font.robotoMedium(size: 14))
-            }
-                    .padding(12)
-                    .background(Color("netIdGreenColor", bundle: bundle))
-                    .cornerRadius(5)
-                    .padding(.horizontal, 20)
 //            }
 
-            Button {
-                delegate?.didTapDismiss()
-            } label: {
-                Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
-                        .kerning(1.25)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
-                        .font(Font.robotoMedium(size: 14))
-            }
-                    .padding(12)
-                    .cornerRadius(5)
-                    .padding(.horizontal, 20)
-                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
-                            .padding(.horizontal, 20))
+                Button {
+                    delegate?.didTapDismiss()
+                } label: {
+                    Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
+                            .kerning(1.25)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
+                            .font(Font.robotoMedium(size: 14))
+                }
+                        .padding(12)
+                        .cornerRadius(5)
+                        .padding(.horizontal, 20)
+                        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
+                                .padding(.horizontal, 20))
+            
         }
     }
 }
@@ -93,10 +94,10 @@ struct AuthorizationView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-//            AuthorizationView(UIViewController())
-//                    .onAppear {
-//                        Font.loadCustomFonts()
-//                    }
+            AuthorizationView(presentingViewController: UIViewController())
+                    .onAppear {
+                        Font.loadCustomFonts()
+                    }
         }
     }
 }

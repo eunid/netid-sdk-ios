@@ -41,13 +41,15 @@ class ServiceViewModel: NSObject, ObservableObject {
     func authorizeNetIdService() {
         let viewController: UIViewController
         authenticationEnabled = false
-        if let currentViewController = UIApplication.shared.visibleViewController {
+        /*if let currentViewController = UIApplication.shared.visibleViewController {
             viewController = NetIdService.sharedInstance.getAuthorizationViewController(currentViewController: currentViewController)
+            let testVC = BottomScreenViewController()
+            testVC.contentViewController = viewController
             currentViewController.present(
-                    viewController,
+                    testVC,
                     animated: true)
             authenticationViewController = viewController
-        }
+        }*/
     }
 
     func fetchUserInfo() {
@@ -58,6 +60,15 @@ class ServiceViewModel: NSObject, ObservableObject {
     func endSession() {
         endSessionEnabled = false
         NetIdService.sharedInstance.endSession()
+    }
+
+    @ViewBuilder
+    func testView() -> some View {
+        if let currentViewController = UIApplication.shared.visibleViewController {
+            NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController)
+        } else {
+            EmptyView()
+        }
     }
 }
 
