@@ -14,13 +14,21 @@
 
 import Foundation
 
-struct WebserviceConstants {
-    static let PROTOCOL = "https"
-    static let USER_INFO = "/userinfo"
-    static let AUTHORIZATION_HTTP_HEADER_KEY = "Authorization"
-    static let AUTHORIZATION_HTTP_HEADER_BEARER = "Bearer"
-    static let PERMISSION_READ_HOST = "einwilligungsspeicher.netid.de"
-    static let PERMISSION_READ_PATH = "/netid-user-status"
-    static let PERMISSION_WRITE_HOST = "einwilligen.netid.de"
-    static let PERMISSION_WRITE_PATH = "netid-permissions"
+public struct SubjectIdentifiers: Decodable, CustomStringConvertible {
+    public let tpId: String
+    public let syncId: String
+
+    public init(tpId: String, syncId: String) {
+        self.tpId = tpId
+        self.syncId = syncId
+    }
+
+    public var description: String {
+        "SubjectIdentifiers(tpId: \(tpId), syncId: \(syncId))"
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case tpId, syncId = "sync_id"
+    }
 }
+

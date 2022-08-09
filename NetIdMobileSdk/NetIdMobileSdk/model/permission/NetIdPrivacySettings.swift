@@ -14,13 +14,23 @@
 
 import Foundation
 
-struct WebserviceConstants {
-    static let PROTOCOL = "https"
-    static let USER_INFO = "/userinfo"
-    static let AUTHORIZATION_HTTP_HEADER_KEY = "Authorization"
-    static let AUTHORIZATION_HTTP_HEADER_BEARER = "Bearer"
-    static let PERMISSION_READ_HOST = "einwilligungsspeicher.netid.de"
-    static let PERMISSION_READ_PATH = "/netid-user-status"
-    static let PERMISSION_WRITE_HOST = "einwilligen.netid.de"
-    static let PERMISSION_WRITE_PATH = "netid-permissions"
+public struct NetIdPrivacySettings: Decodable, CustomStringConvertible {
+    public let type: String
+    public let status: NetIdPrivacySettingsStatus
+    public let changedAt: String
+
+    public init(type: String, status: NetIdPrivacySettingsStatus, changedAt: String) {
+        self.type = type
+        self.status = status
+        self.changedAt = changedAt
+    }
+
+    public var description: String {
+        "NetIdPrivacySettings(type: \(type), status: \(status), changedAt: \(changedAt))"
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case type, changedAt = "changed_at", status
+    }
 }
+

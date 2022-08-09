@@ -29,6 +29,7 @@ public enum NetIdErrorCode: String {
          UnsupportedResponseType,
          InvalidScope,
          ServerError,
+         InitializationError,
          TemporarilyUnavailable,
          ClientError,
          StateMismatch

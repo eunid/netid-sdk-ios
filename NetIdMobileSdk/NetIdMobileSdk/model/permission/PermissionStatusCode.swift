@@ -14,13 +14,11 @@
 
 import Foundation
 
-struct WebserviceConstants {
-    static let PROTOCOL = "https"
-    static let USER_INFO = "/userinfo"
-    static let AUTHORIZATION_HTTP_HEADER_KEY = "Authorization"
-    static let AUTHORIZATION_HTTP_HEADER_BEARER = "Bearer"
-    static let PERMISSION_READ_HOST = "einwilligungsspeicher.netid.de"
-    static let PERMISSION_READ_PATH = "/netid-user-status"
-    static let PERMISSION_WRITE_HOST = "einwilligen.netid.de"
-    static let PERMISSION_WRITE_PATH = "netid-permissions"
+public enum PermissionStatusCode: String, Decodable {
+    case PermissionFound = "PERMISSIONS_FOUND",
+         PermissionNotFound = "PERMISSIONS_NOT_FOUND",
+         NoToken = "NO_TOKEN",
+         TokenError = "TOKEN_ERROR",
+         TappNotAllowed = "TAPP_NOT_ALLOWED",
+         TpIdExistenceError = "TPID_EXISTENCE_ERROR"
 }

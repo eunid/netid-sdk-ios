@@ -15,17 +15,29 @@
 		2BEE602428883BC30064661C /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE602328883BC30064661C /* AuthorizationView.swift */; };
 		2BEE602628883D6D0064661C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BEE602528883D6D0064661C /* Assets.xcassets */; };
 		2FF2D05273895B8683B75C7F /* NetIdError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */; };
+		2FF2D07124814D55E681C261 /* PermissionWriteRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2871B43797DF762DCD2 /* PermissionWriteRequest.swift */; };
+		2FF2D0CD3808B50D25D1B8AD /* PermissionStatusCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D1CE61E9452DEBB58866 /* PermissionStatusCode.swift */; };
+		2FF2D0DA4DEFEAC02969C88C /* UserInfoManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DCFEC1AF2853D2812392 /* UserInfoManagerDelegate.swift */; };
+		2FF2D12C3AA65AEA15E46983 /* PermissionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DC03A6C9AD44E5152B0E /* PermissionManager.swift */; };
 		2FF2D173F158E9E547F1D6CC /* AuthorizationViewDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D5171B0C36947123F987 /* AuthorizationViewDelegate.swift */; };
 		2FF2D2CB682F57417BBDBAAC /* NetIdServiceDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */; };
 		2FF2D2F7E130CEDA49607E9C /* NetIdErrorCode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */; };
 		2FF2D3D113E89AC5C3BDC61D /* AppAuthManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */; };
+		2FF2D51C6A85BD6F4F4A5367 /* NetIdPermissionUpdate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D839B264A371F688A433 /* NetIdPermissionUpdate.swift */; };
 		2FF2D62D5B11D8FD4AFD0728 /* ReachabilityUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D776C2E10A28425C9BCB /* ReachabilityUtil.swift */; };
 		2FF2D689722CE99CF54C03F3 /* AppAuthManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DD44382CBB7F3DDF845B /* AppAuthManager.swift */; };
+		2FF2D70C6EE15BD089D863E6 /* NetIdPrivacySettingsStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D5ACFD7833CAA8E96AC9 /* NetIdPrivacySettingsStatus.swift */; };
 		2FF2D7369B75FA88C4468B64 /* UIApplication+NetIdMobileSdkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D165E3EDAF64CC7914F8 /* UIApplication+NetIdMobileSdkApp.swift */; };
+		2FF2D93DCB710D7871309E27 /* PermissionReadRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DED49E66568CF93D8BBF /* PermissionReadRequest.swift */; };
+		2FF2D94200ABDB66BFE26399 /* PermissionManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D52E656414D8EABA9039 /* PermissionManagerDelegate.swift */; };
+		2FF2DA6B611ACE824855236A /* UserInfoManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D634BBF8C729ECCA7627 /* UserInfoManager.swift */; };
+		2FF2DCFAF82847FCF1EFAE35 /* SubjectIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D7C7C109B00370863787 /* SubjectIdentifiers.swift */; };
 		2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */; };
 		2FF2DE0624C75427A6702D26 /* AuthorizationUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */; };
 		2FF2DE1C64DF1EB53AD4B0AF /* NetIdErrorProcess.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */; };
 		2FF2DE1D368A69BE44D9561A /* AppIdentifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D3B0995127D1DE754B73 /* AppIdentifier.swift */; };
+		2FF2DF0BF2003C7F25F8C3DF /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D35C9B8834AB4EFA1BF1 /* Permissions.swift */; };
+		2FF2DF84D3C97EC8FE2CD147 /* NetIdPrivacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DDE9240601DB041E2167 /* NetIdPrivacySettings.swift */; };
 		2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */; };
 		B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */; };
 		B661616D288E6AA8004F7ACB /* AppDetailsIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */; };
@@ -119,17 +131,29 @@
 		2BEE602528883D6D0064661C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthManagerDelegate.swift; sourceTree = "<group>"; };
 		2FF2D165E3EDAF64CC7914F8 /* UIApplication+NetIdMobileSdkApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+NetIdMobileSdkApp.swift"; sourceTree = "<group>"; };
+		2FF2D1CE61E9452DEBB58866 /* PermissionStatusCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionStatusCode.swift; sourceTree = "<group>"; };
 		2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdServiceDelegate.swift; sourceTree = "<group>"; };
+		2FF2D2871B43797DF762DCD2 /* PermissionWriteRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionWriteRequest.swift; sourceTree = "<group>"; };
 		2FF2D2CC9EABCA604E782588 /* NetIdConfig.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdConfig.swift; sourceTree = "<group>"; };
+		2FF2D35C9B8834AB4EFA1BF1 /* Permissions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Permissions.swift; sourceTree = "<group>"; };
 		2FF2D3B0995127D1DE754B73 /* AppIdentifier.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppIdentifier.swift; sourceTree = "<group>"; };
 		2FF2D5171B0C36947123F987 /* AuthorizationViewDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationViewDelegate.swift; sourceTree = "<group>"; };
+		2FF2D52E656414D8EABA9039 /* PermissionManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManagerDelegate.swift; sourceTree = "<group>"; };
+		2FF2D5ACFD7833CAA8E96AC9 /* NetIdPrivacySettingsStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdPrivacySettingsStatus.swift; sourceTree = "<group>"; };
+		2FF2D634BBF8C729ECCA7627 /* UserInfoManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoManager.swift; sourceTree = "<group>"; };
 		2FF2D776C2E10A28425C9BCB /* ReachabilityUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReachabilityUtil.swift; sourceTree = "<group>"; };
 		2FF2D788D37D2F0C3519DD4B /* NetIdError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdError.swift; sourceTree = "<group>"; };
+		2FF2D7C7C109B00370863787 /* SubjectIdentifiers.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubjectIdentifiers.swift; sourceTree = "<group>"; };
+		2FF2D839B264A371F688A433 /* NetIdPermissionUpdate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdPermissionUpdate.swift; sourceTree = "<group>"; };
 		2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdService.swift; sourceTree = "<group>"; };
 		2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorCode.swift; sourceTree = "<group>"; };
+		2FF2DC03A6C9AD44E5152B0E /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
+		2FF2DCFEC1AF2853D2812392 /* UserInfoManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoManagerDelegate.swift; sourceTree = "<group>"; };
 		2FF2DD44382CBB7F3DDF845B /* AppAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthManager.swift; sourceTree = "<group>"; };
+		2FF2DDE9240601DB041E2167 /* NetIdPrivacySettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdPrivacySettings.swift; sourceTree = "<group>"; };
 		2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorProcess.swift; sourceTree = "<group>"; };
 		2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthorizationUtil.swift; sourceTree = "<group>"; };
+		2FF2DED49E66568CF93D8BBF /* PermissionReadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionReadRequest.swift; sourceTree = "<group>"; };
 		B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebserviceConstants.swift; sourceTree = "<group>"; };
 		B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsIOS.swift; sourceTree = "<group>"; };
 		B661616E288E72C7004F7ACB /* NetIdAppIdentifiers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdAppIdentifiers.swift; sourceTree = "<group>"; };
@@ -245,6 +269,18 @@
 			path = UI;
 			sourceTree = "<group>";
 		};
+		2FF2D5A83A0672607675274F /* permission */ = {
+			isa = PBXGroup;
+			children = (
+				2FF2D35C9B8834AB4EFA1BF1 /* Permissions.swift */,
+				2FF2D1CE61E9452DEBB58866 /* PermissionStatusCode.swift */,
+				2FF2D7C7C109B00370863787 /* SubjectIdentifiers.swift */,
+				2FF2DDE9240601DB041E2167 /* NetIdPrivacySettings.swift */,
+				2FF2D5ACFD7833CAA8E96AC9 /* NetIdPrivacySettingsStatus.swift */,
+			);
+			path = permission;
+			sourceTree = "<group>";
+		};
 		2FF2D5C954FCEDDD092358ED /* assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -253,11 +289,24 @@
 			path = assets;
 			sourceTree = "<group>";
 		};
+		2FF2D6E684B7E98CF3231D49 /* permission */ = {
+			isa = PBXGroup;
+			children = (
+				2FF2DED49E66568CF93D8BBF /* PermissionReadRequest.swift */,
+				2FF2D2871B43797DF762DCD2 /* PermissionWriteRequest.swift */,
+			);
+			path = permission;
+			sourceTree = "<group>";
+		};
 		2FF2D7A7538FA596DA383263 /* manager */ = {
 			isa = PBXGroup;
 			children = (
 				2FF2DD44382CBB7F3DDF845B /* AppAuthManager.swift */,
 				2FF2D08AC0AE93B1824BCCF9 /* AppAuthManagerDelegate.swift */,
+				2FF2DC03A6C9AD44E5152B0E /* PermissionManager.swift */,
+				2FF2D52E656414D8EABA9039 /* PermissionManagerDelegate.swift */,
+				2FF2D634BBF8C729ECCA7627 /* UserInfoManager.swift */,
+				2FF2DCFEC1AF2853D2812392 /* UserInfoManagerDelegate.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -279,6 +328,7 @@
 				2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */,
 				2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */,
 				2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */,
+				2FF2D839B264A371F688A433 /* NetIdPermissionUpdate.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -293,6 +343,7 @@
 				B661617B288EDAB4004F7ACB /* UserInfo.swift */,
 				B661617D288EDB6F004F7ACB /* Address.swift */,
 				B661617F288EDBEB004F7ACB /* ShippingAddress.swift */,
+				2FF2D5A83A0672607675274F /* permission */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -412,6 +463,7 @@
 				D692AAFA685C38A14BB1B529 /* RequestQuery.swift */,
 				D692A9528B4B97FD743663AC /* HttpMethod.swift */,
 				D692A2C182E5BE8DD0DFD21D /* userInfo */,
+				2FF2D6E684B7E98CF3231D49 /* permission */,
 			);
 			path = request;
 			sourceTree = "<group>";
@@ -595,7 +647,7 @@
 			);
 			mainGroup = B66A07BB287D62C000A68E08;
 			packageReferences = (
-				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
+				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */,
 			);
 			productRefGroup = B66A07C6287D62C100A68E08 /* Products */;
 			projectDirPath = "";
@@ -691,6 +743,18 @@
 				2FF2D173F158E9E547F1D6CC /* AuthorizationViewDelegate.swift in Sources */,
 				D692A8322CFAC7BC42943585 /* Font+NetIdMobileSdk.swift in Sources */,
 				D692AD163D95176CBB95C38E /* Color+NetIdMobileSdk.swift in Sources */,
+				2FF2D93DCB710D7871309E27 /* PermissionReadRequest.swift in Sources */,
+				2FF2DF0BF2003C7F25F8C3DF /* Permissions.swift in Sources */,
+				2FF2D0CD3808B50D25D1B8AD /* PermissionStatusCode.swift in Sources */,
+				2FF2DCFAF82847FCF1EFAE35 /* SubjectIdentifiers.swift in Sources */,
+				2FF2DF84D3C97EC8FE2CD147 /* NetIdPrivacySettings.swift in Sources */,
+				2FF2D70C6EE15BD089D863E6 /* NetIdPrivacySettingsStatus.swift in Sources */,
+				2FF2D12C3AA65AEA15E46983 /* PermissionManager.swift in Sources */,
+				2FF2D94200ABDB66BFE26399 /* PermissionManagerDelegate.swift in Sources */,
+				2FF2D51C6A85BD6F4F4A5367 /* NetIdPermissionUpdate.swift in Sources */,
+				2FF2DA6B611ACE824855236A /* UserInfoManager.swift in Sources */,
+				2FF2D0DA4DEFEAC02969C88C /* UserInfoManagerDelegate.swift in Sources */,
+				2FF2D07124814D55E681C261 /* PermissionWriteRequest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1198,7 +1262,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
+		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
 			requirement = {
@@ -1211,12 +1275,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B6B22D222880276300F45264 /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
 			productName = AppAuth;
 		};
 		B6B22D242880276300F45264 /* AppAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
 			productName = AppAuthCore;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -30,4 +30,13 @@ public protocol NetIdServiceDelegate: AnyObject {
     func didEncounterNetworkError(_ error: NetIdError)
 
     func didCancelAuthentication(_ error: NetIdError)
+
+    func didFetchPermissions(_ permissions: Permissions)
+
+    func didFetchPermissionsWithError(_ error: NetIdError)
+
+    func didUpdatePermission()
+
+    func didUpdatePermissionWithError(_ error: NetIdError)
+
 }
