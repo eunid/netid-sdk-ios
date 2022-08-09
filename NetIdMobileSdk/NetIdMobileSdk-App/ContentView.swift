@@ -102,12 +102,26 @@ struct ContentView: View {
                         .disabled(!serviceViewModel.endSessionEnabled)
             }
                     .padding(.horizontal, 20)
-            
-            if serviceViewModel.authenticationEnabled {
-            VStack {
-                Spacer()
-                serviceViewModel.testView()
-            }.transition(.move(edge: .bottom))
+                    .zIndex(1)
+
+            if serviceViewModel.authorizationViewVisible {
+
+                Rectangle()
+                        .foregroundColor(Color.black.opacity(0.5))
+                        .ignoresSafeArea()
+                        .transition(.opacity)
+                        .zIndex(2)
+
+                VStack {
+                    Spacer()
+                    serviceViewModel.getAuthorizationView()
+                            .padding(.bottom, 20)
+                            .cornerRadius(12)
+                            .shadow(radius: 7)
+                }
+                        .transition(.move(edge: .bottom))
+                        .ignoresSafeArea()
+                        .zIndex(3)
             }
         }
     }

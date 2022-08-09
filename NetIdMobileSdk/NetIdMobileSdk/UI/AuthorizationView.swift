@@ -86,7 +86,9 @@ struct AuthorizationView: View {
                         .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
                                 .padding(.horizontal, 20))
             
-        }
+            }
+            .padding(.vertical, 20)
+            .background(Color.white)
     }
 }
 
