@@ -42,6 +42,8 @@ class PermissionWriteRequest: BaseRequest {
                 WebserviceConstants.AUTHORIZATION_HTTP_HEADER_BEARER + accessToken
         httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
                 WebserviceConstants.ACCEPT_HEADER_PERMISSION_WRITE
+        httpHeaderFields[WebserviceConstants.CONTENT_TYPE_HEADER_KEY] =
+                WebserviceConstants.CONTENT_TYPE_PERMISSION_WRITE
     }
 
     override func getScheme() -> String {
