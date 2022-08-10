@@ -44,6 +44,8 @@ open class NetIdService: NSObject {
             } else {
                 self.netIdConfig = netIdConfig
                 Font.loadCustomFonts()
+                userInfoManager = UserInfoManager(delegate: self)
+                permissionManager = PermissionManager(delegate: self)
                 appAuthManager = AppAuthManager(delegate: self)
                 appAuthManager?.fetchConfiguration(netIdConfig.host)
             }
@@ -123,7 +125,7 @@ open class NetIdService: NSObject {
     public func fetchPermissions() {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("NetID Service will fetch permissions.")
-            guard let accessToken = appAuthManager?.getIdToken() else {
+            guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
                     item.didFetchPermissionsWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
                 }
@@ -133,16 +135,16 @@ open class NetIdService: NSObject {
         }
     }
 
-    public func updatePermission() {
+    public func updatePermission(_ permission: NetIdPermissionUpdate) {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("NetID Service will update permission.")
-            guard let accessToken = appAuthManager?.getIdToken() else {
+            guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
                     item.didUpdatePermissionWithError(NetIdError(code: .NoAuth, process: .PermissionWrite))
                 }
                 return
             }
-            permissionManager?.updatePermissions(accessToken: accessToken)
+            permissionManager?.updatePermission(accessToken: accessToken, permission: permission)
         }
     }
 
@@ -226,12 +228,12 @@ extension NetIdService: PermissionManagerDelegate {
     public func didFetchPermissionsWithError(_ error: NetIdError) {
         Logger.shared.error("NetID Service permissions fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
-            item.didFetchUserInfoWithError(error)
+            item.didFetchPermissionsWithError(error)
         }
     }
 
-    public func didUpdatePermission() {
-        Logger.shared.info("NetID Service permission successfully updated.")
+    public func didUpdatePermission(_ permission: SubjectIdentifiers) {
+        Logger.shared.info("NetID Service permission successfully updated. \(permission)")
         for item in netIdListener {
             item.didUpdatePermission()
         }

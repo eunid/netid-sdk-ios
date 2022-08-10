@@ -20,7 +20,7 @@ import UIKit
  AppAuthManager is responsible for the communication to the AppAuth library.
  */
 class AppAuthManager: NSObject {
-    private var delegate: AppAuthManagerDelegate?
+    private weak var delegate: AppAuthManagerDelegate?
     private var authConfiguration: OIDServiceConfiguration?
     public var authState: OIDAuthState?
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
@@ -37,6 +37,13 @@ class AppAuthManager: NSObject {
 
     public func getIdToken() -> String? {
         authState?.lastTokenResponse?.idToken
+    }
+
+    public func getPermissionToken() -> String? {
+        guard let token = getIdToken() else {
+            return nil
+        }
+        return TokenUtil.getPermissionTokenFrom(token)
     }
 
     /**

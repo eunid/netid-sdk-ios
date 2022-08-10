@@ -15,8 +15,8 @@
 import Foundation
 
 public struct SubjectIdentifiers: Decodable, CustomStringConvertible {
-    public let tpId: String
-    public let syncId: String
+    public let tpId: String?
+    public let syncId: String?
 
     public init(tpId: String, syncId: String) {
         self.tpId = tpId
@@ -28,7 +28,7 @@ public struct SubjectIdentifiers: Decodable, CustomStringConvertible {
     }
 
     private enum CodingKeys: String, CodingKey {
-        case tpId, syncId = "sync_id"
+        case tpId = "tpid", syncId = "sync_id"
     }
 }
 

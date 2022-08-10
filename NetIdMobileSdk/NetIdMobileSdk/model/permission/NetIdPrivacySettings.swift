@@ -16,21 +16,23 @@ import Foundation
 
 public struct NetIdPrivacySettings: Decodable, CustomStringConvertible {
     public let type: String
-    public let status: NetIdPrivacySettingsStatus
+    public let status: NetIdPrivacySettingsStatus?
+    public let value: String?
     public let changedAt: String
 
-    public init(type: String, status: NetIdPrivacySettingsStatus, changedAt: String) {
+    public init(type: String, status: NetIdPrivacySettingsStatus, value: String, changedAt: String) {
         self.type = type
         self.status = status
+        self.value = value
         self.changedAt = changedAt
     }
 
     public var description: String {
-        "NetIdPrivacySettings(type: \(type), status: \(status), changedAt: \(changedAt))"
+        "NetIdPrivacySettings(type: \(type), status: \(status ?? NetIdPrivacySettingsStatus.invalid), value: \(value ?? ""), changedAt: \(changedAt))"
     }
 
     private enum CodingKeys: String, CodingKey {
-        case type, changedAt = "changed_at", status
+        case type, changedAt = "changed_at", value, status
     }
 }
 

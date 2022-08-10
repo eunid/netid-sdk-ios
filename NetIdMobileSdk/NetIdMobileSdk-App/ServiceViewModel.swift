@@ -52,7 +52,8 @@ class ServiceViewModel: NSObject, ObservableObject {
 
     func fetchUserInfo() {
         userInfoEnabled = false
-        NetIdService.sharedInstance.fetchUserInfo()
+//        NetIdService.sharedInstance.fetchUserInfo()
+        NetIdService.sharedInstance.fetchPermissions()
     }
 
     func endSession() {
@@ -124,6 +125,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
                 preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: NSLocalizedString("network_error_alert_action", comment: ""), style: .default) { _ in
             alert.dismiss(animated: true)
+
             switch error.process {
             case .Configuration:
                 self.initializationStatusColor = Color.red
@@ -134,6 +136,12 @@ extension ServiceViewModel: NetIdServiceDelegate {
             case .UserInfo:
                 self.userInfoStatusColor = Color.red
                 self.userInfoEnabled = true
+            case .PermissionRead:
+                //TODO
+                self.logText.append("")
+            case .PermissionWrite:
+                //TODO
+                self.logText.append("")
             }
         })
         UIApplication.shared.visibleViewController?.present(alert, animated: true)
@@ -153,6 +161,34 @@ extension ServiceViewModel: NetIdServiceDelegate {
         case .UserInfo:
             userInfoStatusColor = Color.yellow
             userInfoEnabled = true
+        case .PermissionRead:
+            //TODO
+            logText.append("")
+        case .PermissionWrite:
+            //TODO
+            logText.append("")
         }
+    }
+
+    public func didFetchPermissions(_ permissions: Permissions) {
+        logText.append("didFetchPermissions \(permissions.description) \n")
+        userInfoStatusColor = Color.yellow
+        userInfoEnabled = true
+
+        NetIdService.sharedInstance.updatePermission(NetIdPermissionUpdate(idConsent: "VALID", iabTc: "CPdfZIAPdfZIACnABCDECbCkAP_AAAAAAAYgIzJd9D7dbXFDefx_SPt0OYwW0NBXCuQCChSAA2AFVAOQcLQA02EaMATAhiACEQIAolIBAAEEHAFEAECQQIAEAAHsAgSEhAAKIAJEEBEQAAIQAAoKAAAAAAAIgAABoASAmBiQS5bmRUCAOIAQRgBIgggBCIADAgMBBEAIABgIAIIIgSgAAQAAAKIAAAAAARAAAASGgFABcAEMAPwAgoBaQEiAJ2AUiAxgBnwqASAEMAJgAXABHAEcALSAkEBeYDPh0EIABYAFQAMgAcgA-AEAALgAZAA0AB4AD6AIYAigBMACfAFwAXQAxABmADeAHMAPwAhgBLACYAE0AKMAUoAsQBbgDDAGiAPaAfgB-gEDAIoARaAjgCOgEpALEAWmAuYC6gF5AMUAbQA3ABxADnAHUAPQAi8BIICRAE7AKHAXmAwYBjADJAGVAMsAZmAz4BrADiwHjgPrAg0BDkhAbAAWABkAFwAQwAmABcADEAGYAN4AjgBSgCxAIoARwAlIBaQC5gGKANoAc4A6gB6AEggJEAScAz4B45KBAAAgABYAGQAOAAfAB4AEQAJgAXAAxABmADaAIYARwAowBSgC3AH4ARwAk4BaQC6gGKANwAdQBF4CRAF5gMsAZ8A1gCGoSBeAAgABYAFQAMgAcgA8AEAAMgAaAA8gCGAIoATAAngBvADmAH4AQgAhgBHACWAE0AKUAW4AwwB7QD8AP0AgYBFICNAI4ASkAuYBigDaAG4AOIAegBIgCdgFDgKRAXmAwYBkgDPoGsAayA4IB44EOREAYAQwA_AEiAJ2AUiAz4ZAHACGAEwARwBHAEnALzAZ8UgXAALAAqABkADkAHwAgABkADQAHkAQwBFACYAE8AKQAYgAzABzAD8AIYAUYApQBYgC3AGjAPwA_QCLQEcAR0AlIBcwC8gGKANoAbgA9ACLwEiAJOATsAocBeYDGAGSAMsAZ9A1gDWQHBAPHAhm.f_gAAAAAAsgA"))
+    }
+
+    public func didFetchPermissionsWithError(_ error: NetIdError) {
+        logText.append("didFetchPermissionsWithError \(error.code.rawValue)\n" )
+        userInfoStatusColor = Color.red
+        userInfoEnabled = true
+    }
+
+    public func didUpdatePermission() {
+        logText.append("didUpdatePermission \n")
+    }
+
+    public func didUpdatePermissionWithError(_ error: NetIdError) {
+        logText.append("didUpdatePermissionWithError \n")
     }
 }

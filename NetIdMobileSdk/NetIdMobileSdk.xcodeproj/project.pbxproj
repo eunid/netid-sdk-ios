@@ -39,6 +39,7 @@
 		2FF2DF0BF2003C7F25F8C3DF /* Permissions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D35C9B8834AB4EFA1BF1 /* Permissions.swift */; };
 		2FF2DF84D3C97EC8FE2CD147 /* NetIdPrivacySettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DDE9240601DB041E2167 /* NetIdPrivacySettings.swift */; };
 		2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2D8630B9D6FE3DCEB3302 /* NetIdService.swift */; };
+		2FF2DFFE114C6D70A434BC39 /* TokenUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DD075006EF80455D773B /* TokenUtil.swift */; };
 		B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */; };
 		B661616D288E6AA8004F7ACB /* AppDetailsIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */; };
 		B661616F288E72C7004F7ACB /* NetIdAppIdentifiers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661616E288E72C7004F7ACB /* NetIdAppIdentifiers.swift */; };
@@ -149,6 +150,7 @@
 		2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorCode.swift; sourceTree = "<group>"; };
 		2FF2DC03A6C9AD44E5152B0E /* PermissionManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionManager.swift; sourceTree = "<group>"; };
 		2FF2DCFEC1AF2853D2812392 /* UserInfoManagerDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserInfoManagerDelegate.swift; sourceTree = "<group>"; };
+		2FF2DD075006EF80455D773B /* TokenUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TokenUtil.swift; sourceTree = "<group>"; };
 		2FF2DD44382CBB7F3DDF845B /* AppAuthManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppAuthManager.swift; sourceTree = "<group>"; };
 		2FF2DDE9240601DB041E2167 /* NetIdPrivacySettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdPrivacySettings.swift; sourceTree = "<group>"; };
 		2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NetIdErrorProcess.swift; sourceTree = "<group>"; };
@@ -476,6 +478,7 @@
 				2FF2DE27C6825AECD022A6A7 /* AuthorizationUtil.swift */,
 				D692AEA622C9D0187769924E /* LocalizableUtil.swift */,
 				2FF2D776C2E10A28425C9BCB /* ReachabilityUtil.swift */,
+				2FF2DD075006EF80455D773B /* TokenUtil.swift */,
 			);
 			path = util;
 			sourceTree = "<group>";
@@ -755,6 +758,7 @@
 				2FF2DA6B611ACE824855236A /* UserInfoManager.swift in Sources */,
 				2FF2D0DA4DEFEAC02969C88C /* UserInfoManagerDelegate.swift in Sources */,
 				2FF2D07124814D55E681C261 /* PermissionWriteRequest.swift in Sources */,
+				2FF2DFFE114C6D70A434BC39 /* TokenUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
