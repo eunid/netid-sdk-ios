@@ -22,6 +22,8 @@ class ServiceViewModel: NSObject, ObservableObject {
     @Published var authenticationEnabled = false
     @Published var userInfoEnabled = false
     @Published var endSessionEnabled = false
+    @Published var fetchPermissionsEnabled = false
+    @Published var updatePermissionEnabled = false
 
     @Published var authorizationViewVisible = false
 
@@ -49,6 +51,16 @@ class ServiceViewModel: NSObject, ObservableObject {
     func fetchUserInfo() {
         userInfoEnabled = false
         NetIdService.sharedInstance.fetchUserInfo()
+    }
+
+    func fetchPermissions() {
+        fetchPermissionsEnabled = false
+        NetIdService.sharedInstance.fetchPermissions()
+    }
+
+    func updatePermission() {
+        updatePermissionEnabled = false
+        NetIdService.sharedInstance.updatePermission(NetIdPermissionUpdate(idConsent: "", iabTc: ""))
     }
 
     func endSession() {
@@ -86,6 +98,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
         authenticationStatusColor = Color.green
         userInfoEnabled = true
         endSessionEnabled = true
+        updatePermissionEnabled = true
+        fetchPermissionsEnabled = true
         logText.append("Net ID service authorized successfully\n" + accessToken + "\n")
     }
 
@@ -179,21 +193,21 @@ extension ServiceViewModel: NetIdServiceDelegate {
 
     public func didFetchPermissions(_ permissions: Permissions) {
         logText.append("didFetchPermissions \(permissions.description) \n")
-        userInfoStatusColor = Color.yellow
-        userInfoEnabled = true
+        fetchPermissionsEnabled = true
     }
 
     public func didFetchPermissionsWithError(_ error: NetIdError) {
-        logText.append("didFetchPermissionsWithError \(error.code.rawValue)\n" )
-        userInfoStatusColor = Color.red
-        userInfoEnabled = true
+        logText.append("didFetchPermissionsWithError \(error.code.rawValue)\n")
+        fetchPermissionsEnabled = true
     }
 
     public func didUpdatePermission() {
         logText.append("didUpdatePermission \n")
+        updatePermissionEnabled = true
     }
 
     public func didUpdatePermissionWithError(_ error: NetIdError) {
         logText.append("didUpdatePermissionWithError \(error.code.rawValue)\n")
+        updatePermissionEnabled = true
     }
 }
