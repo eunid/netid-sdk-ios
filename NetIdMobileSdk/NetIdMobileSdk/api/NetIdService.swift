@@ -44,13 +44,9 @@ open class NetIdService: NSObject {
         netIdConfig
     }
 
-    public func getAuthorizationViewController(currentViewController: UIViewController) -> UIViewController {
-        let viewController: UIViewController
+    public func getAuthorizationView(currentViewController: UIViewController) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
-        viewController = UIHostingController(
-                rootView: AuthorizationView(delegate: self, presentingViewController: currentViewController,
-                        appIdentifiers: netIdApps ?? []))
-        return viewController
+        return AuthorizationView(delegate: self, presentingViewController: currentViewController, appIdentifiers: netIdApps)
     }
 
     public func authorize(destinationScheme: String?, currentViewController: UIViewController) {

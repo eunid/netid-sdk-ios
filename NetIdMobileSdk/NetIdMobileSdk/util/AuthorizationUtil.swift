@@ -22,27 +22,24 @@ class AuthorizationWayUtil {
         static let jsonFileType = "json"
     }
 
-    class func checkNetIdAuth() -> [AppIdentifier]? {
+    class func checkNetIdAuth() -> [AppIdentifier] {
+        var installedAppIdentifiers = [AppIdentifier]()
+
         if let path = Bundle(for: self).path(forResource: Constants.netIdAppIdentifiers, ofType: Constants.jsonFileType) {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let appIdentifiers: NetIdAppIdentifiers = try JSONDecoder().decode(NetIdAppIdentifiers.self, from: data)
-                var installedAppIdentifiers = [AppIdentifier]()
-//                installedAppIdentifiers.append(
-//                        AppIdentifier(id: 1, name: "Kortpress", backgroundColor: "#FFFFFFFF", foregroundColor: "#00000000", icon: "",
-//                                iOS: AppDetailsIOS(bundleIdentifier: "io.kortpress.app", scheme: "kort"),
-//                                android: AppDetailsAndroid(applicationId: "")))
+
                 for item in appIdentifiers.netIdAppIdentifiers {
                     if isAppInstalled(item.iOS.scheme) {
                         installedAppIdentifiers.append(item)
                     }
                 }
-                return installedAppIdentifiers
             } catch {
                 Logger.shared.error("App identifier json parse error")
             }
         }
-        return nil
+        return installedAppIdentifiers
     }
 
     class func isAppInstalled(_ urlScheme: String) -> Bool {
