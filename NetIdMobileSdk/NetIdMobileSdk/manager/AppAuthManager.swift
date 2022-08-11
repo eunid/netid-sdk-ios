@@ -16,17 +16,40 @@ import Foundation
 import AppAuth
 import UIKit
 
+/**
+ AppAuthManager is responsible for the communication to the AppAuth library.
+ */
 class AppAuthManager: NSObject {
-    private var delegate: AppAuthManagerDelegate?
+    private weak var delegate: AppAuthManagerDelegate?
     private var authConfiguration: OIDServiceConfiguration?
     public var authState: OIDAuthState?
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
+    public let permissionManagementScope = "permission_management"
 
     init(delegate: AppAuthManagerDelegate?) {
         self.delegate = delegate
         super.init()
     }
 
+    public func getAccessToken() -> String? {
+         authState?.lastTokenResponse?.accessToken
+    }
+
+    public func getIdToken() -> String? {
+        authState?.lastTokenResponse?.idToken
+    }
+
+    public func getPermissionToken() -> String? {
+        guard let token = getIdToken() else {
+            return nil
+        }
+        return TokenUtil.getPermissionTokenFrom(token)
+    }
+
+    /**
+     Fetches the discovery document which includes the configuration for the authentication endpoints.
+     - Parameter host: server address
+     */
     public func fetchConfiguration(_ host: String) {
         var urlComponents = URLComponents()
         urlComponents.host = host
@@ -44,12 +67,16 @@ class AppAuthManager: NSObject {
         }
     }
 
+    /**
+     Starts the web authorization process.
+     - Parameter presentingViewController: needed to present the authorization WebView
+     */
     public func authorizeWeb(presentingViewController: UIViewController) {
         if let serviceConfiguration = authConfiguration, let clientId = NetIdService.sharedInstance.getNedIdConfig()?.clientId,
            let redirectUri = NetIdService.sharedInstance.getNedIdConfig()?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
                 let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
-                        clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, "permission_management"],
+                        clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, permissionManagementScope],
                         redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: nil)
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { authState, error in
@@ -67,27 +94,6 @@ class AppAuthManager: NSObject {
                             }
                         }
             }
-        }
-    }
-
-    public func fetchUserInfo() {
-        if let host = NetIdService.sharedInstance.getNedIdConfig()?.host, let accessToken = authState?.lastTokenResponse?.accessToken {
-            let userInfoRequest = UserInfoRequest(host: host, accessToken: accessToken)
-            Webservice.shared.performRequest(userInfoRequest, callback: { data, error in
-                guard let data = data else {
-                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .Unknown, process: .UserInfo)
-                    )
-                    return
-                }
-
-                if let userInfo = try? JSONDecoder().decode(UserInfo.self, from: data) {
-                    self.delegate?.didFetchUserInfo(userInfo)
-                } else {
-                    self.delegate?.didFetchUserInfoWithError(NetIdError(code: .JsonDeserializationError, process: .UserInfo))
-                }
-            })
-        } else {
-            delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .UserInfo))
         }
     }
 

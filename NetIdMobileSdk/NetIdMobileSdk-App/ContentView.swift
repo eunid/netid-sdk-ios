@@ -82,6 +82,42 @@ struct ContentView: View {
                 }
                         .padding(.horizontal, 20)
 
+                Text("permission_management_title")
+                        .padding()
+                        .font(.body)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+
+                HStack(alignment: .center, spacing: 25) {
+                    Button {
+                        serviceViewModel.fetchPermissions()
+                    } label: {
+                        Text("fetch_permissions_button_title")
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(serviceViewModel.fetchPermissionsEnabled ? Color.white : Color.gray)
+                    }
+                            .padding(10)
+                            .background(Color.orange)
+                            .cornerRadius(5)
+                            .disabled(!serviceViewModel.fetchPermissionsEnabled)
+                    Button {
+                        serviceViewModel.updatePermission()
+                    } label: {
+                        Text("update_permission_button_title")
+                                .frame(maxWidth: .infinity)
+                                .foregroundColor(serviceViewModel.updatePermissionEnabled ? Color.white : Color.gray)
+                    }
+                            .padding(10)
+                            .background(Color.orange)
+                            .cornerRadius(5)
+                            .disabled(!serviceViewModel.updatePermissionEnabled)
+                }
+                        .padding(.horizontal, 20)
+
+                Text("log_text_title")
+                        .padding()
+                        .font(.body)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+
                 ScrollView {
                     Text(serviceViewModel.logText)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

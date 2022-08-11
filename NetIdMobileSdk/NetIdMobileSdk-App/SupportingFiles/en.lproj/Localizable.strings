@@ -20,3 +20,7 @@
 "network_error_alert_title" = "Netzwerkfehler";
 "network_error_alert_description" = "Bitte stelle sicher, dass eine Netzwerkverbindung besteht.";
 "network_error_alert_action" = "Verstanden";
+"permission_management_title" = "Permission Management";
+"update_permission_button_title" = "Permission aktualisieren";
+"fetch_permissions_button_title" = "Permissions laden";
+"log_text_title" = "Logs:";

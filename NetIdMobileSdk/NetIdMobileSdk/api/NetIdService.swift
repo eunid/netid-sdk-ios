@@ -22,11 +22,21 @@ open class NetIdService: NSObject {
     private var netIdConfig: NetIdConfig?
     private var netIdListener: [NetIdServiceDelegate] = []
     private var appAuthManager: AppAuthManager?
+    private var userInfoManager: UserInfoManager?
+    private var permissionManager: PermissionManager?
 
+    /**
+      Registers a new listener of type NetIdServiceDelegate
+     - Parameter listener: the new listener
+     */
     public func registerListener(_ listener: NetIdServiceDelegate) {
         netIdListener.append(listener)
     }
 
+    /**
+     Initializes the SDK and load the authentication configuration document.
+     - Parameter netIdConfig: the client configuration of type ``NetIdConfig``.
+     */
     public func initialize(_ netIdConfig: NetIdConfig) {
         if handleConnection(.Configuration) {
             if self.netIdConfig != nil {
@@ -34,16 +44,27 @@ open class NetIdService: NSObject {
             } else {
                 self.netIdConfig = netIdConfig
                 Font.loadCustomFonts()
+                userInfoManager = UserInfoManager(delegate: self)
+                permissionManager = PermissionManager(delegate: self)
                 appAuthManager = AppAuthManager(delegate: self)
                 appAuthManager?.fetchConfiguration(netIdConfig.host)
             }
         }
     }
 
+    /**
+     Provides the currently stored NetIdConfig.
+     - Returns:
+     */
     public func getNedIdConfig() -> NetIdConfig? {
         netIdConfig
     }
 
+    /**
+     Provides the view controller
+     - Parameter currentViewController:
+     - Returns:
+     */
     public func getAuthorizationView(currentViewController: UIViewController) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         return AuthorizationView(delegate: self, presentingViewController: currentViewController, appIdentifiers: netIdApps)
@@ -79,7 +100,47 @@ open class NetIdService: NSObject {
     public func fetchUserInfo() {
         if handleConnection(.UserInfo) {
             Logger.shared.info("NetID Service will fetch user info.")
-            appAuthManager?.fetchUserInfo()
+            guard let accessToken = appAuthManager?.getAccessToken() else {
+                for item in netIdListener {
+                    Logger.shared.error("NetID Service is unable to fetch user info caused by missing authentication.")
+                    item.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
+                }
+                return
+            }
+            guard let host = netIdConfig?.host else {
+                for item in netIdListener {
+                    Logger.shared.error("NetID Service is unable to fetch user info caused by missing server host information.")
+                    item.didFetchUserInfoWithError(NetIdError(code: .InitializationError, process: .PermissionRead))
+                }
+                return
+            }
+            userInfoManager?.fetchUserInfo(host: host, accessToken: accessToken)
+        }
+    }
+
+    public func fetchPermissions(collapseSyncId: Bool = true) {
+        if handleConnection(.PermissionRead) {
+            Logger.shared.info("NetID Service will fetch permissions.")
+            guard let accessToken = appAuthManager?.getPermissionToken() else {
+                for item in netIdListener {
+                    item.didFetchPermissionsWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
+                }
+                return
+            }
+            permissionManager?.fetchPermissions(accessToken: accessToken, collapseSyncId: collapseSyncId)
+        }
+    }
+
+    public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {
+        if handleConnection(.PermissionRead) {
+            Logger.shared.info("NetID Service will update permission.")
+            guard let accessToken = appAuthManager?.getPermissionToken() else {
+                for item in netIdListener {
+                    item.didUpdatePermissionWithError(NetIdError(code: .NoAuth, process: .PermissionWrite))
+                }
+                return
+            }
+            permissionManager?.updatePermission(accessToken: accessToken, permission: permission, collapseSyncId: collapseSyncId)
         }
     }
 
@@ -134,7 +195,9 @@ extension NetIdService: AppAuthManagerDelegate {
             item.didEndSession()
         }
     }
+}
 
+extension NetIdService: UserInfoManagerDelegate {
     func didFetchUserInfo(_ userInfo: UserInfo) {
         Logger.shared.info("NetID Service received user info")
         for item in netIdListener {
@@ -146,6 +209,36 @@ extension NetIdService: AppAuthManagerDelegate {
         Logger.shared.error("NetID Service user info fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
             item.didFetchUserInfoWithError(error)
+        }
+    }
+}
+
+extension NetIdService: PermissionManagerDelegate {
+    public func didFetchPermissions(_ permissions: Permissions) {
+        Logger.shared.info("NetID Service received permissions.")
+        for item in netIdListener {
+            item.didFetchPermissions(permissions)
+        }
+    }
+
+    public func didFetchPermissionsWithError(_ error: NetIdError) {
+        Logger.shared.error("NetID Service permissions fetch failed with error: " + error.code.rawValue)
+        for item in netIdListener {
+            item.didFetchPermissionsWithError(error)
+        }
+    }
+
+    public func didUpdatePermission(_ permission: SubjectIdentifiers) {
+        Logger.shared.info("NetID Service permission successfully updated. \(permission)")
+        for item in netIdListener {
+            item.didUpdatePermission()
+        }
+    }
+
+    public func didUpdatePermissionWithError(_ error: NetIdError) {
+        Logger.shared.error("NetID Service permission update failed with error: " + error.code.rawValue)
+        for item in netIdListener {
+            item.didUpdatePermissionWithError(error)
         }
     }
 }

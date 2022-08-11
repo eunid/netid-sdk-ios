@@ -12,15 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"net_id_service_title" = "NetID Service";
-"initialize_button_title" = "Service initialisieren";
-"authorize_button_title" = "Authorisieren";
-"user_info_button_title" = "UserInfo laden";
-"end_session_button_title" = "Session beenden";
-"network_error_alert_title" = "Netzwerkfehler";
-"network_error_alert_description" = "Bitte stelle sicher, dass eine Netzwerkverbindung besteht.";
-"network_error_alert_action" = "Verstanden";
-"permission_management_title" = "Permission Management";
-"update_permission_button_title" = "Aktualisieren";
-"fetch_permissions_button_title" = "Laden";
-"log_text_title" = "Logs:";
+import Foundation
+
+public struct SubjectIdentifiers: Decodable, CustomStringConvertible {
+    public let tpId: String?
+    public let syncId: String?
+
+    public init(tpId: String, syncId: String) {
+        self.tpId = tpId
+        self.syncId = syncId
+    }
+
+    public var description: String {
+        "SubjectIdentifiers(tpId: \(tpId), syncId: \(syncId))"
+    }
+
+    private enum CodingKeys: String, CodingKey {
+        case tpId = "tpid", syncId = "sync_id"
+    }
+}
+

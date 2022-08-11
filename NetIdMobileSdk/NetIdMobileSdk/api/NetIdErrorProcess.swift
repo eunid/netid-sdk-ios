@@ -17,5 +17,7 @@ import Foundation
 public enum NetIdErrorProcess {
     case Configuration,
          Authentication,
-         UserInfo
+         UserInfo,
+         PermissionRead,
+         PermissionWrite
 }
