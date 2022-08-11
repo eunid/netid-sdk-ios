@@ -22,8 +22,8 @@ class PermissionManager: NSObject {
         super.init()
     }
 
-    public func fetchPermissions(accessToken: String) {
-        let permissionReadRequest = PermissionReadRequest(accessToken: accessToken)
+    public func fetchPermissions(accessToken: String, collapseSyncId: Bool) {
+        let permissionReadRequest = PermissionReadRequest(accessToken: accessToken, collapseSyncId: collapseSyncId)
         Webservice.shared.performRequest(permissionReadRequest, callback: { data, error in
             guard let data = data else {
                 self.delegate?.didFetchPermissionsWithError(NetIdError(code: .Unknown, process: .PermissionRead))
@@ -38,8 +38,9 @@ class PermissionManager: NSObject {
         })
     }
 
-    public func updatePermission(accessToken: String, permission: NetIdPermissionUpdate) {
-        let permissionWriteRequest = PermissionWriteRequest(accessToken: accessToken, permission: permission)
+    public func updatePermission(accessToken: String, permission: NetIdPermissionUpdate, collapseSyncId: Bool) {
+        let permissionWriteRequest = PermissionWriteRequest(accessToken: accessToken, permission: permission,
+                collapseSyncId: collapseSyncId)
         Webservice.shared.performRequest(permissionWriteRequest, callback: { data, error in
             guard let data = data else {
                 self.delegate?.didUpdatePermissionWithError(NetIdError(code: .Unknown, process: .PermissionRead))

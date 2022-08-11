@@ -18,10 +18,12 @@ class PermissionWriteRequest: BaseRequest {
 
     private let accessToken: String
     private let permission: NetIdPermissionUpdate
+    private let collapseSyncId: Bool
 
-    init(accessToken: String, permission: NetIdPermissionUpdate) {
+    init(accessToken: String, permission: NetIdPermissionUpdate, collapseSyncId: Bool) {
         self.accessToken = accessToken
         self.permission = permission
+        self.collapseSyncId = collapseSyncId
         super.init()
     }
 
@@ -40,8 +42,13 @@ class PermissionWriteRequest: BaseRequest {
     override func addHttpHeaderFields(_ httpHeaderFields: inout [String: String]) {
         httpHeaderFields[WebserviceConstants.AUTHORIZATION_HTTP_HEADER_KEY] =
                 WebserviceConstants.AUTHORIZATION_HTTP_HEADER_BEARER + accessToken
-        httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
-                WebserviceConstants.ACCEPT_HEADER_PERMISSION_WRITE
+        if collapseSyncId {
+            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
+                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_WRITE
+        } else {
+            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
+                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_WRITE_AUDIT
+        }
         httpHeaderFields[WebserviceConstants.CONTENT_TYPE_HEADER_KEY] =
                 WebserviceConstants.CONTENT_TYPE_PERMISSION_WRITE
     }

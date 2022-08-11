@@ -113,6 +113,11 @@ struct ContentView: View {
                 }
                         .padding(.horizontal, 20)
 
+                Text("log_text_title")
+                        .padding()
+                        .font(.body)
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+
                 ScrollView {
                     Text(serviceViewModel.logText)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)

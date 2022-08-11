@@ -17,9 +17,11 @@ import Foundation
 class PermissionReadRequest: BaseRequest {
 
     private let accessToken: String
+    private let collapseSyncId: Bool
 
-    init(accessToken: String) {
+    init(accessToken: String, collapseSyncId: Bool) {
         self.accessToken = accessToken
+        self.collapseSyncId = collapseSyncId
         super.init()
     }
 
@@ -30,8 +32,13 @@ class PermissionReadRequest: BaseRequest {
     override func addHttpHeaderFields(_ httpHeaderFields: inout [String: String]) {
         httpHeaderFields[WebserviceConstants.AUTHORIZATION_HTTP_HEADER_KEY] =
                 WebserviceConstants.AUTHORIZATION_HTTP_HEADER_BEARER + accessToken
-        httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
-                WebserviceConstants.ACCEPT_HEADER_PERMISSION_READ
+        if collapseSyncId {
+            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
+                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_READ
+        } else {
+            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
+                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_READ_AUDIT
+        }
     }
 
     override func getScheme() -> String {

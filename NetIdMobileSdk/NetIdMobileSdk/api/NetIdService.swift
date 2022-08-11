@@ -118,7 +118,7 @@ open class NetIdService: NSObject {
         }
     }
 
-    public func fetchPermissions() {
+    public func fetchPermissions(collapseSyncId: Bool = true) {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("NetID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
@@ -127,11 +127,11 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            permissionManager?.fetchPermissions(accessToken: accessToken)
+            permissionManager?.fetchPermissions(accessToken: accessToken, collapseSyncId: collapseSyncId)
         }
     }
 
-    public func updatePermission(_ permission: NetIdPermissionUpdate) {
+    public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("NetID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
@@ -140,7 +140,7 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            permissionManager?.updatePermission(accessToken: accessToken, permission: permission)
+            permissionManager?.updatePermission(accessToken: accessToken, permission: permission, collapseSyncId: collapseSyncId)
         }
     }
 
