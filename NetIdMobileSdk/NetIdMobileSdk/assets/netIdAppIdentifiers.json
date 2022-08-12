@@ -3,7 +3,7 @@
     {
       "id": 1,
       "name": "GMX",
-      "icon": "",
+      "icon": "logo_gmx",
       "backgroundColor": "#FF402FD2",
       "foregroundColor": "#FFFFFFFF",
       "iOS": {
@@ -19,7 +19,7 @@
       "name": "WEB.DE",
       "backgroundColor": "#FFF7AD0A",
       "foregroundColor": "#FF212121",
-      "icon": "",
+      "icon": "logo_web_de",
       "iOS": {
         "bundleIdentifier": "de.web.mobile.ios.mail",
         "scheme": "webdemail"

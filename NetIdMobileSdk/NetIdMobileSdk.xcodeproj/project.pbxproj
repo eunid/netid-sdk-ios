@@ -11,6 +11,7 @@
 		2B3FC65E288B1A3F00EF824B /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */; };
 		2B70826B28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */; };
 		2B70826F2890329900F4D3DC /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B70826E2890329900F4D3DC /* Roboto-Medium.ttf */; };
+		2B9F2F3D28A6735B00B5F2BD /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F2F3C28A6735B00B5F2BD /* RadioButtonView.swift */; };
 		2BE4ECD928898E02000722C0 /* NetIdMobileSdkLocalizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2BE4ECDB28898E02000722C0 /* NetIdMobileSdkLocalizable.strings */; };
 		2BEE602428883BC30064661C /* AuthorizationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEE602328883BC30064661C /* AuthorizationView.swift */; };
 		2BEE602628883D6D0064661C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2BEE602528883D6D0064661C /* Assets.xcassets */; };
@@ -126,6 +127,7 @@
 		2B708269288FE90E00F4D3DC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		2B70826A28901A5F00F4D3DC /* IBMPlexSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "IBMPlexSans-SemiBold.ttf"; sourceTree = "<group>"; };
 		2B70826E2890329900F4D3DC /* Roboto-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Medium.ttf"; sourceTree = "<group>"; };
+		2B9F2F3C28A6735B00B5F2BD /* RadioButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RadioButtonView.swift; sourceTree = "<group>"; };
 		2BE4ECDA28898E02000722C0 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BE4ECDC28898E03000722C0 /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NetIdMobileSdkLocalizable.strings; sourceTree = "<group>"; };
 		2BEE602328883BC30064661C /* AuthorizationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationView.swift; sourceTree = "<group>"; };
@@ -267,6 +269,7 @@
 				2BEE602528883D6D0064661C /* Assets.xcassets */,
 				2BEE602328883BC30064661C /* AuthorizationView.swift */,
 				2FF2D5171B0C36947123F987 /* AuthorizationViewDelegate.swift */,
+				2B9F2F3C28A6735B00B5F2BD /* RadioButtonView.swift */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -650,7 +653,7 @@
 			);
 			mainGroup = B66A07BB287D62C000A68E08;
 			packageReferences = (
-				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */,
+				B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */,
 			);
 			productRefGroup = B66A07C6287D62C100A68E08 /* Products */;
 			projectDirPath = "";
@@ -758,6 +761,7 @@
 				2FF2DA6B611ACE824855236A /* UserInfoManager.swift in Sources */,
 				2FF2D0DA4DEFEAC02969C88C /* UserInfoManagerDelegate.swift in Sources */,
 				2FF2D07124814D55E681C261 /* PermissionWriteRequest.swift in Sources */,
+				2B9F2F3D28A6735B00B5F2BD /* RadioButtonView.swift in Sources */,
 				2FF2DFFE114C6D70A434BC39 /* TokenUtil.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1266,7 +1270,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */ = {
+		B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/openid/AppAuth-iOS.git";
 			requirement = {
@@ -1279,12 +1283,12 @@
 /* Begin XCSwiftPackageProductDependency section */
 		B6B22D222880276300F45264 /* AppAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
 		};
 		B6B22D242880276300F45264 /* AppAuthCore */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS.git" */;
+			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuthCore;
 		};
 /* End XCSwiftPackageProductDependency section */
