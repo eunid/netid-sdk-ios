@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Necessary App2App utilities 
 - Permission management webservices
 - Permission management API functions
+- Authorization View for Soft Login
 
 ### Fixed
 - Url schemes error
