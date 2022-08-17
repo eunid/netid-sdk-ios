@@ -22,4 +22,5 @@ fastlane:
         export_method: app-store
         testflight:
           team_id: 8G463Z6GPS
+          apple_id: 1636690383
 
