@@ -13,7 +13,7 @@ fastlane:
         export_method: app-store
     release:
       -
-        branch: main
+        branch: master
         scheme: NetIdMobileSdk-App
         target: NetIdMobileSdk-App
           #        test_scheme: NetIdMobileSdk-App
