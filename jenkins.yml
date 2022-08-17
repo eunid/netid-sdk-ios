@@ -20,7 +20,10 @@ fastlane:
         plist: NetIdMobileSdk-App/Info.plist
         keychain: netid-appstore
         export_method: app-store
+        configuration: Release
         testflight:
-          team_id: 8G463Z6GPS
+          #team_id: 8G463Z6GPS
+          team_name: "EnID - European netID Foundation"
           apple_id: 1636690383
+          
 
