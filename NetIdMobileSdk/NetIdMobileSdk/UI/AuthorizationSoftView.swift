@@ -116,11 +116,11 @@ struct AuthorizationSoftView: View {
     }
 }
 
-struct AuthorizationView_Previews: PreviewProvider {
+struct AuthorizationSoftView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            AuthorizationView(presentingViewController: UIViewController(),
+            AuthorizationSoftView(presentingViewController: UIViewController(),
                     appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
                             icon: "logo_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
                             android: AppDetailsAndroid(applicationId: "test")),

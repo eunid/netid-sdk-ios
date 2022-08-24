@@ -73,16 +73,29 @@ open class NetIdService: NSObject {
     /**
      Provides the view controller
      - Parameter currentViewController:
+     - Parameter authFlow:
      - Returns:
      */
-    public func getAuthorizationView(currentViewController: UIViewController) -> some View {
+    public func getAuthorizationView(currentViewController: UIViewController, authFlow: NetIdAuthFlow) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
-        return AuthorizationView(delegate: self, presentingViewController: currentViewController,  appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
-                icon: "logo_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                android: AppDetailsAndroid(applicationId: "test")),
-            AppIdentifier(id: 1, name: "W", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
-                    icon: "logo_web_de", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                    android: AppDetailsAndroid(applicationId: "test"))])
+        switch authFlow {
+        case .Soft:
+            return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
+                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
+                            icon: "logo_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+                            android: AppDetailsAndroid(applicationId: "test")),
+                        AppIdentifier(id: 1, name: "WEB,DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
+                                icon: "logo_web_de", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+                                android: AppDetailsAndroid(applicationId: "test"))]))
+        case .Hard:
+            return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
+                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
+                            icon: "logo_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+                            android: AppDetailsAndroid(applicationId: "test")),
+                        AppIdentifier(id: 1, name: "WEB.DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
+                                icon: "logo_web_de", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+                                android: AppDetailsAndroid(applicationId: "test"))]))
+        }
     }
 
     public func authorize(destinationScheme: String?, currentViewController: UIViewController) {

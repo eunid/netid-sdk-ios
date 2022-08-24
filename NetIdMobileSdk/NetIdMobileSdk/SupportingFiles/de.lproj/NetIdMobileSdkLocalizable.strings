@@ -17,3 +17,5 @@
 "authorization_view_agree_and_continue_with_net_id" = "Zustimmen und weiter mit netID";
 "authorization_view_close" = "Schließen";
 "authorization_view_use_app" = "%@ App verwenden";
+"authorization_hard_view_email_login" = "Login mit Ihrer E-Mail Adresse";
+"authorization_hard_view_continue_with" = "Weiter mit %@";
