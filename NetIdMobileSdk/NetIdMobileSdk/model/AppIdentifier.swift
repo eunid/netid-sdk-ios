@@ -20,6 +20,7 @@ struct AppIdentifier: Identifiable, Decodable {
     let backgroundColor: String
     let foregroundColor: String
     let icon: String
+    let typeFaceIcon: String
     let iOS: AppDetailsIOS
     let android: AppDetailsAndroid
 }

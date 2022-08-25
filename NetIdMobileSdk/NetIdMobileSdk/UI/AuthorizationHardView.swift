@@ -31,11 +31,12 @@ struct AuthorizationHardView: View {
                         .padding(.horizontal, 12)
                         .frame(width: 100, height: 30)
             }
-
-            Image("logo_web_de", bundle: bundle)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 24, alignment: .center)
+            if appIdentifiers.count == 1 {
+                Image(appIdentifiers[0].typeFaceIcon, bundle: bundle)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 24, alignment: .center)
+            }
 
             Text(LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login"))
                     .font(Font.verdana(size: 16))
@@ -85,10 +86,10 @@ struct AuthorizationHardView_Previews: PreviewProvider {
         Group {
             AuthorizationHardView(presentingViewController: UIViewController(),
                     appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
-                            icon: "logo_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
                             android: AppDetailsAndroid(applicationId: "test")),
                         AppIdentifier(id: 1, name: "W", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
-                                icon: "logo_web_de", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+                                icon: "logo_web_de", typeFaceIcon: "typeface_webde", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
                                 android: AppDetailsAndroid(applicationId: "test"))])
                     .onAppear {
                         Font.loadCustomFonts()

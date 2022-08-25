@@ -57,7 +57,7 @@ struct ContentView: View {
                             .background(Color.blue)
                             .cornerRadius(5)
                             .disabled(!serviceViewModel.authenticationEnabled)
-                            .alert("Important message", isPresented: $showingAlert) {
+                            .alert("choose_auth_flow_title", isPresented: $showingAlert) {
                                 Button("Soft-Login") {
                                     serviceViewModel.authFlow = .Soft
                                     serviceViewModel.authorizeNetIdService()
@@ -65,7 +65,6 @@ struct ContentView: View {
                                 Button("Hard-Login") {
                                     serviceViewModel.authFlow = .Hard
                                     serviceViewModel.authorizeNetIdService()
-
                                 }
                             }
 
