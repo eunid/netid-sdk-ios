@@ -32,6 +32,7 @@ class ServiceViewModel: NSObject, ObservableObject {
     @Published var userInfoStatusColor = Color.gray
 
     @Published var logText = ""
+    @Published var authFlow: NetIdAuthFlow = .Soft
 
     func initializeNetIdService() {
         initializationEnabled = false
@@ -75,7 +76,7 @@ class ServiceViewModel: NSObject, ObservableObject {
     func getAuthorizationView() -> some View {
         if let currentViewController = UIApplication.shared.visibleViewController {
             NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController,
-                    authFlow: .Hard)
+                    authFlow: authFlow)
         } else {
             EmptyView()
         }
