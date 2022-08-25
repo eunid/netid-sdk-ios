@@ -35,7 +35,8 @@ struct AuthorizationHardView: View {
                 Image(appIdentifiers[0].typeFaceIcon, bundle: bundle)
                         .resizable()
                         .scaledToFit()
-                        .frame(width: 60, height: 24, alignment: .center)
+                        .padding(.horizontal, 12)
+                        .frame(width: 100, height: 30, alignment: .center)
             }
 
             Text(LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login"))
@@ -48,7 +49,7 @@ struct AuthorizationHardView: View {
                 Button {
                     delegate?.didTapContinue(destinationScheme: result.iOS.scheme, presentingViewController: presentingViewController)
                 } label: {
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name))
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name).uppercased())
                             .kerning(1.25)
                             .frame(maxWidth: .infinity)
                             .foregroundColor(Color(hex: result.foregroundColor))
@@ -63,7 +64,8 @@ struct AuthorizationHardView: View {
             Button {
                 delegate?.didTapDismiss()
             } label: {
-                Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
+                //TODO Get display name from currently running app
+                Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_close"), "App").uppercased())
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color("authorizationTitleColor", bundle: bundle))

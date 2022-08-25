@@ -81,23 +81,30 @@ open class NetIdService: NSObject {
         switch authFlow {
         case .Soft:
             return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
-                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                            android: AppDetailsAndroid(applicationId: "test")),
-                        AppIdentifier(id: 1, name: "WEB,DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
-                                icon: "logo_web_de", typeFaceIcon: "typeface_webde",
-                                iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                                android: AppDetailsAndroid(applicationId: "test"))]))
+                    appIdentifiers: netIdApps))
         case .Hard:
             return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
-                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                            android: AppDetailsAndroid(applicationId: "test")),
-                        AppIdentifier(id: 1, name: "WEB.DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
-                                icon: "logo_web_de", typeFaceIcon: "typeface_webde",
-                                iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                                android: AppDetailsAndroid(applicationId: "test"))]))
+                    appIdentifiers: netIdApps))
         }
+//        case .Soft:
+//            return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
+//                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
+//                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+//                            android: AppDetailsAndroid(applicationId: "test")),
+//                        AppIdentifier(id: 1, name: "WEB,DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
+//                                icon: "logo_web_de", typeFaceIcon: "typeface_webde",
+//                                iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+//                                android: AppDetailsAndroid(applicationId: "test"))]))
+//        case .Hard:
+//            return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
+//                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
+//                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+//                            android: AppDetailsAndroid(applicationId: "test")),
+//                        AppIdentifier(id: 1, name: "WEB.DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
+//                                icon: "logo_web_de", typeFaceIcon: "typeface_webde",
+//                                iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
+//                                android: AppDetailsAndroid(applicationId: "test"))]))
+//        }
     }
 
     public func authorize(destinationScheme: String?, currentViewController: UIViewController) {

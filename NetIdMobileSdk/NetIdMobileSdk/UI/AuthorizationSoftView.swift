@@ -22,6 +22,7 @@ struct AuthorizationSoftView: View {
     private let bundle = Bundle(for: NetIdService.self)
 
     @State private var selectedAppIndex = 0
+    @State private var showAvailableAppSelection = false
 
     var body: some View {
         VStack(spacing: 10) {
@@ -32,47 +33,80 @@ struct AuthorizationSoftView: View {
 
             Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
                     .multilineTextAlignment(.center)
-                    .font(Font.ibmPlexSansSemiBold(size: 16))
-                    .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
 
-            Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info"))
-                    .font(Font.verdana(size: 12))
-                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
-                    .multilineTextAlignment(.center)
-                    .padding(.horizontal, 20)
+            //TODO  optimize this
+            VStack(spacing: 10) {
+                if (appIdentifiers.count > 1) {
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one"),
+                            appIdentifiers[selectedAppIndex].name)).font(Font.verdana(size: 12))
+                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                            + Text(
+                            LocalizableUtil.netIdLocalizable(
+                                    "authorization_view_legal_info_select")).underline().font(Font.verdana(size: 12))
+                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
-            ForEach(Array(appIdentifiers.enumerated()), id: \.element.id) { index, result in
-                HStack(spacing: 10) {
-                    ZStack {
-                        Circle()
-                                .fill(Color(hex: result.backgroundColor) ?? Color.white)
-                                .frame(width: 40, height: 40)
+                            + Text(LocalizableUtil.netIdLocalizable(
+                            "authorization_view_legal_info_part_two")).font(Font.verdana(size: 12))
+                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                } else if (appIdentifiers.count == 1) {
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one"),
+                            appIdentifiers[selectedAppIndex].name)).font(Font.verdana(size: 12))
+                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
-                        Image(result.icon, bundle: bundle)
-                                .frame(width: 30, height: 30, alignment: .center)
-                    }
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
-                            .font(Font.robotoMedium(size: 16))
+                            + Text(LocalizableUtil.netIdLocalizable(
+                            "authorization_view_legal_info_part_two")).font(Font.verdana(size: 12))
+                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                } else {
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one"),
+                            LocalizableUtil.netIdLocalizable("authorization_view_net_id"))).font(Font.verdana(size: 12))
+                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
-                    Spacer()
-
-                    let radioCheckedBinding = Binding<Bool>(get: { self.selectedAppIndex == index }, set: { _ in })
-
-                    RadioButtonView(isChecked: radioCheckedBinding, didSelect: {
-                        selectedAppIndex = index
-                    })
+                            + Text(LocalizableUtil.netIdLocalizable(
+                            "authorization_view_legal_info_part_two")).font(Font.verdana(size: 12))
+                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 }
-                        .padding(.horizontal, 25)
-                        .padding(.vertical, 10)
-                        .background()
-                        .onTapGesture {
-                            selectedAppIndex = index
+            }
+                    .onTapGesture(perform: {
+                        if (appIdentifiers.count > 1) {
+                            showAvailableAppSelection = true
                         }
+                    })
+                    .multilineTextAlignment(.center)
 
-                if index != (appIdentifiers.count - 1) {
-                    Divider()
-                            .padding(.leading, 75)
-                            .padding(.trailing, 20)
+            if showAvailableAppSelection {
+                ForEach(Array(appIdentifiers.enumerated()), id: \.element.id) { index, result in
+                    HStack(spacing: 10) {
+                        ZStack {
+                            Circle()
+                                    .fill(Color(hex: result.backgroundColor) ?? Color.white)
+                                    .frame(width: 40, height: 40)
+
+                            Image(result.icon, bundle: bundle)
+                                    .frame(width: 30, height: 30, alignment: .center)
+                        }
+                        Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
+                                .font(Font.robotoMedium(size: 16))
+
+                        Spacer()
+
+                        let radioCheckedBinding = Binding<Bool>(get: { self.selectedAppIndex == index }, set: { _ in })
+
+                        RadioButtonView(isChecked: radioCheckedBinding, didSelect: {
+                            selectedAppIndex = index
+                        })
+                    }
+                            .padding(.horizontal, 25)
+                            .padding(.vertical, 10)
+                            .background()
+                            .onTapGesture {
+                                selectedAppIndex = index
+                            }
+
+                    if index != (appIdentifiers.count - 1) {
+                        Divider()
+                                .padding(.leading, 75)
+                                .padding(.trailing, 20)
+                    }
                 }
             }
 
