@@ -26,6 +26,13 @@ class AppAuthManager: NSObject {
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
     public let permissionManagementScope = "permission_management"
     private var idToken: String?
+    private var netIdConfig: NetIdConfig?
+
+    init(delegate: AppAuthManagerDelegate?, netIdConfig: NetIdConfig?) {
+        self.delegate = delegate
+        self.netIdConfig = netIdConfig
+        super.init()
+    }
 
     init(delegate: AppAuthManagerDelegate?) {
         self.delegate = delegate
@@ -77,12 +84,12 @@ class AppAuthManager: NSObject {
      - Parameter presentingViewController: needed to present the authorization WebView
      */
     public func authorizeWeb(presentingViewController: UIViewController) {
-        if let serviceConfiguration = authConfiguration, let clientId = NetIdService.sharedInstance.getNedIdConfig()?.clientId,
-           let redirectUri = NetIdService.sharedInstance.getNedIdConfig()?.redirectUri {
+        if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
+           let redirectUri = netIdConfig?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
                 let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
                         clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, permissionManagementScope],
-                        redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: nil)
+                        redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: netIdConfig?.claims)
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
                             if let authState = authState {
