@@ -24,3 +24,4 @@
 "update_permission_button_title" = "Permission aktualisieren";
 "fetch_permissions_button_title" = "Permissions laden";
 "log_text_title" = "Logs:";
+"choose_auth_flow_title" = "Bitte wähle Deinen Authorisierungsprozess.";

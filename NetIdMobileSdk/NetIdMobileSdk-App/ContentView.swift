@@ -17,6 +17,7 @@ import SwiftUI
 struct ContentView: View {
 
     @EnvironmentObject var serviceViewModel: ServiceViewModel
+    @State private var showingAlert = false
 
     var body: some View {
         ZStack {
@@ -46,7 +47,7 @@ struct ContentView: View {
 
                 HStack(alignment: .center, spacing: 50) {
                     Button {
-                        serviceViewModel.authorizeNetIdService()
+                        showingAlert = true
                     } label: {
                         Text("authorize_button_title")
                                 .frame(maxWidth: .infinity)
@@ -56,6 +57,16 @@ struct ContentView: View {
                             .background(Color.blue)
                             .cornerRadius(5)
                             .disabled(!serviceViewModel.authenticationEnabled)
+                            .alert("choose_auth_flow_title", isPresented: $showingAlert) {
+                                Button("Soft-Login") {
+                                    serviceViewModel.authFlow = .Soft
+                                    serviceViewModel.authorizeNetIdService()
+                                }
+                                Button("Hard-Login") {
+                                    serviceViewModel.authFlow = .Hard
+                                    serviceViewModel.authorizeNetIdService()
+                                }
+                            }
 
                     Circle()
                             .fill(serviceViewModel.authenticationStatusColor)

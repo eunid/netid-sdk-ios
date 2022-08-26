@@ -14,14 +14,6 @@
 
 import Foundation
 
-struct AppIdentifier: Identifiable, Decodable {
-    var id: Int
-    let name: String
-    let backgroundColor: String
-    let foregroundColor: String
-    let icon: String
-    let typeFaceIcon: String
-    let iOS: AppDetailsIOS
-    let android: AppDetailsAndroid
+public enum NetIdAuthFlow {
+    case Soft, Hard
 }
-

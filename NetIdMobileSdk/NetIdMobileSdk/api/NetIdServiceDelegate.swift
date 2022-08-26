@@ -39,4 +39,6 @@ public protocol NetIdServiceDelegate: AnyObject {
 
     func didUpdatePermissionWithError(_ error: NetIdError)
 
+    func didTransmitInvalidToken()
+
 }
