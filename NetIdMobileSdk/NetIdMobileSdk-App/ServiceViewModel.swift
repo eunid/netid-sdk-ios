@@ -32,6 +32,7 @@ class ServiceViewModel: NSObject, ObservableObject {
     @Published var userInfoStatusColor = Color.gray
 
     @Published var logText = ""
+    @Published var authFlow: NetIdAuthFlow = .Soft
 
     func initializeNetIdService() {
         initializationEnabled = false
@@ -74,7 +75,8 @@ class ServiceViewModel: NSObject, ObservableObject {
     @ViewBuilder
     func getAuthorizationView() -> some View {
         if let currentViewController = UIApplication.shared.visibleViewController {
-            NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController)
+            NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController,
+                    authFlow: authFlow)
         } else {
             EmptyView()
         }
@@ -214,5 +216,10 @@ extension ServiceViewModel: NetIdServiceDelegate {
     public func didUpdatePermissionWithError(_ error: NetIdError) {
         logText.append("didUpdatePermissionWithError \(error.code.rawValue)\n")
         updatePermissionEnabled = true
+    }
+
+    public func didTransmitInvalidToken() {
+        logText.append("didTransmitInvalidToken \n")
+
     }
 }
