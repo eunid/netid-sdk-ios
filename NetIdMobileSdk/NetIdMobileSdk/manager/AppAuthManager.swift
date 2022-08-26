@@ -25,6 +25,7 @@ class AppAuthManager: NSObject {
     public var authState: OIDAuthState?
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
     public let permissionManagementScope = "permission_management"
+    private var idToken: String?
 
     init(delegate: AppAuthManagerDelegate?) {
         self.delegate = delegate
@@ -36,7 +37,11 @@ class AppAuthManager: NSObject {
     }
 
     public func getIdToken() -> String? {
-        authState?.lastTokenResponse?.idToken
+        idToken
+    }
+
+    public func setIdToken(_ token: String) {
+        idToken = token
     }
 
     public func getPermissionToken() -> String? {
@@ -79,16 +84,17 @@ class AppAuthManager: NSObject {
                         clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, permissionManagementScope],
                         redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: nil)
                 currentAuthorizationFlow =
-                        OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { authState, error in
+                        OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
                             if let authState = authState {
                                 self.authState = authState
+                                idToken = authState.lastTokenResponse?.idToken
                                 Logger.shared.debug("Got authorization tokens. Access token: " +
                                         "\(authState.lastTokenResponse?.idToken ?? "nil")")
+
                                 self.delegate?.didFinishAuthenticationWithError(nil)
                             } else {
                                 Logger.shared
                                         .error("Authorization with clientID: \(clientId) and redirectUri: \(redirectUri) failed with error: \(error?.localizedDescription ?? "Unknown error")")
-                                self.authState = nil
                                 self.delegate?.didFinishAuthenticationWithError(
                                         NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Authentication))
                             }

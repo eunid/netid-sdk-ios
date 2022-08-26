@@ -36,6 +36,15 @@ public class TokenUtil {
         return Data(base64Encoded: base64, options: .ignoreUnknownCharacters)
     }
 
+    class func isValidJwtToken(_ token: String) -> Bool {
+        let segments = token.components(separatedBy: ".")
+        if segments.count == 3 {
+            return true
+        } else {
+            return false
+        }
+    }
+
     class func getPermissionTokenFrom(_ token: String) -> String? {
         guard let data = decode(token: token) else {
             return nil
