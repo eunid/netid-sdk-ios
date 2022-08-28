@@ -19,11 +19,13 @@ public struct NetIdConfig {
     public var clientId: String
     public var redirectUri: String
     public var originUrlScheme: String
+    public var claims: [String: String]?
 
-    public init(host: String, clientId: String, redirectUri: String, originUrlScheme: String) {
+    public init(host: String, clientId: String, redirectUri: String, originUrlScheme: String, claims: [String: String]?) {
         self.host = host
         self.clientId = clientId
         self.redirectUri = redirectUri
         self.originUrlScheme = originUrlScheme
+        self.claims = claims
     }
 }

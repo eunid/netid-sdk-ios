@@ -38,7 +38,8 @@ class ServiceViewModel: NSObject, ObservableObject {
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
         let config = NetIdConfig(host: "broker.netid.de", clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
-                redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider", originUrlScheme: "netIdExample")
+                redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider", originUrlScheme: "netIdExample",
+                claims: nil)
         NetIdService.sharedInstance.initialize(config)
     }
 

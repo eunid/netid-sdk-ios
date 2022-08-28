@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Permission management API functions
 - Authorization View for Soft Login
 - Hard- and SoftLogin option 
+- Possibility to transfer claims via the sdk interface
 
 ### Fixed
 - Url schemes error

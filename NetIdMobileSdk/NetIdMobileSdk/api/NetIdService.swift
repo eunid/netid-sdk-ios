@@ -46,7 +46,7 @@ open class NetIdService: NSObject {
                 Font.loadCustomFonts()
                 userInfoManager = UserInfoManager(delegate: self)
                 permissionManager = PermissionManager(delegate: self)
-                appAuthManager = AppAuthManager(delegate: self)
+                appAuthManager = AppAuthManager(delegate: self, netIdConfig: netIdConfig)
                 appAuthManager?.fetchConfiguration(netIdConfig.host)
             }
         }
