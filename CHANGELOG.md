@@ -18,5 +18,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hard- and SoftLogin option 
 - Possibility to transfer claims via the sdk interface
 
+### Changed
+- Added more information to user info
+
 ### Fixed
 - Url schemes error
