@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Use bottom sheet UI for authorization view
+- Use correct name of netID
 
 ### Added
 - Basic UI setup
