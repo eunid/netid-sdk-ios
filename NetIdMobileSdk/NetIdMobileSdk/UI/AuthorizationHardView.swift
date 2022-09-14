@@ -47,7 +47,7 @@ struct AuthorizationHardView: View {
 
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
-                    delegate?.didTapContinue(destinationScheme: result.iOS.scheme, presentingViewController: presentingViewController)
+                    delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController)
                 } label: {
                     Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name).uppercased())
                             .kerning(1.25)
@@ -88,11 +88,11 @@ struct AuthorizationHardView_Previews: PreviewProvider {
         Group {
             AuthorizationHardView(presentingViewController: UIViewController(),
                     appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
-                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                            android: AppDetailsAndroid(applicationId: "test")),
+                                                   icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test", universalLink: "test"),
+                                                   android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test")),
                         AppIdentifier(id: 1, name: "W", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
-                                icon: "logo_web_de", typeFaceIcon: "typeface_webde", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-                                android: AppDetailsAndroid(applicationId: "test"))])
+                                      icon: "logo_web_de", typeFaceIcon: "typeface_webde", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test", universalLink: "test"),
+                                      android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test"))])
                     .onAppear {
                         Font.loadCustomFonts()
                     }

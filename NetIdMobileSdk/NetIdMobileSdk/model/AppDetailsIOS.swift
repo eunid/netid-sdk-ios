@@ -17,4 +17,5 @@ import Foundation
 struct AppDetailsIOS: Decodable {
     let bundleIdentifier: String
     let scheme: String
+    let universalLink: String
 }
