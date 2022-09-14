@@ -122,7 +122,6 @@ open class NetIdService: NSObject {
                 if !scheme.isEmpty {
                     Logger.shared.info("netID Service will authorize via App2App.")
                     if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme, originScheme: originScheme) {
-                        //URL(string: "https://sso.web.de/authorize-app2app")!
                         UIApplication.shared.open(url, completionHandler: { success in
                             if success {
                                 Logger.shared.info("netID Service successfully opened: \(url)")

@@ -54,6 +54,7 @@ class AuthorizationWayUtil {
     }
 
     class func createAuthorizeDeepLink(_ scheme: String, originScheme: String) -> URL? {
-        URL(string: originScheme + Constants.netIdAuthorizePath + scheme)
+//        URL(string: originScheme + Constants.netIdAuthorizePath + scheme)
+        URL(string: scheme)
     }
 }

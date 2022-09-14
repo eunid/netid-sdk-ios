@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Authorization View for Soft Login
 - Hard- and SoftLogin option 
 - Possibility to transfer claims via the sdk interface
+- Preparations for using UniversalLinks
 
 ### Changed
 - Added more information to user info
