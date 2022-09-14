@@ -89,10 +89,10 @@ extension ServiceViewModel: NetIdServiceDelegate {
     func didFinishInitializationWithError(_ error: NetIdError?) {
         if let errorCode = error?.code.rawValue {
             initializationStatusColor = Color.red
-            logText.append("Net ID service initialization failed \n" + errorCode + "\n")
+            logText.append("netID service initialization failed \n" + errorCode + "\n")
         } else {
             initializationStatusColor = Color.green
-            logText.append("Net ID service initialized successfully\n")
+            logText.append("netID service initialized successfully\n")
             authenticationEnabled = true
         }
     }
@@ -106,7 +106,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
         endSessionEnabled = true
         updatePermissionEnabled = true
         fetchPermissionsEnabled = true
-        logText.append("Net ID service authorized successfully\n" + accessToken + "\n")
+        logText.append("netID service authorized successfully\n" + accessToken + "\n")
     }
 
     func didFinishAuthenticationWithError(_ error: NetIdError?) {
@@ -116,11 +116,11 @@ extension ServiceViewModel: NetIdServiceDelegate {
         authenticationStatusColor = Color.red
         if let errorCode = error?.code.rawValue {
             authenticationStatusColor = Color.red
-            logText.append("Net ID service authorization failed: " + errorCode + "\n")
+            logText.append("netID service authorization failed: " + errorCode + "\n")
             authenticationEnabled = true
         } else {
             authenticationStatusColor = Color.green
-            logText.append("Net ID service authorization successfully\n")
+            logText.append("netID service authorization successfully\n")
         }
     }
 
@@ -137,7 +137,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
     }
 
     public func didEndSession() {
-        logText.append("Net ID service did end session successfully\n")
+        logText.append("netID service did end session successfully\n")
         authenticationStatusColor = Color.gray
         userInfoStatusColor = Color.gray
         authenticationEnabled = true
@@ -147,7 +147,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
     }
 
     func didEncounterNetworkError(_ error: NetIdError) {
-        logText.append("Net ID service did encounter a network error in process: \(error.process)\n")
+        logText.append("netID service did encounter a network error in process: \(error.process)\n")
         let alert = UIAlertController(title: NSLocalizedString("network_error_alert_title", comment: ""),
                 message: NSLocalizedString("network_error_alert_description", comment: ""),
                 preferredStyle: .alert)
@@ -176,7 +176,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
     }
 
     public func didCancelAuthentication(_ error: NetIdError) {
-        logText.append("Net ID service user did cancel authentication in process: \(error.process)\n")
+        logText.append("netID service user did cancel authentication in process: \(error.process)\n")
         withAnimation {
             authorizationViewVisible = false
         }
