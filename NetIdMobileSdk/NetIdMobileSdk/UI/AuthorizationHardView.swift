@@ -16,7 +16,7 @@ import SwiftUI
 
 struct AuthorizationHardView: View {
 
-    var delegate: AuthorizationViewDelegate?
+    weak var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
     private let bundle = Bundle(for: NetIdService.self)

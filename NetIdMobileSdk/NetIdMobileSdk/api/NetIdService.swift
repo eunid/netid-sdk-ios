@@ -56,7 +56,7 @@ open class NetIdService: NSObject {
      Provides the currently stored NetIdConfig.
      - Returns:
      */
-    public func getNedIdConfig() -> NetIdConfig? {
+    public func getNetIdConfig() -> NetIdConfig? {
         netIdConfig
     }
 
@@ -113,6 +113,7 @@ open class NetIdService: NSObject {
     }
 
     /**
+     Actual call to start the authorization process. If ID apps are present, an app2app flow will be used. Otherwise, app2web is used.
      - Parameter destinationScheme: the scheme to set for calling another app for authorization
      - Parameter currentViewController: the view controller to use in case of app2web flow
      */
@@ -143,6 +144,8 @@ open class NetIdService: NSObject {
 
     /**
      Function to end a session.
+     The net ID service itself still remains initialzed but all information about authorization/authentication is discarded.
+     To start a new session, call ``authorize(destinationScheme:currentViewController:)`` again.
      */
     public func endSession() {
         Logger.shared.debug("netID Service will end session.")

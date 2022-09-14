@@ -15,13 +15,19 @@
 import Foundation
 
 public struct NetIdConfig {
+    /// Name of the host that acts as an SSO broker, e.g. broker.netid.de.
     public var host: String
+    /// The client id of this application. You need to retrieve it from the netID developer portal.
     public var clientId: String
+    /// Redirect URI for your application. Used when using the app2web flow.
     public var redirectUri: String
+    /// Custom scheme to preceed deep links with - is this still neccessary?
     public var originUrlScheme: String
+    /// Additional claims to set.
     public var claims: [String: String]?
 
-    public init(host: String, clientId: String, redirectUri: String, originUrlScheme: String, claims: [String: String]?) {
+    /// Initialize the SDK. This is the first thing to do.
+    public init(host: String = "broker.netid.de", clientId: String, redirectUri: String, originUrlScheme: String, claims: [String: String]?) {
         self.host = host
         self.clientId = clientId
         self.redirectUri = redirectUri
