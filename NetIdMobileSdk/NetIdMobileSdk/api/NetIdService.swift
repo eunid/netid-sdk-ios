@@ -34,7 +34,7 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Initializes the SDK and load the authentication configuration document.
+     Initializes the SDK and loads the authentication configuration document.
      - Parameter netIdConfig: the client configuration of type ``NetIdConfig``.
      */
     public func initialize(_ netIdConfig: NetIdConfig) {
@@ -60,6 +60,11 @@ open class NetIdService: NSObject {
         netIdConfig
     }
 
+    /**
+     Ability to set a token for the SDK.
+     - Parameter token: the token to set.
+     - Returns:
+     */
     public func transmitToken(_ token: String) {
         if TokenUtil.isValidJwtToken(token) {
             appAuthManager?.setIdToken(token)
@@ -107,46 +112,60 @@ open class NetIdService: NSObject {
 //        }
     }
 
+    /**
+     - Parameter destinationScheme: the scheme to set for calling another app for authorization
+     - Parameter currentViewController: the view controller to use in case of app2web flow
+     */
     public func authorize(destinationScheme: String?, currentViewController: UIViewController) {
         if handleConnection(.Authentication) {
             if let scheme = destinationScheme, let originScheme = netIdConfig?.originUrlScheme {
                 if !scheme.isEmpty {
-                    Logger.shared.info("NetID Service will authorize via App2App.")
+                    Logger.shared.info("netID Service will authorize via App2App.")
                     if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme, originScheme: originScheme) {
+                        //URL(string: "https://sso.web.de/authorize-app2app")!
                         UIApplication.shared.open(url, completionHandler: { success in
                             if success {
-                                Logger.shared.info("NetID Service successfully opened: \(url)")
+                                Logger.shared.info("netID Service successfully opened: \(url)")
                             } else {
-                                Logger.shared.error("NetID Service could not open: \(url)")
+                                Logger.shared.error("netID Service could not open: \(url)")
+                                // Todo: Remove this autofallback to app2web once app2app is working
+                                Logger.shared.info("netID Service will authorize via web as a fallback.")
+                                self.appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
                             }
                         })
                     }
                 }
             } else {
-                Logger.shared.info("NetID Service will authorize via web.")
+                Logger.shared.info("netID Service will authorize via web.")
                 appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
             }
         }
     }
 
+    /**
+     Function to end a session.
+     */
     public func endSession() {
-        Logger.shared.debug("NetID Service will end session.")
+        Logger.shared.debug("netID Service will end session.")
         appAuthManager?.endSession()
     }
 
+    /**
+     Fetches the user info.
+     */
     public func fetchUserInfo() {
         if handleConnection(.UserInfo) {
-            Logger.shared.info("NetID Service will fetch user info.")
+            Logger.shared.info("netID Service will fetch user info.")
             guard let accessToken = appAuthManager?.getAccessToken() else {
                 for item in netIdListener {
-                    Logger.shared.error("NetID Service is unable to fetch user info caused by missing authentication.")
+                    Logger.shared.error("netID Service is unable to fetch user info caused by missing authentication.")
                     item.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
                 }
                 return
             }
             guard let host = netIdConfig?.host else {
                 for item in netIdListener {
-                    Logger.shared.error("NetID Service is unable to fetch user info caused by missing server host information.")
+                    Logger.shared.error("netID Service is unable to fetch user info caused by missing server host information.")
                     item.didFetchUserInfoWithError(NetIdError(code: .InitializationError, process: .PermissionRead))
                 }
                 return
@@ -155,9 +174,13 @@ open class NetIdService: NSObject {
         }
     }
 
+    /**
+     Fetch permissions.
+     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
+     */
     public func fetchPermissions(collapseSyncId: Bool = true) {
         if handleConnection(.PermissionRead) {
-            Logger.shared.info("NetID Service will fetch permissions.")
+            Logger.shared.info("netID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
                     item.didFetchPermissionsWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
@@ -168,9 +191,14 @@ open class NetIdService: NSObject {
         }
     }
 
+    /**
+     Update permissions.
+     - Parameter permisson: permissions to set of type ``NetIdPermissionUpdate``.
+     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
+     */
     public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {
         if handleConnection(.PermissionRead) {
-            Logger.shared.info("NetID Service will update permission.")
+            Logger.shared.info("netID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
                     item.didUpdatePermissionWithError(NetIdError(code: .NoAuth, process: .PermissionWrite))
@@ -181,12 +209,17 @@ open class NetIdService: NSObject {
         }
     }
 
+    /**
+     Checks wheather there is a network connection or not.
+     - Parameter process: process to signal in case of an error
+     - Returns bool
+     */
     private func handleConnection(_ process: NetIdErrorProcess) -> Bool {
         if Reachability.hasConnection() {
-            Logger.shared.info("NetID Service Device has network connection.")
+            Logger.shared.info("netID Service Device has network connection.")
             return true
         } else {
-            Logger.shared.error("NetID Service device has no network connection.")
+            Logger.shared.error("netID Service device has no network connection.")
             for item in netIdListener {
                 item.didEncounterNetworkError(NetIdError(code: .NetworkError, process: process))
             }
@@ -199,10 +232,10 @@ extension NetIdService: AppAuthManagerDelegate {
     func didFinishInitializationWithError(_ error: NetIdError?) {
         for item in netIdListener {
             if let error = error {
-                Logger.shared.error("NetID Service initialization failed with error: " + error.code.rawValue)
+                Logger.shared.error("netID Service initialization failed with error: " + error.code.rawValue)
                 item.didFinishInitializationWithError(error)
             } else {
-                Logger.shared.info("NetID Service initialization finished")
+                Logger.shared.info("netID Service initialization finished")
                 item.didFinishInitializationWithError(nil)
             }
         }
@@ -211,15 +244,15 @@ extension NetIdService: AppAuthManagerDelegate {
     func didFinishAuthenticationWithError(_ error: NetIdError?) {
         for item in netIdListener {
             if let error = error {
-                Logger.shared.error("NetID Service authentication failed with error: " + error.code.rawValue)
+                Logger.shared.error("netID Service authentication failed with error: " + error.code.rawValue)
                 item.didFinishAuthenticationWithError(error)
             } else {
                 if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
-                    Logger.shared.info("NetID Service received access token: " + accessToken)
+                    Logger.shared.info("netID Service received access token: " + accessToken)
                     item.didFinishAuthentication(accessToken)
                 } else {
                     let error = NetIdError(code: .NoAuth, process: .Authentication)
-                    Logger.shared.error("NetID Service authentication failed with error: " + error.code.rawValue)
+                    Logger.shared.error("netID Service authentication failed with error: " + error.code.rawValue)
                     item.didFinishAuthenticationWithError(error)
                 }
             }
@@ -227,7 +260,7 @@ extension NetIdService: AppAuthManagerDelegate {
     }
 
     func didEndSession() {
-        Logger.shared.info("NetID Service did end session")
+        Logger.shared.info("netID Service did end session")
         for item in netIdListener {
             item.didEndSession()
         }
@@ -236,14 +269,14 @@ extension NetIdService: AppAuthManagerDelegate {
 
 extension NetIdService: UserInfoManagerDelegate {
     func didFetchUserInfo(_ userInfo: UserInfo) {
-        Logger.shared.info("NetID Service received user info")
+        Logger.shared.info("netID Service received user info")
         for item in netIdListener {
             item.didFetchUserInfo(userInfo)
         }
     }
 
     func didFetchUserInfoWithError(_ error: NetIdError) {
-        Logger.shared.error("NetID Service user info fetch failed with error: " + error.code.rawValue)
+        Logger.shared.error("netID Service user info fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
             item.didFetchUserInfoWithError(error)
         }
@@ -252,28 +285,28 @@ extension NetIdService: UserInfoManagerDelegate {
 
 extension NetIdService: PermissionManagerDelegate {
     public func didFetchPermissions(_ permissions: Permissions) {
-        Logger.shared.info("NetID Service received permissions.")
+        Logger.shared.info("netID Service received permissions.")
         for item in netIdListener {
             item.didFetchPermissions(permissions)
         }
     }
 
     public func didFetchPermissionsWithError(_ error: NetIdError) {
-        Logger.shared.error("NetID Service permissions fetch failed with error: " + error.code.rawValue)
+        Logger.shared.error("netID Service permissions fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
             item.didFetchPermissionsWithError(error)
         }
     }
 
     public func didUpdatePermission(_ permission: SubjectIdentifiers) {
-        Logger.shared.info("NetID Service permission successfully updated. \(permission)")
+        Logger.shared.info("netID Service permission successfully updated. \(permission)")
         for item in netIdListener {
             item.didUpdatePermission()
         }
     }
 
     public func didUpdatePermissionWithError(_ error: NetIdError) {
-        Logger.shared.error("NetID Service permission update failed with error: " + error.code.rawValue)
+        Logger.shared.error("netID Service permission update failed with error: " + error.code.rawValue)
         for item in netIdListener {
             item.didUpdatePermissionWithError(error)
         }
