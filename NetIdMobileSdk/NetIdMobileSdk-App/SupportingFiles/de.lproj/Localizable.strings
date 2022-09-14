@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"net_id_service_title" = "NetID Service";
+"net_id_service_title" = "netID Service";
 "initialize_button_title" = "Service initialisieren";
 "authorize_button_title" = "Authorisieren";
 "user_info_button_title" = "UserInfo laden";
