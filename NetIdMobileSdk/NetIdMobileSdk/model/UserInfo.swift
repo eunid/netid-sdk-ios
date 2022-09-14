@@ -15,46 +15,67 @@
 import Foundation
 
 public struct UserInfo: Decodable, CustomStringConvertible {
-    public init(sub: String, birthdate: String, givenName: String, familyName: String) {
-        self.sub = sub
-        self.birthdate = birthdate
-        self.givenName = givenName
-        self.familyName = familyName
-    }
-
-//    public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
-//                givenName: String, familyName: String, email: String) {
+//    public init(sub: String, birthdate: String, givenName: String, familyName: String, email: String) {
 //        self.sub = sub
 //        self.birthdate = birthdate
-//        self.emailVerified = emailVerified
-//        self.address = address
-//        self.gender = gender
-//        self.shippingAddress = shippingAddress
 //        self.givenName = givenName
 //        self.familyName = familyName
 //        self.email = email
 //    }
-
+    
+        public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
+                    givenName: String, familyName: String, email: String) {
+            self.sub = sub
+            self.birthdate = birthdate
+            self.emailVerified = emailVerified
+            self.address = address
+            self.gender = gender
+            self.shippingAddress = shippingAddress
+            self.givenName = givenName
+            self.familyName = familyName
+            self.email = email
+        }
+    
     public let sub: String
     public let birthdate: String
-//    public let emailVerified: Bool
-//    public let address: Address
-//    public let gender: String
-//    public let shippingAddress: ShippingAddress
+    public let emailVerified: Optional<Bool>
+    public let address: Optional<Address>
+    public let gender: Optional<String>
+    public let shippingAddress: Optional<ShippingAddress>
     public let givenName: String
     public let familyName: String
-
-//    public let email: String
-
+    
+    //@DecodableString var email: String
+    public let email: Optional<String>
+    
+//    private enum CodingKeys: String, CodingKey {
+//        case sub, birthdate, givenName = "given_name", familyName = "family_name", email
+//    }
     private enum CodingKeys: String, CodingKey {
-        case sub, birthdate, givenName = "given_name", familyName = "family_name"
+        case sub, birthdate, emailVerified = "email_verified", address, gender,
+             shippingAddress = "shipping_address", givenName = "given_name", familyName = "family_name", email
     }
 
     public var description: String {
-        "UserInfo(sub: \(sub), birthdate: \(birthdate), givenName: \(givenName), familyName: \(familyName))"
+        "UserInfo(sub: \(sub), birthdate: \(birthdate), givenName: \(givenName), familyName: \(familyName), email: \(email ?? ""), emailVerified: \(emailVerified ?? false), gender: \(gender ?? ""), address: \(String(describing: address ?? nil)), shippingAddress: \(String(describing: shippingAddress ?? nil)))"
     }
-//    private enum CodingKeys: String, CodingKey {
-//        case sub, birthdate, emailVerified = "email_verified", address, gender,
-//             shippingAddress = "shipping_address", givenName = "given_name", familyName = "family_name", email
-//    }
 }
+
+//@propertyWrapper
+//struct DecodableString {
+//    var wrappedValue = ""
+//}
+//
+//extension DecodableString: Decodable {
+//    init(from decoder: Decoder) throws {
+//        let container = try decoder.singleValueContainer()
+//        wrappedValue = try container.decode(String.self)
+//    }
+//}
+//
+//extension KeyedDecodingContainer {
+//    func decode(_ type: DecodableString.Type,
+//                forKey key: Key) throws -> DecodableString {
+//        try decodeIfPresent(type, forKey: key) ?? .init()
+//    }
+//}
