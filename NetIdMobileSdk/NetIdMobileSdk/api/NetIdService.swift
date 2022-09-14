@@ -178,7 +178,7 @@ open class NetIdService: NSObject {
 
     /**
      Fetch permissions.
-     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
+     - Parameter collapseSyncId: boolean value to indicate whether syncId is used or not.
      */
     public func fetchPermissions(collapseSyncId: Bool = true) {
         if handleConnection(.PermissionRead) {
