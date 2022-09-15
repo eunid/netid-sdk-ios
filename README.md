@@ -4,7 +4,7 @@
 
 ## Initialize NetIDService
 
-First you need to assign a delegate of type  'NetIdServiceDelegate' for recieving all callbacks.
+First you need to assign a delegate of type 'NetIdServiceDelegate' for recieving all callbacks made bei the `NetIdService`.
 ```swift
 NetIdService.sharedInstance.registerListener(self)
 ```
