@@ -12,7 +12,7 @@ NetIdService.sharedInstance.registerListener(self)
 Then, construct a configuration object for the NetIDService:
 ```swift
 let config = NetIdConfig(host: "broker.netid.de",
-                clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
+                clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                 redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider",
                 originUrlScheme: "netIdExample",
                 claims: nil)
