@@ -83,3 +83,48 @@ NetIdService.sharedInstance.transmitToken(token)
 ```
 Sets the id token to be used by the SDK. When using app2web flow, it is not neccessary to set the token because the SDK itself gets a callback and can extract the id token. But in the app2app flow, the application is getting the authorization information directly. And thus, the application has to set the token for further use in the SDK.
 
+## SDK configuration for ID provider apps
+
+It is possible to configure the SDK to make use of the apps of different ID providers. Right now, two of them are supported.
+The configuration resides in the file `netIdAppIdentifiers.json` inside the SDK. As this is an internal part of the SDK, it is not meant to be set via an interface nor API.
+
+```json
+{
+  "netIdAppIdentifiers": [
+    {
+      "id": 1,
+      "name": "GMX",
+      "icon": "logo_gmx",
+      "typeFaceIcon": "typeface_gmx",
+      "backgroundColor": "#FF402FD2",
+      "foregroundColor": "#FFFFFFFF",
+      "iOS": {
+        "bundleIdentifier": "de.gmx.mobile.ios.mail",
+        "scheme": "gmxmail",
+        "universalLink": "https://sso.gmx.net/authorize-app2app"
+      },
+      "android": {
+        "applicationId": "de.gmx.mobile.android.mail",
+        "verifiedAppLink": "https://sso.gmx.net/authorize-app2app"
+      }
+    },
+    {
+      "id": 2,
+      "name": "WEB.DE",
+      "icon": "logo_web_de",
+      "typeFaceIcon": "typeface_webde",
+      "backgroundColor": "#FFF7AD0A",
+      "foregroundColor": "#FF212121",
+      "iOS": {
+        "bundleIdentifier": "de.web.mobile.ios.mail",
+        "scheme": "webdemail",
+        "universalLink": "https://sso.web.de/authorize-app2app"
+      },
+      "android": {
+        "applicationId": "de.web.mobile.android.mail",
+        "verifiedAppLink": "https://sso.web.de/authorize-app2app"
+      }
+    }
+  ]
+}
+````
