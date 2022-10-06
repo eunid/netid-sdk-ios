@@ -28,7 +28,7 @@ public struct NetIdPrivacySettings: Decodable, CustomStringConvertible {
     }
 
     public var description: String {
-        "NetIdPrivacySettings(type: \(type), status: \(status ?? NetIdPrivacySettingsStatus.invalid), value: \(value ?? ""), changedAt: \(changedAt))"
+        "NetIdPrivacySettings(type: \(type), status: \(status ?? NetIdPrivacySettingsStatus.none), value: \(value ?? ""), changedAt: \(changedAt))"
     }
 
     private enum CodingKeys: String, CodingKey {

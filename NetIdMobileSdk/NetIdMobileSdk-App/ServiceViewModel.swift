@@ -82,6 +82,16 @@ class ServiceViewModel: NSObject, ObservableObject {
             EmptyView()
         }
     }
+    
+    @ViewBuilder
+    func getAuthorizationButtons() -> some View {
+        if let currentViewController = UIApplication.shared.visibleViewController {
+            NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController,
+                    authFlow: authFlow)
+        } else {
+            EmptyView()
+        }
+    }
 }
 
 extension ServiceViewModel: NetIdServiceDelegate {
