@@ -109,6 +109,22 @@ class AppAuthManager: NSObject {
             }
         }
     }
+    
+    public func getAuthRequestForUrl(url: URL) -> URL? {
+        if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
+           let redirectUri = netIdConfig?.redirectUri {
+            if let redirectUri = URL.init(string: redirectUri) {
+                let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
+                                                           clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, permissionManagementScope],
+                                                           redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: netIdConfig?.claims)
+                var components = URLComponents(string: request.externalUserAgentRequestURL().absoluteString)
+                components?.host = url.host
+                components?.path = url.path
+                return components?.url
+            }
+        }
+        return nil
+    }
 
     public func endSession() {
         authState = nil
