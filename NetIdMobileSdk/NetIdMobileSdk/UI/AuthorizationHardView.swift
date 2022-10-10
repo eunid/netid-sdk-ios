@@ -47,7 +47,7 @@ struct AuthorizationHardView: View {
             
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
-                    delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController)
+                    delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Hard)
                 } label: {
                     Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name).uppercased())
                         .kerning(1.25)
@@ -65,7 +65,7 @@ struct AuthorizationHardView: View {
             // If there are not ID applications installed, display a button to use app2web instead.
             if appIdentifiers.isEmpty {
                 Button {
-                    delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController)
+                    delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Hard)
                 } label: {
                     Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
                         .kerning(1.25)
@@ -105,7 +105,7 @@ func getButtons(appIdentifiers: [AppIdentifier], delegate: AuthorizationViewDele
     let b = ForEach(appIdentifiers, id: \.id) { result in
         
         Button {
-            delegate.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController)
+            delegate.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Hard)
         } label: {
             Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name).uppercased())
                     .kerning(1.25)
