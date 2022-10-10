@@ -25,4 +25,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 - Url schemes error
 - Corrected url for UniversalLinks
+- Fixed a bug with different scopes for different flows
 
