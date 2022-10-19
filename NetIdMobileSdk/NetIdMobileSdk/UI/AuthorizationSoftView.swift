@@ -116,7 +116,7 @@ struct AuthorizationSoftView: View {
                     let selectedAppIdentifier = appIdentifiers[selectedAppIndex]
                     destinationScheme = selectedAppIdentifier.iOS.universalLink
                 }
-                delegate?.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Soft)
+                delegate?.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
             } label: {
                 Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
                         .kerning(1.25)
