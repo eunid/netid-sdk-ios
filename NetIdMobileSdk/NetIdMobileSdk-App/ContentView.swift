@@ -58,12 +58,16 @@ struct ContentView: View {
                             .cornerRadius(5)
                             .disabled(!serviceViewModel.authenticationEnabled)
                             .alert("choose_auth_flow_title", isPresented: $showingAlert) {
-                                Button("Soft-Login") {
-                                    serviceViewModel.authFlow = .Soft
+                                Button("Permission") {
+                                    serviceViewModel.authFlow = .Permission
                                     serviceViewModel.authorizeNetIdService()
                                 }
-                                Button("Hard-Login") {
-                                    serviceViewModel.authFlow = .Hard
+                                Button("Login") {
+                                    serviceViewModel.authFlow = .Login
+                                    serviceViewModel.authorizeNetIdService()
+                                }
+                                Button("Login + Permission") {
+                                    serviceViewModel.authFlow = .LoginPermission
                                     serviceViewModel.authorizeNetIdService()
                                 }
                             }

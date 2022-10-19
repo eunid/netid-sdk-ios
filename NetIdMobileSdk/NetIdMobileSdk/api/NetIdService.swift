@@ -74,6 +74,17 @@ open class NetIdService: NSObject {
             }
         }
     }
+    
+    /**
+     Resumes a session when coming back from external authorization agent.
+     - Parameter url: callback url
+     */
+    public func resumeSession(_ url: URL) {
+        guard let _ = appAuthManager, ((appAuthManager?.currentAuthorizationFlow) != nil) else {
+            return
+        }
+        appAuthManager?.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url)
+    }
 
     /**
      Provides the view controller
@@ -89,10 +100,10 @@ open class NetIdService: NSObject {
                     NetIdError(code: .NoIdAppInstalled, process: .Authentication))
         }
         switch authFlow {
-        case .Soft:
+        case .Permission:
             return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
                     appIdentifiers: netIdApps))
-        case .Hard:
+        case .LoginPermission, .Login:
             return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
                     appIdentifiers: netIdApps))
         }
@@ -133,10 +144,10 @@ open class NetIdService: NSObject {
         }
 
         switch authFlow {
-        case .Soft:
+        case .Permission:
             return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
                     appIdentifiers: netIdApps))
-        case .Hard:
+        case .Login, .LoginPermission:
             return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
                     appIdentifiers: netIdApps))
         }
@@ -224,7 +235,7 @@ open class NetIdService: NSObject {
 
     /**
      Update permissions.
-     - Parameter permisson: permissions to set of type ``NetIdPermissionUpdate``.
+     - Parameter permission: permissions to set of type ``NetIdPermissionUpdate``.
      - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
      */
     public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {

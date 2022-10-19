@@ -84,8 +84,15 @@ class AppAuthManager: NSObject {
      - Parameter presentingViewController: needed to present the authorization WebView
      */
     public func authorizeWeb(presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
-        var scopes = [permissionManagementScope]
-        if (authFlow == .Hard) {
+        var scopes: [String] = []
+        switch authFlow {
+        case .Permission:
+            scopes.append(permissionManagementScope)
+        case .Login:
+            scopes.append(OIDScopeOpenID)
+            scopes.append(OIDScopeProfile)
+        case .LoginPermission:
+            scopes.append(permissionManagementScope)
             scopes.append(OIDScopeOpenID)
             scopes.append(OIDScopeProfile)
         }
@@ -116,10 +123,17 @@ class AppAuthManager: NSObject {
     }
     
     public func getAuthRequestForUrl(url: URL, authFlow: NetIdAuthFlow) -> URL? {
-        var scopes = [permissionManagementScope]
-        if (authFlow == .Hard) {
+        var scopes: [String] = []
+//        scopes.append(OIDScopeProfile)
+
+        switch authFlow {
+        case .Permission:
+            scopes.append(permissionManagementScope)
+        case .Login:
             scopes.append(OIDScopeOpenID)
-            scopes.append(OIDScopeProfile)
+        case .LoginPermission:
+            scopes.append(permissionManagementScope)
+            scopes.append(OIDScopeOpenID)
         }
         if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
            let redirectUri = netIdConfig?.redirectUri {
