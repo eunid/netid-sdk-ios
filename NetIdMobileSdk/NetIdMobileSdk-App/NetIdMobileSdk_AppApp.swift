@@ -22,6 +22,15 @@ struct NetIdMobileSdk_AppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView().environmentObject(serviceViewModel)
+            ContentView().onOpenURL(perform: { url in
+                print("Incoming url: \(url)")
+                guard let components = URLComponents(url: url, resolvingAgainstBaseURL: false) else { return }
+                guard let queryItems = components.queryItems else { return }
+                
+                for item in queryItems {
+                    print("Query parameter: \(item.name) - \(item.value ?? "none")")
+                }
+            })
         }
     }
 }
