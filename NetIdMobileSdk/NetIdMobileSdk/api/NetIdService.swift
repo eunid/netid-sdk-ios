@@ -43,7 +43,6 @@ open class NetIdService: NSObject {
                 Logger.shared.debug("Configuration already been set.")
             } else {
                 self.netIdConfig = netIdConfig
-                Font.loadCustomFonts()
                 userInfoManager = UserInfoManager(delegate: self)
                 permissionManager = PermissionManager(delegate: self)
                 appAuthManager = AppAuthManager(delegate: self, netIdConfig: netIdConfig)

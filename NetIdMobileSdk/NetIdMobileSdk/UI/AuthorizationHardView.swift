@@ -24,13 +24,18 @@ struct AuthorizationHardView: View {
     var body: some View {
         VStack(spacing: 12) {
             HStack {
-                Spacer()
-                Image("logo_net_id", bundle: bundle)
-                    .resizable()
+                Image("logo_net_id_short", bundle: bundle)
                     .scaledToFit()
-                    .padding(.horizontal, 12)
-                    .frame(width: 100, height: 30)
+                    .frame(height: 20)
+                    .padding(.leading, 23)
+                Text(LocalizableUtil.netIdLocalizable("authorization_hard_view_title"))
+                    .font(Font.system(size: 14, weight: .medium))
+                    .foregroundColor(Color("netIdBlackWhiteColor", bundle: bundle))
+                Spacer()
             }
+            Divider()
+                .padding(.horizontal, 23)
+
             if appIdentifiers.count == 1 {
                 Image(appIdentifiers[0].typeFaceIcon, bundle: bundle)
                     .resizable()
@@ -38,22 +43,25 @@ struct AuthorizationHardView: View {
                     .padding(.horizontal, 12)
                     .frame(width: 100, height: 30, alignment: .center)
             }
-            
-            Text(LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login"))
-                .font(Font.verdana(size: 16))
-                .foregroundColor(.black)
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
-            
+
+            HStack {
+                Text(LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login"))
+                    .font(Font.system(size: 18, weight: .semibold))
+                    .foregroundColor(Color("netIdBlackWhiteColor", bundle: bundle))
+                    .padding(.horizontal, 20)
+                Spacer()
+            }
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
                     delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Login)
                 } label: {
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name).uppercased())
+                    Image(result.icon, bundle: bundle)
+                        .frame(height: 24)
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name))
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color(hex: result.foregroundColor))
-                        .font(Font.robotoMedium(size: 14))
+                        .font(Font.system(size: 18, weight: .semibold))
                 }
                 .padding(12)
                 .background(Color(hex: result.backgroundColor))
@@ -67,39 +75,40 @@ struct AuthorizationHardView: View {
                 Button {
                     delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Login)
                 } label: {
+                    Image("logo_net_id_short", bundle: bundle)
+                        .frame(height: 24)
                     Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(Color.white)
-                        .font(Font.robotoMedium(size: 14))
+                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
+                        .font(Font.system(size: 18, weight: .semibold))
                 }
                 .padding(12)
-                .background(Color("netIdGreenColor", bundle: bundle))
                 .cornerRadius(5)
                 .padding(.horizontal, 20)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
+                        .padding(.horizontal, 20))
             }
             
             Button {
                 delegate?.didTapDismiss()
             } label: {
-                //TODO Get display name from currently running app
-                Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_close"), "App").uppercased())
+                Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_close"), "App"))
                     .kerning(1.25)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
-                    .font(Font.robotoMedium(size: 14))
+                    .font(Font.system(size: 18, weight: .semibold))
             }
             .padding(12)
+            .background(Color("netIdContinueColor", bundle: bundle))
             .cornerRadius(5)
             .padding(.horizontal, 20)
-            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
-                .padding(.horizontal, 20))
         }
         .padding(.vertical, 20)
-        .background(Color.white)
+        .background(Color("netIdLayerColor", bundle: bundle))
     }
 }
-
+/*
 func getButtons(appIdentifiers: [AppIdentifier], delegate: AuthorizationViewDelegate, presentingViewController: UIViewController) -> ForEach<[AppIdentifier], Int, some View> /*[any View] */{
     //var buttons: [any View]
     let b = ForEach(appIdentifiers, id: \.id) { result in
@@ -111,7 +120,7 @@ func getButtons(appIdentifiers: [AppIdentifier], delegate: AuthorizationViewDele
                     .kerning(1.25)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(Color(hex: result.foregroundColor))
-                    .font(Font.robotoMedium(size: 14))
+                    .font(Font.system(size: 14))
         }
                 .padding(12)
                 .background(Color(hex: result.backgroundColor))
@@ -137,7 +146,7 @@ func getButtons(appIdentifiers: [AppIdentifier], delegate: AuthorizationViewDele
     }*/
     return b
 }
-
+*/
 
 struct AuthorizationHardView_Previews: PreviewProvider {
 
@@ -150,9 +159,6 @@ struct AuthorizationHardView_Previews: PreviewProvider {
                         AppIdentifier(id: 1, name: "W", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
                                       icon: "logo_web_de", typeFaceIcon: "typeface_webde", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test", universalLink: "test"),
                                       android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test"))])
-                    .onAppear {
-                        Font.loadCustomFonts()
-                    }
         }
     }
 }

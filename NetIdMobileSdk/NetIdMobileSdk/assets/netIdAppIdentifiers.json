@@ -5,7 +5,7 @@
       "name": "GMX",
       "icon": "logo_gmx",
       "typeFaceIcon": "typeface_gmx",
-      "backgroundColor": "#FF402FD2",
+      "backgroundColor": "#FF1E50A0",
       "foregroundColor": "#FFFFFFFF",
       "iOS": {
         "bundleIdentifier": "de.gmx.mobile.ios.mail",
@@ -22,8 +22,8 @@
       "name": "WEB.DE",
       "icon": "logo_web_de",
       "typeFaceIcon": "typeface_webde",
-      "backgroundColor": "#FFF7AD0A",
-      "foregroundColor": "#FF212121",
+      "backgroundColor": "#FFFFD800",
+      "foregroundColor": "#FF333333",
       "iOS": {
         "bundleIdentifier": "de.web.mobile.ios.mail",
         "scheme": "webdemail",
