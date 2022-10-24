@@ -43,7 +43,6 @@ open class NetIdService: NSObject {
                 Logger.shared.debug("Configuration already been set.")
             } else {
                 self.netIdConfig = netIdConfig
-                Font.loadCustomFonts()
                 userInfoManager = UserInfoManager(delegate: self)
                 permissionManager = PermissionManager(delegate: self)
                 appAuthManager = AppAuthManager(delegate: self, netIdConfig: netIdConfig)
@@ -101,11 +100,13 @@ open class NetIdService: NSObject {
         }
         switch authFlow {
         case .Permission:
+            let config = netIdConfig?.permissionLayerConfig
             return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: netIdApps))
+                                                 appIdentifiers: netIdApps, logoId: (config?.logoId) ?? "", headlineText: (config?.headlineText) ?? "", legalText: (config?.legalText) ?? "", continueText: (config?.continueText) ?? ""))
         case .LoginPermission, .Login:
+            let config = netIdConfig?.loginLayerConfig
             return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: netIdApps))
+                                                 appIdentifiers: netIdApps, headlineText: (config?.headlineText) ?? "", loginText: (config?.loginText) ?? "", continueText: (config?.continueText) ?? ""))
         }
 //        case .Soft:
 //            return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
