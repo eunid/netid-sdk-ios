@@ -19,6 +19,9 @@ struct AuthorizationHardView: View {
     var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
+    var headlineText = LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login")
+    var loginText = LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with")
+    var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
     private let bundle = Bundle(for: NetIdService.self)
 
     var body: some View {
@@ -45,7 +48,7 @@ struct AuthorizationHardView: View {
             }
 
             HStack {
-                Text(LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login"))
+                Text(headlineText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login") : headlineText)
                     .font(Font.system(size: 18, weight: .semibold))
                     .foregroundColor(Color("netIdBlackWhiteColor", bundle: bundle))
                     .padding(.horizontal, 20)
@@ -57,7 +60,7 @@ struct AuthorizationHardView: View {
                 } label: {
                     Image(result.icon, bundle: bundle)
                         .frame(height: 24)
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with"), result.name))
+                    Text(String(format: loginText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_hard_view_continue_with") : loginText, result.name))
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color(hex: result.foregroundColor))
@@ -77,7 +80,7 @@ struct AuthorizationHardView: View {
                 } label: {
                     Image("logo_net_id_short", bundle: bundle)
                         .frame(height: 24)
-                    Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
+                    Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color("authorizationTitleColor", bundle: bundle))

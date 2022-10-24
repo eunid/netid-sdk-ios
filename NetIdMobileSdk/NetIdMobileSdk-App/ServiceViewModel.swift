@@ -37,9 +37,15 @@ class ServiceViewModel: NSObject, ObservableObject {
     func initializeNetIdService() {
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
+        
+        // Initialize configuration for the SDK.
+        // It is possible to customize the layer for the permission and login flow to a certain extend.
+        // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default vaules will apply instead.
+        var loginLayerConfig = LoginLayerConfig()
+        var permissionLayerConfig = PermissionLayerConfig()
         let config = NetIdConfig(host: "broker.netid.de", clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
                 redirectUri: "https://netid-sdk-web.letsdev.de/redirect", originUrlScheme: "netIdExample",
-                claims: nil)
+                claims: nil, loginLayerConfig: loginLayerConfig, permissionLayerConfig: permissionLayerConfig)
         NetIdService.sharedInstance.initialize(config)
     }
 
