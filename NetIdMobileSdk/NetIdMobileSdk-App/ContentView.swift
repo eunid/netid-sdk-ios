@@ -14,6 +14,10 @@
 
 import SwiftUI
 
+/**
+ The main view of the sample application.
+ It consits of several buttons, that represent the different steps during an authorization process. Additionally, feedback is logged to  text view.
+ */
 struct ContentView: View {
 
     @EnvironmentObject var serviceViewModel: ServiceViewModel

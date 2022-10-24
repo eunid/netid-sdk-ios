@@ -16,6 +16,22 @@ import Foundation
 import UIKit
 import SwiftUI
 
+/**
+ The ``NetIdService`` is the main class of the sdk.
+ 
+ An application communicates via this class with the authorization service.
+ 
+ To do so, an application first registers itself as a listener to the service.
+
+ ```NetIdService.sharedInstance.registerListener(self)```
+   
+ Next, initialize the service with a configuration object of kind ``NetIdConfig``.
+ 
+ The application has to conform to the ``NetIdServiceDelegate`` protocol and implement the required functions (see below).
+
+ 
+ ```NetIdService.sharedInstance.initialize(config)```
+ */
 open class NetIdService: NSObject {
 
     public static let sharedInstance = NetIdService()
@@ -34,7 +50,7 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Initializes the SDK and loads the authentication configuration document.
+     Initializes the sdk and loads the authentication configuration document.
      - Parameter netIdConfig: the client configuration of type ``NetIdConfig``.
      */
     public func initialize(_ netIdConfig: NetIdConfig) {
@@ -52,17 +68,16 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Provides the currently stored NetIdConfig.
-     - Returns:
+     Provides the currently stored ``NetIdConfig``.
+     - Returns: Current ``NetIdConfig``
      */
     public func getNetIdConfig() -> NetIdConfig? {
         netIdConfig
     }
 
     /**
-     Ability to set a token for the SDK.
+     Ability to set a token for the SDK. DEPRECATED - will be removed in future versions.
      - Parameter token: the token to set.
-     - Returns:
      */
     public func transmitToken(_ token: String) {
         if TokenUtil.isValidJwtToken(token) {
@@ -86,10 +101,11 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Provides the view controller
-     - Parameter currentViewController:
-     - Parameter authFlow:
-     - Returns:
+     Returns an authorization view, that conforms to the desired ``NetIdAuthFlow``. The view will consist off all buttons, logos and texts that arre neccessary to start the authentication process.
+     - Parameter currentViewController: Currently used view controller.
+     - Parameter authFlow: Type of flow to use, can be either ``NetIdAuthFlow.Permission``, ``NetIdAuthFlow.Login`` or ``NetIdAuthFlow.LoginPermission``
+     - Parameter forceApp2App: If set to true, will yield an ``NetIdError`` if the are no ID apps installed. Otherwise, will use app2web flow automatically. Defaults to ``false``.
+     - Returns: view
      */
     public func getAuthorizationView(currentViewController: UIViewController, authFlow: NetIdAuthFlow, forceApp2App: Bool = false) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
@@ -130,11 +146,12 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Provides the view controller
-     - Parameter currentViewController:
-     - Parameter authFlow:
-     - Parameter forceApp2App: whether the app2app flow should be forced or not. If set to true and no ID apps are installed, this will yield an error of type NoIdAppInstalled. Defaults to false.
-     - Returns:
+     Returns a list of buttons to use to build an authorization view of its own.
+     NOT YET IMPLEMENTED
+     - Parameter currentViewController: Currently used view controller.
+     - Parameter authFlow: Type of flow to use, can be either ``NetIdAuthFlow.Permission``, ``NetIdAuthFlow.Login`` or ``NetIdAuthFlow.LoginPermission``
+     - Parameter forceApp2App: If set to true, will yield an ``NetIdError`` if the are no ID apps installed. Otherwise, will use app2web flow automatically. Defaults to ``false``.
+     - Returns: view
      */
     public func getAuthorizationButtons(currentViewController: UIViewController, authFlow: NetIdAuthFlow, forceApp2App: Bool = false) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
@@ -188,7 +205,7 @@ open class NetIdService: NSObject {
     /**
      Function to end a session.
      The net ID service itself still remains initialzed but all information about authorization/authentication is discarded.
-     To start a new session, call ``authorize(destinationScheme:currentViewController:)`` again.
+     To start a new session, call ``authorize(destinationScheme:currentViewController:authFlow)`` again.
      */
     public func endSession() {
         Logger.shared.debug("netID Service will end session.")
@@ -256,7 +273,7 @@ open class NetIdService: NSObject {
 
     /**
      Checks wheather there is a network connection or not.
-     - Parameter process: process to signal in case of an error
+     - Parameter process: In case of an error, denotes the process that the error is responsible for.
      - Returns bool
      */
     private func handleConnection(_ process: NetIdErrorProcess) -> Bool {
