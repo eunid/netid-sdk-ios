@@ -15,7 +15,9 @@ let config = NetIdConfig(host: "broker.netid.de",
                 clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                 redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider",
                 originUrlScheme: "netIdExample",
-                claims: nil)
+                claims: nil
+                loginLayerConfig: nil
+                permissionLayerConfig: nil)
 ```
 
 The parameters have the following meaning:
@@ -23,11 +25,13 @@ The parameters have the following meaning:
 | :---        |    :---   |
 | host | The name of the broker for the SSO service. This Parameter is optional. If ommited, this is set to the default broker broker.netid.de |
 | clientId | The client id of your application. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
-| redirectUri | An URI that is used by your application to catch callbacks when using the wep2app flow. This parameter is mandatory. |
+| redirectUri | An URI that is used by your application to catch callbacks. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
 | originUrlScheme | Used for creating deep links, not in use anymore (will be removed) |
 | claims | An array of strings, denoting additional claims that should be set during authorization. Can be nil. |
+| loginLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the login flow. Can be nil. |
+| permissionLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the permission flow. Can be nil. |
 
-And then, initialize the NetIdService.
+And then, initialize the NetIdService itself with the aforementioned condfiguration.
 ```swift
 NetIdService.sharedInstance.initialize(config)
 ```
@@ -37,8 +41,10 @@ It makes sense to sum this up into one function like e.g.:
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
         let config = NetIdConfig(host: "broker.netid.de", clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider", originUrlScheme: "netIdExample",
-                claims: nil)
+                redirectUri: "https://netid-sdk-web.letsdev.de/redirect", originUrlScheme: "netIdExample",
+                claims: nil,
+                loginLayerConfig: nil,
+                permissionLayerConfig: nil)
         NetIdService.sharedInstance.initialize(config)
     }
 ```
@@ -96,7 +102,7 @@ The configuration resides in the file `netIdAppIdentifiers.json` inside the SDK.
       "name": "GMX",
       "icon": "logo_gmx",
       "typeFaceIcon": "typeface_gmx",
-      "backgroundColor": "#FF402FD2",
+      "backgroundColor": "#FF1E50A0",
       "foregroundColor": "#FFFFFFFF",
       "iOS": {
         "bundleIdentifier": "de.gmx.mobile.ios.mail",
@@ -113,8 +119,8 @@ The configuration resides in the file `netIdAppIdentifiers.json` inside the SDK.
       "name": "WEB.DE",
       "icon": "logo_web_de",
       "typeFaceIcon": "typeface_webde",
-      "backgroundColor": "#FFF7AD0A",
-      "foregroundColor": "#FF212121",
+      "backgroundColor": "#FFFFD800",
+      "foregroundColor": "#FF333333",
       "iOS": {
         "bundleIdentifier": "de.web.mobile.ios.mail",
         "scheme": "webdemail",
