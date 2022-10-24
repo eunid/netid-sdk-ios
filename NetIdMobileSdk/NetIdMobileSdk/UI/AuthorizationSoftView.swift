@@ -16,7 +16,7 @@ import SwiftUI
 
 struct AuthorizationSoftView: View {
 
-    var delegate: AuthorizationViewDelegate?
+    weak var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
     var logoId = String("logo_net_id")

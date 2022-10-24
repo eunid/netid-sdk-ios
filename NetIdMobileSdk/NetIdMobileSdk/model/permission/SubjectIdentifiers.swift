@@ -24,7 +24,7 @@ public struct SubjectIdentifiers: Decodable, CustomStringConvertible {
     }
 
     public var description: String {
-        "SubjectIdentifiers(tpId: \(tpId ?? ""), syncId: \(syncId ?? ""))"
+        "SubjectIdentifiers(tpId: \(tpId ?? "--none--"), syncId: \(syncId ?? "--none--"))"
     }
 
     private enum CodingKeys: String, CodingKey {

@@ -41,14 +41,22 @@ public struct PermissionLayerConfig {
 }
 
 public struct NetIdConfig {
+    /// Name of the host that acts as an SSO broker, if not set defaults to broker.netid.de.
     public var host: String
+    /// The client id of this application. You need to retrieve it from the netID developer portal.
     public var clientId: String
+    /// Redirect URI for your application.  You need to retrieve it from the netID developer portal.
     public var redirectUri: String
+    /// Custom scheme to preceed deep links with - deprecated (will be removed in further version).
     public var originUrlScheme: String
+    /// Additional claims to set.
     public var claims: [String: String]?
+    /// Optional configuration for strings to display in the login layer.
     public var loginLayerConfig: LoginLayerConfig?
+    /// Optional configuration for strings and logo to display in the permission layer.
     public var permissionLayerConfig: PermissionLayerConfig?
 
+    /// Initialize the SDK. This is the first thing to do.
     public init(host: String, clientId: String, redirectUri: String, originUrlScheme: String, claims: [String: String]?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
         self.host = host
         self.clientId = clientId

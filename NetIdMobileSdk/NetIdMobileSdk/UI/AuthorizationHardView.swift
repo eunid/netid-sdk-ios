@@ -16,7 +16,7 @@ import SwiftUI
 
 struct AuthorizationHardView: View {
 
-    var delegate: AuthorizationViewDelegate?
+    weak var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
     var headlineText = LocalizableUtil.netIdLocalizable("authorization_hard_view_email_login")
