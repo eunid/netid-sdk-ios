@@ -19,6 +19,10 @@ struct AuthorizationSoftView: View {
     weak var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
+    var logoId = String("logo_net_id")
+    var headlineText = LocalizableUtil.netIdLocalizable("authorization_view_private_settings")
+    var legalText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one")
+    var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
     private let bundle = Bundle(for: NetIdService.self)
 
     @State private var selectedAppIndex = 0
@@ -26,43 +30,58 @@ struct AuthorizationSoftView: View {
 
     var body: some View {
         VStack(spacing: 10) {
-            Image("logo_net_id", bundle: bundle)
+            HStack {
+                Image(logoId.isEmpty ? "logo_net_id" : logoId, bundle: bundle)
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 100, height: 30, alignment: .center)
+                    .frame(width: 100, height: 32, alignment: .leading)
+                Spacer()
+                Button {
+                    delegate?.didTapDismiss()
+                } label: {
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .scaledToFit()
+                        .accentColor(Color("legalInfoColor", bundle: bundle))
+                        .frame(height: 14, alignment: .leading)
+                }
+            }
+            Divider()
 
-            Text(LocalizableUtil.netIdLocalizable("authorization_view_private_settings"))
-                    .multilineTextAlignment(.center)
+            Text(headlineText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_private_settings") : headlineText)
+                .font(Font.system(size: 16, weight: .semibold))
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 0)
 
             //TODO  optimize this
             VStack(spacing: 10) {
                 if (appIdentifiers.count > 1) {
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one"),
-                            appIdentifiers[selectedAppIndex].name)).font(Font.verdana(size: 12))
+                    Text(String(format: legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText,
+                            appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
                             .foregroundColor(Color("legalInfoColor", bundle: bundle))
                             + Text(
                             LocalizableUtil.netIdLocalizable(
-                                    "authorization_view_legal_info_select")).underline().font(Font.verdana(size: 12))
+                                    "authorization_view_legal_info_select")).underline().font(Font.system(size: 12, weight: .regular))
                             .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
                             + Text(LocalizableUtil.netIdLocalizable(
-                            "authorization_view_legal_info_part_two")).font(Font.verdana(size: 12))
+                            "authorization_view_legal_info_part_two")).font(Font.system(size: 12, weight: .regular))
                             .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 } else if (appIdentifiers.count == 1) {
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one"),
-                            appIdentifiers[selectedAppIndex].name)).font(Font.verdana(size: 12))
+                    Text(String(format: legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText,
+                            appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
                             .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
                             + Text(LocalizableUtil.netIdLocalizable(
-                            "authorization_view_legal_info_part_two")).font(Font.verdana(size: 12))
+                            "authorization_view_legal_info_part_two")).font(Font.system(size: 12, weight: .regular))
                             .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 } else {
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one"),
-                            LocalizableUtil.netIdLocalizable("authorization_view_net_id"))).font(Font.verdana(size: 12))
+                    Text(String(format: legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText,
+                            LocalizableUtil.netIdLocalizable("authorization_view_net_id"))).font(Font.system(size: 12, weight: .regular))
                             .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
                             + Text(LocalizableUtil.netIdLocalizable(
-                            "authorization_view_legal_info_part_two")).font(Font.verdana(size: 12))
+                                "authorization_view_legal_info_part_two")).font(Font.system(size: 12, weight: .regular))
                             .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 }
             }
@@ -71,21 +90,25 @@ struct AuthorizationSoftView: View {
                             showAvailableAppSelection = true
                         }
                     })
-                    .multilineTextAlignment(.center)
+                    .frame(maxWidth: .infinity, alignment: .leading)
+                    .multilineTextAlignment(.leading)
+                    .padding(.horizontal, 0)
 
             if showAvailableAppSelection {
                 ForEach(Array(appIdentifiers.enumerated()), id: \.element.id) { index, result in
                     HStack(spacing: 10) {
                         ZStack {
                             Circle()
-                                    .fill(Color(hex: result.backgroundColor) ?? Color.white)
-                                    .frame(width: 40, height: 40)
+                                .fill(Color(hex: result.backgroundColor) ?? Color.white)
+                                .frame(width: 40, height: 40)
 
                             Image(result.icon, bundle: bundle)
-                                    .frame(width: 30, height: 30, alignment: .center)
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 28, height: 28, alignment: .center)
                         }
                         Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
-                                .font(Font.robotoMedium(size: 16))
+                            .font(Font.system(size: 16, weight: .bold))
 
                         Spacer()
 
@@ -95,19 +118,20 @@ struct AuthorizationSoftView: View {
                             selectedAppIndex = index
                         })
                     }
-                            .padding(.horizontal, 25)
                             .padding(.vertical, 10)
-                            .background()
+                            .background(Color("netIdLayerColor", bundle: bundle))
                             .onTapGesture {
                                 selectedAppIndex = index
                             }
+                    
 
                     if index != (appIdentifiers.count - 1) {
                         Divider()
-                                .padding(.leading, 75)
-                                .padding(.trailing, 20)
+                                .padding(.leading, 50)
+                                .padding(.trailing, 0)
                     }
                 }
+
             }
 
             Button {
@@ -116,37 +140,26 @@ struct AuthorizationSoftView: View {
                     let selectedAppIdentifier = appIdentifiers[selectedAppIndex]
                     destinationScheme = selectedAppIdentifier.iOS.universalLink
                 }
-                delegate?.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController)
+                delegate?.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
             } label: {
-                Text(LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id"))
-                        .kerning(1.25)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color.white)
-                        .font(Font.robotoMedium(size: 14))
-            }
-                    .padding(12)
-                    .background(Color("netIdGreenColor", bundle: bundle))
-                    .cornerRadius(5)
-                    .padding(.horizontal, 20)
-
-            Button {
-                delegate?.didTapDismiss()
-            } label: {
-                Text(LocalizableUtil.netIdLocalizable("authorization_view_close"))
+                Image("logo_net_id_short", bundle: bundle)
+                    .frame(height: 24)
+                Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
                         .kerning(1.25)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
-                        .font(Font.robotoMedium(size: 14))
+                        .font(Font.system(size: 18, weight: .semibold))
             }
                     .padding(12)
                     .cornerRadius(5)
-                    .padding(.horizontal, 20)
-                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
-                            .padding(.horizontal, 20))
+                    .background(Color("netIdOtherOptionsColor", bundle: bundle))
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle)))
+            
 
         }
-                .padding(.vertical, 20)
-                .background(Color.white)
+        .padding(.vertical, 20)
+        .padding(.horizontal, 23)
+        .background(Color("netIdLayerColor", bundle: bundle))
     }
 }
 
@@ -163,7 +176,6 @@ struct AuthorizationSoftView_Previews: PreviewProvider {
                                       iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test", universalLink: "test"),
                                       android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test"))])
                     .onAppear {
-                        Font.loadCustomFonts()
                     }
         }
     }

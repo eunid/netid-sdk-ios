@@ -15,5 +15,5 @@
 import Foundation
 
 public enum NetIdAuthFlow {
-    case Soft, Hard
+    case Permission, Login, LoginPermission
 }

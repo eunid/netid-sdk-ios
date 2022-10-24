@@ -14,6 +14,32 @@
 
 import Foundation
 
+public struct LoginLayerConfig {
+    public var headlineText: String
+    public var loginText: String
+    public var continueText: String
+    
+    public init () {
+        self.headlineText = ""
+        self.loginText = ""
+        self.continueText = ""
+    }
+}
+
+public struct PermissionLayerConfig {
+    public var logoId: String
+    public var headlineText: String
+    public var legalText: String
+    public var continueText: String
+    
+    public init() {
+        self.logoId = ""
+        self.headlineText = ""
+        self.legalText = ""
+        self.continueText = ""
+    }
+}
+
 public struct NetIdConfig {
     /// Name of the host that acts as an SSO broker, e.g. broker.netid.de.
     public var host: String
@@ -25,13 +51,17 @@ public struct NetIdConfig {
     public var originUrlScheme: String
     /// Additional claims to set.
     public var claims: [String: String]?
+    public var loginLayerConfig: LoginLayerConfig?
+    public var permissionLayerConfig: PermissionLayerConfig?
 
     /// Initialize the SDK. This is the first thing to do.
-    public init(host: String = "broker.netid.de", clientId: String, redirectUri: String, originUrlScheme: String, claims: [String: String]?) {
+    public init(host: String, clientId: String, redirectUri: String, originUrlScheme: String, claims: [String: String]?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
         self.host = host
         self.clientId = clientId
         self.redirectUri = redirectUri
         self.originUrlScheme = originUrlScheme
         self.claims = claims
+        self.loginLayerConfig = loginLayerConfig
+        self.permissionLayerConfig = permissionLayerConfig
     }
 }

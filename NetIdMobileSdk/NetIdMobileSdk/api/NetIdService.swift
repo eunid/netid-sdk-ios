@@ -43,7 +43,6 @@ open class NetIdService: NSObject {
                 Logger.shared.debug("Configuration already been set.")
             } else {
                 self.netIdConfig = netIdConfig
-                Font.loadCustomFonts()
                 userInfoManager = UserInfoManager(delegate: self)
                 permissionManager = PermissionManager(delegate: self)
                 appAuthManager = AppAuthManager(delegate: self, netIdConfig: netIdConfig)
@@ -74,6 +73,17 @@ open class NetIdService: NSObject {
             }
         }
     }
+    
+    /**
+     Resumes a session when coming back from external authorization agent.
+     - Parameter url: callback url
+     */
+    public func resumeSession(_ url: URL) {
+        guard let _ = appAuthManager, ((appAuthManager?.currentAuthorizationFlow) != nil) else {
+            return
+        }
+        appAuthManager?.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url)
+    }
 
     /**
      Provides the view controller
@@ -81,15 +91,22 @@ open class NetIdService: NSObject {
      - Parameter authFlow:
      - Returns:
      */
-    public func getAuthorizationView(currentViewController: UIViewController, authFlow: NetIdAuthFlow) -> some View {
+    public func getAuthorizationView(currentViewController: UIViewController, authFlow: NetIdAuthFlow, forceApp2App: Bool = false) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
+        // If there are no ID apps installed, but forceApp2App is true, return with an error.
+        if netIdApps.isEmpty && forceApp2App {
+            self.didFinishAuthenticationWithError(
+                    NetIdError(code: .NoIdAppInstalled, process: .Authentication))
+        }
         switch authFlow {
-        case .Soft:
+        case .Permission:
+            let config = netIdConfig?.permissionLayerConfig
             return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: netIdApps))
-        case .Hard:
+                                                 appIdentifiers: netIdApps, logoId: (config?.logoId) ?? "", headlineText: (config?.headlineText) ?? "", legalText: (config?.legalText) ?? "", continueText: (config?.continueText) ?? ""))
+        case .LoginPermission, .Login:
+            let config = netIdConfig?.loginLayerConfig
             return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: netIdApps))
+                                                 appIdentifiers: netIdApps, headlineText: (config?.headlineText) ?? "", loginText: (config?.loginText) ?? "", continueText: (config?.continueText) ?? ""))
         }
 //        case .Soft:
 //            return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
@@ -113,16 +130,42 @@ open class NetIdService: NSObject {
     }
 
     /**
+     Provides the view controller
+     - Parameter currentViewController:
+     - Parameter authFlow:
+     - Parameter forceApp2App: whether the app2app flow should be forced or not. If set to true and no ID apps are installed, this will yield an error of type NoIdAppInstalled. Defaults to false.
+     - Returns:
+     */
+    public func getAuthorizationButtons(currentViewController: UIViewController, authFlow: NetIdAuthFlow, forceApp2App: Bool = false) -> some View {
+        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
+        // If there are no ID apps installed, but forceApp2App is true, return with an error.
+        if netIdApps.isEmpty && forceApp2App {
+            self.didFinishAuthenticationWithError(
+                    NetIdError(code: .NoIdAppInstalled, process: .Authentication))
+        }
+
+        switch authFlow {
+        case .Permission:
+            return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
+                    appIdentifiers: netIdApps))
+        case .Login, .LoginPermission:
+            return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
+                    appIdentifiers: netIdApps))
+        }
+    }
+    
+    /**
      Actual call to start the authorization process. If ID apps are present, an app2app flow will be used. Otherwise, app2web is used.
      - Parameter destinationScheme: the scheme to set for calling another app for authorization
      - Parameter currentViewController: the view controller to use in case of app2web flow
      */
-    public func authorize(destinationScheme: String?, currentViewController: UIViewController) {
+    public func authorize(destinationScheme: String?, currentViewController: UIViewController, authFlow: NetIdAuthFlow) {
         if handleConnection(.Authentication) {
-            if let scheme = destinationScheme, let originScheme = netIdConfig?.originUrlScheme {
+            if let scheme = destinationScheme/*, let originScheme = netIdConfig?.originUrlScheme*/ {
                 if !scheme.isEmpty {
                     Logger.shared.info("netID Service will authorize via App2App.")
-                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme, originScheme: originScheme) {
+                    if let url = appAuthManager?.getAuthRequestForUrl(url: URL(string: scheme)!, authFlow: authFlow) {
+//                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme, originScheme: originScheme) {
                         UIApplication.shared.open(url, completionHandler: { success in
                             if success {
                                 Logger.shared.info("netID Service successfully opened: \(url)")
@@ -130,14 +173,14 @@ open class NetIdService: NSObject {
                                 Logger.shared.error("netID Service could not open: \(url)")
                                 // Todo: Remove this autofallback to app2web once app2app is working
                                 Logger.shared.info("netID Service will authorize via web as a fallback.")
-                                self.appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
+                                self.appAuthManager?.authorizeWeb(presentingViewController: currentViewController, authFlow: authFlow)
                             }
                         })
                     }
                 }
             } else {
                 Logger.shared.info("netID Service will authorize via web.")
-                appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
+                appAuthManager?.authorizeWeb(presentingViewController: currentViewController, authFlow: authFlow)
             }
         }
     }
@@ -195,7 +238,7 @@ open class NetIdService: NSObject {
 
     /**
      Update permissions.
-     - Parameter permisson: permissions to set of type ``NetIdPermissionUpdate``.
+     - Parameter permission: permissions to set of type ``NetIdPermissionUpdate``.
      - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
      */
     public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {
@@ -322,7 +365,7 @@ extension NetIdService: AuthorizationViewDelegate {
         }
     }
 
-    public func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController) {
-        authorize(destinationScheme: destinationScheme, currentViewController: presentingViewController)
+    public func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
+        authorize(destinationScheme: destinationScheme, currentViewController: presentingViewController, authFlow: authFlow)
     }
 }

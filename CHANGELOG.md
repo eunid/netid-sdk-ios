@@ -18,9 +18,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Hard- and SoftLogin option 
 - Possibility to transfer claims via the sdk interface
 - Preparations for using UniversalLinks
+- Added added third flow combining permission and login
+- Added possibility to change certain strings/logos in permission and login flow layers
 
 ### Changed
 - Added more information to user info
+- Renamed hard/soft-flows to login/permission-flows
+- Changed to new design
 
 ### Fixed
 - Url schemes error
+- Corrected url for UniversalLinks
+- Fixed a bug with different scopes for different flows
+

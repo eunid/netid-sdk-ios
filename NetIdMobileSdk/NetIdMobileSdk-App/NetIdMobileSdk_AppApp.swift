@@ -17,11 +17,14 @@ import SwiftUI
 @main
 struct NetIdMobileSdk_AppApp: App {
 
-    let serviceViewModel = ServiceViewModel()
+    @StateObject private var serviceViewModel = ServiceViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(serviceViewModel)
+            ContentView().onOpenURL(perform: { url in
+                serviceViewModel.resumeSession(url)
+            })
+            .environmentObject(serviceViewModel)
         }
     }
 }

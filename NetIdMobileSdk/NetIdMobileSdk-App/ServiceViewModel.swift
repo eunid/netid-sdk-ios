@@ -32,14 +32,20 @@ class ServiceViewModel: NSObject, ObservableObject {
     @Published var userInfoStatusColor = Color.gray
 
     @Published var logText = ""
-    @Published var authFlow: NetIdAuthFlow = .Soft
+    @Published var authFlow: NetIdAuthFlow = .Permission
 
     func initializeNetIdService() {
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
-        let config = NetIdConfig(/*host: "broker.netid.de",*/ clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
-                redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider", originUrlScheme: "netIdExample",
-                claims: nil)
+        
+        // Initialize configuration for the SDK.
+        // It is possible to customize the layer for the permission and login flow to a certain extend.
+        // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default vaules will apply instead.
+        var loginLayerConfig = LoginLayerConfig()
+        var permissionLayerConfig = PermissionLayerConfig()
+        let config = NetIdConfig(host: "broker.netid.de", clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
+                redirectUri: "https://netid-sdk-web.letsdev.de/redirect", originUrlScheme: "netIdExample",
+                claims: nil, loginLayerConfig: loginLayerConfig, permissionLayerConfig: permissionLayerConfig)
         NetIdService.sharedInstance.initialize(config)
     }
 
@@ -68,6 +74,10 @@ class ServiceViewModel: NSObject, ObservableObject {
                 collapseSyncId: false)
     }
 
+    func resumeSession(_ url: URL) {
+        NetIdService.sharedInstance.resumeSession(url)
+    }
+
     func endSession() {
         endSessionEnabled = false
         NetIdService.sharedInstance.endSession()
@@ -75,6 +85,16 @@ class ServiceViewModel: NSObject, ObservableObject {
 
     @ViewBuilder
     func getAuthorizationView() -> some View {
+        if let currentViewController = UIApplication.shared.visibleViewController {
+            NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController,
+                    authFlow: authFlow)
+        } else {
+            EmptyView()
+        }
+    }
+    
+    @ViewBuilder
+    func getAuthorizationButtons() -> some View {
         if let currentViewController = UIApplication.shared.visibleViewController {
             NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController,
                     authFlow: authFlow)

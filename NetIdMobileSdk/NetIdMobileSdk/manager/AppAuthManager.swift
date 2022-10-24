@@ -83,12 +83,24 @@ class AppAuthManager: NSObject {
      Starts the web authorization process.
      - Parameter presentingViewController: needed to present the authorization WebView
      */
-    public func authorizeWeb(presentingViewController: UIViewController) {
+    public func authorizeWeb(presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
+        var scopes: [String] = []
+        switch authFlow {
+        case .Permission:
+            scopes.append(permissionManagementScope)
+        case .Login:
+            scopes.append(OIDScopeOpenID)
+            scopes.append(OIDScopeProfile)
+        case .LoginPermission:
+            scopes.append(permissionManagementScope)
+            scopes.append(OIDScopeOpenID)
+            scopes.append(OIDScopeProfile)
+        }
         if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
            let redirectUri = netIdConfig?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
                 let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
-                        clientId: clientId, scopes: [OIDScopeOpenID, OIDScopeProfile, permissionManagementScope],
+                        clientId: clientId, scopes: scopes,
                         redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: netIdConfig?.claims)
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
@@ -108,6 +120,34 @@ class AppAuthManager: NSObject {
                         }
             }
         }
+    }
+    
+    public func getAuthRequestForUrl(url: URL, authFlow: NetIdAuthFlow) -> URL? {
+        var scopes: [String] = []
+//        scopes.append(OIDScopeProfile)
+
+        switch authFlow {
+        case .Permission:
+            scopes.append(permissionManagementScope)
+        case .Login:
+            scopes.append(OIDScopeOpenID)
+        case .LoginPermission:
+            scopes.append(permissionManagementScope)
+            scopes.append(OIDScopeOpenID)
+        }
+        if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
+           let redirectUri = netIdConfig?.redirectUri {
+            if let redirectUri = URL.init(string: redirectUri) {
+                let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
+                                                           clientId: clientId, scopes: scopes,
+                                                           redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: netIdConfig?.claims)
+                var components = URLComponents(string: request.externalUserAgentRequestURL().absoluteString)
+                components?.host = url.host
+                components?.path = url.path
+                return components?.url
+            }
+        }
+        return nil
     }
 
     public func endSession() {
