@@ -85,23 +85,24 @@ class AppAuthManager: NSObject {
      */
     public func authorizeWeb(presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
         var scopes: [String] = []
+        var claims = netIdConfig?.claims
+        
         switch authFlow {
         case .Permission:
             scopes.append(permissionManagementScope)
+            claims = nil
         case .Login:
             scopes.append(OIDScopeOpenID)
-            scopes.append(OIDScopeProfile)
         case .LoginPermission:
             scopes.append(permissionManagementScope)
             scopes.append(OIDScopeOpenID)
-            scopes.append(OIDScopeProfile)
         }
         if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
            let redirectUri = netIdConfig?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
                 let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
                         clientId: clientId, scopes: scopes,
-                        redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: netIdConfig?.claims)
+                        redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: claims)
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
                             if let authState = authState {
@@ -124,11 +125,12 @@ class AppAuthManager: NSObject {
     
     public func getAuthRequestForUrl(url: URL, authFlow: NetIdAuthFlow) -> URL? {
         var scopes: [String] = []
-//        scopes.append(OIDScopeProfile)
+        var claims = netIdConfig?.claims
 
         switch authFlow {
         case .Permission:
             scopes.append(permissionManagementScope)
+            claims = nil
         case .Login:
             scopes.append(OIDScopeOpenID)
         case .LoginPermission:
@@ -140,7 +142,7 @@ class AppAuthManager: NSObject {
             if let redirectUri = URL.init(string: redirectUri) {
                 let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
                                                            clientId: clientId, scopes: scopes,
-                                                           redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: netIdConfig?.claims)
+                                                           redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: claims)
                 var components = URLComponents(string: request.externalUserAgentRequestURL().absoluteString)
                 components?.host = url.host
                 components?.path = url.path
