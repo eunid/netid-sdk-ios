@@ -43,9 +43,11 @@ class ServiceViewModel: NSObject, ObservableObject {
         // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default vaules will apply instead.
         var loginLayerConfig = LoginLayerConfig()
         var permissionLayerConfig = PermissionLayerConfig()
+        var claims = Dictionary<String, String>()
+        claims["claims"] = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
         let config = NetIdConfig(host: "broker.netid.de", clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
                 redirectUri: "https://netid-sdk-web.letsdev.de/redirect", originUrlScheme: "netIdExample",
-                claims: nil, loginLayerConfig: loginLayerConfig, permissionLayerConfig: permissionLayerConfig)
+                claims: claims, loginLayerConfig: loginLayerConfig, permissionLayerConfig: permissionLayerConfig)
         NetIdService.sharedInstance.initialize(config)
     }
 

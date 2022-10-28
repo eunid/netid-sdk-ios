@@ -16,5 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web Authorization 
 - Permission Management section 
 - Hard- and Soft-Login integration
+- Added default claims
 
 
