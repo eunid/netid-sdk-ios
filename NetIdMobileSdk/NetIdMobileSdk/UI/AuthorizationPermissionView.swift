@@ -14,7 +14,7 @@
 
 import SwiftUI
 
-struct AuthorizationSoftView: View {
+struct AuthorizationPermissionView: View {
 
     weak var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
@@ -163,11 +163,11 @@ struct AuthorizationSoftView: View {
     }
 }
 
-struct AuthorizationSoftView_Previews: PreviewProvider {
+struct AuthorizationPermissionView_Previews: PreviewProvider {
 
     static var previews: some View {
         Group {
-            AuthorizationSoftView(presentingViewController: UIViewController(),
+            AuthorizationPermissionView(presentingViewController: UIViewController(),
                     appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
                                                    icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test", universalLink: "test"),
                                                    android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test")),

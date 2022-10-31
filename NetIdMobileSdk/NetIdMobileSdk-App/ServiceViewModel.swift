@@ -41,8 +41,8 @@ class ServiceViewModel: NSObject, ObservableObject {
         // Initialize configuration for the SDK.
         // It is possible to customize the layer for the permission and login flow to a certain extend.
         // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default vaules will apply instead.
-        var loginLayerConfig = LoginLayerConfig()
-        var permissionLayerConfig = PermissionLayerConfig()
+        let loginLayerConfig = LoginLayerConfig()
+        let permissionLayerConfig = PermissionLayerConfig()
         var claims = Dictionary<String, String>()
         claims["claims"] = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
         let config = NetIdConfig(host: "broker.netid.de", clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
@@ -87,16 +87,6 @@ class ServiceViewModel: NSObject, ObservableObject {
 
     @ViewBuilder
     func getAuthorizationView() -> some View {
-        if let currentViewController = UIApplication.shared.visibleViewController {
-            NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController,
-                    authFlow: authFlow)
-        } else {
-            EmptyView()
-        }
-    }
-    
-    @ViewBuilder
-    func getAuthorizationButtons() -> some View {
         if let currentViewController = UIApplication.shared.visibleViewController {
             NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController,
                     authFlow: authFlow)
