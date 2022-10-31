@@ -19,6 +19,7 @@ struct AuthorizationLoginView: View {
     weak var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
+    var authFlow: NetIdAuthFlow
     var headlineText = LocalizableUtil.netIdLocalizable("authorization_login_view_email_login")
     var loginText = LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
@@ -56,7 +57,7 @@ struct AuthorizationLoginView: View {
             }
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
-                    delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Login)
+                    delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
                 } label: {
                     Image(result.icon, bundle: bundle)
                         .frame(height: 24)
@@ -75,7 +76,7 @@ struct AuthorizationLoginView: View {
             // If there are not ID applications installed, display a button to use app2web instead.
             if appIdentifiers.isEmpty {
                 Button {
-                    delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Login)
+                    delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: authFlow)
                 } label: {
                     Image("logo_net_id_short", bundle: bundle)
                         .frame(height: 24)
@@ -121,7 +122,7 @@ struct AuthorizationLoginView_Previews: PreviewProvider {
                                                    android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test")),
                         AppIdentifier(id: 1, name: "W", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
                                       icon: "logo_web_de", typeFaceIcon: "typeface_webde", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test", universalLink: "test"),
-                                      android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test"))])
+                                      android: AppDetailsAndroid(applicationId: "test", verifiedAppLink: "test"))], authFlow: NetIdAuthFlow.Login)
         }
     }
 }
