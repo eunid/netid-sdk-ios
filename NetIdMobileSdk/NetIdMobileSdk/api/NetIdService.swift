@@ -123,7 +123,7 @@ open class NetIdService: NSObject {
         case .LoginPermission, .Login:
             let config = netIdConfig?.loginLayerConfig
             return AnyView(AuthorizationLoginView(delegate: self, presentingViewController: currentViewController,
-                                                 appIdentifiers: netIdApps, headlineText: (config?.headlineText) ?? "", loginText: (config?.loginText) ?? "", continueText: (config?.continueText) ?? ""))
+                                                  appIdentifiers: netIdApps, authFlow: authFlow, headlineText: (config?.headlineText) ?? "", loginText: (config?.loginText) ?? "", continueText: (config?.continueText) ?? ""))
         }
     }
     
@@ -198,7 +198,7 @@ open class NetIdService: NSObject {
     /**
      Returns the radio button for a certain id app in case of a permission flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number if installed if apps.
+     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number of installed id apps.
      - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
      */
     @ViewBuilder
@@ -239,21 +239,27 @@ open class NetIdService: NSObject {
     }
     
     /**
-     Returns the button for a certain id app in case of a permission flow dialog.
+     Returns the button for a certain id app in case of a login flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number if installed if apps.
+     - Parameter presentingViewController: view controller to hook up button to.
+     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty viel will be returned.
+     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number of installed id apps.
      - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
      */
     @ViewBuilder
-    public func loginButtonForIdApp(presentingViewController: UIViewController, index: Int) -> some View {
+    public func loginButtonForIdApp(presentingViewController: UIViewController, authFlow: NetIdAuthFlow, index: Int) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         if ((netIdApps.isEmpty) || (index >= netIdApps.count)) {
             EmptyView()
         }
         let result = netIdApps[index]
         
+        if (authFlow == .Permission) {
+            EmptyView()
+        }
+        
         Button {
-            self.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: .Login)
+            self.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
         } label: {
             Text(String(format: LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with"), result.name).uppercased())
                 .kerning(1.25)
