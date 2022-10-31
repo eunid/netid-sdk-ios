@@ -19,8 +19,8 @@
 "authorization_view_agree_and_continue_with_net_id" = "Zustimmen mit netID";
 "authorization_view_close" = "Schließen";
 "authorization_view_use_app" = "%@ App verwenden";
-"authorization_hard_view_title" = "Login mit netID";
-"authorization_hard_view_email_login" = "Login mit Ihrer E-Mail App";
-"authorization_hard_view_continue_with" = "Login mit %@";
-"authorization_hard_view_close" = "Weitere Anmeldeoptionen";
+"authorization_login_view_title" = "Login mit netID";
+"authorization_login_view_email_login" = "Login mit Ihrer E-Mail App";
+"authorization_login_view_continue_with" = "Login mit %@";
+"authorization_login_view_close" = "Weitere Anmeldeoptionen";
 "authorization_view_net_id" = "netID";

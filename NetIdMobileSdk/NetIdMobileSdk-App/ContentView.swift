@@ -158,7 +158,7 @@ struct ContentView: View {
             }
                     .padding(.horizontal, 20)
                     .zIndex(1)
-
+            
             if serviceViewModel.authorizationViewVisible {
 
                 Rectangle()

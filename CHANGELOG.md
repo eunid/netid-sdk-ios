@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Preparations for using UniversalLinks
 - Added added third flow combining permission and login
 - Added possibility to change certain strings/logos in permission and login flow layers
+- Added possibility to get back buttons to build an own authorization dialog
 
 ### Changed
 - Added more information to user info
