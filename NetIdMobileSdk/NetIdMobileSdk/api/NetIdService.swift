@@ -281,7 +281,7 @@ open class NetIdService: NSObject {
      */
     public func authorize(destinationScheme: String?, currentViewController: UIViewController, authFlow: NetIdAuthFlow) {
         if handleConnection(.Authentication) {
-            if let scheme = destinationScheme/*, let originScheme = netIdConfig?.originUrlScheme*/ {
+            if let scheme = destinationScheme {
                 if !scheme.isEmpty {
                     Logger.shared.info("netID Service will authorize via App2App.")
                     if let url = appAuthManager?.getAuthRequestForUrl(url: URL(string: scheme)!, authFlow: authFlow) {
