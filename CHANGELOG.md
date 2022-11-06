@@ -26,6 +26,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added more information to user info
 - Renamed hard/soft-flows to login/permission-flows
 - Changed to new design
+- Removed deprecated variable
 
 ### Fixed
 - Url schemes error
