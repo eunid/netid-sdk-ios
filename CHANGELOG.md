@@ -27,11 +27,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Renamed hard/soft-flows to login/permission-flows
 - Changed to new design
 - Removed deprecated variable
+- Do not display empty values in userinfo
 
 ### Fixed
 - Url schemes error
 - Corrected url for UniversalLinks
 - Fixed a bug with different scopes for different flows
 - Fixed a bug when using login flow with permission
-- Fixed a bug when not some claims were missing
+- Fixed a bug when some claims were missing
 

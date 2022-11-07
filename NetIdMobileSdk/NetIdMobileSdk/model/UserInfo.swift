@@ -14,7 +14,7 @@
 
 import Foundation
 
-public struct UserInfo: Decodable, CustomStringConvertible {
+public struct UserInfo: Decodable, Encodable, CustomStringConvertible {
 
     public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
                 givenName: String, familyName: String, email: String) {
@@ -45,6 +45,22 @@ public struct UserInfo: Decodable, CustomStringConvertible {
     }
 
     public var description: String {
-        "UserInfo(sub: \(sub), birthdate: \(birthdate), givenName: \(givenName), familyName: \(familyName), email: \(email ?? ""), emailVerified: \(emailVerified ?? false), gender: \(gender ?? ""), address: \(String(describing: address ?? nil)), shippingAddress: \(String(describing: shippingAddress ?? nil)))"
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(self)
+        return String(data: data, encoding: .utf8) ?? "{}"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(sub, forKey: .sub)
+        try container.encodeIfPresent(birthdate, forKey: .birthdate)
+        try container.encodeIfPresent(emailVerified, forKey: .emailVerified)
+        try container.encodeIfPresent(address, forKey: .address)
+        try container.encodeIfPresent(gender, forKey: .gender)
+        try container.encodeIfPresent(shippingAddress, forKey: .shippingAddress)
+        try container.encodeIfPresent(givenName, forKey: .givenName)
+        try container.encodeIfPresent(familyName, forKey: .familyName)
+        try container.encodeIfPresent(email, forKey: .email)
+
     }
 }
