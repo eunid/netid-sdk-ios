@@ -14,7 +14,7 @@
 
 import Foundation
 
-public struct ShippingAddress: Decodable {
+public struct ShippingAddress: Decodable, Encodable {
 
     public init(streetAddress: String, country: String, formatted: String, locality: String, postalCode: String, recipient: String) {
         self.streetAddress = streetAddress
@@ -35,5 +35,14 @@ public struct ShippingAddress: Decodable {
     private enum CodingKeys: String, CodingKey {
         case streetAddress = "street_address", country, formatted, locality, postalCode = "postal_code",
              recipient
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(streetAddress, forKey: .streetAddress)
+        try container.encodeIfPresent(country, forKey: .country)
+        try container.encodeIfPresent(formatted, forKey: .formatted)
+        try container.encodeIfPresent(locality, forKey: .locality)
+        try container.encodeIfPresent(postalCode, forKey: .postalCode)
     }
 }
