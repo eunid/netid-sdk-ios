@@ -13,6 +13,7 @@
 // limitations under the License.
 
 import SwiftUI
+import NetIdMobileSdk
 
 /**
  The main view of the sample application.
@@ -166,14 +167,18 @@ struct ContentView: View {
                         .ignoresSafeArea()
                         .transition(.opacity)
                         .zIndex(2)
+                        .onTapGesture {
+                            NetIdService.sharedInstance.didTapDismiss()
+                        }
 
                 VStack {
                     Spacer()
                     serviceViewModel.getAuthorizationView()
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 12)
                             .cornerRadius(12)
                             .shadow(radius: 7)
                 }
+                        .padding(.bottom, -12)
                         .transition(.move(edge: .bottom))
                         .ignoresSafeArea()
                         .zIndex(3)
