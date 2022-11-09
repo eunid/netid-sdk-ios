@@ -17,5 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Permission Management section 
 - Hard- and Soft-Login integration
 - Added default claims
+- Close bottom sheet by pressing anywhere inside the grayed out area
 
+### Fixed
+- Align sheet to bottom
 
