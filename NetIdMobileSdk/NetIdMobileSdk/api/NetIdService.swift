@@ -348,7 +348,7 @@ open class NetIdService: NSObject {
             Logger.shared.info("netID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didFetchPermissionsWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
+                    item.didFetchPermissionsWithError(NetIdError(code: .NoAuth, process: .PermissionRead), originalError: nil)
                 }
                 return
             }
@@ -366,7 +366,7 @@ open class NetIdService: NSObject {
             Logger.shared.info("netID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didUpdatePermissionWithError(NetIdError(code: .NoAuth, process: .PermissionWrite))
+                    item.didUpdatePermissionWithError(NetIdError(code: .NoAuth, process: .PermissionWrite), originalError: nil)
                 }
                 return
             }
@@ -456,10 +456,10 @@ extension NetIdService: PermissionManagerDelegate {
         }
     }
 
-    public func didFetchPermissionsWithError(_ error: NetIdError) {
+    public func didFetchPermissionsWithError(_ error: NetIdError, originalError: Error?) {
         Logger.shared.error("netID Service permissions fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
-            item.didFetchPermissionsWithError(error)
+            item.didFetchPermissionsWithError(error, originalError: originalError)
         }
     }
 
@@ -470,10 +470,10 @@ extension NetIdService: PermissionManagerDelegate {
         }
     }
 
-    public func didUpdatePermissionWithError(_ error: NetIdError) {
+    public func didUpdatePermissionWithError(_ error: NetIdError, originalError: Error?) {
         Logger.shared.error("netID Service permission update failed with error: " + error.code.rawValue)
         for item in netIdListener {
-            item.didUpdatePermissionWithError(error)
+            item.didUpdatePermissionWithError(error, originalError: originalError)
         }
     }
 }

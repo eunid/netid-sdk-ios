@@ -216,8 +216,11 @@ extension ServiceViewModel: NetIdServiceDelegate {
         fetchPermissionsEnabled = true
     }
 
-    public func didFetchPermissionsWithError(_ error: NetIdError) {
+    public func didFetchPermissionsWithError(_ error: NetIdError, originalError: Error?) {
         logText.append("didFetchPermissionsWithError \(error.code.rawValue)\n")
+        if (originalError != nil) {
+            logText.append("original error message: \(originalError!.localizedDescription)\n")
+        }
         fetchPermissionsEnabled = true
     }
 
@@ -226,8 +229,11 @@ extension ServiceViewModel: NetIdServiceDelegate {
         updatePermissionEnabled = true
     }
 
-    public func didUpdatePermissionWithError(_ error: NetIdError) {
+    public func didUpdatePermissionWithError(_ error: NetIdError, originalError: Error?) {
         logText.append("didUpdatePermissionWithError \(error.code.rawValue)\n")
+        if (originalError != nil) {
+            logText.append("original error message: \(originalError!.localizedDescription)\n")
+        }
         updatePermissionEnabled = true
     }
 
