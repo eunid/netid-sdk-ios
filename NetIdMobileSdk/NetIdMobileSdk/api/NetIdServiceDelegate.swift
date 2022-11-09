@@ -33,11 +33,11 @@ public protocol NetIdServiceDelegate: AnyObject {
 
     func didFetchPermissions(_ permissions: Permissions)
 
-    func didFetchPermissionsWithError(_ error: NetIdError)
+    func didFetchPermissionsWithError(_ error: NetIdError, originalError: Error?)
 
     func didUpdatePermission()
 
-    func didUpdatePermissionWithError(_ error: NetIdError)
+    func didUpdatePermissionWithError(_ error: NetIdError, originalError: Error?)
 
     func didTransmitInvalidToken()
 

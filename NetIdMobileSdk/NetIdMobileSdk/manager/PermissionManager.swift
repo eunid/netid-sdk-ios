@@ -26,14 +26,14 @@ class PermissionManager: NSObject {
         let permissionReadRequest = PermissionReadRequest(accessToken: accessToken, collapseSyncId: collapseSyncId)
         Webservice.shared.performRequest(permissionReadRequest, callback: { data, error in
             guard let data = data else {
-                self.delegate?.didFetchPermissionsWithError(NetIdError(code: .Unknown, process: .PermissionRead))
+                self.delegate?.didFetchPermissionsWithError(NetIdError(code: .Unknown, process: .PermissionRead), originalError: error)
                 return
             }
 
             if let permissions = try? JSONDecoder().decode(Permissions.self, from: data) {
                 self.delegate?.didFetchPermissions(permissions)
             } else {
-                self.delegate?.didFetchPermissionsWithError(NetIdError(code: .JsonDeserializationError, process: .PermissionRead))
+                self.delegate?.didFetchPermissionsWithError(NetIdError(code: .JsonDeserializationError, process: .PermissionRead), originalError: error)
             }
         })
     }
@@ -43,14 +43,14 @@ class PermissionManager: NSObject {
                 collapseSyncId: collapseSyncId)
         Webservice.shared.performRequest(permissionWriteRequest, callback: { data, error in
             guard let data = data else {
-                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .Unknown, process: .PermissionRead))
+                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .Unknown, process: .PermissionRead), originalError: error)
                 return
             }
 
             if let permissionJson = try? JSONDecoder().decode(SubjectIdentifiers.self, from: data) {
                 self.delegate?.didUpdatePermission(permissionJson)
             } else {
-                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .JsonDeserializationError, process: .PermissionWrite))
+                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .JsonDeserializationError, process: .PermissionWrite), originalError: error)
             }
         })
     }

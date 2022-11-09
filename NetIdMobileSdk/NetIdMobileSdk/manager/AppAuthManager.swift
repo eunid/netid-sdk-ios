@@ -52,8 +52,9 @@ class AppAuthManager: NSObject {
     }
 
     public func getPermissionToken() -> String? {
+        // Fallback for getting a permission token as long as there is no refresh token flow (and only permission scope was requested).
         guard let token = getIdToken() else {
-            return nil
+            return getAccessToken()
         }
         return TokenUtil.getPermissionTokenFrom(token)
     }
