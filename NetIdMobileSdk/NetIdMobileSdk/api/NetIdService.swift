@@ -135,7 +135,9 @@ open class NetIdService: NSObject {
      - Returns: Continue button
      */
     @ViewBuilder
-    public func continueButtonPermissionFlow(presentingViewController: UIViewController, continueText: String) -> some View {
+    public func continueButtonPermissionFlow(presentingViewController: UIViewController, continueText: String, colorScheme: ColorScheme) -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         Button {
             var destinationScheme: String?
@@ -145,18 +147,20 @@ open class NetIdService: NSObject {
             }
             self.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
         } label: {
-            Image("logo_net_id_short", bundle: Bundle(for: NetIdService.self))
-                .frame(height: 24)
-            Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
-                    .kerning(1.25)
+            ZStack {
+                Image("logo_net_id_short", bundle: bundle)
+                    .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
+                    .kerning(-0.45)
                     .frame(maxWidth: .infinity)
-                    .foregroundColor(Color("authorizationTitleColor", bundle: Bundle(for: NetIdService.self)))
+                    .foregroundColor(Color("netIdButtonColor", bundle: bundle))
                     .font(Font.system(size: 18, weight: .semibold))
-        }
+            }
             .padding(12)
+            .background(Color("netIdOtherOptionsColor", bundle: bundle))
             .cornerRadius(5)
-            .background(Color("netIdOtherOptionsColor", bundle: Bundle(for: NetIdService.self)))
-            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: Bundle(for: NetIdService.self))))
+            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(colorScheme == .dark ? "netIdLayerColor" : "closeButtonGrayColor", bundle: bundle)))
+        }
     }
 
     /**
@@ -167,23 +171,27 @@ open class NetIdService: NSObject {
      - Returns: Continue button
      */
     @ViewBuilder
-    public func continueButtonLoginFlow(presentingViewController: UIViewController, continueText: String) -> some View {
+    public func continueButtonLoginFlow(presentingViewController: UIViewController, continueText: String, colorScheme: ColorScheme) -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+
         Button {
             self.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: .Login)
         } label: {
-            Image("logo_net_id_short", bundle: Bundle(for: NetIdService.self))
-                .frame(height: 24)
-            Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
-                .kerning(1.25)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(Color("authorizationTitleColor", bundle: Bundle(for: NetIdService.self)))
-                .font(Font.system(size: 18, weight: .semibold))
+            ZStack {
+                Image("logo_net_id_short", bundle: bundle)
+                    .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_title") : continueText)
+                    .kerning(-0.45)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
+                    .font(Font.system(size: 18, weight: .semibold))
+            }
         }
-            .padding(12)
-            .cornerRadius(5)
-            .padding(.horizontal, 20)
-            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: Bundle(for: NetIdService.self)))
-                .padding(.horizontal, 20))
+        .padding(12)
+        .background(Color("netIdOtherOptionsColor", bundle: bundle))
+        .cornerRadius(5)
+        .padding(.horizontal, 20)
+        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(colorScheme == .dark ? "netIdLayerColor" : "closeButtonGrayColor", bundle: bundle)).padding(.horizontal, 20))
     }
     
     /**
@@ -220,6 +228,7 @@ open class NetIdService: NSObject {
                     .frame(width: 28, height: 28, alignment: .center)
             }
             Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
+                .kerning(-0.45)
                 .font(Font.system(size: 16, weight: .bold))
 
             Spacer()
@@ -247,7 +256,9 @@ open class NetIdService: NSObject {
      - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
      */
     @ViewBuilder
-    public func loginButtonForIdApp(presentingViewController: UIViewController, authFlow: NetIdAuthFlow, index: Int) -> some View {
+    public func loginButtonForIdApp(presentingViewController: UIViewController, authFlow: NetIdAuthFlow, index: Int, loginText: String = "") -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         if ((netIdApps.isEmpty) || (index >= netIdApps.count)) {
             EmptyView()
@@ -261,11 +272,15 @@ open class NetIdService: NSObject {
         Button {
             self.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
         } label: {
-            Text(String(format: LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with"), result.name).uppercased())
-                .kerning(1.25)
-                .frame(maxWidth: .infinity)
-                .foregroundColor(Color(hex: result.foregroundColor))
-                .font(Font.system(size: 14))
+            ZStack {
+                Image(result.icon, bundle: bundle)
+                    .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                Text(String(format: loginText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with") : loginText, result.name))
+                    .kerning(-0.45)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(Color(hex: result.foregroundColor))
+                    .font(Font.system(size: 18, weight: .semibold))
+            }
         }
             .tag(result.name)
             .padding(12)

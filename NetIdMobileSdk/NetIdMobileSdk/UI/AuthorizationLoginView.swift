@@ -24,6 +24,7 @@ struct AuthorizationLoginView: View {
     var loginText = LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
     private let bundle = Bundle(for: NetIdService.self)
+    @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
         VStack(spacing: 12) {
@@ -34,38 +35,35 @@ struct AuthorizationLoginView: View {
                     .padding(.leading, 23)
                 Text(LocalizableUtil.netIdLocalizable("authorization_login_view_title"))
                     .font(Font.system(size: 14, weight: .medium))
-                    .foregroundColor(Color("netIdBlackWhiteColor", bundle: bundle))
+                    .foregroundColor(Color("netIdGrayColor", bundle: bundle))
                 Spacer()
             }
             Divider()
+                .frame(maxHeight:1).background(Color("dividerColor", bundle: bundle))
                 .padding(.horizontal, 23)
 
-            if appIdentifiers.count == 1 {
-                Image(appIdentifiers[0].typeFaceIcon, bundle: bundle)
-                    .resizable()
-                    .scaledToFit()
-                    .padding(.horizontal, 12)
-                    .frame(width: 100, height: 30, alignment: .center)
-            }
-
-            HStack {
-                Text(headlineText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_email_login") : headlineText)
-                    .font(Font.system(size: 18, weight: .semibold))
-                    .foregroundColor(Color("netIdBlackWhiteColor", bundle: bundle))
-                    .padding(.horizontal, 20)
-                Spacer()
+            if appIdentifiers.count > 0 {
+                HStack {
+                    Text(headlineText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_email_login") : headlineText)
+                        .font(Font.system(size: 18, weight: .semibold))
+                        .foregroundColor(Color("netIdBlackWhiteColor", bundle: bundle))
+                        .padding(.horizontal, 20)
+                    Spacer()
+                }
             }
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
                     delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
                 } label: {
-                    Image(result.icon, bundle: bundle)
-                        .frame(height: 24)
-                    Text(String(format: loginText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with") : loginText, result.name))
-                        .kerning(1.25)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color(hex: result.foregroundColor))
-                        .font(Font.system(size: 18, weight: .semibold))
+                    ZStack {
+                        Image(result.icon, bundle: bundle)
+                            .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                        Text(String(format: loginText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with") : loginText, result.name))
+                            .kerning(-0.45)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color(hex: result.foregroundColor))
+                            .font(Font.system(size: 18, weight: .semibold))
+                    }
                 }
                 .padding(12)
                 .background(Color(hex: result.backgroundColor))
@@ -78,19 +76,21 @@ struct AuthorizationLoginView: View {
                 Button {
                     delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: authFlow)
                 } label: {
-                    Image("logo_net_id_short", bundle: bundle)
-                        .frame(height: 24)
-                    Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
-                        .kerning(1.25)
-                        .frame(maxWidth: .infinity)
-                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
-                        .font(Font.system(size: 18, weight: .semibold))
+                    ZStack {
+                        Image("logo_net_id_short", bundle: bundle)
+                            .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                        Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_title") : continueText)
+                            .kerning(-0.45)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
+                            .font(Font.system(size: 18, weight: .semibold))
+                    }
                 }
                 .padding(12)
+                .background(Color("netIdOtherOptionsColor", bundle: bundle))
                 .cornerRadius(5)
                 .padding(.horizontal, 20)
-                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle))
-                        .padding(.horizontal, 20))
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(colorScheme == .dark ? "netIdLayerColor" : "closeButtonGrayColor", bundle: bundle)).padding(.horizontal, 20))
             }
             
             Button {

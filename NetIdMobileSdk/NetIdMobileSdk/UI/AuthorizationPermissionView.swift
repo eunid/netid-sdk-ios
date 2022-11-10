@@ -24,6 +24,7 @@ struct AuthorizationPermissionView: View {
     var legalText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
     private let bundle = Bundle(for: NetIdService.self)
+    @Environment(\.colorScheme) var colorScheme
 
     @State private var selectedAppIndex = 0
     @State private var showAvailableAppSelection = false
@@ -31,7 +32,7 @@ struct AuthorizationPermissionView: View {
     var body: some View {
         VStack(spacing: 10) {
             HStack {
-                Image(logoId.isEmpty ? "logo_net_id" : logoId, bundle: bundle)
+                Image(logoId.isEmpty ? "96x96_n-a" : logoId, bundle: bundle)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 32, alignment: .leading)
@@ -42,18 +43,17 @@ struct AuthorizationPermissionView: View {
                     Image(systemName: "xmark")
                         .resizable()
                         .scaledToFit()
-                        .accentColor(Color("legalInfoColor", bundle: bundle))
+                        .accentColor(Color("closeButtonColor", bundle: bundle))
                         .frame(height: 14, alignment: .leading)
                 }
             }
-            Divider()
+            Divider().frame(maxHeight:1).background(Color("dividerColor", bundle: bundle))
 
             Text(headlineText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_private_settings") : headlineText)
                 .font(Font.system(size: 16, weight: .semibold))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal, 0)
 
-            //TODO  optimize this
             VStack(spacing: 10) {
                 if (appIdentifiers.count > 1) {
                     Text(String(format: legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText,
@@ -93,6 +93,7 @@ struct AuthorizationPermissionView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                     .multilineTextAlignment(.leading)
                     .padding(.horizontal, 0)
+                    .padding(.bottom, 8)
 
             if showAvailableAppSelection {
                 ForEach(Array(appIdentifiers.enumerated()), id: \.element.id) { index, result in
@@ -108,6 +109,7 @@ struct AuthorizationPermissionView: View {
                                 .frame(width: 28, height: 28, alignment: .center)
                         }
                         Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
+                            .kerning(-0.45)
                             .font(Font.system(size: 16, weight: .bold))
 
                         Spacer()
@@ -127,6 +129,7 @@ struct AuthorizationPermissionView: View {
 
                     if index != (appIdentifiers.count - 1) {
                         Divider()
+                                .frame(maxHeight:1).background(Color("dividerColor",    bundle: bundle))
                                 .padding(.leading, 50)
                                 .padding(.trailing, 0)
                     }
@@ -142,20 +145,20 @@ struct AuthorizationPermissionView: View {
                 }
                 delegate?.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
             } label: {
-                Image("logo_net_id_short", bundle: bundle)
-                    .frame(height: 24)
-                Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
-                        .kerning(1.25)
+                ZStack {
+                    Image("logo_net_id_short", bundle: bundle)
+                        .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                    Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
+                        .kerning(-0.45)
                         .frame(maxWidth: .infinity)
-                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
+                        .foregroundColor(Color("netIdButtonColor", bundle: bundle))
                         .font(Font.system(size: 18, weight: .semibold))
+                }
+                .padding(12)
+                .background(Color("netIdOtherOptionsColor", bundle: bundle))
+                .cornerRadius(5)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(colorScheme == .dark ? "netIdLayerColor" : "closeButtonGrayColor", bundle: bundle)))
             }
-                    .padding(12)
-                    .cornerRadius(5)
-                    .background(Color("netIdOtherOptionsColor", bundle: bundle))
-                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("closeButtonGrayColor", bundle: bundle)))
-            
-
         }
         .padding(.vertical, 20)
         .padding(.horizontal, 23)
