@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed to new design
 - Removed deprecated variable
 - Do not display empty values in userinfo
+- Integrated UI feedback
 
 ### Fixed
 - Url schemes error

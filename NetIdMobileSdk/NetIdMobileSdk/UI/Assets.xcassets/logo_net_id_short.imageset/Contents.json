@@ -1,17 +1,18 @@
 {
   "images" : [
     {
-      "filename" : "netiD_short.png",
-      "idiom" : "universal",
-      "scale" : "1x"
+      "filename" : "netiD_short_light.svg",
+      "idiom" : "universal"
     },
     {
-      "idiom" : "universal",
-      "scale" : "2x"
-    },
-    {
-      "idiom" : "universal",
-      "scale" : "3x"
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "netID_short_darkmode.svg",
+      "idiom" : "universal"
     }
   ],
   "info" : {
