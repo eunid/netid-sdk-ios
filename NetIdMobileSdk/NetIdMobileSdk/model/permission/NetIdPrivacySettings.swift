@@ -14,7 +14,7 @@
 
 import Foundation
 
-public struct NetIdPrivacySettings: Decodable, CustomStringConvertible {
+public struct NetIdPrivacySettings: Decodable, Encodable, CustomStringConvertible {
     public let type: String
     public let status: NetIdPrivacySettingsStatus?
     public let value: String?
@@ -27,12 +27,21 @@ public struct NetIdPrivacySettings: Decodable, CustomStringConvertible {
         self.changedAt = changedAt
     }
 
-    public var description: String {
-        "NetIdPrivacySettings(type: \(type), status: \(status ?? NetIdPrivacySettingsStatus.none), value: \(value ?? ""), changedAt: \(changedAt))"
-    }
-
     private enum CodingKeys: String, CodingKey {
         case type, changedAt = "changed_at", value, status
     }
+    
+    public var description: String {
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(self)
+        return String(data: data, encoding: .utf8) ?? "{}"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(status, forKey: .status)
+        try container.encodeIfPresent(value, forKey: .value)
+        try container.encodeIfPresent(changedAt, forKey: .changedAt)
+    }
 }
-

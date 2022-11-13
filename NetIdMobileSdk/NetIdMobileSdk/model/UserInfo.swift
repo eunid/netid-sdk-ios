@@ -61,6 +61,5 @@ public struct UserInfo: Decodable, Encodable, CustomStringConvertible {
         try container.encodeIfPresent(givenName, forKey: .givenName)
         try container.encodeIfPresent(familyName, forKey: .familyName)
         try container.encodeIfPresent(email, forKey: .email)
-
     }
 }

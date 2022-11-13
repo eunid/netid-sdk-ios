@@ -14,6 +14,6 @@
 
 import Foundation
 
-public enum NetIdPrivacySettingsStatus: String, Decodable {
+public enum NetIdPrivacySettingsStatus: String, Encodable, Decodable {
     case valid = "VALID", invalid = "INVALID", none = "NONE"
 }
