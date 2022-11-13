@@ -14,7 +14,7 @@
 
 import Foundation
 
-public enum PermissionStatusCode: String, Decodable {
+public enum PermissionStatusCode: String, Encodable, Decodable {
     case PermissionFound = "PERMISSIONS_FOUND",
          PermissionNotFound = "PERMISSIONS_NOT_FOUND",
          NoToken = "NO_TOKEN",

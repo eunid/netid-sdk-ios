@@ -14,7 +14,7 @@
 
 import Foundation
 
-public struct Permissions: Decodable, CustomStringConvertible {
+public struct Permissions: Decodable, Encodable, CustomStringConvertible {
     public let statusCode: PermissionStatusCode
     public let subjectIdentifiers: SubjectIdentifiers
     public let netIdPrivacySettings: [NetIdPrivacySettings]
@@ -25,11 +25,22 @@ public struct Permissions: Decodable, CustomStringConvertible {
         self.netIdPrivacySettings = netIdPrivacySettings
     }
 
-    public var description: String {
-        "Permissions(statusCode: \(statusCode), subjectIdentifiers: \(subjectIdentifiers), netIdPrivacySettings: \(netIdPrivacySettings))"
-    }
-
     private enum CodingKeys: String, CodingKey {
         case statusCode = "status_code", subjectIdentifiers = "subject_identifiers", netIdPrivacySettings = "netid_privacy_settings"
     }
+    
+    public var description: String {
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(self)
+        return String(data: data, encoding: .utf8) ?? "{}"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(statusCode, forKey: .statusCode)
+        try container.encodeIfPresent(subjectIdentifiers, forKey: .subjectIdentifiers)
+        try container.encodeIfPresent(netIdPrivacySettings, forKey: .netIdPrivacySettings)
+    }
+
+    
 }
