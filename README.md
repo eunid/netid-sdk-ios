@@ -11,7 +11,7 @@ NetIdService.sharedInstance.registerListener(self)
 
 Then, construct a configuration object for the NetIDService:
 ```swift
-let config = NetIdConfig(host: "broker.netid.de",
+let config = NetIdConfig(
                 clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                 redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider",
                 originUrlScheme: "netIdExample",
@@ -23,7 +23,6 @@ let config = NetIdConfig(host: "broker.netid.de",
 The parameters have the following meaning:
 | Parameter | Description |
 | :---        |    :---   |
-| host | The name of the broker for the SSO service. This Parameter is optional. If ommited, this is set to the default broker broker.netid.de |
 | clientId | The client id of your application. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
 | redirectUri | An URI that is used by your application to catch callbacks. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
 | originUrlScheme | Used for creating deep links, not in use anymore (will be removed) |
@@ -40,7 +39,7 @@ It makes sense to sum this up into one function like e.g.:
     func initializeNetIdService() {
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
-        let config = NetIdConfig(host: "broker.netid.de", clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+        let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                 redirectUri: "https://netid-sdk-web.letsdev.de/redirect", originUrlScheme: "netIdExample",
                 claims: nil,
                 loginLayerConfig: nil,

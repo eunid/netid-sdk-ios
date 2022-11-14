@@ -30,6 +30,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Do not display empty values in userinfo
 - Integrated UI feedback
 - Allow for empty/missing items in JSON
+- Removed host/broker from config
 
 ### Fixed
 - Url schemes error

@@ -41,6 +41,7 @@ open class NetIdService: NSObject {
     private var userInfoManager: UserInfoManager?
     private var permissionManager: PermissionManager?
     private var selectedAppIndex = 0
+    private let broker = "broker.netid.de"
 
     /**
       Registers a new listener of type NetIdServiceDelegate
@@ -63,7 +64,7 @@ open class NetIdService: NSObject {
                 userInfoManager = UserInfoManager(delegate: self)
                 permissionManager = PermissionManager(delegate: self)
                 appAuthManager = AppAuthManager(delegate: self, netIdConfig: netIdConfig)
-                appAuthManager?.fetchConfiguration(netIdConfig.host)
+                appAuthManager?.fetchConfiguration(broker)
             }
         }
     }
@@ -343,14 +344,7 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            guard let host = netIdConfig?.host else {
-                for item in netIdListener {
-                    Logger.shared.error("netID Service is unable to fetch user info caused by missing server host information.")
-                    item.didFetchUserInfoWithError(NetIdError(code: .InitializationError, process: .PermissionRead))
-                }
-                return
-            }
-            userInfoManager?.fetchUserInfo(host: host, accessToken: accessToken)
+            userInfoManager?.fetchUserInfo(host: broker, accessToken: accessToken)
         }
     }
 
