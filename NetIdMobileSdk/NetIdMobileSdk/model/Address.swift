@@ -24,11 +24,11 @@ public struct Address: Decodable, Encodable {
         self.postalCode = postalCode
     }
 
-    public let streetAddress: String
-    public let country: String
-    public let formatted: String
-    public let locality: String
-    public let postalCode: String
+    public let streetAddress: Optional<String>
+    public let country: Optional<String>
+    public let formatted: Optional<String>
+    public let locality: Optional<String>
+    public let postalCode: Optional<String>
 
     private enum CodingKeys: String, CodingKey {
         case streetAddress = "street_address", country, formatted, locality, postalCode = "postal_code"
