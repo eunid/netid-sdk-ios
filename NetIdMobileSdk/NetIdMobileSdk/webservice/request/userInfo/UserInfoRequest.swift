@@ -15,34 +15,39 @@
 import Foundation
 
 class UserInfoRequest: BaseRequest {
-
-    private let host: String
+    
+    private let userinfoEndpoint: URL
     private let accessToken: String
-
-    init(host: String, accessToken: String) {
-        self.host = host
+    
+    init(userinfoEndpoint: URL, accessToken: String) {
+        self.userinfoEndpoint = userinfoEndpoint
         self.accessToken = accessToken
         super.init()
     }
-
+    
     override func getHttpMethod() -> HttpMethod {
         .get
     }
-
+    
     override func addHttpHeaderFields(_ httpHeaderFields: inout [String: String]) {
         httpHeaderFields[WebserviceConstants.AUTHORIZATION_HTTP_HEADER_KEY] =
-                WebserviceConstants.AUTHORIZATION_HTTP_HEADER_BEARER + accessToken
+        WebserviceConstants.AUTHORIZATION_HTTP_HEADER_BEARER + accessToken
     }
-
+    
     override func getScheme() -> String {
         WebserviceConstants.PROTOCOL
     }
-
+    
     override func getHost() -> String {
-        host
+        userinfoEndpoint.host ?? ""
     }
-
+    
     override func getPath() -> String {
         WebserviceConstants.USER_INFO
     }
+    
+    func getUserinfoEndpoint() -> URL {
+        userinfoEndpoint
+    }
+
 }

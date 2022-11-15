@@ -21,7 +21,7 @@ import UIKit
  */
 class AppAuthManager: NSObject {
     private weak var delegate: AppAuthManagerDelegate?
-    private var authConfiguration: OIDServiceConfiguration?
+    public var authConfiguration: OIDServiceConfiguration?
     public var authState: OIDAuthState?
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
     public let permissionManagementScope = "permission_management"

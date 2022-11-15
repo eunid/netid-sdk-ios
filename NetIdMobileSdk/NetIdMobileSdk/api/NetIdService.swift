@@ -344,7 +344,14 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            userInfoManager?.fetchUserInfo(host: broker, accessToken: accessToken)
+            guard let userinfoEndpoint = appAuthManager?.authConfiguration?.discoveryDocument?.userinfoEndpoint else {
+                for item in netIdListener {
+                    Logger.shared.error("netID Service is unable to fetch userinfo endpoint caused by missing discovery document.")
+                    item.didFetchUserInfoWithError(NetIdError(code: .InvalidDiscoveryDocument, process: .UserInfo))
+                }
+                return
+            }
+            userInfoManager?.fetchUserInfo(userinfoEndpoint: userinfoEndpoint, accessToken: accessToken)
         }
     }
 
