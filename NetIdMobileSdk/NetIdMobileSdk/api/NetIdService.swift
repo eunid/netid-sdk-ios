@@ -76,20 +76,6 @@ open class NetIdService: NSObject {
     public func getNetIdConfig() -> NetIdConfig? {
         netIdConfig
     }
-
-    /**
-     Ability to set a token for the SDK. DEPRECATED - will be removed in future versions.
-     - Parameter token: the token to set.
-     */
-    public func transmitToken(_ token: String) {
-        if TokenUtil.isValidJwtToken(token) {
-            appAuthManager?.setIdToken(token)
-        } else {
-            for item in netIdListener {
-                item.didTransmitInvalidToken()
-            }
-        }
-    }
     
     /**
      Resumes a session when coming back from external authorization agent.
