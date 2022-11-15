@@ -43,22 +43,18 @@ class AppAuthManager: NSObject {
          authState?.lastTokenResponse?.accessToken
     }
 
-    public func getIdToken() -> String? {
-        idToken
-    }
-
-    public func setIdToken(_ token: String) {
-        idToken = token
-    }
-
     public func getPermissionToken() -> String? {
         // Fallback for getting a permission token as long as there is no refresh token flow (and only permission scope was requested).
-        guard let token = getIdToken() else {
+        guard let token = getAuthState()?.lastTokenResponse?.idToken else {
             return getAccessToken()
         }
         return TokenUtil.getPermissionTokenFrom(token)
     }
 
+    public func getAuthState() -> OIDAuthState? {
+        return authState
+    }
+    
     /**
      Fetches the discovery document which includes the configuration for the authentication endpoints.
      - Parameter host: server address
