@@ -32,6 +32,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Allow for empty/missing items in JSON
 - Removed host/broker from config
 - Make sub items of optinal items optional
+- Use userinfo endpoint from discovery document
 
 ### Fixed
 - Url schemes error
