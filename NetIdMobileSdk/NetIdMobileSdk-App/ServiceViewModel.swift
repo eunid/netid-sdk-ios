@@ -45,7 +45,7 @@ class ServiceViewModel: NSObject, ObservableObject {
         let permissionLayerConfig = PermissionLayerConfig()
         var claims = Dictionary<String, String>()
         claims["claims"] = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
-        let config = NetIdConfig(host: "broker.netid.de", clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
+        let config = NetIdConfig(clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
                 redirectUri: "https://netid-sdk-web.letsdev.de/redirect", 
                 claims: claims, loginLayerConfig: loginLayerConfig, permissionLayerConfig: permissionLayerConfig)
         NetIdService.sharedInstance.initialize(config)

@@ -34,6 +34,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make sub items of optinal items optional
 - Use userinfo endpoint from discovery document
 - Get rid of copy of id token
+- Small cleanups
 
 ### Fixed
 - Url schemes error
