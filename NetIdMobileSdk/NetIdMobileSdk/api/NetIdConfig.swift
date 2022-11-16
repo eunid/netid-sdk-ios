@@ -15,28 +15,28 @@
 import Foundation
 
 public struct LoginLayerConfig {
-    public var headlineText: String
-    public var loginText: String
-    public var continueText: String
+    public var headlineText: String?
+    public var loginText: String?
+    public var continueText: String?
     
-    public init () {
-        self.headlineText = ""
-        self.loginText = ""
-        self.continueText = ""
+    public init (headlineText: String? = nil, loginText: String? = nil, continueText: String? = nil) {
+        self.headlineText = headlineText
+        self.loginText = loginText
+        self.continueText = continueText
     }
 }
 
 public struct PermissionLayerConfig {
-    public var logoId: String
-    public var headlineText: String
-    public var legalText: String
-    public var continueText: String
+    public var logoId: String?
+    public var headlineText: String?
+    public var legalText: String?
+    public var continueText: String?
     
-    public init() {
-        self.logoId = ""
-        self.headlineText = ""
-        self.legalText = ""
-        self.continueText = ""
+    public init(logoId: String? = nil, headlineText: String? = nil, legalText: String? = nil, continueText: String? = nil) {
+        self.logoId = logoId
+        self.headlineText = headlineText
+        self.legalText = legalText
+        self.continueText = continueText
     }
 }
 
@@ -53,7 +53,7 @@ public struct NetIdConfig {
     public var permissionLayerConfig: PermissionLayerConfig?
 
     /// Initialize the SDK. This is the first thing to do.
-    public init(host: String, clientId: String, redirectUri: String, claims: [String: String]?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
+    public init(clientId: String, redirectUri: String, claims: [String: String]?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
         self.clientId = clientId
         self.redirectUri = redirectUri
         self.claims = claims

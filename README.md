@@ -11,11 +11,12 @@ NetIdService.sharedInstance.registerListener(self)
 
 Then, construct a configuration object for the NetIDService:
 ```swift
+var claims = Dictionary<String, String>()
+claims["claims"] = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
 let config = NetIdConfig(
                 clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider",
-                originUrlScheme: "netIdExample",
-                claims: nil
+                redirectUri: "https://netid-sdk-web.letsdev.de/redirect",
+                claims: claims
                 loginLayerConfig: nil
                 permissionLayerConfig: nil)
 ```
@@ -25,10 +26,14 @@ The parameters have the following meaning:
 | :---        |    :---   |
 | clientId | The client id of your application. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
 | redirectUri | An URI that is used by your application to catch callbacks. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
-| originUrlScheme | Used for creating deep links, not in use anymore (will be removed) |
 | claims | An array of strings, denoting additional claims that should be set during authorization. Can be nil. |
 | loginLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the login flow. Can be nil. |
 | permissionLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the permission flow. Can be nil. |
+
+As stated above, it is possible to customize certain aspects of the dialog presented for authorization. For example:
+```swift
+    let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
+``` 
 
 And then, initialize the NetIdService itself with the aforementioned condfiguration.
 ```swift
@@ -40,7 +45,7 @@ It makes sense to sum this up into one function like e.g.:
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
         let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                redirectUri: "https://netid-sdk-web.letsdev.de/redirect", originUrlScheme: "netIdExample",
+                redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
                 claims: nil,
                 loginLayerConfig: nil,
                 permissionLayerConfig: nil)
