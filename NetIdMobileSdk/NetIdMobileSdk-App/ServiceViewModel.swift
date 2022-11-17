@@ -203,10 +203,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
             userInfoStatusColor = Color.yellow
             userInfoEnabled = true
         case .PermissionRead:
-            //TODO
             logText.append("")
         case .PermissionWrite:
-            //TODO
             logText.append("")
         }
     }

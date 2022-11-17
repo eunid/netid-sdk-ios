@@ -266,6 +266,7 @@
 		2FF2D5A83A0672607675274F /* permission */ = {
 			isa = PBXGroup;
 			children = (
+				2FF2D839B264A371F688A433 /* NetIdPermissionUpdate.swift */,
 				2FF2D35C9B8834AB4EFA1BF1 /* Permissions.swift */,
 				2FF2D1CE61E9452DEBB58866 /* PermissionStatusCode.swift */,
 				2FF2D7C7C109B00370863787 /* SubjectIdentifiers.swift */,
@@ -322,7 +323,6 @@
 				2FF2DA526593F2A7FBDDF232 /* NetIdErrorCode.swift */,
 				2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */,
 				2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */,
-				2FF2D839B264A371F688A433 /* NetIdPermissionUpdate.swift */,
 				2FF2D33DA4A74ACC9103C913 /* NetIdAuthFlow.swift */,
 			);
 			path = api;
