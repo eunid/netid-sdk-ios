@@ -97,7 +97,7 @@ struct AuthorizationLoginView: View {
                 delegate?.didTapDismiss()
             } label: {
                 Text(String(format: LocalizableUtil.netIdLocalizable("authorization_login_view_close"), "App"))
-                    .kerning(1.25)
+                    .kerning(-0.45)
                     .frame(maxWidth: .infinity)
                     .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
                     .font(Font.system(size: 18, weight: .semibold))
