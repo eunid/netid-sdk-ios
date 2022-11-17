@@ -17,6 +17,7 @@ import Foundation
 public enum PermissionStatusCode: String, Encodable, Decodable {
     case PermissionFound = "PERMISSIONS_FOUND",
          PermissionNotFound = "PERMISSIONS_NOT_FOUND",
+         PermissionParametersError = "PERMISSION_PARAMETERS_ERROR",
          NoToken = "NO_TOKEN",
          TokenError = "TOKEN_ERROR",
          TappNotAllowed = "TAPP_NOT_ALLOWED",

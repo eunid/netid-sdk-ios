@@ -28,6 +28,11 @@ class UserInfoManager: NSObject {
     public func fetchUserInfo(userinfoEndpoint: URL, accessToken: String) {
         let userInfoRequest = UserInfoRequest(userinfoEndpoint: userinfoEndpoint, accessToken: accessToken)
         Webservice.shared.performRequest(userInfoRequest, callback: { data, error in
+            guard (error == nil) else {
+                self.delegate?.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .UserInfo))
+                return
+            }
+
             guard let data = data else {
                 self.delegate?.didFetchUserInfoWithError(NetIdError(code: .Unknown, process: .UserInfo)
                 )

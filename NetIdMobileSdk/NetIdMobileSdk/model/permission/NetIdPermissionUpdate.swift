@@ -15,13 +15,25 @@
 import Foundation
 
 public struct NetIdPermissionUpdate: Codable {
-    public var idConsent: String
-    public var iabTc: String
+    public var idConsent: Optional<String>
+    public var iabTc: Optional<String>
 
     private enum CodingKeys : String, CodingKey { case idConsent = "idconsent", iabTc = "iab_tc_string" }
 
-    public init(idConsent: String, iabTc: String) {
+    public init(idConsent: String?, iabTc: String?) {
         self.idConsent = idConsent
         self.iabTc = iabTc
+    }
+    
+    public var description: String {
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(self)
+        return String(data: data, encoding: .utf8) ?? "{}"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(idConsent, forKey: .idConsent)
+        try container.encodeIfPresent(iabTc, forKey: .iabTc)
     }
 }

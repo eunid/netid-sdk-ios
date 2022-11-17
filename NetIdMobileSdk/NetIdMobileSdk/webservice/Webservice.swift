@@ -20,7 +20,7 @@ class Webservice {
 
     private let session = URLSession.shared
     private let log = Logger.shared
-
+        
     private init() {
 
     }
@@ -45,6 +45,16 @@ class Webservice {
                 log.error("Request error: " + (error?.localizedDescription ?? "") + " for URL: " + (urlRequest.url?.absoluteString ?? ""))
                 DispatchQueue.main.async {
                     callback(nil, error)
+                }
+                return
+            }
+            let httpResponse = response as! HTTPURLResponse
+            if (httpResponse.statusCode > 299) {
+                let msg = (data != nil) ? String(decoding: data!, as: UTF8.self) : ""
+                let err = NSError(domain: "", code: httpResponse.statusCode, userInfo: [ NSLocalizedDescriptionKey: msg])
+                
+                DispatchQueue.main.async {
+                    callback(nil, err)
                 }
                 return
             }

@@ -36,6 +36,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Get rid of copy of id token
 - Small cleanups
 - Small ui fixes
+- Can set TC String and IDConsent seperately now
 
 ### Fixed
 - Url schemes error
