@@ -4,6 +4,8 @@
 
 ## Initialize NetIDService
 
+The `NetIdService` is the main interface to communicate with the netID SDK. It handles all the communication with the backend services and provides ui elements for the autherization flow.
+
 First you need to assign a delegate of type 'NetIdServiceDelegate' for recieving all callbacks made by the `NetIdService`.
 ```swift
 NetIdService.sharedInstance.registerListener(self)
@@ -35,7 +37,7 @@ As stated above, it is possible to customize certain aspects of the dialog prese
     let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
 ``` 
 
-And then, initialize the NetIdService itself with the aforementioned condfiguration.
+Finally, initialize the NetIdService itself with the aforementioned condfiguration.
 ```swift
 NetIdService.sharedInstance.initialize(config)
 ```
@@ -55,12 +57,30 @@ It makes sense to sum this up into one function like e.g.:
 
 ## Authorization
 
-After the NetIDService has been initialized, subsequent calls to request authorization can be made. To initiate the authorization process, issue the following call to the NetIDService:
+After the NetIDService has been initialized, subsequent calls to request authorization can be made. In the example app, you are presented with three choices as can be seen in this screenhsot.
+
+<img src="images/netID_choose_authFlow.png" alt="netID SDK example app - chosse authFlow" style="width:200px;"/>
+
+In your own app, you most likely will decide which flow to take without an user interaction. To initiate the authorization process, issue the following call to the NetIDService:
 ```swift
 NetIdService.sharedInstance.getAuthorizationView(currentViewController: currentViewController, authFlow: authFlow)
 ```
-You have to provide an instance of you app's view controller so that the SDK can display a view for the authorization process itself.
-The optional parameter authFlow decides, which authorization flow to use.
+
+| Parameter | Description |
+| :---        |    :---   |
+| currentViewController | Currently used view controller. |
+| authFlow | Type of flow to use, can be either ``NetIdAuthFlow.Permission``, ``NetIdAuthFlow.Login`` or ``NetIdAuthFlow.LoginPermission``. This parameter is mandatory. |
+| forceApp2App | If set to true, will yield an ``NetIdError`` if the are no ID apps installed. Otherwise, will use app2web flow automatically. Defaults to ``false``. |
+
+You have to provide an instance of you app's activity so that the SDK can display a view for the authorization process itself.
+With the parameter `authFlow`you decide, if you want to use `Permission`, `Login` or `Login + Permission` as authorization flow.
+The optional parameter `forceApp2App` decides, if your app wants to use app2app only. If let alone, this parameter defaults to `false` meaning that if no ID provider apps are installed, the SDK will automatically fall back to app2web flow. If set to `true` and no ID provider apps are installed, this call will fail with an error.
+
+Depending on the chosen flow, different views are presented to the user to decide on how to proceed with the authorization process.
+
+<img src="images/netID_login_options.png" alt="netID SDK example app - chosse id app" style="width:200px;"/>
+<img src="images/netID_permission_app_options.png" alt="netID SDK example app - chosse id app" style="width:200px;"/>
+
 If the user did decide on how to proceed with the login process (e.g. which ID provider to use), a redirect to actually execute the authorization is called automatically.
 
 ## Using the authorized service
