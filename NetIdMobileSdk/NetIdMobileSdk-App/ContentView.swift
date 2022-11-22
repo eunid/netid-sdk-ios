@@ -144,7 +144,6 @@ struct ContentView: View {
                             .padding(.horizontal, 20)
                             .font(Font.system(size: 13))
                 }
-
                 Button {
                     serviceViewModel.endSession()
                 } label: {

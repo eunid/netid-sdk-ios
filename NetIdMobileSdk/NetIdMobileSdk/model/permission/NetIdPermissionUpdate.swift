@@ -15,12 +15,12 @@
 import Foundation
 
 public struct NetIdPermissionUpdate: Codable {
-    public var idConsent: Optional<String>
+    public var idConsent: Optional<NetIdPermissionStatus>
     public var iabTc: Optional<String>
 
     private enum CodingKeys : String, CodingKey { case idConsent = "idconsent", iabTc = "iab_tc_string" }
 
-    public init(idConsent: String?, iabTc: String?) {
+    public init(idConsent: NetIdPermissionStatus?, iabTc: String?) {
         self.idConsent = idConsent
         self.iabTc = iabTc
     }

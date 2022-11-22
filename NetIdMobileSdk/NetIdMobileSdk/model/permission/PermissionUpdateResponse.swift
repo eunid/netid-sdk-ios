@@ -14,19 +14,15 @@
 
 import Foundation
 
-public struct Permissions: Decodable, Encodable, CustomStringConvertible {
-    public let statusCode: PermissionStatusCode
+public struct PermissionUpdateResponse: Decodable, Encodable, CustomStringConvertible {
     public let subjectIdentifiers: SubjectIdentifiers
-    public let netIdPrivacySettings: [NetIdPrivacySettings]
 
-    public init(statusCode: PermissionStatusCode, subjectIdentifiers: SubjectIdentifiers, netIdPrivacySettings: [NetIdPrivacySettings]) {
-        self.statusCode = statusCode
+    public init(subjectIdentifiers: SubjectIdentifiers) {
         self.subjectIdentifiers = subjectIdentifiers
-        self.netIdPrivacySettings = netIdPrivacySettings
     }
 
     private enum CodingKeys: String, CodingKey {
-        case statusCode = "status_code", subjectIdentifiers = "subject_identifiers", netIdPrivacySettings = "netid_privacy_settings"
+        case subjectIdentifiers = "subject_identifiers"
     }
     
     public var description: String {
@@ -37,10 +33,6 @@ public struct Permissions: Decodable, Encodable, CustomStringConvertible {
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(statusCode, forKey: .statusCode)
         try container.encodeIfPresent(subjectIdentifiers, forKey: .subjectIdentifiers)
-        try container.encodeIfPresent(netIdPrivacySettings, forKey: .netIdPrivacySettings)
     }
-
-    
 }

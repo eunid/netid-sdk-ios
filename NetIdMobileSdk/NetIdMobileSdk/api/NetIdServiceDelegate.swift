@@ -31,13 +31,13 @@ public protocol NetIdServiceDelegate: AnyObject {
 
     func didCancelAuthentication(_ error: NetIdError)
 
-    func didFetchPermissions(_ permissions: Permissions)
+    func didFetchPermissions(_ permissions: PermissionReadResponse)
 
-    func didFetchPermissionsWithError(_ error: NetIdError, originalError: Error?)
+    func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError)
 
-    func didUpdatePermission()
+    func didUpdatePermission(_ subjectIdentifiers: SubjectIdentifiers)
 
-    func didUpdatePermissionWithError(_ error: NetIdError, originalError: Error?)
+    func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError)
 
     func didTransmitInvalidToken()
 

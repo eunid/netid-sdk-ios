@@ -14,12 +14,6 @@
 
 import Foundation
 
-public enum PermissionStatusCode: String, Encodable, Decodable {
-    case PermissionFound = "PERMISSIONS_FOUND",
-         PermissionNotFound = "PERMISSIONS_NOT_FOUND",
-         PermissionParametersError = "PERMISSION_PARAMETERS_ERROR",
-         NoToken = "NO_TOKEN",
-         TokenError = "TOKEN_ERROR",
-         TappNotAllowed = "TAPP_NOT_ALLOWED",
-         TpIdExistenceError = "TPID_EXISTENCE_ERROR"
+public enum NetIdPrivacySettingsType: String, Encodable, Decodable {
+    case IDCONSENT = "IDCONSENT", IAB_TC_STRING = "IAB_TC_STRING", OTHER = "OTHER"
 }

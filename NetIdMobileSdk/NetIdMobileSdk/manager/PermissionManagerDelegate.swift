@@ -16,11 +16,11 @@ import Foundation
 
 public protocol PermissionManagerDelegate: AnyObject {
 
-    func didFetchPermissions(_ permissions: Permissions)
+    func didFetchPermissions(_ permissions: PermissionReadResponse)
 
-    func didFetchPermissionsWithError(_ error: NetIdError, originalError: Error?)
+    func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError)
 
-    func didUpdatePermission(_ permission: SubjectIdentifiers)
+    func didUpdatePermission(_ subjectIdentifiers: SubjectIdentifiers)
 
-    func didUpdatePermissionWithError(_ error: NetIdError, originalError: Error?)
+    func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError)
 }
