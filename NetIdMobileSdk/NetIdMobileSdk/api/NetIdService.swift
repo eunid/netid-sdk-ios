@@ -350,7 +350,7 @@ open class NetIdService: NSObject {
             Logger.shared.info("netID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didFetchPermissionsWithError(NetIdError(code: .NoAuth, process: .PermissionRead), originalError: nil)
+                    item.didFetchPermissionsWithError(.UNKNOWN, NetIdError(code: .UnauthorizedClient, process: .PermissionRead))
                 }
                 return
             }
@@ -368,7 +368,7 @@ open class NetIdService: NSObject {
             Logger.shared.info("netID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didUpdatePermissionWithError(NetIdError(code: .NoAuth, process: .PermissionWrite), originalError: nil)
+                    item.didUpdatePermissionWithError(.UNKNOWN, NetIdError(code: .UnauthorizedClient, process: .PermissionWrite))
                 }
                 return
             }
@@ -451,31 +451,31 @@ extension NetIdService: UserInfoManagerDelegate {
 }
 
 extension NetIdService: PermissionManagerDelegate {
-    public func didFetchPermissions(_ permissions: Permissions) {
+    public func didFetchPermissions(_ permissions: PermissionReadResponse) {
         Logger.shared.info("netID Service received permissions.")
         for item in netIdListener {
             item.didFetchPermissions(permissions)
         }
     }
 
-    public func didFetchPermissionsWithError(_ error: NetIdError, originalError: Error?) {
+    public func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
         Logger.shared.error("netID Service permissions fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
-            item.didFetchPermissionsWithError(error, originalError: originalError)
+            item.didFetchPermissionsWithError(permissionResponseStatus, error)
         }
     }
 
-    public func didUpdatePermission(_ permission: SubjectIdentifiers) {
-        Logger.shared.info("netID Service permission successfully updated. \(permission)")
+    public func didUpdatePermission(_ subjectIdentifiers: SubjectIdentifiers) {
+        Logger.shared.info("netID Service permission successfully updated. \(subjectIdentifiers)")
         for item in netIdListener {
-            item.didUpdatePermission()
+            item.didUpdatePermission(subjectIdentifiers)
         }
     }
 
-    public func didUpdatePermissionWithError(_ error: NetIdError, originalError: Error?) {
+    public func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
         Logger.shared.error("netID Service permission update failed with error: " + error.code.rawValue)
         for item in netIdListener {
-            item.didUpdatePermissionWithError(error, originalError: originalError)
+            item.didUpdatePermissionWithError(permissionResponseStatus, error)
         }
     }
 }

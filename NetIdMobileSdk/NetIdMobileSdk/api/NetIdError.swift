@@ -17,4 +17,5 @@ import Foundation
 public struct NetIdError {
     public var code: NetIdErrorCode
     public var process: NetIdErrorProcess
+    public var msg: String?
 }

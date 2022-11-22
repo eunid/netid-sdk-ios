@@ -37,6 +37,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Small cleanups
 - Small ui fixes
 - Can set TC String and IDConsent seperately now
+- Reworked error handling
 
 ### Fixed
 - Url schemes error

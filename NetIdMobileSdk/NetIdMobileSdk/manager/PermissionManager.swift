@@ -24,21 +24,21 @@ class PermissionManager: NSObject {
 
     public func fetchPermissions(accessToken: String, collapseSyncId: Bool) {
         let permissionReadRequest = PermissionReadRequest(accessToken: accessToken, collapseSyncId: collapseSyncId)
-        Webservice.shared.performRequest(permissionReadRequest, callback: { data, error in
+        Webservice.shared.performRequest(permissionReadRequest, callback: { data, permissionResponseStatus, error in
             guard (error == nil) else {
-                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .InvalidRequest, process: .PermissionRead), originalError: error)
+                self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, error!)
                 return
             }
 
             guard let data = data else {
-                self.delegate?.didFetchPermissionsWithError(NetIdError(code: .Unknown, process: .PermissionRead), originalError: error)
+                self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, error!)
                 return
             }
 
-            if let permissions = try? JSONDecoder().decode(Permissions.self, from: data) {
+            if let permissions = try? JSONDecoder().decode(PermissionReadResponse.self, from: data) {
                 self.delegate?.didFetchPermissions(permissions)
             } else {
-                self.delegate?.didFetchPermissionsWithError(NetIdError(code: .JsonDeserializationError, process: .PermissionRead), originalError: error)
+                self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, NetIdError(code: .JsonDeserializationError, process: .PermissionRead))
             }
         })
     }
@@ -46,21 +46,21 @@ class PermissionManager: NSObject {
     public func updatePermission(accessToken: String, permission: NetIdPermissionUpdate, collapseSyncId: Bool) {
         let permissionWriteRequest = PermissionWriteRequest(accessToken: accessToken, permission: permission,
                 collapseSyncId: collapseSyncId)
-        Webservice.shared.performRequest(permissionWriteRequest, callback: { data, error in
+        Webservice.shared.performRequest(permissionWriteRequest, callback: { data, permissionResponseStatus, error in
             guard (error == nil) else {
-                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .InvalidRequest, process: .PermissionWrite), originalError: error)
+                self.delegate?.didUpdatePermissionWithError(permissionResponseStatus, error!)
                 return
             }
             
             guard let data = data else {
-                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .Unknown, process: .PermissionWrite), originalError: error)
+                self.delegate?.didUpdatePermissionWithError(permissionResponseStatus, error!)
                 return
             }
 
-            if let permissionJson = try? JSONDecoder().decode(SubjectIdentifiers.self, from: data) {
-                self.delegate?.didUpdatePermission(permissionJson)
+            if let permissionUpdateResponseJson = try? JSONDecoder().decode(PermissionUpdateResponse.self, from: data) {
+                self.delegate?.didUpdatePermission(permissionUpdateResponseJson.subjectIdentifiers)
             } else {
-                self.delegate?.didUpdatePermissionWithError(NetIdError(code: .JsonDeserializationError, process: .PermissionWrite), originalError: error)
+                self.delegate?.didUpdatePermissionWithError(permissionResponseStatus, NetIdError(code: .JsonDeserializationError, process: .PermissionWrite))
             }
         })
     }

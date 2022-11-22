@@ -71,9 +71,10 @@ class ServiceViewModel: NSObject, ObservableObject {
     func updatePermission() {
         updatePermissionEnabled = false
         // these values are only for demonstration purpose
-        NetIdService.sharedInstance.updatePermission(NetIdPermissionUpdate(idConsent: "VALID",
-                iabTc: "CPdfZIAPdfZIACnABCDECbCkAP_AAAAAAAYgIzJd9D7dbXFDefx_SPt0OYwW0NBXCuQCChSAA2AFVAOQcLQA02EaMATAhiACEQIAolIBAAEEHAFEAECQQIAEAAHsAgSEhAAKIAJEEBEQAAIQAAoKAAAAAAAIgAABoASAmBiQS5bmRUCAOIAQRgBIgggBCIADAgMBBEAIABgIAIIIgSgAAQAAAKIAAAAAARAAAASGgFABcAEMAPwAgoBaQEiAJ2AUiAxgBnwqASAEMAJgAXABHAEcALSAkEBeYDPh0EIABYAFQAMgAcgA-AEAALgAZAA0AB4AD6AIYAigBMACfAFwAXQAxABmADeAHMAPwAhgBLACYAE0AKMAUoAsQBbgDDAGiAPaAfgB-gEDAIoARaAjgCOgEpALEAWmAuYC6gF5AMUAbQA3ABxADnAHUAPQAi8BIICRAE7AKHAXmAwYBjADJAGVAMsAZmAz4BrADiwHjgPrAg0BDkhAbAAWABkAFwAQwAmABcADEAGYAN4AjgBSgCxAIoARwAlIBaQC5gGKANoAc4A6gB6AEggJEAScAz4B45KBAAAgABYAGQAOAAfAB4AEQAJgAXAAxABmADaAIYARwAowBSgC3AH4ARwAk4BaQC6gGKANwAdQBF4CRAF5gMsAZ8A1gCGoSBeAAgABYAFQAMgAcgA8AEAAMgAaAA8gCGAIoATAAngBvADmAH4AQgAhgBHACWAE0AKUAW4AwwB7QD8AP0AgYBFICNAI4ASkAuYBigDaAG4AOIAegBIgCdgFDgKRAXmAwYBkgDPoGsAayA4IB44EOREAYAQwA_AEiAJ2AUiAz4ZAHACGAEwARwBHAEnALzAZ8UgXAALAAqABkADkAHwAgABkADQAHkAQwBFACYAE8AKQAYgAzABzAD8AIYAUYApQBYgC3AGjAPwA_QCLQEcAR0AlIBcwC8gGKANoAbgA9ACLwEiAJOATsAocBeYDGAGSAMsAZ9A1gDWQHBAPHAhm.f_gAAAAAAsgA"),
-                collapseSyncId: false)
+        NetIdService.sharedInstance.updatePermission(NetIdPermissionUpdate(
+            idConsent: .VALID,
+            iabTc: "CPdfZIAPdfZIACnABCDECbCkAP_AAAAAAAYgIzJd9D7dbXFDefx_SPt0OYwW0NBXCuQCChSAA2AFVAOQcLQA02EaMATAhiACEQIAolIBAAEEHAFEAECQQIAEAAHsAgSEhAAKIAJEEBEQAAIQAAoKAAAAAAAIgAABoASAmBiQS5bmRUCAOIAQRgBIgggBCIADAgMBBEAIABgIAIIIgSgAAQAAAKIAAAAAARAAAASGgFABcAEMAPwAgoBaQEiAJ2AUiAxgBnwqASAEMAJgAXABHAEcALSAkEBeYDPh0EIABYAFQAMgAcgA-AEAALgAZAA0AB4AD6AIYAigBMACfAFwAXQAxABmADeAHMAPwAhgBLACYAE0AKMAUoAsQBbgDDAGiAPaAfgB-gEDAIoARaAjgCOgEpALEAWmAuYC6gF5AMUAbQA3ABxADnAHUAPQAi8BIICRAE7AKHAXmAwYBjADJAGVAMsAZmAz4BrADiwHjgPrAg0BDkhAbAAWABkAFwAQwAmABcADEAGYAN4AjgBSgCxAIoARwAlIBaQC5gGKANoAc4A6gB6AEggJEAScAz4B45KBAAAgABYAGQAOAAfAB4AEQAJgAXAAxABmADaAIYARwAowBSgC3AH4ARwAk4BaQC6gGKANwAdQBF4CRAF5gMsAZ8A1gCGoSBeAAgABYAFQAMgAcgA8AEAAMgAaAA8gCGAIoATAAngBvADmAH4AQgAhgBHACWAE0AKUAW4AwwB7QD8AP0AgYBFICNAI4ASkAuYBigDaAG4AOIAegBIgCdgFDgKRAXmAwYBkgDPoGsAayA4IB44EOREAYAQwA_AEiAJ2AUiAz4ZAHACGAEwARwBHAEnALzAZ8UgXAALAAqABkADkAHwAgABkADQAHkAQwBFACYAE8AKQAYgAzABzAD8AIYAUYApQBYgC3AGjAPwA_QCLQEcAR0AlIBcwC8gGKANoAbgA9ACLwEiAJOATsAocBeYDGAGSAMsAZ9A1gDWQHBAPHAhm.f_gAAAAAAsgA")
+        )
     }
 
     func resumeSession(_ url: URL) {
@@ -139,13 +140,13 @@ extension ServiceViewModel: NetIdServiceDelegate {
     public func didFetchUserInfo(_ userInfo: UserInfo) {
         userInfoStatusColor = Color.green
         userInfoEnabled = true
-        logText.append("Fetched user info successfully: \(userInfo.description)\n")
+        logText.append("netID service user info - fetch finished successfully: \(userInfo.description)\n")
     }
 
     public func didFetchUserInfoWithError(_ error: NetIdError) {
         userInfoEnabled = true
         userInfoStatusColor = Color.red
-        logText.append("User info fetch failed: " + error.code.rawValue + "\n")
+        logText.append("netID service user info - fetch failed: " + error.code.rawValue + "\n")
     }
 
     public func didEndSession() {
@@ -209,28 +210,98 @@ extension ServiceViewModel: NetIdServiceDelegate {
         }
     }
 
-    public func didFetchPermissions(_ permissions: Permissions) {
-        logText.append("didFetchPermissions \(permissions.description) \n")
-        fetchPermissionsEnabled = true
-    }
-
-    public func didFetchPermissionsWithError(_ error: NetIdError, originalError: Error?) {
-        logText.append("didFetchPermissionsWithError \(error.code.rawValue)\n")
-        if (originalError != nil) {
-            logText.append("original error message: \(originalError!.localizedDescription)\n")
+    public func didFetchPermissions(_ permissions: PermissionReadResponse) {
+        logText.append("netID service permission - fetch finished successfully\n")
+        switch (permissions.statusCode) {
+            case PermissionResponseStatus.PERMISSIONS_FOUND:
+                logText.append("Permissions: \(permissions)\n")
+            case PermissionResponseStatus.PERMISSIONS_NOT_FOUND:
+                logText.append("No permissions found\n")
+            default:
+                logText.append("This should not happen\n")
         }
         fetchPermissionsEnabled = true
     }
 
-    public func didUpdatePermission() {
-        logText.append("didUpdatePermission \n")
+    public func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
+        switch (permissionResponseStatus) {
+            case PermissionResponseStatus.TOKEN_ERROR:
+                // current token expired / is invalid
+                logText.append("Token error - token refresh / reauthorization necessary\n")
+            case PermissionResponseStatus.TPID_EXISTENCE_ERROR:
+                // netID Account was deleted
+                logText.append("netID Account was deleted\n")
+            case PermissionResponseStatus.TAPP_NOT_ALLOWED:
+                // Invalid configuration of client
+                logText.append("Client not authorized to use permission management\n")
+            case PermissionResponseStatus.NO_TPID:
+                // Missing TPID
+                logText.append("No tpid_sec cookie in request available\n")
+            case PermissionResponseStatus.NO_TAPP_ID:
+                // Missing TAPP_ID
+                logText.append("Mandatory parameter tapp_id is missing\n")
+            case PermissionResponseStatus.TAPP_ERROR:
+                // TAPP_ID is present but incorrect
+                logText.append("tapp_id is invalid\n")
+            case PermissionResponseStatus.PERMISSIONS_NOT_FOUND:
+                // Missing permissions
+                logText.append("Permissions for tpid not found\n")
+            case PermissionResponseStatus.ID_CONSENT_REQUIRED:
+                // No id consent given or revoked
+                logText.append("Consent for passing the tpid (\"identification\") was revoked or declined by the user\n")
+            default:
+                logText.append("netID service permission - fetch failed with error: \(error.code)\n")
+        }
+        if (error.msg != nil) {
+            logText.append("original error message: \(error.msg!)\n")
+        }
+        fetchPermissionsEnabled = true
+    }
+
+    public func didUpdatePermission(_ subjectIdentifiers: SubjectIdentifiers) {
+        logText.append("netID service permission - update finished successfully\n")
+        logText.append("Returned: \(subjectIdentifiers)\n")
         updatePermissionEnabled = true
     }
 
-    public func didUpdatePermissionWithError(_ error: NetIdError, originalError: Error?) {
-        logText.append("didUpdatePermissionWithError \(error.code.rawValue)\n")
-        if (originalError != nil) {
-            logText.append("original error message: \(originalError!.localizedDescription)\n")
+    public func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
+        switch (permissionResponseStatus) {
+            case PermissionResponseStatus.TOKEN_ERROR:
+                // current token expired / is invalid
+                logText.append("Token error - token refresh / reauthorization necessary\n")
+            case PermissionResponseStatus.TPID_EXISTENCE_ERROR:
+                    // netID Account was deleted
+                    logText.append("netID Account was deleted\n")
+            case PermissionResponseStatus.TAPP_NOT_ALLOWED:
+                    // Invalid configuration of client
+                    logText.append("Client not authorized to use permission management\n")
+            case PermissionResponseStatus.NO_TPID:
+                    // Missing TPID
+                    logText.append("No tpid_sec cookie in request available\n")
+            case PermissionResponseStatus.NO_TAPP_ID:
+                    // Missing TAPP_ID
+                    logText.append("Mandatory parameter tapp_id is missing\n")
+            case PermissionResponseStatus.PERMISSION_PARAMETERS_ERROR:
+                    // Invalid parameter payload
+                    logText.append("Syntactic or semantic error in a permission\n")
+            case PermissionResponseStatus.NO_PERMISSIONS:
+                    // No permission parameter given
+                    logText.append("Parameters are missing. At least one permission must be set.\n")
+            case PermissionResponseStatus.ID_CONSENT_REQUIRED:
+                    // No id consent given or revoked
+                    logText.append("Consent for passing the tpid (\"identification\") was revoked or declined by the user\n")
+            case PermissionResponseStatus.NO_REQUEST_BODY:
+                    // Request body missing
+                    logText.append("Required request body is missing\n")
+            case PermissionResponseStatus.JSON_PARSE_ERROR:
+                    // Error parsing JSON body
+                    logText.append("Invalid JSON body, parse error\n")
+            default:
+                logText.append("netID service permission - update failed with error: \(error.code)\n")
+        }
+
+        if (error.msg != nil) {
+            logText.append("original error message: \(error.msg!)\n")
         }
         updatePermissionEnabled = true
     }

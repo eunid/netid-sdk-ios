@@ -33,5 +33,6 @@ public enum NetIdErrorCode: String {
          TemporarilyUnavailable,
          ClientError,
          StateMismatch,
-         NoIdAppInstalled
+         NoIdAppInstalled,
+         Other
 }

@@ -23,7 +23,7 @@ struct WebserviceConstants {
     static let CONTENT_TYPE_HEADER_KEY = "Content-Type"
     static let CONTENT_TYPE_PERMISSION_WRITE = "application/vnd.netid.permission-center.netid-permissions-v2+json"
     static let ACCEPT_HEADER_PERMISSION_WRITE_AUDIT = "application/vnd.netid.permission-center.netid-subject-status-audit-v1+json"
-    static let ACCEPT_HEADER_PERMISSION_WRITE = "application/vnd.netid.permission-center.netid-user-status-v1+json"
+    static let ACCEPT_HEADER_PERMISSION_WRITE = "application/vnd.netid.permission-center.netid-subject-status-v1+json"
     static let ACCEPT_HEADER_PERMISSION_READ_AUDIT = "application/vnd.netid.permission-center.netid-user-status-audit-v1+json"
     static let ACCEPT_HEADER_PERMISSION_READ = "application/vnd.netid.permission-center.netid-user-status-v1+json"
     static let PERMISSION_READ_HOST = "einwilligungsspeicher.netid.de"
