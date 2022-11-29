@@ -140,7 +140,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
     public func didFetchUserInfo(_ userInfo: UserInfo) {
         userInfoStatusColor = Color.green
         userInfoEnabled = true
-        logText.append("netID service user info - fetch finished successfully: \(userInfo.description)\n")
+        logText.append("netID service user info - fetch finished successfully: \(userInfo)\n")
     }
 
     public func didFetchUserInfoWithError(_ error: NetIdError) {
@@ -225,6 +225,9 @@ extension ServiceViewModel: NetIdServiceDelegate {
 
     public func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
         switch (permissionResponseStatus) {
+            case PermissionResponseStatus.NO_TOKEN:
+                // no token was passed (handled by SDK should not happen)
+                logText.append("No bearer token in request available.\n")
             case PermissionResponseStatus.TOKEN_ERROR:
                 // current token expired / is invalid
                 logText.append("Token error - token refresh / reauthorization necessary\n")
@@ -234,21 +237,9 @@ extension ServiceViewModel: NetIdServiceDelegate {
             case PermissionResponseStatus.TAPP_NOT_ALLOWED:
                 // Invalid configuration of client
                 logText.append("Client not authorized to use permission management\n")
-            case PermissionResponseStatus.NO_TPID:
-                // Missing TPID
-                logText.append("No tpid_sec cookie in request available\n")
-            case PermissionResponseStatus.NO_TAPP_ID:
-                // Missing TAPP_ID
-                logText.append("Mandatory parameter tapp_id is missing\n")
-            case PermissionResponseStatus.TAPP_ERROR:
-                // TAPP_ID is present but incorrect
-                logText.append("tapp_id is invalid\n")
             case PermissionResponseStatus.PERMISSIONS_NOT_FOUND:
                 // Missing permissions
                 logText.append("Permissions for tpid not found\n")
-            case PermissionResponseStatus.ID_CONSENT_REQUIRED:
-                // No id consent given or revoked
-                logText.append("Consent for passing the tpid (\"identification\") was revoked or declined by the user\n")
             default:
                 logText.append("netID service permission - fetch failed with error: \(error.code)\n")
         }
@@ -266,6 +257,9 @@ extension ServiceViewModel: NetIdServiceDelegate {
 
     public func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
         switch (permissionResponseStatus) {
+            case PermissionResponseStatus.NO_TOKEN:
+                // no token was passed (handled by SDK should not happen)
+                logText.append("No bearer token in request available.\n")
             case PermissionResponseStatus.TOKEN_ERROR:
                 // current token expired / is invalid
                 logText.append("Token error - token refresh / reauthorization necessary\n")
@@ -275,21 +269,12 @@ extension ServiceViewModel: NetIdServiceDelegate {
             case PermissionResponseStatus.TAPP_NOT_ALLOWED:
                     // Invalid configuration of client
                     logText.append("Client not authorized to use permission management\n")
-            case PermissionResponseStatus.NO_TPID:
-                    // Missing TPID
-                    logText.append("No tpid_sec cookie in request available\n")
-            case PermissionResponseStatus.NO_TAPP_ID:
-                    // Missing TAPP_ID
-                    logText.append("Mandatory parameter tapp_id is missing\n")
             case PermissionResponseStatus.PERMISSION_PARAMETERS_ERROR:
                     // Invalid parameter payload
                     logText.append("Syntactic or semantic error in a permission\n")
             case PermissionResponseStatus.NO_PERMISSIONS:
                     // No permission parameter given
                     logText.append("Parameters are missing. At least one permission must be set.\n")
-            case PermissionResponseStatus.ID_CONSENT_REQUIRED:
-                    // No id consent given or revoked
-                    logText.append("Consent for passing the tpid (\"identification\") was revoked or declined by the user\n")
             case PermissionResponseStatus.NO_REQUEST_BODY:
                     // Request body missing
                     logText.append("Required request body is missing\n")

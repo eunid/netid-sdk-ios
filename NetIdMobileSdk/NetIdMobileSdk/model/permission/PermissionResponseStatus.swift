@@ -25,9 +25,5 @@ public enum PermissionResponseStatus: String, Encodable, Decodable {
          NO_REQUEST_BODY = "NO_REQUEST_BODY",
          TAPP_NOT_ALLOWED = "TAPP_NOT_ALLOWED",
          TPID_EXISTENCE_ERROR = "TPID_EXISTENCE_ERROR",
-         NO_TPID = "NO_TPID",
-         NO_TAPP_ID = "NO_TAPP_ID",
-         TAPP_ERROR = "TAPP_ERROR",
-         ID_CONSENT_REQUIRED = "ID_CONSENT_REQUIRED",
          UNKNOWN = "UNKNOWN"
 }
