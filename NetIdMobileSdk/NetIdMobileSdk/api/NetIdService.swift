@@ -404,6 +404,9 @@ extension NetIdService: AppAuthManagerDelegate {
             } else {
                 Logger.shared.info("netID Service initialization finished")
                 item.didFinishInitializationWithError(nil)
+                if (appAuthManager?.getAuthState() != nil) {
+                    didFinishAuthenticationWithError(nil)
+                }
             }
         }
     }
