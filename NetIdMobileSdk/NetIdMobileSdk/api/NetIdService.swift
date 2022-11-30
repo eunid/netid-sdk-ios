@@ -82,10 +82,13 @@ open class NetIdService: NSObject {
      - Parameter url: callback url
      */
     public func resumeSession(_ url: URL) {
-        guard let _ = appAuthManager, ((appAuthManager?.currentAuthorizationFlow) != nil) else {
-            return
+        // Try to resume session with provided url
+        if let authManager = appAuthManager, let authorizationFlow = authManager.currentAuthorizationFlow {
+            if (authorizationFlow.resumeExternalUserAgentFlow(with: url)) {
+                // end session after sucessfull processing
+                authManager.currentAuthorizationFlow = nil
+            }
         }
-        appAuthManager?.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url)
     }
 
     /**
