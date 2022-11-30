@@ -13,9 +13,9 @@
 // limitations under the License.
 
 "authorization_view_private_settings" = "Privatsphäre-Einstellungen sicher speichern mit netID";
-"authorization_view_legal_info_part_one" = "Indem Sie Ihre Einwilligung erteilen, geben Sie uns die Erlaubnis, Sie beim Besuch dieses Webangebots als netID-Nutzer zu identifizieren und Ihre ID für die in unserer Datenschutzerklärung aufgelisteten Zwecke zu verwenden. Durch Nutzung von netID kann Ihnen der Cookie-Layer für dieses und andere teilnehmende Webangebote dann seltener angezeigt werden. Sie können Ihre Einwilligung jederzeit über Ihr netID Privacy Center bei %@ ";
+"authorization_view_legal_info_part_one" = "Indem Sie Ihre Einwilligung erteilen, geben Sie [Formulierung Partnername] die Erlaubnis, Sie bei der Nutzung unserer Angebote, insbesondere dieser App, als netID Nutzer:in zu identifizieren und Ihren netID Identifier für [Formulierung Verwendung/Zwecke] zu verwenden. Durch Nutzung von netID können Ihnen Einwilligungsdialoge bei der Nutzung unserer Angebote, insbesondere dieser App, dann seltener angezeigt werden.";
 "authorization_view_legal_info_select" = "(anderen netID Account Anbieter hier auswählen)";
-"authorization_view_legal_info_part_two" = "einsehen, widerrufen und verwalten.";
+"authorization_view_legal_info_part_two" = " Sie können Ihre Einwilligung jederzeit über Ihr netID Privacy Center bei %@ einsehen, widerrufen und verwalten.";
 "authorization_view_agree_and_continue_with_net_id" = "Zustimmen mit netID";
 "authorization_view_close" = "Schließen";
 "authorization_view_use_app" = "%@ App verwenden";
