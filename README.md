@@ -51,16 +51,16 @@ NetIdService.sharedInstance.initialize(config)
 ```
 It makes sense to sum this up into one function like e.g.:
 ```swift
-    func initializeNetIdService() {
-        initializationEnabled = false
-        NetIdService.sharedInstance.registerListener(self)
-        let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
-                claims: nil,
-                loginLayerConfig: nil,
-                permissionLayerConfig: nil)
-        NetIdService.sharedInstance.initialize(config)
-    }
+func initializeNetIdService() {
+    initializationEnabled = false
+    NetIdService.sharedInstance.registerListener(self)
+    let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
+            claims: nil,
+            loginLayerConfig: nil,
+            permissionLayerConfig: nil)
+    NetIdService.sharedInstance.initialize(config)
+}
 ```
 
 ## Authorization
@@ -93,7 +93,7 @@ Depending on the chosen flow, different views are presented to the user to decid
 
 As stated above, it is possible to customize certain aspects of the dialog presented for authorization. For example:
 ```swift
-    let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
+let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
 ``` 
 
 The SDK will figure out by itself, if account provider apps like [GMX](https://apps.apple.com/de/app/gmx-mail-cloud/id417352269) or [web.de](https://apps.apple.com/de/app/web-de-mail-cloud/id368948250) are installed. If so, the SDK will always prefer the app2app-flow instead of app2web when communicating with the netID authorization service. When at least one of those apps is found, the call to `getAuthorizationView` will return a slightly different layout, exposing the found apps:
