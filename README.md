@@ -35,29 +35,15 @@ The parameters have the following meaning:
 | loginLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the login flow. Can be nil. |
 | permissionLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the permission flow. Can be nil. |
 
-Besides the `clientId`, the `redirectUri` is the most important parameter in the configuration. The `redirectUri` is a link that is called by the authorization service to get back to your app once the authorization process has finished. As this is a rather crucial process, the netID SDK makes use of Verified App Links to ensure proper and secure communication between the authorization service and your app. 
-In order to make app links work, you have to provide a link in the form of an uri (e.g. https://netid-sdk-web.letsdev.de/redirect) and host a special file named `assetlinks.json` on that very same domain (in this example https://netid-sdk-web.letsdev.de/.well-known/assetlinks.json).
-When using `Android Studio` for development, there is an extra section inside the menu `Tools` called `App Links Assistant` to help create and test app links for you application as well as the corresponding asset file.
+Besides the `clientId`, the `redirectUri` is the most important parameter in the configuration. The `redirectUri` is a link that is called by the authorization service to get back to your app once the authorization process has finished. As this is a rather crucial process, the netID SDK makes use of Universal Links to ensure proper and secure communication between the authorization service and your app. 
+In order to make Universal Links work, you have to provide a link in the form of an uri (e.g. https://netid-sdk-web.letsdev.de/redirect) and host a special file named `apple-app-site-association` on that very same domain (in this example https://netid-sdk-web.letsdev.de/.well-known/apple-app-site-association).
+The format of that file is explained in detail [here](https://developer.apple.com/documentation/xcode/supporting-associated-domains).
 
-To make your application trigger on the aforementioned redirect, you must include the following snippet in your app's `AndroidManifest.xml`:
-```xml
-<activity
-    android:name="net.openid.appauth.RedirectUriReceiverActivity"
-    tools:node="replace"
-    android:exported="true">
-    <intent-filter android:autoVerify="true">
-        <action android:name="android.intent.action.VIEW" />
-        <category android:name="android.intent.category.DEFAULT" />
-        <category android:name="android.intent.category.BROWSABLE" />
-        <data android:scheme="https"
-            android:host="netid-sdk-web.letsdev.de"
-            android:path="/redirect"/>
-    </intent-filter>
-</activity>
-```
-However, for your own application you have to make sure that `scheme`, `host`, and `path` match your very own settings.
+In Xcode make sure to add your domain to the list of `Associated Domains` in the section `Signing & Capabilities` of your app. You must add your domain for `webcredentials` as well as for `applinks` to make it work both in app2web and app2app scenarios.
 
-To learn more about Verified App Links, see the corresponding documentation [here](https://developer.android.com/training/app-links/verify-android-applinks).
+<img src="images/netIdSdk_xcode_associate_domains.png" alt="netID SDK example app - add associated domains" style="width:800px;"/>
+
+To learn more about Universal Links, see the corresponding documentation [here](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc).
 
 Finally, initialize the NetIdService itself with the aforementioned condfiguration.
 ```swift
@@ -65,16 +51,16 @@ NetIdService.sharedInstance.initialize(config)
 ```
 It makes sense to sum this up into one function like e.g.:
 ```swift
-    func initializeNetIdService() {
-        initializationEnabled = false
-        NetIdService.sharedInstance.registerListener(self)
-        let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
-                claims: nil,
-                loginLayerConfig: nil,
-                permissionLayerConfig: nil)
-        NetIdService.sharedInstance.initialize(config)
-    }
+func initializeNetIdService() {
+    initializationEnabled = false
+    NetIdService.sharedInstance.registerListener(self)
+    let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
+            claims: nil,
+            loginLayerConfig: nil,
+            permissionLayerConfig: nil)
+    NetIdService.sharedInstance.initialize(config)
+}
 ```
 
 ## Authorization
@@ -107,10 +93,10 @@ Depending on the chosen flow, different views are presented to the user to decid
 
 As stated above, it is possible to customize certain aspects of the dialog presented for authorization. For example:
 ```swift
-    let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
+let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
 ``` 
 
-The SDK will figure out by itself, if account provider apps like [GMX](https://apps.apple.com/de/app/gmx-mail-cloud/id417352269) or [web.de](https://apps.apple.com/de/app/web-de-mail-cloud/id368948250) are installed. If so, the SDK will always prefer the app2app-flow instead of app2web when communicating with the netID authorization service. When at least one of those apps is found, the call to `getAuthorizationFragment` will return a slightly different layout, exposing the found apps:
+The SDK will figure out by itself, if account provider apps like [GMX](https://apps.apple.com/de/app/gmx-mail-cloud/id417352269) or [web.de](https://apps.apple.com/de/app/web-de-mail-cloud/id368948250) are installed. If so, the SDK will always prefer the app2app-flow instead of app2web when communicating with the netID authorization service. When at least one of those apps is found, the call to `getAuthorizationView` will return a slightly different layout, exposing the found apps:
 <table>
 <td><img src="images/netIdSdk_ios_login_with_idApps.jpeg" alt="netID SDK example app - login flow with app2app" style="width:200px;"><p><em>Login flow with installed id apps</em></p></img></td>
 <td><img src="images/netIdSdk_ios_permission_with_idApps.jpeg" alt="netID SDK example app - permission flow with app2app" style="width:200px;"><p><em>Permission flow with installed id apps</em></p></img></td>
