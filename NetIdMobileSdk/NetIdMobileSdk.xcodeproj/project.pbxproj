@@ -43,6 +43,7 @@
 		2FF2DFFE114C6D70A434BC39 /* TokenUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2FF2DD075006EF80455D773B /* TokenUtil.swift */; };
 		5107D266292C0BDD006C9142 /* PermissionUpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107D265292C0BDD006C9142 /* PermissionUpdateResponse.swift */; };
 		5107D268292C0C8D006C9142 /* PermissionUpdateErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107D267292C0C8D006C9142 /* PermissionUpdateErrorResponse.swift */; };
+		515A2A9B2938EFC90015A104 /* IdAppAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A2A9A2938EFC90015A104 /* IdAppAgent.swift */; };
 		51D21A2C292CE3AE00C2BAE0 /* NetIdPermissionStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = 51D21A2B292CE3AE00C2BAE0 /* NetIdPermissionStatus.swift */; };
 		B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */; };
 		B661616D288E6AA8004F7ACB /* AppDetailsIOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */; };
@@ -162,6 +163,7 @@
 		2FF2DED49E66568CF93D8BBF /* PermissionReadRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PermissionReadRequest.swift; sourceTree = "<group>"; };
 		5107D265292C0BDD006C9142 /* PermissionUpdateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionUpdateResponse.swift; sourceTree = "<group>"; };
 		5107D267292C0C8D006C9142 /* PermissionUpdateErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionUpdateErrorResponse.swift; sourceTree = "<group>"; };
+		515A2A9A2938EFC90015A104 /* IdAppAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdAppAgent.swift; sourceTree = "<group>"; };
 		51D21A2B292CE3AE00C2BAE0 /* NetIdPermissionStatus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdPermissionStatus.swift; sourceTree = "<group>"; };
 		B6265F4D28802A39006B1E9D /* WebserviceConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WebserviceConstants.swift; sourceTree = "<group>"; };
 		B661616C288E6AA8004F7ACB /* AppDetailsIOS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDetailsIOS.swift; sourceTree = "<group>"; };
@@ -311,6 +313,7 @@
 				2FF2D52E656414D8EABA9039 /* PermissionManagerDelegate.swift */,
 				2FF2D634BBF8C729ECCA7627 /* UserInfoManager.swift */,
 				2FF2DCFEC1AF2853D2812392 /* UserInfoManagerDelegate.swift */,
+				515A2A9A2938EFC90015A104 /* IdAppAgent.swift */,
 			);
 			path = manager;
 			sourceTree = "<group>";
@@ -717,6 +720,7 @@
 			files = (
 				B66A07CA287D62C100A68E08 /* netID MobileSDK.docc in Sources */,
 				2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */,
+				515A2A9B2938EFC90015A104 /* IdAppAgent.swift in Sources */,
 				2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */,
 				D692A9E4151DD1CF4ED1AEB9 /* BaseRequest.swift in Sources */,
 				B6265F4E28802A39006B1E9D /* WebserviceConstants.swift in Sources */,
