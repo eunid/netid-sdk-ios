@@ -98,16 +98,20 @@ class AppAuthManager: NSObject {
         if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
            let redirectUri = netIdConfig?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
-                let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
-                        clientId: clientId, scopes: scopes,
-                        redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: claims)
+                let request = OIDAuthorizationRequest.init(
+                    configuration: serviceConfiguration,
+                    clientId: clientId,
+                    scopes: scopes,
+                    redirectURL: redirectUri,
+                    responseType: OIDResponseTypeCode,
+                    additionalParameters: claims)
+                
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
                             if let authState = authState {
                                 self.authState = authState
                                 Logger.shared.debug("Got authorization tokens. Access token: " +
                                         "\(authState.lastTokenResponse?.accessToken ?? "nil")")
-
                                 self.delegate?.didFinishAuthenticationWithError(nil)
                             } else {
                                 Logger.shared
@@ -145,7 +149,8 @@ class AppAuthManager: NSObject {
                 if let redirectUri = URL.init(string: redirectUri) {
                     let request = OIDAuthorizationRequest.init(
                         configuration: serviceConfiguration,
-                        clientId: clientId, scopes: scopes,
+                        clientId: clientId,
+                        scopes: scopes,
                         redirectURL: redirectUri,
                         responseType: OIDResponseTypeCode,
                         additionalParameters: claims)
