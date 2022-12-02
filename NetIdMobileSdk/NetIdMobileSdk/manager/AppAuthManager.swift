@@ -25,8 +25,8 @@ class AppAuthManager: NSObject {
     public var authState: OIDAuthState?
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
     public let permissionManagementScope = "permission_management"
-    private var idToken: String?
     private var netIdConfig: NetIdConfig?
+    private let agent = IdAppAgent()
 
     init(delegate: AppAuthManagerDelegate?, netIdConfig: NetIdConfig?) {
         self.delegate = delegate
@@ -77,8 +77,9 @@ class AppAuthManager: NSObject {
     }
 
     /**
-     Starts the web authorization process.
+     Starts the app2web authorization process.
      - Parameter presentingViewController: needed to present the authorization WebView
+     - Parameter authFlow: specifies, which auth flow to use
      */
     public func authorizeWeb(presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
         var scopes: [String] = []
@@ -97,17 +98,20 @@ class AppAuthManager: NSObject {
         if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
            let redirectUri = netIdConfig?.redirectUri {
             if let redirectUri = URL.init(string: redirectUri) {
-                let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
-                        clientId: clientId, scopes: scopes,
-                        redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: claims)
+                let request = OIDAuthorizationRequest.init(
+                    configuration: serviceConfiguration,
+                    clientId: clientId,
+                    scopes: scopes,
+                    redirectURL: redirectUri,
+                    responseType: OIDResponseTypeCode,
+                    additionalParameters: claims)
+                
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
                             if let authState = authState {
                                 self.authState = authState
-                                idToken = authState.lastTokenResponse?.idToken
                                 Logger.shared.debug("Got authorization tokens. Access token: " +
-                                        "\(authState.lastTokenResponse?.idToken ?? "nil")")
-
+                                        "\(authState.lastTokenResponse?.accessToken ?? "nil")")
                                 self.delegate?.didFinishAuthenticationWithError(nil)
                             } else {
                                 Logger.shared
@@ -120,10 +124,15 @@ class AppAuthManager: NSObject {
         }
     }
     
-    public func getAuthRequestForUrl(url: URL, authFlow: NetIdAuthFlow) -> URL? {
+    /**
+     Starts the app2app authorization process.
+     - Parameter universalLink: universal link to call for redirecting to id app
+     - Parameter authFlow: specifies, which auth flow to use
+     */
+    public func authorizeApp(universalLink: URL, authFlow: NetIdAuthFlow) {
         var scopes: [String] = []
         var claims = netIdConfig?.claims
-
+        
         switch authFlow {
         case .Permission:
             scopes.append(permissionManagementScope)
@@ -134,19 +143,34 @@ class AppAuthManager: NSObject {
             scopes.append(permissionManagementScope)
             scopes.append(OIDScopeOpenID)
         }
-        if let serviceConfiguration = authConfiguration, let clientId = netIdConfig?.clientId,
-           let redirectUri = netIdConfig?.redirectUri {
-            if let redirectUri = URL.init(string: redirectUri) {
-                let request = OIDAuthorizationRequest.init(configuration: serviceConfiguration,
-                                                           clientId: clientId, scopes: scopes,
-                                                           redirectURL: redirectUri, responseType: OIDResponseTypeCode, additionalParameters: claims)
-                var components = URLComponents(string: request.externalUserAgentRequestURL().absoluteString)
-                components?.host = url.host
-                components?.path = url.path
-                return components?.url
-            }
+        if let serviceConfiguration = authConfiguration,
+            let clientId = netIdConfig?.clientId,
+            let redirectUri = netIdConfig?.redirectUri {
+                if let redirectUri = URL.init(string: redirectUri) {
+                    let request = OIDAuthorizationRequest.init(
+                        configuration: serviceConfiguration,
+                        clientId: clientId,
+                        scopes: scopes,
+                        redirectURL: redirectUri,
+                        responseType: OIDResponseTypeCode,
+                        additionalParameters: claims)
+                    
+                    currentAuthorizationFlow =
+                    OIDAuthState.authState(byPresenting: request, externalUserAgent: agent) { [self] authState, error in
+                                if let authState = authState {
+                                    self.authState = authState
+                                    Logger.shared.debug("Got authorization tokens. Access token: " +
+                                            "\(authState.lastTokenResponse?.accessToken ?? "nil")")
+                                    self.delegate?.didFinishAuthenticationWithError(nil)
+                                } else {
+                                    Logger.shared
+                                            .error("Authorization with clientID: \(clientId) and redirectUri: \(redirectUri) failed with error: \(error?.localizedDescription ?? "Unknown error")")
+                                    self.delegate?.didFinishAuthenticationWithError(
+                                            NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Authentication))
+                                }
+                            }
+                }
         }
-        return nil
     }
 
     public func endSession() {

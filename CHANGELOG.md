@@ -48,4 +48,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Fixed a bug when some claims were missing
 - Make get/update permission possible in permission flow
 - Fixed an edge case when resuming a session
+- Fixed app2app redirect
 

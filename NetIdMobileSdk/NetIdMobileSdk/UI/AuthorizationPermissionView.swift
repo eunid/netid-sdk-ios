@@ -136,12 +136,12 @@ struct AuthorizationPermissionView: View {
             }
 
             Button {
-                var destinationScheme: String?
+                var universalLink: String?
                 if appIdentifiers.count > selectedAppIndex {
                     let selectedAppIdentifier = appIdentifiers[selectedAppIndex]
-                    destinationScheme = selectedAppIdentifier.iOS.universalLink
+                    universalLink = selectedAppIdentifier.iOS.universalLink
                 }
-                delegate?.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
+                delegate?.didTapContinue(universalLink: universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
             } label: {
                 ZStack {
                     Image("logo_net_id_short", bundle: bundle)
