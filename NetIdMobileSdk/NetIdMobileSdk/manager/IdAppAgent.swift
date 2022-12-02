@@ -40,7 +40,7 @@ class IdAppAgent: NSObject, OIDExternalUserAgent {
         self.session = session
         self.request = request
 
-        // Note that we cannot handle an error via the completionhandler as it is asychronos
+        // Note that we cannot handle an error via the completionhandler as it is asynchronous
         UIApplication.shared.open(
             request.externalUserAgentRequestURL(),
             options: [.universalLinksOnly : true]) { started in
