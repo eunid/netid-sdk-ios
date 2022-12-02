@@ -147,8 +147,13 @@ class AppAuthManager: NSObject {
             let clientId = netIdConfig?.clientId,
             let redirectUri = netIdConfig?.redirectUri {
                 if let redirectUri = URL.init(string: redirectUri) {
+                    let appServiceConfiguration = OIDServiceConfiguration.init(
+                                    authorizationEndpoint: universalLink,
+                                    tokenEndpoint: serviceConfiguration.tokenEndpoint,
+                                    issuer: serviceConfiguration.issuer)
+                    
                     let request = OIDAuthorizationRequest.init(
-                        configuration: serviceConfiguration,
+                        configuration: appServiceConfiguration,
                         clientId: clientId,
                         scopes: scopes,
                         redirectURL: redirectUri,
