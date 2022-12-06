@@ -135,9 +135,3 @@ Fetches the permissions object. On success `didFetchPermissions` is called on th
 NetIdService.sharedInstance.updatePermissions()
 ```
 Updates the permissions object. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
-
-```swift
-NetIdService.sharedInstance.transmitToken(token)
-```
-Sets the id token to be used by the SDK. When using app2web flow, it is not neccessary to set the token because the SDK itself gets a callback and can extract the id token. But in the app2app flow, the application is getting the authorization information directly. And thus, the application has to set the token for further use in the SDK.
-
