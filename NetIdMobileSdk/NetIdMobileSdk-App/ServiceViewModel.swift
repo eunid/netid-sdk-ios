@@ -290,9 +290,5 @@ extension ServiceViewModel: NetIdServiceDelegate {
         }
         updatePermissionEnabled = true
     }
-
-    public func didTransmitInvalidToken() {
-        logText.append("didTransmitInvalidToken \n")
-
-    }
+    
 }
