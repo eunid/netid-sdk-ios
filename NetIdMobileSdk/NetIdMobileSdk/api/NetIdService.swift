@@ -82,10 +82,13 @@ open class NetIdService: NSObject {
      - Parameter url: callback url
      */
     public func resumeSession(_ url: URL) {
-        guard let _ = appAuthManager, ((appAuthManager?.currentAuthorizationFlow) != nil) else {
-            return
+        // Try to resume session with provided url
+        if let authManager = appAuthManager, let authorizationFlow = authManager.currentAuthorizationFlow {
+            if (authorizationFlow.resumeExternalUserAgentFlow(with: url)) {
+                // end session after sucessfull processing
+                authManager.currentAuthorizationFlow = nil
+            }
         }
-        appAuthManager?.currentAuthorizationFlow?.resumeExternalUserAgentFlow(with: url)
     }
 
     /**
@@ -127,12 +130,12 @@ open class NetIdService: NSObject {
 
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         Button {
-            var destinationScheme: String?
+            var universalLink: String?
             if netIdApps.count > self.selectedAppIndex {
                 let selectedAppIdentifier = netIdApps[self.selectedAppIndex]
-                destinationScheme = selectedAppIdentifier.iOS.universalLink
+                universalLink = selectedAppIdentifier.iOS.universalLink
             }
-            self.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
+            self.didTapContinue(universalLink: universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
         } label: {
             ZStack {
                 Image("logo_net_id_short", bundle: bundle)
@@ -162,7 +165,7 @@ open class NetIdService: NSObject {
         let bundle = Bundle(for: NetIdService.self)
 
         Button {
-            self.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: .Login)
+            self.didTapContinue(universalLink: nil, presentingViewController: presentingViewController, authFlow: .Login)
         } label: {
             ZStack {
                 Image("logo_net_id_short", bundle: bundle)
@@ -257,7 +260,7 @@ open class NetIdService: NSObject {
         }
         
         Button {
-            self.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
+            self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
         } label: {
             ZStack {
                 Image(result.icon, bundle: bundle)
@@ -281,27 +284,14 @@ open class NetIdService: NSObject {
      - Parameter destinationScheme: the scheme to set for calling another app for authorization
      - Parameter currentViewController: the view controller to use in case of app2web flow
      */
-    public func authorize(destinationScheme: String?, currentViewController: UIViewController, authFlow: NetIdAuthFlow) {
+    public func authorize(universalLink: String?, currentViewController: UIViewController, authFlow: NetIdAuthFlow) {
         if handleConnection(.Authentication) {
-            if let scheme = destinationScheme {
-                if !scheme.isEmpty {
-                    Logger.shared.info("netID Service will authorize via App2App.")
-                    if let url = appAuthManager?.getAuthRequestForUrl(url: URL(string: scheme)!, authFlow: authFlow) {
-//                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme, originScheme: originScheme) {
-                        UIApplication.shared.open(url, completionHandler: { success in
-                            if success {
-                                Logger.shared.info("netID Service successfully opened: \(url)")
-                            } else {
-                                Logger.shared.error("netID Service could not open: \(url)")
-                                // Todo: Remove this autofallback to app2web once app2app is working
-                                Logger.shared.info("netID Service will authorize via web as a fallback.")
-                                self.appAuthManager?.authorizeWeb(presentingViewController: currentViewController, authFlow: authFlow)
-                            }
-                        })
-                    }
-                }
+            if let universalLink = universalLink,
+            let universalLinkUrl = URL(string: universalLink) {
+                Logger.shared.info("netID Service will authorize via app2app.")
+                appAuthManager?.authorizeApp(universalLink: universalLinkUrl, authFlow: authFlow)
             } else {
-                Logger.shared.info("netID Service will authorize via web.")
+                Logger.shared.info("netID Service will authorize via app2web.")
                 appAuthManager?.authorizeWeb(presentingViewController: currentViewController, authFlow: authFlow)
             }
         }
@@ -490,7 +480,7 @@ extension NetIdService: AuthorizationViewDelegate {
         }
     }
 
-    public func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
-        authorize(destinationScheme: destinationScheme, currentViewController: presentingViewController, authFlow: authFlow)
+    public func didTapContinue(universalLink: String?, presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
+        authorize(universalLink: universalLink, currentViewController: presentingViewController, authFlow: authFlow)
     }
 }

@@ -53,7 +53,7 @@ struct AuthorizationLoginView: View {
             }
             ForEach(appIdentifiers, id: \.id) { result in
                 Button {
-                    delegate?.didTapContinue(destinationScheme: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
+                    delegate?.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
                 } label: {
                     ZStack {
                         Image(result.icon, bundle: bundle)
@@ -74,7 +74,7 @@ struct AuthorizationLoginView: View {
             // If there are not ID applications installed, display a button to use app2web instead.
             if appIdentifiers.isEmpty {
                 Button {
-                    delegate?.didTapContinue(destinationScheme: nil, presentingViewController: presentingViewController, authFlow: authFlow)
+                    delegate?.didTapContinue(universalLink: nil, presentingViewController: presentingViewController, authFlow: authFlow)
                 } label: {
                     ZStack {
                         Image("logo_net_id_short", bundle: bundle)

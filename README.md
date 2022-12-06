@@ -2,6 +2,9 @@
 
 ## About
 
+The `netID MobileSDK` facilitates the use of the [netID](https://netid.de) authorization and privacy management services.
+Alongside the SDK, this repository hosts a sample app, demonstarting the implemented features.
+
 ## Initialize NetIDService
 
 The `NetIdService` is the main interface to communicate with the netID SDK. It handles all the communication with the backend services and provides ui elements for the autherization flow.
@@ -28,14 +31,19 @@ The parameters have the following meaning:
 | :---        |    :---   |
 | clientId | The client id of your application. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
 | redirectUri | An URI that is used by your application to catch callbacks. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
-| claims | An array of strings, denoting additional claims that should be set during authorization. Can be nil. |
+| claims | An OIDC-compliant, URL-encoded JSON string, denoting additional claims that should be set during authorization Can be nil. |
 | loginLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the login flow. Can be nil. |
 | permissionLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the permission flow. Can be nil. |
 
-As stated above, it is possible to customize certain aspects of the dialog presented for authorization. For example:
-```swift
-    let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
-``` 
+Besides the `clientId`, the `redirectUri` is the most important parameter in the configuration. The `redirectUri` is a link that is called by the authorization service to get back to your app once the authorization process has finished. As this is a rather crucial process, the netID SDK makes use of Universal Links to ensure proper and secure communication between the authorization service and your app. 
+In order to make Universal Links work, you have to provide a link in the form of an uri (e.g. https://netid-sdk-web.letsdev.de/redirect) and host a special file named `apple-app-site-association` on that very same domain (in this example https://netid-sdk-web.letsdev.de/.well-known/apple-app-site-association).
+The format of that file is explained in detail [here](https://developer.apple.com/documentation/xcode/supporting-associated-domains).
+
+In Xcode make sure to add your domain to the list of `Associated Domains` in the section `Signing & Capabilities` of your app. You must add your domain for `webcredentials` as well as for `applinks` to make it work both in app2web and app2app scenarios.
+
+<img src="images/netIdSdk_xcode_associate_domains.png" alt="netID SDK example app - add associated domains" style="width:800px;"/>
+
+To learn more about Universal Links, see the corresponding documentation [here](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc).
 
 Finally, initialize the NetIdService itself with the aforementioned condfiguration.
 ```swift
@@ -43,16 +51,16 @@ NetIdService.sharedInstance.initialize(config)
 ```
 It makes sense to sum this up into one function like e.g.:
 ```swift
-    func initializeNetIdService() {
-        initializationEnabled = false
-        NetIdService.sharedInstance.registerListener(self)
-        let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
-                claims: nil,
-                loginLayerConfig: nil,
-                permissionLayerConfig: nil)
-        NetIdService.sharedInstance.initialize(config)
-    }
+func initializeNetIdService() {
+    initializationEnabled = false
+    NetIdService.sharedInstance.registerListener(self)
+    let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+            redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
+            claims: nil,
+            loginLayerConfig: nil,
+            permissionLayerConfig: nil)
+    NetIdService.sharedInstance.initialize(config)
+}
 ```
 
 ## Authorization
@@ -78,10 +86,30 @@ The optional parameter `forceApp2App` decides, if your app wants to use app2app 
 
 Depending on the chosen flow, different views are presented to the user to decide on how to proceed with the authorization process.
 
-<img src="images/netID_login_options.png" alt="netID SDK example app - chosse id app" style="width:200px;"/>
-<img src="images/netID_permission_app_options.png" alt="netID SDK example app - chosse id app" style="width:200px;"/>
+<table>
+<td><img src="images/netID_login_options.png" alt="netID SDK example app - login flow" style="width:200px;"/></td>
+<td><img src="images/netID_permission_app_options.png" alt="netID SDK example app - permission flow" style="width:200px;"/></td>
+</table>
+
+As stated above, it is possible to customize certain aspects of the dialog presented for authorization. For example:
+```swift
+let loginLayerConfig = LoginLayerConfig(headlineText: "Headline text", loginText: "Login with app %s", continueText: "Continue text")
+``` 
+
+The SDK will figure out by itself, if account provider apps like [GMX](https://apps.apple.com/de/app/gmx-mail-cloud/id417352269) or [web.de](https://apps.apple.com/de/app/web-de-mail-cloud/id368948250) are installed. If so, the SDK will always prefer the app2app-flow instead of app2web when communicating with the netID authorization service. When at least one of those apps is found, the call to `getAuthorizationView` will return a slightly different layout, exposing the found apps:
+<table>
+<td><img src="images/netIdSdk_ios_login_with_idApps.jpeg" alt="netID SDK example app - login flow with app2app" style="width:200px;"><p><em>Login flow with installed id apps</em></p></img></td>
+<td><img src="images/netIdSdk_ios_permission_with_idApps.jpeg" alt="netID SDK example app - permission flow with app2app" style="width:200px;"><p><em>Permission flow with installed id apps</em></p></img></td>
+</table>
 
 If the user did decide on how to proceed with the login process (e.g. which ID provider to use), a redirect to actually execute the authorization is called automatically.
+
+## Session persistence
+The SDK implements session persistence. So if a user has been authorized successfully, this state stays persistent even when closing and reopening the app again.
+
+To test this with the demo app, close the app once you are successfully authorized. Then, open the app again. After pressing the ```SDK initialisieren```-button, your session will be restored and you are again authorized. So there will be no need to press ```Authorisieren``` again.
+
+To get rid of the current session, the ```NetIdService.endsession()``` has to be called explicitly. In the demo app, this is done by pressing ```Session beenden```. Note however, that this will destroy the current session only. There will be no logout on the server itself.
 
 ## Using the authorized service
 
@@ -107,54 +135,3 @@ Fetches the permissions object. On success `didFetchPermissions` is called on th
 NetIdService.sharedInstance.updatePermissions()
 ```
 Updates the permissions object. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
-
-```swift
-NetIdService.sharedInstance.transmitToken(token)
-```
-Sets the id token to be used by the SDK. When using app2web flow, it is not neccessary to set the token because the SDK itself gets a callback and can extract the id token. But in the app2app flow, the application is getting the authorization information directly. And thus, the application has to set the token for further use in the SDK.
-
-## SDK configuration for ID provider apps
-
-It is possible to configure the SDK to make use of the apps of different ID providers. Right now, two of them are supported.
-The configuration resides in the file `netIdAppIdentifiers.json` inside the SDK. As this is an internal part of the SDK, it is not meant to be set via an interface nor API.
-
-```json
-{
-  "netIdAppIdentifiers": [
-    {
-      "id": 1,
-      "name": "GMX",
-      "icon": "logo_gmx",
-      "typeFaceIcon": "typeface_gmx",
-      "backgroundColor": "#FF1E50A0",
-      "foregroundColor": "#FFFFFFFF",
-      "iOS": {
-        "bundleIdentifier": "de.gmx.mobile.ios.mail",
-        "scheme": "gmxmail",
-        "universalLink": "https://sso.gmx.net/authorize-app2app"
-      },
-      "android": {
-        "applicationId": "de.gmx.mobile.android.mail",
-        "verifiedAppLink": "https://sso.gmx.net/authorize-app2app"
-      }
-    },
-    {
-      "id": 2,
-      "name": "WEB.DE",
-      "icon": "logo_web_de",
-      "typeFaceIcon": "typeface_webde",
-      "backgroundColor": "#FFFFD800",
-      "foregroundColor": "#FF333333",
-      "iOS": {
-        "bundleIdentifier": "de.web.mobile.ios.mail",
-        "scheme": "webdemail",
-        "universalLink": "https://sso.web.de/authorize-app2app"
-      },
-      "android": {
-        "applicationId": "de.web.mobile.android.mail",
-        "verifiedAppLink": "https://sso.web.de/authorize-app2app"
-      }
-    }
-  ]
-}
-````

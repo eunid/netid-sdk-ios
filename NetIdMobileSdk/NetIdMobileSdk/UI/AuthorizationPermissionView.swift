@@ -56,33 +56,31 @@ struct AuthorizationPermissionView: View {
 
             VStack(spacing: 10) {
                 if (appIdentifiers.count > 1) {
-                    Text(String(format: legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText,
-                            appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
-                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
-                            + Text(
-                            LocalizableUtil.netIdLocalizable(
-                                    "authorization_view_legal_info_select")).underline().font(Font.system(size: 12, weight: .regular))
-                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                    Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
-                            + Text(LocalizableUtil.netIdLocalizable(
-                            "authorization_view_legal_info_part_two")).font(Font.system(size: 12, weight: .regular))
-                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                    + Text(
+                    LocalizableUtil.netIdLocalizable(
+                        "authorization_view_legal_info_select")).underline().font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
+
+                    + Text(String(format: LocalizableUtil.netIdLocalizable(
+                        "authorization_view_legal_info_part_two"), appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 } else if (appIdentifiers.count == 1) {
-                    Text(String(format: legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText,
-                            appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
-                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                    Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
-                            + Text(LocalizableUtil.netIdLocalizable(
-                            "authorization_view_legal_info_part_two")).font(Font.system(size: 12, weight: .regular))
-                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                    + Text(String(format: LocalizableUtil.netIdLocalizable(
+                        "authorization_view_legal_info_part_two"), appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 } else {
-                    Text(String(format: legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText,
-                            LocalizableUtil.netIdLocalizable("authorization_view_net_id"))).font(Font.system(size: 12, weight: .regular))
-                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
-
-                            + Text(LocalizableUtil.netIdLocalizable(
-                                "authorization_view_legal_info_part_two")).font(Font.system(size: 12, weight: .regular))
-                            .foregroundColor(Color("legalInfoColor", bundle: bundle))
+                    Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
+ 
+                    + Text(String(format: LocalizableUtil.netIdLocalizable(
+                        "authorization_view_legal_info_part_two"), LocalizableUtil.netIdLocalizable("authorization_view_net_id"))).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 }
             }
                     .onTapGesture(perform: {
@@ -138,12 +136,12 @@ struct AuthorizationPermissionView: View {
             }
 
             Button {
-                var destinationScheme: String?
+                var universalLink: String?
                 if appIdentifiers.count > selectedAppIndex {
                     let selectedAppIdentifier = appIdentifiers[selectedAppIndex]
-                    destinationScheme = selectedAppIdentifier.iOS.universalLink
+                    universalLink = selectedAppIdentifier.iOS.universalLink
                 }
-                delegate?.didTapContinue(destinationScheme: destinationScheme, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
+                delegate?.didTapContinue(universalLink: universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
             } label: {
                 ZStack {
                     Image("logo_net_id_short", bundle: bundle)
