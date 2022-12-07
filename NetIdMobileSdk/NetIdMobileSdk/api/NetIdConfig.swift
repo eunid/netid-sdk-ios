@@ -15,8 +15,11 @@
 import Foundation
 
 public struct LoginLayerConfig {
+    /// Sets the text of the headline (beneath the logo). Only visible, if at least one id app is installed.
     public var headlineText: String?
+    /// Sets the text of the buttons displayed, if id apps are installed. The name of the app will be displayed as well, if the string is a format sting containing  "%s".
     public var loginText: String?
+    /// Sets the text of the continue button at the bottom of the dialog. Only visible, if there is no id app installed.
     public var continueText: String?
     
     public init (headlineText: String? = nil, loginText: String? = nil, continueText: String? = nil) {
@@ -27,9 +30,13 @@ public struct LoginLayerConfig {
 }
 
 public struct PermissionLayerConfig {
+    /// References an icon asset by name to be set during permission flow (in the upper left corner of the dialog).
     public var logoId: String?
+    /// Sets the text of the headline (beneath the logo).
     public var headlineText: String?
+    /// Sets the text of the first part of the legal information text. However, the second part is fixed and can not be set.
     public var legalText: String?
+    /// Sets the text of the continue button at the bottom of the dialog.
     public var continueText: String?
     
     public init(logoId: String? = nil, headlineText: String? = nil, legalText: String? = nil, continueText: String? = nil) {
@@ -45,7 +52,7 @@ public struct NetIdConfig {
     public var clientId: String
     /// Redirect URI for your application.  You need to retrieve it from the netID developer portal.
     public var redirectUri: String
-    /// Additional claims to set.
+    /// Additional claims to set. This needs to be a JSON string,but can be nil.
     public var claims: String?
     /// Optional configuration for strings to display in the login layer.
     public var loginLayerConfig: LoginLayerConfig?
