@@ -24,7 +24,7 @@ class AppAuthManager: NSObject {
     public var authConfiguration: OIDServiceConfiguration?
     public var authState: OIDAuthState?
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
-    public let permissionManagementScope = "permission_management"
+    private let permissionManagementScope = "permission_management"
     private let keyClaims = "claims"
     private var netIdConfig: NetIdConfig?
     private let agent = IdAppAgent()
