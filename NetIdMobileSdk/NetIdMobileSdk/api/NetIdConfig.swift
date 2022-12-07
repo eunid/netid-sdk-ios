@@ -54,16 +54,19 @@ public struct NetIdConfig {
     public var redirectUri: String
     /// Additional claims to set. This needs to be a JSON string,but can be nil.
     public var claims: String?
+    /// Additional value for parameter `prompt` that will be used during app2web-flow only.
+    public var promptWeb: String?
     /// Optional configuration for strings to display in the login layer.
     public var loginLayerConfig: LoginLayerConfig?
     /// Optional configuration for strings and logo to display in the permission layer.
     public var permissionLayerConfig: PermissionLayerConfig?
 
     /// Initialize the SDK. This is the first thing to do.
-    public init(clientId: String, redirectUri: String, claims: String?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
+    public init(clientId: String, redirectUri: String, claims: String?, promptWeb: String?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
         self.clientId = clientId
         self.redirectUri = redirectUri
         self.claims = claims
+        self.promptWeb = promptWeb
         self.loginLayerConfig = loginLayerConfig
         self.permissionLayerConfig = permissionLayerConfig
     }

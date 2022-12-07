@@ -26,6 +26,7 @@ class AppAuthManager: NSObject {
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
     private let permissionManagementScope = "permission_management"
     private let keyClaims = "claims"
+    private let keyPrompt = "prompt"
     private var netIdConfig: NetIdConfig?
     private let agent = IdAppAgent()
 
@@ -85,6 +86,9 @@ class AppAuthManager: NSObject {
     public func authorizeWeb(presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
         var scopes: [String] = []
         var additionalParameters = [keyClaims: netIdConfig?.claims ?? ""]
+        if (netIdConfig?.promptWeb != nil) {
+            additionalParameters[keyPrompt] = netIdConfig?.promptWeb
+        }
 
         switch authFlow {
         case .Permission:
