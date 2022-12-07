@@ -17,7 +17,7 @@ import Foundation
 public struct LoginLayerConfig {
     /// Sets the text of the headline (beneath the logo). Only visible, if at least one id app is installed.
     public var headlineText: String?
-    /// Sets the text of the buttons displayed, if id apps are installed. The name of the app will be displayed as well, if the string is a format sting containing  "%s".
+    /// Sets the text of the buttons displayed, if id apps are installed. The name of the app will be displayed as well, if the string is a format string containing  "%s".
     public var loginText: String?
     /// Sets the text of the continue button at the bottom of the dialog. Only visible, if there is no id app installed.
     public var continueText: String?
