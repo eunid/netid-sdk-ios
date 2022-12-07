@@ -46,14 +46,14 @@ public struct NetIdConfig {
     /// Redirect URI for your application.  You need to retrieve it from the netID developer portal.
     public var redirectUri: String
     /// Additional claims to set.
-    public var claims: [String: String]?
+    public var claims: String?
     /// Optional configuration for strings to display in the login layer.
     public var loginLayerConfig: LoginLayerConfig?
     /// Optional configuration for strings and logo to display in the permission layer.
     public var permissionLayerConfig: PermissionLayerConfig?
 
     /// Initialize the SDK. This is the first thing to do.
-    public init(clientId: String, redirectUri: String, claims: [String: String]?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
+    public init(clientId: String, redirectUri: String, claims: String?, loginLayerConfig: LoginLayerConfig?, permissionLayerConfig: PermissionLayerConfig?) {
         self.clientId = clientId
         self.redirectUri = redirectUri
         self.claims = claims

@@ -25,6 +25,7 @@ class AppAuthManager: NSObject {
     public var authState: OIDAuthState?
     public var currentAuthorizationFlow: OIDExternalUserAgentSession?
     public let permissionManagementScope = "permission_management"
+    private let keyClaims = "claims"
     private var netIdConfig: NetIdConfig?
     private let agent = IdAppAgent()
 
@@ -83,12 +84,12 @@ class AppAuthManager: NSObject {
      */
     public func authorizeWeb(presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
         var scopes: [String] = []
-        var claims = netIdConfig?.claims
-        
+        var additionalParameters = [keyClaims: netIdConfig?.claims ?? ""]
+
         switch authFlow {
         case .Permission:
             scopes.append(permissionManagementScope)
-            claims = nil
+            additionalParameters.removeValue(forKey: keyClaims)
         case .Login:
             scopes.append(OIDScopeOpenID)
         case .LoginPermission:
@@ -104,7 +105,7 @@ class AppAuthManager: NSObject {
                     scopes: scopes,
                     redirectURL: redirectUri,
                     responseType: OIDResponseTypeCode,
-                    additionalParameters: claims)
+                    additionalParameters: additionalParameters)
                 
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
@@ -131,12 +132,12 @@ class AppAuthManager: NSObject {
      */
     public func authorizeApp(universalLink: URL, authFlow: NetIdAuthFlow) {
         var scopes: [String] = []
-        var claims = netIdConfig?.claims
-        
+        var additionalParameters = [keyClaims: netIdConfig?.claims ?? ""]
+
         switch authFlow {
         case .Permission:
             scopes.append(permissionManagementScope)
-            claims = nil
+            additionalParameters.removeValue(forKey: keyClaims)
         case .Login:
             scopes.append(OIDScopeOpenID)
         case .LoginPermission:
@@ -158,7 +159,7 @@ class AppAuthManager: NSObject {
                         scopes: scopes,
                         redirectURL: redirectUri,
                         responseType: OIDResponseTypeCode,
-                        additionalParameters: claims)
+                        additionalParameters: additionalParameters)
                     
                     currentAuthorizationFlow =
                     OIDAuthState.authState(byPresenting: request, externalUserAgent: agent) { [self] authState, error in

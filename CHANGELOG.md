@@ -40,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Reworked error handling
 - More documentation
 - Removed unused function
+- claims is now a simple string on the external interface
 
 ### Fixed
 - Url schemes error
