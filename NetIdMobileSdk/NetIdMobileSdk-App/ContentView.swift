@@ -23,6 +23,8 @@ struct ContentView: View {
 
     @EnvironmentObject var serviceViewModel: ServiceViewModel
     @State private var showingAlert = false
+    @State private var extraClaimShippingAddress = false
+    @State private var extraClaimBirthdate = false
 
     var body: some View {
         ZStack {
@@ -33,7 +35,9 @@ struct ContentView: View {
 
                 HStack(alignment: .center, spacing: 50) {
                     Button {
-                        serviceViewModel.initializeNetIdService()
+                        serviceViewModel.initializeNetIdService(
+                            extraClaimShippingAddress: extraClaimShippingAddress,
+                            extraClaimBirthdate: extraClaimBirthdate)
                     } label: {
                         Text("initialize_button_title")
                                 .frame(maxWidth: .infinity)
@@ -101,6 +105,23 @@ struct ContentView: View {
                             .frame(width: 20, height: 20, alignment: .center)
                 }
                         .padding(.horizontal, 20)
+
+                VStack(alignment: .center, spacing: 10) {
+                    Text("net_id_service_extra_claims")
+                        .padding()
+                        .font(Font.system(size: 15))
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                    
+                    HStack(alignment: .center, spacing: 25) {
+                        Toggle(isOn: $extraClaimShippingAddress) {
+                            Text("shipping_address").font(Font.system(size: 12))
+                        }.disabled(!serviceViewModel.initializationEnabled)
+                        
+                        Toggle(isOn: $extraClaimBirthdate) {
+                            Text("birthdate").font(Font.system(size: 12))
+                        }.disabled(!serviceViewModel.initializationEnabled)
+                    }
+                }
 
                 Text("permission_management_title")
                         .padding()

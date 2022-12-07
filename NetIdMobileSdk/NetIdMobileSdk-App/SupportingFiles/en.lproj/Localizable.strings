@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-"net_id_service_title" = "netID Service";
+"net_id_service_title" = "netID SDK Demo";
 "initialize_button_title" = "Service initialisieren";
 "authorize_button_title" = "Authorisieren";
 "user_info_button_title" = "UserInfo laden";
@@ -20,8 +20,9 @@
 "network_error_alert_title" = "Netzwerkfehler";
 "network_error_alert_description" = "Bitte stelle sicher, dass eine Netzwerkverbindung besteht.";
 "network_error_alert_action" = "Verstanden";
+"net_id_service_extra_claims" = "Zusätzliche **optional claims** für Login-Flow";
 "permission_management_title" = "Permission Management";
-"update_permission_button_title" = "Permission aktualisieren";
-"fetch_permissions_button_title" = "Permissions laden";
+"update_permission_button_title" = "Aktualisieren";
+"fetch_permissions_button_title" = "Laden";
 "log_text_title" = "Logs:";
 "choose_auth_flow_title" = "Bitte wähle Deinen Authorisierungsprozess.";
