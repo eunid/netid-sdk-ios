@@ -22,6 +22,7 @@ let config = NetIdConfig(
                 clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                 redirectUri: "https://netid-sdk-web.letsdev.de/redirect",
                 claims: claims
+                promptWeb: nil,
                 loginLayerConfig: nil
                 permissionLayerConfig: nil)
 ```
@@ -31,7 +32,8 @@ The parameters have the following meaning:
 | :---        |    :---   |
 | clientId | The client id of your application. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
 | redirectUri | An URI that is used by your application to catch callbacks. You can retrieve it from the netID Developer portal. This parameter is mandatory. |
-| claims | An OIDC-compliant, URL-encoded JSON string, denoting additional claims that should be set during authorization Can be nil. |
+| claims | An OIDC-compliant, URL-encoded JSON string, denoting additional claims that should be set during authorization. Can be nil. |
+| promptWeb | Additional value for parameter `prompt` that will be used during app2web-flow only. For valid values see https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest. Can be nil.
 | loginLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the login flow. Can be nil. |
 | permissionLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the permission flow. Can be nil. |
 
@@ -57,6 +59,7 @@ func initializeNetIdService() {
     let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
             redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
             claims: nil,
+            promptWeb : nil,
             loginLayerConfig: nil,
             permissionLayerConfig: nil)
     NetIdService.sharedInstance.initialize(config)

@@ -34,7 +34,7 @@ class ServiceViewModel: NSObject, ObservableObject {
     @Published var logText = ""
     @Published var authFlow: NetIdAuthFlow = .Permission
 
-    func initializeNetIdService() {
+    func initializeNetIdService(extraClaimShippingAddress: Bool, extraClaimBirthdate: Bool) {
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
         
@@ -43,11 +43,17 @@ class ServiceViewModel: NSObject, ObservableObject {
         // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default vaules will apply instead.
         let loginLayerConfig = LoginLayerConfig()
         let permissionLayerConfig = PermissionLayerConfig()
-        var claims = Dictionary<String, String>()
-        claims["claims"] = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
-        let config = NetIdConfig(clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
-                redirectUri: "https://netid-sdk-web.letsdev.de/redirect", 
-                claims: claims, loginLayerConfig: loginLayerConfig, permissionLayerConfig: permissionLayerConfig)
+        let snippetShippingAddress = (extraClaimShippingAddress) ? ", \"shipping_address\": null" : ""
+        let snippetBirthdate = (extraClaimBirthdate) ? ", \"birthdate\": null" : ""
+        let claims = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}\(snippetShippingAddress)\(snippetBirthdate)}}"
+                
+        let config = NetIdConfig(
+            clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
+            redirectUri: "https://netid-sdk-web.letsdev.de/redirect",
+            claims: claims,
+            promptWeb: "consent",
+            loginLayerConfig: loginLayerConfig,
+            permissionLayerConfig: permissionLayerConfig)
         NetIdService.sharedInstance.initialize(config)
     }
 
