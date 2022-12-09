@@ -20,7 +20,7 @@ var claims = Dictionary<String, String>()
 claims["claims"] = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
 let config = NetIdConfig(
                 clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-                redirectUri: "https://netid-sdk-web.letsdev.de/redirect",
+                redirectUri: "https://eunid.github.io/redirectApp",
                 claims: claims
                 promptWeb: nil,
                 loginLayerConfig: nil
@@ -57,7 +57,7 @@ func initializeNetIdService() {
     initializationEnabled = false
     NetIdService.sharedInstance.registerListener(self)
     let config = NetIdConfig(clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
-            redirectUri: "https://netid-sdk-web.letsdev.de/redirect"
+            redirectUri: "https://eunid.github.io/redirectApp"
             claims: nil,
             promptWeb : nil,
             loginLayerConfig: nil,

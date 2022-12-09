@@ -4,8 +4,8 @@
 <dict>
 	<key>com.apple.developer.associated-domains</key>
 	<array>
-		<string>webcredentials:netid-sdk-web.letsdev.de</string>
-		<string>applinks:netid-sdk-web.letsdev.de</string>
+		<string>webcredentials:eunid.github.io</string>
+		<string>applinks:eunid.github.io</string>
 	</array>
 </dict>
 </plist>
