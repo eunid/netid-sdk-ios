@@ -38,7 +38,7 @@ The parameters have the following meaning:
 | permissionLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the permission flow. Can be nil. |
 
 Besides the `clientId`, the `redirectUri` is the most important parameter in the configuration. The `redirectUri` is a link that is called by the authorization service to get back to your app once the authorization process has finished. As this is a rather crucial process, the netID SDK makes use of Universal Links to ensure proper and secure communication between the authorization service and your app. 
-In order to make Universal Links work, you have to provide a link in the form of an uri (e.g. https://netid-sdk-web.letsdev.de/redirect) and host a special file named `apple-app-site-association` on that very same domain (in this example https://netid-sdk-web.letsdev.de/.well-known/apple-app-site-association).
+In order to make Universal Links work, you have to provide a link in the form of an uri (e.g. https://eunid.github.io/redirectApp) and host a special file named `apple-app-site-association` on that very same domain (in this example https://eunid.github.io/.well-known/apple-app-site-association).
 The format of that file is explained in detail [here](https://developer.apple.com/documentation/xcode/supporting-associated-domains).
 
 In Xcode make sure to add your domain to the list of `Associated Domains` in the section `Signing & Capabilities` of your app. You must add your domain for `webcredentials` as well as for `applinks` to make it work both in app2web and app2app scenarios.
