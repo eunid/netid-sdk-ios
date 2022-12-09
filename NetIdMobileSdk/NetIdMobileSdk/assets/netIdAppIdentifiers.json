@@ -9,7 +9,7 @@
       "foregroundColor": "#FFFFFFFF",
       "iOS": {
         "bundleIdentifier": "de.gmx.mobile.ios.mail",
-        "scheme": "gmxmail",
+        "scheme": "x-gmxmail-netid-v1",
         "universalLink": "https://sso.gmx.net/authorize-app2app"
       },
       "android": {
@@ -26,7 +26,7 @@
       "foregroundColor": "#FF333333",
       "iOS": {
         "bundleIdentifier": "de.web.mobile.ios.mail",
-        "scheme": "webdemail",
+        "scheme": "x-webdemail-netid-v1",
         "universalLink": "https://sso.web.de/authorize-app2app"
       },
       "android": {
