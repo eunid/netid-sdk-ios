@@ -41,6 +41,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - More documentation
 - Removed unused function
 - claims is now a simple string on the external interface
+- Change schemas for id apps
 
 ### Fixed
 - Url schemes error
