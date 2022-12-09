@@ -28,6 +28,8 @@ class AppAuthManager: NSObject {
     private let keyClaims = "claims"
     private let keyPrompt = "prompt"
     private var netIdConfig: NetIdConfig?
+    private let STORE_NAME = "netIdSdk"
+    private let KEY_STATE = "authState"
     private let agent = IdAppAgent()
 
     init(delegate: AppAuthManagerDelegate?, netIdConfig: NetIdConfig?) {
@@ -42,7 +44,7 @@ class AppAuthManager: NSObject {
     }
 
     public func getAccessToken() -> String? {
-         authState?.lastTokenResponse?.accessToken
+        getAuthState()?.lastTokenResponse?.accessToken
     }
 
     public func getPermissionToken() -> String? {
@@ -54,7 +56,51 @@ class AppAuthManager: NSObject {
     }
 
     public func getAuthState() -> OIDAuthState? {
+        if (authState != nil) {
+            return authState
+        }
+        
+        authState = readState()
         return authState
+    }
+
+    /**
+     Read auth state from shared preferences if available.
+     If there is no state or if the state can not be reconstructed, null is returned.
+     - Returns return the read auth state or null if there is none
+     */
+    private func readState() -> OIDAuthState? {
+        if let data = UserDefaults(suiteName: STORE_NAME)?.object(forKey: KEY_STATE) as? Data {
+            if let savedAuthState = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? OIDAuthState {
+                return savedAuthState
+            }
+        }
+        return nil
+    }
+
+    /**
+     Write current auth state to shared preferences.
+     If the given state is null, remove the currently stored state.
+     - Parameter authState the state to persist or null to remove from store
+     */
+    private func writeState() {
+        var data: Data? = nil
+        if let authState = self.authState {
+            do {
+                data = try NSKeyedArchiver.archivedData(withRootObject: authState, requiringSecureCoding: false)
+                if let userDefaults = UserDefaults(suiteName: STORE_NAME) {
+                    userDefaults.set(data, forKey: KEY_STATE)
+                    userDefaults.synchronize()
+                }
+            } catch {
+                Logger.shared.debug("Failure writing authState to preferences.")
+            }
+        } else {
+            if let userDefaults = UserDefaults(suiteName: STORE_NAME) {
+                userDefaults.removeObject(forKey: KEY_STATE)
+                userDefaults.synchronize()
+            }
+        }
     }
     
     /**
@@ -110,13 +156,18 @@ class AppAuthManager: NSObject {
                     redirectURL: redirectUri,
                     responseType: OIDResponseTypeCode,
                     additionalParameters: additionalParameters)
-                
+
+                if (authState != nil) {
+                    self.delegate?.didFinishAuthenticationWithError(nil)
+                }
+
                 currentAuthorizationFlow =
                         OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
                             if let authState = authState {
                                 self.authState = authState
                                 Logger.shared.debug("Got authorization tokens. Access token: " +
                                         "\(authState.lastTokenResponse?.accessToken ?? "nil")")
+                                writeState()
                                 self.delegate?.didFinishAuthenticationWithError(nil)
                             } else {
                                 Logger.shared
@@ -165,12 +216,15 @@ class AppAuthManager: NSObject {
                         responseType: OIDResponseTypeCode,
                         additionalParameters: additionalParameters)
                     
+                    // Make sure there is no dangling session before using the agent.
+                    agent.dismiss(animated: false, completion: {})
                     currentAuthorizationFlow =
                     OIDAuthState.authState(byPresenting: request, externalUserAgent: agent) { [self] authState, error in
                                 if let authState = authState {
                                     self.authState = authState
                                     Logger.shared.debug("Got authorization tokens. Access token: " +
                                             "\(authState.lastTokenResponse?.accessToken ?? "nil")")
+                                    writeState()
                                     self.delegate?.didFinishAuthenticationWithError(nil)
                                 } else {
                                     Logger.shared
@@ -182,10 +236,12 @@ class AppAuthManager: NSObject {
                 }
         }
     }
-
+        
     public func endSession() {
         authState = nil
         currentAuthorizationFlow = nil
+        agent.dismiss(animated: false, completion: {})
+        writeState()
         delegate?.didEndSession()
     }
 }
