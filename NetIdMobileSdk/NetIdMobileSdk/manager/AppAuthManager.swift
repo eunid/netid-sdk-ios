@@ -216,12 +216,15 @@ class AppAuthManager: NSObject {
                         responseType: OIDResponseTypeCode,
                         additionalParameters: additionalParameters)
                     
+                    // Make sure there is no dangling session before using the agent.
+                    agent.dismiss(animated: false, completion: {})
                     currentAuthorizationFlow =
                     OIDAuthState.authState(byPresenting: request, externalUserAgent: agent) { [self] authState, error in
                                 if let authState = authState {
                                     self.authState = authState
                                     Logger.shared.debug("Got authorization tokens. Access token: " +
                                             "\(authState.lastTokenResponse?.accessToken ?? "nil")")
+                                    writeState()
                                     self.delegate?.didFinishAuthenticationWithError(nil)
                                 } else {
                                     Logger.shared
@@ -233,10 +236,11 @@ class AppAuthManager: NSObject {
                 }
         }
     }
-
+        
     public func endSession() {
         authState = nil
         currentAuthorizationFlow = nil
+        agent.dismiss(animated: false, completion: {})
         writeState()
         delegate?.didEndSession()
     }
