@@ -48,8 +48,8 @@ class ServiceViewModel: NSObject, ObservableObject {
         let claims = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}\(snippetShippingAddress)\(snippetBirthdate)}}"
                 
         let config = NetIdConfig(
-            clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
-            redirectUri: "https://netid-sdk-web.letsdev.de/redirect",
+            clientId: "2f9d690d-9a48-4e9d-a8b8-9a8866b621f2",
+            redirectUri: "https://eunid.github.io/redirectApp",
             claims: claims,
             promptWeb: "consent",
             loginLayerConfig: loginLayerConfig,
