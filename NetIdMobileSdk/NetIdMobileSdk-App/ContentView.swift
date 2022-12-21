@@ -164,6 +164,7 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             .padding(.horizontal, 20)
                             .font(Font.system(size: 13))
+                            .accessibilityIdentifier("LogView")
                 }
                 Button {
                     serviceViewModel.endSession()
