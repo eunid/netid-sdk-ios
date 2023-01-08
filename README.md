@@ -2,7 +2,8 @@
 
 ## About
 
-The `netID MobileSDK` facilitates the use of the [netID](https://netid.de) authorization and privacy management services. Alongside the SDK, this repository hosts a sample app, demonstrating the usage.
+The `netID MobileSDK` facilitates the use of the [netID](https://netid.de) authorization and privacy management services. 
+Alongside the SDK, this repository hosts two sample apps, demonstarting the usage of the SDK. The first one is more complete as it demonstrates complete workflows including fetching/setting of additional values or user information. The second one is less complex and only demonstrates the basic workflow if you want to add the different buttons for interacting with the SDK in a more direct way. 
 
 ## Initialize NetIDService
 
@@ -163,3 +164,58 @@ Fetches the permissions object. On success `didFetchPermissions` is called on th
 NetIdService.sharedInstance.updatePermissions()
 ```
 Updates the permissions object. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
+
+## Button workflow
+
+As stated in the beginning, there is another way to interact with the SDK. In the so called <i>button workflow</i> you can decide to not use the preconfigured forms and texts but build your very own dialogs.
+
+Therefore, the SDK gives you the opportunity to only make use of the basic functionalities to use the SDK. As a starting point, take a look at the second demo app provided in the `NetIdMobileSdk/NetIdMobileSdk-ButtonApp` folder.
+
+Of course, at first you have to initialize the SDK as in the example above.
+```swift
+NetIdService.sharedInstance.registerListener(self)
+let loginLayerConfig = LoginLayerConfig()
+let permissionLayerConfig = PermissionLayerConfig()
+let claims = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
+let config = NetIdConfig(
+    clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
+    redirectUri: "https://netid-sdk-web.letsdev.de/redirect",
+    claims: claims,
+    promptWeb: "consent",
+    loginLayerConfig: loginLayerConfig,
+    permissionLayerConfig: permissionLayerConfig)
+NetIdService.sharedInstance.initialize(config)
+```
+
+Then, just request the buttons you need to trigger your desired auth flow. E.g. for the permission flow:
+
+```swift
+NetIdService.sharedInstance.continueButtonPermissionFlow(continueText: "")
+    .disabled(serviceViewModel.endSessionEnabled)
+```
+
+Note that if any Account Provider apps are installed, there will be the possibility to choose which one to use. In this this case, app2app flow is used, app2web otherwise. You can add the respective buttons like this:
+
+```swift
+ForEach((0...NetIdService.sharedInstance.getCountOfIdApps()), id: \.self) { index in
+    NetIdService.sharedInstance.permissionButtonForIdApp(index: index)
+        .disabled(serviceViewModel.endSessionEnabled)
+}
+```
+
+For the login and/or login+permission flow, you can request a button to initiate app2web authorization with the following call:
+
+```swift
+NetIdService.sharedInstance.continueButtonLoginFlow(authFlow: .Login, continueText: "")
+    .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
+    .disabled(serviceViewModel.endSessionEnabled)
+```
+
+And if you prefer app2app, you can request respective buttons for each Account provider this way:
+
+```swift
+ForEach((0...NetIdService.sharedInstance.getCountOfIdApps()), id: \.self) { index in
+    NetIdService.sharedInstance.loginButtonForIdApp(authFlow: .Login, index: index)
+        .disabled(serviceViewModel.endSessionEnabled)
+}
+```
