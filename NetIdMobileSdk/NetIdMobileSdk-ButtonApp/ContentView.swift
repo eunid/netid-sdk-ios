@@ -23,8 +23,8 @@ struct ContentView: View {
             Text("Permission flow")
             NetIdService.sharedInstance.continueButtonPermissionFlow(continueText: "")
                 .disabled(serviceViewModel.endSessionEnabled)
-            ForEach((0...NetIdService.sharedInstance.getCountOfIdApps()), id: \.self) { index in
-                NetIdService.sharedInstance.permissionButtonForIdApp(index: index)
+            ForEach((0...NetIdService.sharedInstance.getCountOfAccountProviderApps()), id: \.self) { index in
+                NetIdService.sharedInstance.permissionButtonForAccountProviderApp(index: index)
                     .disabled(serviceViewModel.endSessionEnabled)
             }
         }
@@ -34,8 +34,8 @@ struct ContentView: View {
             NetIdService.sharedInstance.continueButtonLoginFlow(authFlow: .Login, continueText: "")
                 .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
                 .disabled(serviceViewModel.endSessionEnabled)
-            ForEach((0...NetIdService.sharedInstance.getCountOfIdApps()), id: \.self) { index in
-                NetIdService.sharedInstance.loginButtonForIdApp(authFlow: .Login, index: index)
+            ForEach((0...NetIdService.sharedInstance.getCountOfAccountProviderApps()), id: \.self) { index in
+                NetIdService.sharedInstance.loginButtonForAccountProviderApp(authFlow: .Login, index: index)
                     .disabled(serviceViewModel.endSessionEnabled)
             }
         }

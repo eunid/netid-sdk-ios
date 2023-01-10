@@ -131,12 +131,7 @@ open class NetIdService: NSObject {
 
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         Button {
-            var universalLink: String?
-            if netIdApps.count > self.selectedAppIndex {
-                let selectedAppIdentifier = netIdApps[self.selectedAppIndex]
-                universalLink = selectedAppIdentifier.iOS.universalLink
-            }
-            self.didTapContinue(universalLink: universalLink, presentingViewController: vc ?? UIViewController(), authFlow: NetIdAuthFlow.Permission)
+            self.didTapContinue(universalLink: nil, presentingViewController: vc ?? UIViewController(), authFlow: NetIdAuthFlow.Permission)
         } label: {
             ZStack {
                 Image("logo_net_id_short", bundle: bundle)
@@ -195,54 +190,44 @@ open class NetIdService: NSObject {
      Use this function only if you intent to build your very own authorization dialog.
      - Returns: Number of currently installed id apps.
      */
-    public func getCountOfIdApps() -> Int {
+    public func getCountOfAccountProviderApps() -> Int {
         return AuthorizationWayUtil.checkNetIdAuth().count
     }
     
     /**
      Returns the radio button for a certain id app in case of a permission flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number of installed id apps.
+     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfAccountProviderApps`` first to get the number of installed id apps.
      - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
      */
     @ViewBuilder
-    public func permissionButtonForIdApp(index: Int) -> some View {
+    public func permissionButtonForAccountProviderApp(index: Int) -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+        
+        let vc = UIApplication.shared.visibleViewController
+
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         if ((netIdApps.isEmpty) || (index >= netIdApps.count)) {
             EmptyView()
         } else {
             let result = netIdApps[index]
             
-            HStack(spacing: 10) {
+            Button {
+                self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: vc ?? UIViewController(), authFlow: .Permission)
+            } label: {
                 ZStack {
-                    Circle()
-                        .fill(Color(hex: result.backgroundColor) ?? Color.white)
-                        .frame(width: 40, height: 40)
-                    
-                    Image(result.icon, bundle: Bundle(for: NetIdService.self))
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 28, height: 28, alignment: .center)
+                    Image("logo_net_id_short", bundle: bundle)
+                        .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
+                        .kerning(-0.45)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
+                        .font(Font.system(size: 18, weight: .semibold))
                 }
-                .padding(.leading)
-                Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
-                    .kerning(-0.45)
-                    .font(Font.system(size: 16, weight: .bold))
-                
-                Spacer()
-                
-                let radioCheckedBinding = Binding<Bool>(get: { self.selectedAppIndex == index }, set: { _ in })
-                
-                RadioButtonView(isChecked: radioCheckedBinding, didSelect: {
-                    self.selectedAppIndex = index
-                })
-                .padding(.trailing)
-            }
-            .tag(result.name)
-            .padding(.vertical, 10)
-            .background(Color("netIdLayerColor", bundle: Bundle(for: NetIdService.self)))
-            .onTapGesture {
-                self.selectedAppIndex = index
+                .padding(12)
+                .background(Color("netIdOtherOptionsColor", bundle: bundle))
+                .cornerRadius(5)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color("netIdButtonStrokeColor", bundle: bundle)))
             }
         }
     }
@@ -251,11 +236,11 @@ open class NetIdService: NSObject {
      Returns the button for a certain id app in case of a login flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
      - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty viel will be returned.
-     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number of installed id apps.
+     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfAccountProviderApps`` first to get the number of installed id apps.
      - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
      */
     @ViewBuilder
-    public func loginButtonForIdApp(authFlow: NetIdAuthFlow, index: Int, loginText: String = "") -> some View {
+    public func loginButtonForAccountProviderApp(authFlow: NetIdAuthFlow, index: Int) -> some View {
         let bundle = Bundle(for: NetIdService.self)
         
         let vc = UIApplication.shared.visibleViewController
@@ -276,7 +261,7 @@ open class NetIdService: NSObject {
                 ZStack {
                     Image("logo_net_id_short", bundle: bundle)
                         .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
-                    Text(String(format: loginText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_ap") : loginText, result.name))
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_login_ap"), result.name))
                         .kerning(-0.45)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
