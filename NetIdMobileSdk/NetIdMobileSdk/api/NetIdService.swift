@@ -218,7 +218,7 @@ open class NetIdService: NSObject {
                 ZStack {
                     Image("logo_net_id_short", bundle: bundle)
                         .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
-                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
+                    Text(String(format: LocalizableUtil.netIdLocalizable("authorization_permission_ap"), result.name))
                         .kerning(-0.45)
                         .frame(maxWidth: .infinity)
                         .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
