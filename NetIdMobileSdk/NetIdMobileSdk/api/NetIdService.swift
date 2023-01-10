@@ -129,7 +129,6 @@ open class NetIdService: NSObject {
         
         let vc = UIApplication.shared.visibleViewController
 
-        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         Button {
             self.didTapContinue(universalLink: nil, presentingViewController: vc ?? UIViewController(), authFlow: NetIdAuthFlow.Permission)
         } label: {
