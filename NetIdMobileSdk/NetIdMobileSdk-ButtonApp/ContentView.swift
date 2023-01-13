@@ -17,53 +17,70 @@ import NetIdMobileSdk
 
 struct ContentView: View {
     @EnvironmentObject var serviceViewModel: ServiceViewModel
+    @State var selectedStyle:NetIdButtonStyle = .WhiteSolid
 
     var body: some View {
         VStack {
-            Text("Permission flow")
-            NetIdService.sharedInstance.continueButtonPermissionFlow(continueText: "")
-                .disabled(serviceViewModel.endSessionEnabled)
-            ForEach((0...NetIdService.sharedInstance.getCountOfAccountProviderApps()), id: \.self) { index in
-                NetIdService.sharedInstance.permissionButtonForAccountProviderApp(index: index)
-                    .disabled(serviceViewModel.endSessionEnabled)
+            Picker("Style", selection: $selectedStyle) {
+                Text("White").tag(NetIdButtonStyle.WhiteSolid)
+                Text("Green").tag(NetIdButtonStyle.GreenSolid)
+                Text("Outline").tag(NetIdButtonStyle.GrayOutline)
             }
-        }
-        .padding()
-        VStack {
-            Text("Login flow")
-            NetIdService.sharedInstance.continueButtonLoginFlow(authFlow: .Login, continueText: "")
-                .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
-                .disabled(serviceViewModel.endSessionEnabled)
-            ForEach((0...NetIdService.sharedInstance.getCountOfAccountProviderApps()), id: \.self) { index in
-                NetIdService.sharedInstance.loginButtonForAccountProviderApp(authFlow: .Login, index: index)
-                    .disabled(serviceViewModel.endSessionEnabled)
+            .pickerStyle(SegmentedPickerStyle())
+            .background(Color.white)
+            .onChange(of: selectedStyle) {style in
+                NetIdService.sharedInstance.setButtonStyle(style)
+                serviceViewModel.logText += "Switched style\n"
             }
-        }
-        .padding()
-        
-        Text("log_text_title")
+            
+            VStack {
+                Text("Permission flow")
+                NetIdService.sharedInstance.continueButtonPermissionFlow()
+                    .disabled(serviceViewModel.endSessionEnabled)
+                ForEach((NetIdService.sharedInstance.getKeysForAccountProviderApps()), id: \.self) { key in
+                    NetIdService.sharedInstance.permissionButtonForAccountProviderApp(key: key, continueText: key)
+                        .disabled(serviceViewModel.endSessionEnabled)
+                }
+            }
             .padding()
-            .font(.body)
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-        ScrollView {
-            Text(serviceViewModel.logText)
-                .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
-                .padding(.horizontal, 20)
-                .font(Font.system(size: 13))
-                .accessibilityIdentifier("LogView")
-        }
-        
-        Button {
-            serviceViewModel.endSession()
-        } label: {
-            Text("end_session_button_title")
-                .frame(maxWidth: .infinity, maxHeight: 40)
-                .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
-        }
+            VStack {
+                Text("Login flow")
+                NetIdService.sharedInstance.continueButtonLoginFlow(authFlow: .Login)
+                    .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
+                    .disabled(serviceViewModel.endSessionEnabled)
+                ForEach(NetIdService.sharedInstance.getKeysForAccountProviderApps(), id: \.self) { key in
+                    NetIdService.sharedInstance.loginButtonForAccountProviderApp(authFlow: .Login, key: key)
+                        .disabled(serviceViewModel.endSessionEnabled)
+                }
+            }
+            .padding()
+            
+            Text("log_text_title")
+            ScrollView {
+                Text(serviceViewModel.logText)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+                    .padding(.horizontal, 20)
+                    .font(Font.system(size: 13))
+                    .accessibilityIdentifier("LogView")
+            }
+            
+            Button {
+                serviceViewModel.endSession()
+            } label: {
+                Text("end_session_button_title")
+                    .frame(maxWidth: .infinity, maxHeight: 40)
+                    .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
+            }
             .background(Color.red)
             .cornerRadius(5)
             .padding(20)
             .disabled(!serviceViewModel.endSessionEnabled)
+        }
+        .background(Image("netiD_short")
+            .resizable(resizingMode:.tile)
+            .frame(minWidth: 0, maxWidth: .infinity)
+            .edgesIgnoringSafeArea(.all)
+            .opacity(0.2))
     }
 }
 

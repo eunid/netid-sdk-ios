@@ -44,6 +44,8 @@
 		5107D266292C0BDD006C9142 /* PermissionUpdateResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107D265292C0BDD006C9142 /* PermissionUpdateResponse.swift */; };
 		5107D268292C0C8D006C9142 /* PermissionUpdateErrorResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5107D267292C0C8D006C9142 /* PermissionUpdateErrorResponse.swift */; };
 		515A2A9B2938EFC90015A104 /* IdAppAgent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 515A2A9A2938EFC90015A104 /* IdAppAgent.swift */; };
+		516AF051296EC63B00DCAD60 /* NetIdButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516AF050296EC63B00DCAD60 /* NetIdButtonStyle.swift */; };
+		516AF053296EF52900DCAD60 /* NetIdLayerStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 516AF052296EF52900DCAD60 /* NetIdLayerStyle.swift */; };
 		5196A010295929EE00061C0D /* UIApplication+NetIdMobileSdkApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196A00F295929EE00061C0D /* UIApplication+NetIdMobileSdkApp.swift */; };
 		5196A012295BA24C00061C0D /* UIApplication+NetIdMobileSdk.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5196A011295BA24C00061C0D /* UIApplication+NetIdMobileSdk.swift */; };
 		5196A016295BBF3700061C0D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5196A018295BBF3700061C0D /* Localizable.strings */; };
@@ -209,6 +211,8 @@
 		5107D265292C0BDD006C9142 /* PermissionUpdateResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionUpdateResponse.swift; sourceTree = "<group>"; };
 		5107D267292C0C8D006C9142 /* PermissionUpdateErrorResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionUpdateErrorResponse.swift; sourceTree = "<group>"; };
 		515A2A9A2938EFC90015A104 /* IdAppAgent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdAppAgent.swift; sourceTree = "<group>"; };
+		516AF050296EC63B00DCAD60 /* NetIdButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdButtonStyle.swift; sourceTree = "<group>"; };
+		516AF052296EF52900DCAD60 /* NetIdLayerStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdLayerStyle.swift; sourceTree = "<group>"; };
 		5196A00F295929EE00061C0D /* UIApplication+NetIdMobileSdkApp.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIApplication+NetIdMobileSdkApp.swift"; sourceTree = "<group>"; };
 		5196A011295BA24C00061C0D /* UIApplication+NetIdMobileSdk.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIApplication+NetIdMobileSdk.swift"; sourceTree = "<group>"; };
 		5196A017295BBF3700061C0D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -420,6 +424,8 @@
 				2FF2DDE9BB5F1AF942124D4F /* NetIdErrorProcess.swift */,
 				2FF2D2100AB5893D811888DA /* NetIdServiceDelegate.swift */,
 				2FF2D33DA4A74ACC9103C913 /* NetIdAuthFlow.swift */,
+				516AF050296EC63B00DCAD60 /* NetIdButtonStyle.swift */,
+				516AF052296EF52900DCAD60 /* NetIdLayerStyle.swift */,
 			);
 			path = api;
 			sourceTree = "<group>";
@@ -1021,10 +1027,12 @@
 				2FF2D173F158E9E547F1D6CC /* AuthorizationViewDelegate.swift in Sources */,
 				D692AD163D95176CBB95C38E /* Color+NetIdMobileSdk.swift in Sources */,
 				2FF2D93DCB710D7871309E27 /* PermissionReadRequest.swift in Sources */,
+				516AF053296EF52900DCAD60 /* NetIdLayerStyle.swift in Sources */,
 				5107D266292C0BDD006C9142 /* PermissionUpdateResponse.swift in Sources */,
 				2FF2DF0BF2003C7F25F8C3DF /* PermissionReadResponse.swift in Sources */,
 				2FF2D0CD3808B50D25D1B8AD /* PermissionResponseStatus.swift in Sources */,
 				2FF2DCFAF82847FCF1EFAE35 /* SubjectIdentifiers.swift in Sources */,
+				516AF051296EC63B00DCAD60 /* NetIdButtonStyle.swift in Sources */,
 				2FF2DF84D3C97EC8FE2CD147 /* NetIdPrivacySettings.swift in Sources */,
 				2FF2D70C6EE15BD089D863E6 /* NetIdPrivacySettingsType.swift in Sources */,
 				2FF2D12C3AA65AEA15E46983 /* PermissionManager.swift in Sources */,
@@ -1174,7 +1182,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-ButtonApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
@@ -1214,7 +1222,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 1.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-ButtonApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";

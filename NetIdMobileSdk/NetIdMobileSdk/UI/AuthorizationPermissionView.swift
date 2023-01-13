@@ -24,6 +24,7 @@ struct AuthorizationPermissionView: View {
     var legalText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
     private let bundle = Bundle(for: NetIdService.self)
+    private let style = NetIdService.sharedInstance.getLayerStyle()
     @Environment(\.colorScheme) var colorScheme
 
     @State private var selectedAppIndex = 0
@@ -153,9 +154,9 @@ struct AuthorizationPermissionView: View {
                         .font(Font.system(size: 18, weight: .semibold))
                 }
                 .padding(12)
-                .background(Color("netIdOtherOptionsColor", bundle: bundle))
+                .background(Color((style == .Solid) ? "netIdOtherOptionsColor" : "netIdTransparentColor", bundle: bundle))
                 .cornerRadius(5)
-                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(colorScheme == .dark ? "netIdLayerColor" : "closeButtonGrayColor", bundle: bundle)))
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color((style == .Solid) ? "netIdButtonStrokeColor" : "netIdButtonOutlineColor", bundle: bundle)))
             }
         }
         .padding(.vertical, 20)

@@ -5,9 +5,7 @@
 	<key>com.apple.developer.associated-domains</key>
 	<array>
 		<string>webcredentials:eunid.github.io</string>
-		<string>webcredentials:netid-sdk-web.letsdev.de</string>
 		<string>applinks:eunid.github.io</string>
-		<string>applinks:netid-sdk-web.letsdev.de</string>
 	</array>
 </dict>
 </plist>

@@ -3,7 +3,7 @@
 ## About
 
 The `netID MobileSDK` facilitates the use of the [netID](https://netid.de) authorization and privacy management services. 
-Alongside the SDK, this repository hosts two sample apps, demonstarting the usage of the SDK. The first one is more complete as it demonstrates complete workflows including fetching/setting of additional values or user information. The second one is less complex and only demonstrates the basic workflow if you want to add the different buttons for interacting with the SDK in a more direct way. 
+Alongside the SDK, this repository hosts two sample apps, demonstarting the usage of the SDK. The first one is more complete as it demonstrates complete workflows including fetching/setting of additional values and/or user information. The second one is less complex and only demonstrates the basic workflow, if you want to add the different buttons for interacting with the SDK in a more direct way. 
 
 ## Initialize NetIDService
 
@@ -123,15 +123,21 @@ The SDK will figure out by itself, if Account Provider apps like [GMX](https://a
         </td>
     </tr>
     <tr>
-        <td width=50%><img src="images/netIdSdk_ios_login_with_idApps.jpeg" alt="netID SDK example app - login flow with app2app" style="width:200px;">
+        <td width=50%><img src="images/netIdSdk_ios_login_with_idApps.png" alt="netID SDK example app - login flow with app2app" style="width:200px;">
         </td>
         <td width=50%>
-        <img src="images/netIdSdk_ios_permission_with_idApps.jpeg" alt="netID SDK example app - permission flow with app2app" style="width:200px;">
+        <img src="images/netIdSdk_ios_permission_with_idApps.png" alt="netID SDK example app - permission flow with app2app" style="width:200px;">
         </td>
     </tr>
 </table>
 
 If the user did decide on how to proceed with the login process (e.g. which Account Provider provider to use), a redirect to actually execute the authorization is called automatically.
+
+As can be seen from above screenshots, ui elements are organzied in layers to ease the authorization process. The SDK supports two different graphical styles, called ``Solid`` and ``Outline``. Switching between those two styles can be done in the demo app by using the picker element at the end of the screen. Programatically you can change the style by calling:
+
+```swift
+ NetIdService.sharedInstance.setLayerStyle(style)
+```
 
 ## Session persistence
 The SDK implements session persistence. So if a user has been authorized successfully, this state stays persistent even when closing and reopening the app again.
@@ -169,7 +175,31 @@ Updates the permissions object. On success `didUpdatePermissions` is called on t
 
 As stated in the beginning, there is another way to interact with the SDK. In the so called <i>button workflow</i> you can decide to not use the preconfigured forms and texts but build your very own dialogs.
 
-Therefore, the SDK gives you the opportunity to only make use of the basic functionalities to use the SDK. As a starting point, take a look at the second demo app provided in the `NetIdMobileSdk/NetIdMobileSdk-ButtonApp` folder.
+Therefore, the SDK gives you the opportunity to only make use of the basic functionalities to use the SDK. As a starting point, take a look at the second demo app provided in the `NetIdMobileSdk/NetIdMobileSdk-ButtonApp` folder. Just like with in the demo app, there is a possibility to change between different design sets to show off the different styles for the buttons. This can be done by calling the following function:
+
+```swift
+NetIdService.sharedInstance.setButtonStyle(style)
+```
+And ``style`` can be any style provided by ``NetIdButtonStyle``.
+
+<table>
+    <tr>
+        <th>Style SolidWhite</th>
+        <th>Style SolidGreen</th>
+        <th>Style Outline</th>
+    </tr>
+    <tr>
+        <td width=30%>
+            <img src="images/netIdSdk_ios_button_style_solidWhite.png" alt="netID SDK example button app - style SolidWhite" style="width:200px;"/>
+        </td>
+        <td width=30%>
+            <img src="images/netIdSdk_ios_button_style_solidGreen.png" alt="netID SDK example button app - style SolidGreen" style="width:200px"/>
+        </td>
+        <td width=30%>
+            <img src="images/netIdSdk_ios_button_style_outline.png" alt="netID SDK example button app - style Outline" style="width:200px"/>
+        </td>
+    </tr>
+</table>
 
 Of course, at first you have to initialize the SDK as in the example above.
 ```swift
@@ -193,15 +223,17 @@ Then, just request the buttons you need to trigger your desired auth flow. E.g. 
 NetIdService.sharedInstance.continueButtonPermissionFlow(continueText: "")
     .disabled(serviceViewModel.endSessionEnabled)
 ```
+With the optional parameter ``continueText``it is possible to alter the default text to a more personal liking. If set to an empty string or omitted completely, a default will be used.
 
-Note that if any Account Provider apps are installed, there will be the possibility to choose which one to use. In this this case, app2app flow is used, app2web otherwise. You can add the respective buttons like this:
+Note that if any Account Provider apps are installed, there will be the possibility to choose which one to use (triggering app2app flow). For example, to display a button for each installed app, use this code:
 
 ```swift
-ForEach((0...NetIdService.sharedInstance.getCountOfIdApps()), id: \.self) { index in
-    NetIdService.sharedInstance.permissionButtonForIdApp(index: index)
+ForEach((NetIdService.sharedInstance.getKeysForAccountProviderApps()), id: \.self) { key in
+    NetIdService.sharedInstance.permissionButtonForAccountProviderApp(key: key, continueText: key)
         .disabled(serviceViewModel.endSessionEnabled)
 }
 ```
+Again, using the optional parameter ``continuteText`` will alter the text on the button - otherwise all buttons will have the standard text displayed.
 
 For the login and/or login+permission flow, you can request a button to initiate app2web authorization with the following call:
 
@@ -211,11 +243,11 @@ NetIdService.sharedInstance.continueButtonLoginFlow(authFlow: .Login, continueTe
     .disabled(serviceViewModel.endSessionEnabled)
 ```
 
-And if you prefer app2app, you can request respective buttons for each Account provider this way:
+And if you prefer app2app, you can request respective buttons for each Account Provider this way:
 
 ```swift
-ForEach((0...NetIdService.sharedInstance.getCountOfIdApps()), id: \.self) { index in
-    NetIdService.sharedInstance.loginButtonForIdApp(authFlow: .Login, index: index)
+ForEach(NetIdService.sharedInstance.getKeysForAccountProviderApps(), id: \.self) { key in
+    NetIdService.sharedInstance.loginButtonForAccountProviderApp(authFlow: .Login, key: key)
         .disabled(serviceViewModel.endSessionEnabled)
 }
 ```
