@@ -207,7 +207,7 @@ open class NetIdService: NSObject {
     /**
      Returns the continue button in case of a login flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty viel will be returned.
+     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty view will be returned.
      - Parameter continueText: alternative text to set on the button. If empty, the default will be used.
      - Returns: Continue button
      */
@@ -369,7 +369,7 @@ open class NetIdService: NSObject {
 
     /**
      Function to end a session.
-     The net ID service itself still remains initialzed but all information about authorization/authentication is discarded.
+     The net ID service itself still remains initialized but all information about authorization/authentication is discarded.
      To start a new session, call ``authorize(destinationScheme:currentViewController:authFlow)`` again.
      */
     public func endSession() {
@@ -437,7 +437,7 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Checks wheather there is a network connection or not.
+     Checks whether there is a network connection or not.
      - Parameter process: In case of an error, denotes the process that the error is responsible for.
      - Returns bool
      */
