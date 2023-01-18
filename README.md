@@ -175,7 +175,7 @@ Updates the permissions object. On success `didUpdatePermissions` is called on t
 
 As stated in the beginning, there is another way to interact with the SDK. In the so called <i>button workflow</i> you can decide to not use the preconfigured forms and texts but build your very own dialogs.
 
-Therefore, the SDK gives you the opportunity to only make use of the basic functionalities to use the SDK. As a starting point, take a look at the second demo app provided in the `NetIdMobileSdk/NetIdMobileSdk-ButtonApp` folder. Just like with in the demo app, there is a possibility to change between different design sets to show off the different styles for the buttons. This can be done by calling the following function:
+Therefore, the SDK gives you the opportunity to only make use of the basic functionalities to use the SDK. As a starting point, take a look at the second demo app provided in the `NetIdMobileSdk/NetIdMobileSdk-ButtonApp` folder. Just like in the demo app, there is a possibility to change between different design sets to show off the different styles for the buttons. This can be done by calling the following function:
 
 ```swift
 NetIdService.sharedInstance.setButtonStyle(style)
