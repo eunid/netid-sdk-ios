@@ -1164,9 +1164,9 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "NetIdMobileSdk-ButtonApp/NetIdMobileSdk-ButtonApp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"NetIdMobileSdk-ButtonApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 8G463Z6GPS;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8G463Z6GPS;
@@ -1186,7 +1186,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-ButtonApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DemoButtonAppDevCert;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "netID-SDK-ButtonDemo-appstore";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1204,9 +1204,9 @@
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
 				CODE_SIGN_ENTITLEMENTS = "NetIdMobileSdk-ButtonApp/NetIdMobileSdk-ButtonApp.entitlements";
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"NetIdMobileSdk-ButtonApp/Preview Content\"";
 				DEVELOPMENT_TEAM = 8G463Z6GPS;
 				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = 8G463Z6GPS;
@@ -1226,7 +1226,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-ButtonApp";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DemoButtonAppDevCert;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "netID-SDK-ButtonDemo-appstore";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
