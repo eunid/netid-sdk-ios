@@ -18,10 +18,10 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
 
     private let app = XCUIApplication()
     
-    // These consts define data for logging into one of the account provider.
+    // These consts define data for logging into one of the account providers.
     // These value have to be adjusted.
-    private let LOGIN = "mail@web.de"
-    private let PASSWORD = "secret_password"
+    private let LOGIN = "your-mail@account.provider"
+    private let PASSWORD = "superSecretPassword"
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -139,15 +139,16 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         let password = webView.secureTextFields["Passwort"]
         password.tap()
         password.typeText(PASSWORD)
+        password.typeText("\n")
         sleep(2)
-        webView.buttons["Login"].tap()
-        sleep(2)
+        
         webView.buttons["Daten übermitteln"].tap()
         sleep(2)
         XCTAssertTrue(findInLog(search: "netID service authorized successfully"))
 
         app.buttons["Laden"].tap()
         sleep(2)
+        
         XCTAssertTrue(findInLog(search: "netID service permission - fetch failed with error: UnauthorizedClient"))
         app.buttons["Aktualisieren"].tap()
         sleep(2)
@@ -197,11 +198,12 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         let password = webView.secureTextFields["Passwort"]
         password.tap()
         password.typeText(PASSWORD)
-        sleep(2)
-        webView.buttons["Login"].tap()
+        password.typeText("\n")
+
         sleep(2)
         app.buttons["Laden"].tap()
         sleep(2)
+        
         XCTAssertTrue(findInLog(search: "netID service permission - fetch finished successfully"))
         app.buttons["Aktualisieren"].tap()
         sleep(2)
@@ -233,5 +235,16 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
                 XCUIApplication().launch()
             }
         }
+    }
+    
+    func testBlah() throws {
+        
+        let app = XCUIApplication()
+        let shippingAddressSwitch = app.switches["shipping_address"]
+        shippingAddressSwitch.tap()
+        app.switches["birthdate"].tap()
+        app.buttons["Service initialisieren"].tap()
+        shippingAddressSwitch.tap()
+        
     }
 }

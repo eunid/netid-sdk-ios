@@ -24,6 +24,7 @@ struct AuthorizationLoginView: View {
     var loginText = LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
     private let bundle = Bundle(for: NetIdService.self)
+    private let style = NetIdService.sharedInstance.getLayerStyle()
     @Environment(\.colorScheme) var colorScheme
 
     var body: some View {
@@ -52,22 +53,26 @@ struct AuthorizationLoginView: View {
                 }
             }
             ForEach(appIdentifiers, id: \.id) { result in
+                let logo = (style == .Solid) ? result.icon : result.icon + "_outline"
+                let foregroundColor = (style == .Solid) ? Color(hex: result.foregroundColor) : Color("netIdButtonColor", bundle: bundle)
+                let outlineColor = (style == .Solid) ? Color(hex: result.backgroundColor) : Color("netIdButtonOutlineColor", bundle: bundle)
                 Button {
                     delegate?.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
                 } label: {
                     ZStack {
-                        Image(result.icon, bundle: bundle)
+                        Image(logo, bundle: bundle)
                             .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
                         Text(String(format: loginText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with") : loginText, result.name))
                             .kerning(-0.45)
                             .frame(maxWidth: .infinity)
-                            .foregroundColor(Color(hex: result.foregroundColor))
+                            .foregroundColor(foregroundColor)
                             .font(Font.system(size: 18, weight: .semibold))
                     }
                 }
                 .padding(12)
-                .background(Color(hex: result.backgroundColor))
+                .background((style == .Solid) ? Color(hex: result.backgroundColor) : Color("netIdTransparentColor"))
                 .cornerRadius(5)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(outlineColor!))
                 .padding(.horizontal, 20)
             }
             
@@ -103,8 +108,9 @@ struct AuthorizationLoginView: View {
                     .font(Font.system(size: 18, weight: .semibold))
             }
             .padding(12)
-            .background(Color("netIdContinueColor", bundle: bundle))
+            .background(Color((style == .Solid) ? "netIdContinueColor" : "netIdTransparentColor", bundle: bundle))
             .cornerRadius(5)
+            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color((style == .Solid) ? "netIdContinueColor" : "netIdButtonOutlineColor", bundle: bundle)))
             .padding(.horizontal, 20)
         }
         .padding(.vertical, 20)

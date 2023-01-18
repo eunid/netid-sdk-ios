@@ -23,4 +23,6 @@
 "authorization_login_view_email_login" = "Login mit Ihrer E-Mail App";
 "authorization_login_view_continue_with" = "Login mit %@";
 "authorization_login_view_close" = "Weitere Anmeldeoptionen";
+"authorization_login_ap" = "Login mit netID von %@";
+"authorization_permission_ap" = "Zustimmen mit netID von %@";
 "authorization_view_net_id" = "netID";

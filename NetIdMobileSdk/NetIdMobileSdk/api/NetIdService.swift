@@ -42,6 +42,12 @@ open class NetIdService: NSObject {
     private var permissionManager: PermissionManager?
     private var selectedAppIndex = 0
     private let broker = "broker.netid.de"
+    private var layerStyle: NetIdLayerStyle = .Solid
+    private var buttonStyle: NetIdButtonStyle = .WhiteSolid
+    private var netIdLogoResource: String = "logo_net_id_short"
+    private var buttonBackgroundResource:String = "netIdOtherOptionsColor"
+    private var buttonForegroundResource:String = "netIdButtonColor"
+    private var buttonOutlineResource:String = "netIdButtonColor"
 
     /**
       Registers a new listener of type NetIdServiceDelegate
@@ -118,165 +124,229 @@ open class NetIdService: NSObject {
     }
     
     /**
+     Sets the style to use for all layers when using the layer flow.
+     - Parameter layerStyle: button style to set, can be any of ``NetIdLayerStyle``, defaults to ``NetIdLayerStyle.Solid``
+     */
+    public func setLayerStyle(_ layerStyle: NetIdLayerStyle) {
+        self.layerStyle = layerStyle
+
+        switch layerStyle {
+            case .Outline:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdTransparentColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonOutlineColor"
+            default:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdOtherOptionsColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonStrokeColor"
+        }
+    }
+    
+    public func getLayerStyle() -> NetIdLayerStyle {
+        return layerStyle
+    }
+
+    /**
+     Sets the style to use for all buttons when using the button flow.
+     - Parameter buttonStyle: button style to set, can be any of ``NetIdButtonStyle``, defaults to ``NetIdButtonStyle.GraySolid``
+     */
+    public func setButtonStyle(_ buttonStyle: NetIdButtonStyle) {
+        self.buttonStyle = buttonStyle
+        
+        switch buttonStyle {
+            case .GreenSolid:
+                self.netIdLogoResource = "logo_net_id_short_white"
+                self.buttonBackgroundResource = "netIdGreenColor"
+                self.buttonForegroundResource = "netIdWhiteColor"
+                self.buttonOutlineResource = "netIdGreenColor"
+            case .GrayOutline:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdTransparentColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonOutlineColor"
+            default:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdOtherOptionsColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonStrokeColor"
+        }
+    }
+
+    /**
      Returns the continue button in case of a permission flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter currentViewController: Currently used view controller.
      - Parameter continueText: alternative text to set on the button. If empty, the default will be used.
      - Returns: Continue button
      */
     @ViewBuilder
-    public func continueButtonPermissionFlow(presentingViewController: UIViewController, continueText: String, colorScheme: ColorScheme) -> some View {
+    public func continueButtonPermissionFlow(continueText: String = "") -> some View {
         let bundle = Bundle(for: NetIdService.self)
-
-        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
+        
+        let vc = UIApplication.shared.visibleViewController
         Button {
-            var universalLink: String?
-            if netIdApps.count > self.selectedAppIndex {
-                let selectedAppIdentifier = netIdApps[self.selectedAppIndex]
-                universalLink = selectedAppIdentifier.iOS.universalLink
-            }
-            self.didTapContinue(universalLink: universalLink, presentingViewController: presentingViewController, authFlow: NetIdAuthFlow.Permission)
+            self.didTapContinue(universalLink: nil, presentingViewController: vc ?? UIViewController(), authFlow: NetIdAuthFlow.Permission)
         } label: {
             ZStack {
-                Image("logo_net_id_short", bundle: bundle)
+                Image(netIdLogoResource, bundle: bundle)
                     .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
                 Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
                     .kerning(-0.45)
                     .frame(maxWidth: .infinity)
-                    .foregroundColor(Color("netIdButtonColor", bundle: bundle))
+                    .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
                     .font(Font.system(size: 18, weight: .semibold))
             }
             .padding(12)
-            .background(Color("netIdOtherOptionsColor", bundle: bundle))
+            .background(Color(buttonBackgroundResource, bundle: bundle))
             .cornerRadius(5)
-            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(colorScheme == .dark ? "netIdLayerColor" : "closeButtonGrayColor", bundle: bundle)))
+            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
         }
     }
 
     /**
      Returns the continue button in case of a login flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter currentViewController: Currently used view controller.
+     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty view will be returned.
      - Parameter continueText: alternative text to set on the button. If empty, the default will be used.
      - Returns: Continue button
      */
     @ViewBuilder
-    public func continueButtonLoginFlow(presentingViewController: UIViewController, continueText: String, colorScheme: ColorScheme) -> some View {
+    public func continueButtonLoginFlow(authFlow: NetIdAuthFlow, continueText: String = "") -> some View {
         let bundle = Bundle(for: NetIdService.self)
 
-        Button {
-            self.didTapContinue(universalLink: nil, presentingViewController: presentingViewController, authFlow: .Login)
-        } label: {
-            ZStack {
-                Image("logo_net_id_short", bundle: bundle)
-                    .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
-                Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_title") : continueText)
-                    .kerning(-0.45)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(Color("authorizationTitleColor", bundle: bundle))
-                    .font(Font.system(size: 18, weight: .semibold))
+        let vc = UIApplication.shared.visibleViewController
+
+        if (authFlow == .Permission) {
+            EmptyView()
+        } else {
+            Button {
+                self.didTapContinue(universalLink: nil, presentingViewController: vc ?? UIViewController(), authFlow: authFlow)
+            } label: {
+                ZStack {
+                    Image(netIdLogoResource, bundle: bundle)
+                        .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                    Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_title") : continueText)
+                        .kerning(-0.45)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
+                        .font(Font.system(size: 18, weight: .semibold))
+                }
+                .padding(12)
+                .background(Color(buttonBackgroundResource, bundle: bundle))
+                .cornerRadius(5)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
             }
         }
-        .padding(12)
-        .background(Color("netIdOtherOptionsColor", bundle: bundle))
-        .cornerRadius(5)
-        .padding(.horizontal, 20)
-        .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(colorScheme == .dark ? "netIdLayerColor" : "closeButtonGrayColor", bundle: bundle)).padding(.horizontal, 20))
     }
     
     /**
-     Returns the number of installed id apps.
+     Returns the number of installed account provider apps.
      Use this function only if you intent to build your very own authorization dialog.
-     - Returns: Number of currently installed id apps.
+     - Returns: Number of currently installed account provider apps.
      */
-    public func getCountOfIdApps() -> Int {
+    public func getCountOfAccountProviderApps() -> Int {
         return AuthorizationWayUtil.checkNetIdAuth().count
     }
     
     /**
-     Returns the radio button for a certain id app in case of a permission flow dialog.
+     Returns the keys of installed account provider apps. With these keys, you can request buttons for specific account provider apps identified by their key aka name.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number of installed id apps.
-     - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
+     - Returns: Array of keys of installed account provider apps.
      */
-    @ViewBuilder
-    public func permissionButtonForIdApp(index: Int) -> some View {
-        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
-        if ((netIdApps.isEmpty) || (index >= netIdApps.count)) {
-            EmptyView()
+    public func getKeysForAccountProviderApps() -> [String] {
+        var result:[String] = []
+        let apps = AuthorizationWayUtil.checkNetIdAuth()
+        for app in apps {
+            result.append(app.name)
         }
-        let result = netIdApps[index]
-        HStack(spacing: 10) {
-            ZStack {
-                Circle()
-                    .fill(Color(hex: result.backgroundColor) ?? Color.white)
-                    .frame(width: 40, height: 40)
-
-                Image(result.icon, bundle: Bundle(for: NetIdService.self))
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 28, height: 28, alignment: .center)
-            }
-            Text(String(format: LocalizableUtil.netIdLocalizable("authorization_view_use_app"), result.name))
-                .kerning(-0.45)
-                .font(Font.system(size: 16, weight: .bold))
-
-            Spacer()
-
-            let radioCheckedBinding = Binding<Bool>(get: { self.selectedAppIndex == index }, set: { _ in })
-
-            RadioButtonView(isChecked: radioCheckedBinding, didSelect: {
-                self.selectedAppIndex = index
-            })
-        }
-                .tag(result.name)
-                .padding(.vertical, 10)
-                .background(Color("netIdLayerColor", bundle: Bundle(for: NetIdService.self)))
-                .onTapGesture {
-                    self.selectedAppIndex = index
-                }
+        return result
     }
     
     /**
-     Returns the button for a certain id app in case of a login flow dialog.
+     Returns the button for a certain account provider app in case of a permission flow dialog.
      Use this function only if you intent to build your very own authorization dialog.
-     - Parameter presentingViewController: view controller to hook up button to.
-     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty viel will be returned.
-     - Parameter index: Index denoting one of the installed id apps. Use ``getCountOfIdApps`` first to get the number of installed id apps.
+     - Parameter key: Key denoting one of the installed account provider apps. Use ``getKeysForAccountProviderApps`` first to get the keys/names of all installed account provider apps.
+     - Parameter continueText: alternative text to set on the button. If empty, the default will be used.
      - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
      */
     @ViewBuilder
-    public func loginButtonForIdApp(presentingViewController: UIViewController, authFlow: NetIdAuthFlow, index: Int, loginText: String = "") -> some View {
+    public func permissionButtonForAccountProviderApp(key: String, continueText: String = "") -> some View {
         let bundle = Bundle(for: NetIdService.self)
+        
+        let vc = UIApplication.shared.visibleViewController
 
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
-        if ((netIdApps.isEmpty) || (index >= netIdApps.count)) {
+        let keys = getKeysForAccountProviderApps()
+        let index = keys.firstIndex(of: key) ?? -1
+        if ((netIdApps.isEmpty) || (index < 0)) {
             EmptyView()
-        }
-        let result = netIdApps[index]
-        
-        if (authFlow == .Permission) {
-            EmptyView()
-        }
-        
-        Button {
-            self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: presentingViewController, authFlow: authFlow)
-        } label: {
-            ZStack {
-                Image(result.icon, bundle: bundle)
-                    .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
-                Text(String(format: loginText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with") : loginText, result.name))
-                    .kerning(-0.45)
-                    .frame(maxWidth: .infinity)
-                    .foregroundColor(Color(hex: result.foregroundColor))
-                    .font(Font.system(size: 18, weight: .semibold))
+        } else {
+            let result = netIdApps[index]
+            
+            Button {
+                self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: vc ?? UIViewController(), authFlow: .Permission)
+            } label: {
+                ZStack {
+                    Image(netIdLogoResource, bundle: bundle)
+                        .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                    Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)                        .kerning(-0.45)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
+                        .font(Font.system(size: 18, weight: .semibold))
+                }
+                .padding(12)
+                .background(Color(buttonBackgroundResource, bundle: bundle))
+                .cornerRadius(5)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
             }
         }
-            .tag(result.name)
-            .padding(12)
-            .background(Color(hex: result.backgroundColor))
-            .cornerRadius(5)
-            .padding(.horizontal, 20)
+    }
+    
+    /**
+     Returns the button for a certain account provider app in case of a login flow dialog.
+     Use this function only if you intent to build your very own authorization dialog.
+     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty viel will be returned.
+     - Parameter key: Key denoting one of the installed account provider apps. Use ``getKeysForAccountProviderApps`` first to get the keys/names of all installed account provider apps.
+     - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
+     */
+    @ViewBuilder
+    public func loginButtonForAccountProviderApp(authFlow: NetIdAuthFlow, key: String) -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+        
+        let vc = UIApplication.shared.visibleViewController
+
+        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
+        let keys = getKeysForAccountProviderApps()
+        let index = keys.firstIndex(of: key) ?? -1
+        if ((netIdApps.isEmpty) || (index < 0)) {
+            EmptyView()
+        } else {
+            let result = netIdApps[index]
+            
+            if (authFlow == .Permission) {
+                EmptyView()
+            } else {
+                
+                Button {
+                    self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: vc ?? UIViewController(), authFlow: authFlow)
+                } label: {
+                    ZStack {
+                        Image(netIdLogoResource, bundle: bundle)
+                            .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                        Text(String(format: LocalizableUtil.netIdLocalizable("authorization_login_ap"), result.name))
+                            .kerning(-0.45)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
+                            .font(Font.system(size: 18, weight: .semibold))
+                    }
+                    .padding(12)
+                    .background(Color(buttonBackgroundResource, bundle: bundle))
+                    .cornerRadius(5)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
+                }
+            }
+        }
     }
     
     /**
@@ -299,7 +369,7 @@ open class NetIdService: NSObject {
 
     /**
      Function to end a session.
-     The net ID service itself still remains initialzed but all information about authorization/authentication is discarded.
+     The net ID service itself still remains initialized but all information about authorization/authentication is discarded.
      To start a new session, call ``authorize(destinationScheme:currentViewController:authFlow)`` again.
      */
     public func endSession() {
@@ -367,7 +437,7 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Checks wheather there is a network connection or not.
+     Checks whether there is a network connection or not.
      - Parameter process: In case of an error, denotes the process that the error is responsible for.
      - Returns bool
      */

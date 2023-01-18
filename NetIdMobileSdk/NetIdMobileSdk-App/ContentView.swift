@@ -25,6 +25,7 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var extraClaimShippingAddress = false
     @State private var extraClaimBirthdate = false
+    @State var selectedStyle:NetIdLayerStyle = .Solid
 
     var body: some View {
         ZStack {
@@ -32,7 +33,7 @@ struct ContentView: View {
                 Text("net_id_service_title")
                         .padding()
                         .font(.title2)
-
+                
                 HStack(alignment: .center, spacing: 50) {
                     Button {
                         serviceViewModel.initializeNetIdService(
@@ -204,6 +205,15 @@ struct ContentView: View {
                         .ignoresSafeArea()
                         .zIndex(3)
             }
+        }
+        Picker("Style", selection: $selectedStyle) {
+            Text("Solid").tag(NetIdLayerStyle.Solid)
+            Text("Outline").tag(NetIdLayerStyle.Outline)
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .onChange(of: selectedStyle) {style in
+            NetIdService.sharedInstance.setLayerStyle(style)
+            serviceViewModel.logText += "Switched style\n"
         }
     }
 }
