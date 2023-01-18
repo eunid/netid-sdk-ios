@@ -14,7 +14,7 @@
 
 import Foundation
 
-public struct Address: Decodable {
+public struct Address: Decodable, Encodable {
 
     public init(streetAddress: String, country: String, formatted: String, locality: String, postalCode: String) {
         self.streetAddress = streetAddress
@@ -24,13 +24,22 @@ public struct Address: Decodable {
         self.postalCode = postalCode
     }
 
-    public let streetAddress: String
-    public let country: String
-    public let formatted: String
-    public let locality: String
-    public let postalCode: String
+    public let streetAddress: Optional<String>
+    public let country: Optional<String>
+    public let formatted: Optional<String>
+    public let locality: Optional<String>
+    public let postalCode: Optional<String>
 
     private enum CodingKeys: String, CodingKey {
         case streetAddress = "street_address", country, formatted, locality, postalCode = "postal_code"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(streetAddress, forKey: .streetAddress)
+        try container.encodeIfPresent(country, forKey: .country)
+        try container.encodeIfPresent(formatted, forKey: .formatted)
+        try container.encodeIfPresent(locality, forKey: .locality)
+        try container.encodeIfPresent(postalCode, forKey: .postalCode)
     }
 }

@@ -15,6 +15,7 @@
 import Foundation
 
 public protocol NetIdServiceDelegate: AnyObject {
+    
     func didFinishInitializationWithError(_ error: NetIdError?)
     
     func didFinishAuthentication(_ accessToken: String)
@@ -31,14 +32,12 @@ public protocol NetIdServiceDelegate: AnyObject {
 
     func didCancelAuthentication(_ error: NetIdError)
 
-    func didFetchPermissions(_ permissions: Permissions)
+    func didFetchPermissions(_ permissions: PermissionReadResponse)
 
-    func didFetchPermissionsWithError(_ error: NetIdError)
+    func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError)
 
-    func didUpdatePermission()
+    func didUpdatePermission(_ subjectIdentifiers: SubjectIdentifiers)
 
-    func didUpdatePermissionWithError(_ error: NetIdError)
-
-    func didTransmitInvalidToken()
+    func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError)
 
 }

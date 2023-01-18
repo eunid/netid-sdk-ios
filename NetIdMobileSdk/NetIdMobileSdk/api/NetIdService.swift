@@ -16,6 +16,22 @@ import Foundation
 import UIKit
 import SwiftUI
 
+/**
+ The ``NetIdService`` is the main class of the sdk.
+ 
+ An application communicates via this class with the authorization service.
+ 
+ To do so, an application first registers itself as a listener to the service.
+
+ ```NetIdService.sharedInstance.registerListener(self)```
+   
+ Next, initialize the service with a configuration object of kind ``NetIdConfig``.
+ 
+ The application has to conform to the ``NetIdServiceDelegate`` protocol and implement the required functions (see below).
+
+ 
+ ```NetIdService.sharedInstance.initialize(config)```
+ */
 open class NetIdService: NSObject {
 
     public static let sharedInstance = NetIdService()
@@ -24,6 +40,14 @@ open class NetIdService: NSObject {
     private var appAuthManager: AppAuthManager?
     private var userInfoManager: UserInfoManager?
     private var permissionManager: PermissionManager?
+    private var selectedAppIndex = 0
+    private let broker = "broker.netid.de"
+    private var layerStyle: NetIdLayerStyle = .Solid
+    private var buttonStyle: NetIdButtonStyle = .WhiteSolid
+    private var netIdLogoResource: String = "logo_net_id_short"
+    private var buttonBackgroundResource:String = "netIdOtherOptionsColor"
+    private var buttonForegroundResource:String = "netIdButtonColor"
+    private var buttonOutlineResource:String = "netIdButtonColor"
 
     /**
       Registers a new listener of type NetIdServiceDelegate
@@ -34,7 +58,7 @@ open class NetIdService: NSObject {
     }
 
     /**
-     Initializes the SDK and load the authentication configuration document.
+     Initializes the sdk and loads the authentication configuration document.
      - Parameter netIdConfig: the client configuration of type ``NetIdConfig``.
      */
     public func initialize(_ netIdConfig: NetIdConfig) {
@@ -43,124 +67,350 @@ open class NetIdService: NSObject {
                 Logger.shared.debug("Configuration already been set.")
             } else {
                 self.netIdConfig = netIdConfig
-                Font.loadCustomFonts()
                 userInfoManager = UserInfoManager(delegate: self)
                 permissionManager = PermissionManager(delegate: self)
-                appAuthManager = AppAuthManager(delegate: self)
-                appAuthManager?.fetchConfiguration(netIdConfig.host)
+                appAuthManager = AppAuthManager(delegate: self, netIdConfig: netIdConfig)
+                appAuthManager?.fetchConfiguration(broker)
             }
         }
     }
 
     /**
-     Provides the currently stored NetIdConfig.
-     - Returns:
+     Provides the currently stored ``NetIdConfig``.
+     - Returns: Current ``NetIdConfig``
      */
-    public func getNedIdConfig() -> NetIdConfig? {
+    public func getNetIdConfig() -> NetIdConfig? {
         netIdConfig
     }
-
-    public func transmitToken(_ token: String) {
-        if TokenUtil.isValidJwtToken(token) {
-            appAuthManager?.setIdToken(token)
-        } else {
-            for item in netIdListener {
-                item.didTransmitInvalidToken()
+    
+    /**
+     Resumes a session when coming back from external authorization agent.
+     - Parameter url: callback url
+     */
+    public func resumeSession(_ url: URL) {
+        // Try to resume session with provided url
+        if let authManager = appAuthManager, let authorizationFlow = authManager.currentAuthorizationFlow {
+            if (authorizationFlow.resumeExternalUserAgentFlow(with: url)) {
+                // end session after sucessfull processing
+                authManager.currentAuthorizationFlow = nil
             }
         }
     }
 
     /**
-     Provides the view controller
-     - Parameter currentViewController:
-     - Parameter authFlow:
-     - Returns:
+     Returns an authorization view, that conforms to the desired ``NetIdAuthFlow``. The view will consist off all buttons, logos and texts that arre neccessary to start the authentication process.
+     - Parameter currentViewController: Currently used view controller.
+     - Parameter authFlow: Type of flow to use, can be either ``NetIdAuthFlow.Permission``, ``NetIdAuthFlow.Login`` or ``NetIdAuthFlow.LoginPermission``
+     - Parameter forceApp2App: If set to true, will yield an ``NetIdError`` if the are no ID apps installed. Otherwise, will use app2web flow automatically. Defaults to ``false``.
+     - Returns: view
      */
-    public func getAuthorizationView(currentViewController: UIViewController, authFlow: NetIdAuthFlow) -> some View {
+    public func getAuthorizationView(currentViewController: UIViewController, authFlow: NetIdAuthFlow, forceApp2App: Bool = false) -> some View {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
-        switch authFlow {
-        case .Soft:
-            return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: netIdApps))
-        case .Hard:
-            return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
-                    appIdentifiers: netIdApps))
+        // If there are no ID apps installed, but forceApp2App is true, return with an error.
+        if netIdApps.isEmpty && forceApp2App {
+            self.didFinishAuthenticationWithError(
+                    NetIdError(code: .NoIdAppInstalled, process: .Authentication))
         }
-//        case .Soft:
-//            return AnyView(AuthorizationSoftView(delegate: self, presentingViewController: currentViewController,
-//                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
-//                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-//                            android: AppDetailsAndroid(applicationId: "test")),
-//                        AppIdentifier(id: 1, name: "WEB,DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
-//                                icon: "logo_web_de", typeFaceIcon: "typeface_webde",
-//                                iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-//                                android: AppDetailsAndroid(applicationId: "test"))]))
-//        case .Hard:
-//            return AnyView(AuthorizationHardView(delegate: self, presentingViewController: currentViewController,
-//                    appIdentifiers: [AppIdentifier(id: 0, name: "GMX", backgroundColor: "#FF402FD2", foregroundColor: "#FFFFFFFF",
-//                            icon: "logo_gmx", typeFaceIcon: "typeface_gmx", iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-//                            android: AppDetailsAndroid(applicationId: "test")),
-//                        AppIdentifier(id: 1, name: "WEB.DE", backgroundColor: "#FFF7AD0A", foregroundColor: "#FFFFFFFF",
-//                                icon: "logo_web_de", typeFaceIcon: "typeface_webde",
-//                                iOS: AppDetailsIOS(bundleIdentifier: "test", scheme: "test"),
-//                                android: AppDetailsAndroid(applicationId: "test"))]))
-//        }
+        switch authFlow {
+        case .Permission:
+            let config = netIdConfig?.permissionLayerConfig
+            return AnyView(AuthorizationPermissionView(delegate: self, presentingViewController: currentViewController,
+                                                 appIdentifiers: netIdApps, logoId: (config?.logoId) ?? "", headlineText: (config?.headlineText) ?? "", legalText: (config?.legalText) ?? "", continueText: (config?.continueText) ?? ""))
+        case .LoginPermission, .Login:
+            let config = netIdConfig?.loginLayerConfig
+            return AnyView(AuthorizationLoginView(delegate: self, presentingViewController: currentViewController,
+                                                  appIdentifiers: netIdApps, authFlow: authFlow, headlineText: (config?.headlineText) ?? "", loginText: (config?.loginText) ?? "", continueText: (config?.continueText) ?? ""))
+        }
+    }
+    
+    /**
+     Sets the style to use for all layers when using the layer flow.
+     - Parameter layerStyle: button style to set, can be any of ``NetIdLayerStyle``, defaults to ``NetIdLayerStyle.Solid``
+     */
+    public func setLayerStyle(_ layerStyle: NetIdLayerStyle) {
+        self.layerStyle = layerStyle
+
+        switch layerStyle {
+            case .Outline:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdTransparentColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonOutlineColor"
+            default:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdOtherOptionsColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonStrokeColor"
+        }
+    }
+    
+    public func getLayerStyle() -> NetIdLayerStyle {
+        return layerStyle
     }
 
-    public func authorize(destinationScheme: String?, currentViewController: UIViewController) {
-        if handleConnection(.Authentication) {
-            if let scheme = destinationScheme, let originScheme = netIdConfig?.originUrlScheme {
-                if !scheme.isEmpty {
-                    Logger.shared.info("NetID Service will authorize via App2App.")
-                    if let url = AuthorizationWayUtil.createAuthorizeDeepLink(scheme, originScheme: originScheme) {
-                        UIApplication.shared.open(url, completionHandler: { success in
-                            if success {
-                                Logger.shared.info("NetID Service successfully opened: \(url)")
-                            } else {
-                                Logger.shared.error("NetID Service could not open: \(url)")
-                            }
-                        })
-                    }
+    /**
+     Sets the style to use for all buttons when using the button flow.
+     - Parameter buttonStyle: button style to set, can be any of ``NetIdButtonStyle``, defaults to ``NetIdButtonStyle.GraySolid``
+     */
+    public func setButtonStyle(_ buttonStyle: NetIdButtonStyle) {
+        self.buttonStyle = buttonStyle
+        
+        switch buttonStyle {
+            case .GreenSolid:
+                self.netIdLogoResource = "logo_net_id_short_white"
+                self.buttonBackgroundResource = "netIdGreenColor"
+                self.buttonForegroundResource = "netIdWhiteColor"
+                self.buttonOutlineResource = "netIdGreenColor"
+            case .GrayOutline:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdTransparentColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonOutlineColor"
+            default:
+                self.netIdLogoResource = "logo_net_id_short"
+                self.buttonBackgroundResource = "netIdOtherOptionsColor"
+                self.buttonForegroundResource = "netIdButtonColor"
+                self.buttonOutlineResource = "netIdButtonStrokeColor"
+        }
+    }
+
+    /**
+     Returns the continue button in case of a permission flow dialog.
+     Use this function only if you intent to build your very own authorization dialog.
+     - Parameter continueText: alternative text to set on the button. If empty, the default will be used.
+     - Returns: Continue button
+     */
+    @ViewBuilder
+    public func continueButtonPermissionFlow(continueText: String = "") -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+        
+        let vc = UIApplication.shared.visibleViewController
+        Button {
+            self.didTapContinue(universalLink: nil, presentingViewController: vc ?? UIViewController(), authFlow: NetIdAuthFlow.Permission)
+        } label: {
+            ZStack {
+                Image(netIdLogoResource, bundle: bundle)
+                    .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)
+                    .kerning(-0.45)
+                    .frame(maxWidth: .infinity)
+                    .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
+                    .font(Font.system(size: 18, weight: .semibold))
+            }
+            .padding(12)
+            .background(Color(buttonBackgroundResource, bundle: bundle))
+            .cornerRadius(5)
+            .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
+        }
+    }
+
+    /**
+     Returns the continue button in case of a login flow dialog.
+     Use this function only if you intent to build your very own authorization dialog.
+     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty view will be returned.
+     - Parameter continueText: alternative text to set on the button. If empty, the default will be used.
+     - Returns: Continue button
+     */
+    @ViewBuilder
+    public func continueButtonLoginFlow(authFlow: NetIdAuthFlow, continueText: String = "") -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+
+        let vc = UIApplication.shared.visibleViewController
+
+        if (authFlow == .Permission) {
+            EmptyView()
+        } else {
+            Button {
+                self.didTapContinue(universalLink: nil, presentingViewController: vc ?? UIViewController(), authFlow: authFlow)
+            } label: {
+                ZStack {
+                    Image(netIdLogoResource, bundle: bundle)
+                        .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                    Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_login_view_title") : continueText)
+                        .kerning(-0.45)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
+                        .font(Font.system(size: 18, weight: .semibold))
                 }
+                .padding(12)
+                .background(Color(buttonBackgroundResource, bundle: bundle))
+                .cornerRadius(5)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
+            }
+        }
+    }
+    
+    /**
+     Returns the number of installed account provider apps.
+     Use this function only if you intent to build your very own authorization dialog.
+     - Returns: Number of currently installed account provider apps.
+     */
+    public func getCountOfAccountProviderApps() -> Int {
+        return AuthorizationWayUtil.checkNetIdAuth().count
+    }
+    
+    /**
+     Returns the keys of installed account provider apps. With these keys, you can request buttons for specific account provider apps identified by their key aka name.
+     Use this function only if you intent to build your very own authorization dialog.
+     - Returns: Array of keys of installed account provider apps.
+     */
+    public func getKeysForAccountProviderApps() -> [String] {
+        var result:[String] = []
+        let apps = AuthorizationWayUtil.checkNetIdAuth()
+        for app in apps {
+            result.append(app.name)
+        }
+        return result
+    }
+    
+    /**
+     Returns the button for a certain account provider app in case of a permission flow dialog.
+     Use this function only if you intent to build your very own authorization dialog.
+     - Parameter key: Key denoting one of the installed account provider apps. Use ``getKeysForAccountProviderApps`` first to get the keys/names of all installed account provider apps.
+     - Parameter continueText: alternative text to set on the button. If empty, the default will be used.
+     - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
+     */
+    @ViewBuilder
+    public func permissionButtonForAccountProviderApp(key: String, continueText: String = "") -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+        
+        let vc = UIApplication.shared.visibleViewController
+
+        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
+        let keys = getKeysForAccountProviderApps()
+        let index = keys.firstIndex(of: key) ?? -1
+        if ((netIdApps.isEmpty) || (index < 0)) {
+            EmptyView()
+        } else {
+            let result = netIdApps[index]
+            
+            Button {
+                self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: vc ?? UIViewController(), authFlow: .Permission)
+            } label: {
+                ZStack {
+                    Image(netIdLogoResource, bundle: bundle)
+                        .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                    Text(continueText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id") : continueText)                        .kerning(-0.45)
+                        .frame(maxWidth: .infinity)
+                        .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
+                        .font(Font.system(size: 18, weight: .semibold))
+                }
+                .padding(12)
+                .background(Color(buttonBackgroundResource, bundle: bundle))
+                .cornerRadius(5)
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
+            }
+        }
+    }
+    
+    /**
+     Returns the button for a certain account provider app in case of a login flow dialog.
+     Use this function only if you intent to build your very own authorization dialog.
+     - Parameter authFlow: Must either be .Login or .LoginPermission. If is set to .Permission, an empty viel will be returned.
+     - Parameter key: Key denoting one of the installed account provider apps. Use ``getKeysForAccountProviderApps`` first to get the keys/names of all installed account provider apps.
+     - Returns: Button with text and label for the choosen id app. If index is out of bounds or no app is installed, returns an empty view.
+     */
+    @ViewBuilder
+    public func loginButtonForAccountProviderApp(authFlow: NetIdAuthFlow, key: String) -> some View {
+        let bundle = Bundle(for: NetIdService.self)
+        
+        let vc = UIApplication.shared.visibleViewController
+
+        let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
+        let keys = getKeysForAccountProviderApps()
+        let index = keys.firstIndex(of: key) ?? -1
+        if ((netIdApps.isEmpty) || (index < 0)) {
+            EmptyView()
+        } else {
+            let result = netIdApps[index]
+            
+            if (authFlow == .Permission) {
+                EmptyView()
             } else {
-                Logger.shared.info("NetID Service will authorize via web.")
-                appAuthManager?.authorizeWeb(presentingViewController: currentViewController)
+                
+                Button {
+                    self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: vc ?? UIViewController(), authFlow: authFlow)
+                } label: {
+                    ZStack {
+                        Image(netIdLogoResource, bundle: bundle)
+                            .frame(maxWidth: .infinity, maxHeight: 24, alignment: .leading)
+                        Text(String(format: LocalizableUtil.netIdLocalizable("authorization_login_ap"), result.name))
+                            .kerning(-0.45)
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(Color(buttonForegroundResource, bundle: bundle))
+                            .font(Font.system(size: 18, weight: .semibold))
+                    }
+                    .padding(12)
+                    .background(Color(buttonBackgroundResource, bundle: bundle))
+                    .cornerRadius(5)
+                    .overlay(RoundedRectangle(cornerRadius: 5).stroke(Color(buttonOutlineResource, bundle: bundle)))
+                }
+            }
+        }
+    }
+    
+    /**
+     Actual call to start the authorization process. If ID apps are present, an app2app flow will be used. Otherwise, app2web is used.
+     - Parameter destinationScheme: the scheme to set for calling another app for authorization
+     - Parameter currentViewController: the view controller to use in case of app2web flow
+     */
+    public func authorize(universalLink: String?, currentViewController: UIViewController, authFlow: NetIdAuthFlow) {
+        if handleConnection(.Authentication) {
+            if let universalLink = universalLink,
+            let universalLinkUrl = URL(string: universalLink) {
+                Logger.shared.info("netID Service will authorize via app2app.")
+                appAuthManager?.authorizeApp(universalLink: universalLinkUrl, authFlow: authFlow)
+            } else {
+                Logger.shared.info("netID Service will authorize via app2web.")
+                appAuthManager?.authorizeWeb(presentingViewController: currentViewController, authFlow: authFlow)
             }
         }
     }
 
+    /**
+     Function to end a session.
+     The net ID service itself still remains initialized but all information about authorization/authentication is discarded.
+     To start a new session, call ``authorize(destinationScheme:currentViewController:authFlow)`` again.
+     */
     public func endSession() {
-        Logger.shared.debug("NetID Service will end session.")
+        Logger.shared.debug("netID Service will end session.")
         appAuthManager?.endSession()
     }
 
+    /**
+     Fetches the user info.
+     */
     public func fetchUserInfo() {
         if handleConnection(.UserInfo) {
-            Logger.shared.info("NetID Service will fetch user info.")
+            Logger.shared.info("netID Service will fetch user info.")
             guard let accessToken = appAuthManager?.getAccessToken() else {
                 for item in netIdListener {
-                    Logger.shared.error("NetID Service is unable to fetch user info caused by missing authentication.")
+                    Logger.shared.error("netID Service is unable to fetch user info caused by missing authentication.")
                     item.didFetchUserInfoWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
                 }
                 return
             }
-            guard let host = netIdConfig?.host else {
+            guard let userinfoEndpoint = appAuthManager?.authConfiguration?.discoveryDocument?.userinfoEndpoint else {
                 for item in netIdListener {
-                    Logger.shared.error("NetID Service is unable to fetch user info caused by missing server host information.")
-                    item.didFetchUserInfoWithError(NetIdError(code: .InitializationError, process: .PermissionRead))
+                    Logger.shared.error("netID Service is unable to fetch userinfo endpoint caused by missing discovery document.")
+                    item.didFetchUserInfoWithError(NetIdError(code: .InvalidDiscoveryDocument, process: .UserInfo))
                 }
                 return
             }
-            userInfoManager?.fetchUserInfo(host: host, accessToken: accessToken)
+            userInfoManager?.fetchUserInfo(userinfoEndpoint: userinfoEndpoint, accessToken: accessToken)
         }
     }
 
+    /**
+     Fetch permissions.
+     - Parameter collapseSyncId: boolean value to indicate whether syncId is used or not.
+     */
     public func fetchPermissions(collapseSyncId: Bool = true) {
         if handleConnection(.PermissionRead) {
-            Logger.shared.info("NetID Service will fetch permissions.")
+            Logger.shared.info("netID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didFetchPermissionsWithError(NetIdError(code: .NoAuth, process: .PermissionRead))
+                    item.didFetchPermissionsWithError(.UNKNOWN, NetIdError(code: .UnauthorizedClient, process: .PermissionRead))
                 }
                 return
             }
@@ -168,12 +418,17 @@ open class NetIdService: NSObject {
         }
     }
 
+    /**
+     Update permissions.
+     - Parameter permission: permissions to set of type ``NetIdPermissionUpdate``.
+     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
+     */
     public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {
         if handleConnection(.PermissionRead) {
-            Logger.shared.info("NetID Service will update permission.")
+            Logger.shared.info("netID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didUpdatePermissionWithError(NetIdError(code: .NoAuth, process: .PermissionWrite))
+                    item.didUpdatePermissionWithError(.UNKNOWN, NetIdError(code: .UnauthorizedClient, process: .PermissionWrite))
                 }
                 return
             }
@@ -181,12 +436,17 @@ open class NetIdService: NSObject {
         }
     }
 
+    /**
+     Checks whether there is a network connection or not.
+     - Parameter process: In case of an error, denotes the process that the error is responsible for.
+     - Returns bool
+     */
     private func handleConnection(_ process: NetIdErrorProcess) -> Bool {
         if Reachability.hasConnection() {
-            Logger.shared.info("NetID Service Device has network connection.")
+            Logger.shared.info("netID Service Device has network connection.")
             return true
         } else {
-            Logger.shared.error("NetID Service device has no network connection.")
+            Logger.shared.error("netID Service device has no network connection.")
             for item in netIdListener {
                 item.didEncounterNetworkError(NetIdError(code: .NetworkError, process: process))
             }
@@ -199,11 +459,14 @@ extension NetIdService: AppAuthManagerDelegate {
     func didFinishInitializationWithError(_ error: NetIdError?) {
         for item in netIdListener {
             if let error = error {
-                Logger.shared.error("NetID Service initialization failed with error: " + error.code.rawValue)
+                Logger.shared.error("netID Service initialization failed with error: " + error.code.rawValue)
                 item.didFinishInitializationWithError(error)
             } else {
-                Logger.shared.info("NetID Service initialization finished")
+                Logger.shared.info("netID Service initialization finished")
                 item.didFinishInitializationWithError(nil)
+                if (appAuthManager?.getAuthState() != nil) {
+                    didFinishAuthenticationWithError(nil)
+                }
             }
         }
     }
@@ -211,15 +474,15 @@ extension NetIdService: AppAuthManagerDelegate {
     func didFinishAuthenticationWithError(_ error: NetIdError?) {
         for item in netIdListener {
             if let error = error {
-                Logger.shared.error("NetID Service authentication failed with error: " + error.code.rawValue)
+                Logger.shared.error("netID Service authentication failed with error: " + error.code.rawValue)
                 item.didFinishAuthenticationWithError(error)
             } else {
                 if let accessToken = appAuthManager?.authState?.lastTokenResponse?.accessToken {
-                    Logger.shared.info("NetID Service received access token: " + accessToken)
+                    Logger.shared.info("netID Service received access token: " + accessToken)
                     item.didFinishAuthentication(accessToken)
                 } else {
                     let error = NetIdError(code: .NoAuth, process: .Authentication)
-                    Logger.shared.error("NetID Service authentication failed with error: " + error.code.rawValue)
+                    Logger.shared.error("netID Service authentication failed with error: " + error.code.rawValue)
                     item.didFinishAuthenticationWithError(error)
                 }
             }
@@ -227,7 +490,7 @@ extension NetIdService: AppAuthManagerDelegate {
     }
 
     func didEndSession() {
-        Logger.shared.info("NetID Service did end session")
+        Logger.shared.info("netID Service did end session")
         for item in netIdListener {
             item.didEndSession()
         }
@@ -236,14 +499,14 @@ extension NetIdService: AppAuthManagerDelegate {
 
 extension NetIdService: UserInfoManagerDelegate {
     func didFetchUserInfo(_ userInfo: UserInfo) {
-        Logger.shared.info("NetID Service received user info")
+        Logger.shared.info("netID Service received user info")
         for item in netIdListener {
             item.didFetchUserInfo(userInfo)
         }
     }
 
     func didFetchUserInfoWithError(_ error: NetIdError) {
-        Logger.shared.error("NetID Service user info fetch failed with error: " + error.code.rawValue)
+        Logger.shared.error("netID Service user info fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
             item.didFetchUserInfoWithError(error)
         }
@@ -251,31 +514,31 @@ extension NetIdService: UserInfoManagerDelegate {
 }
 
 extension NetIdService: PermissionManagerDelegate {
-    public func didFetchPermissions(_ permissions: Permissions) {
-        Logger.shared.info("NetID Service received permissions.")
+    public func didFetchPermissions(_ permissions: PermissionReadResponse) {
+        Logger.shared.info("netID Service received permissions.")
         for item in netIdListener {
             item.didFetchPermissions(permissions)
         }
     }
 
-    public func didFetchPermissionsWithError(_ error: NetIdError) {
-        Logger.shared.error("NetID Service permissions fetch failed with error: " + error.code.rawValue)
+    public func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
+        Logger.shared.error("netID Service permissions fetch failed with error: " + error.code.rawValue)
         for item in netIdListener {
-            item.didFetchPermissionsWithError(error)
+            item.didFetchPermissionsWithError(permissionResponseStatus, error)
         }
     }
 
-    public func didUpdatePermission(_ permission: SubjectIdentifiers) {
-        Logger.shared.info("NetID Service permission successfully updated. \(permission)")
+    public func didUpdatePermission(_ subjectIdentifiers: SubjectIdentifiers) {
+        Logger.shared.info("netID Service permission successfully updated. \(subjectIdentifiers)")
         for item in netIdListener {
-            item.didUpdatePermission()
+            item.didUpdatePermission(subjectIdentifiers)
         }
     }
 
-    public func didUpdatePermissionWithError(_ error: NetIdError) {
-        Logger.shared.error("NetID Service permission update failed with error: " + error.code.rawValue)
+    public func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
+        Logger.shared.error("netID Service permission update failed with error: " + error.code.rawValue)
         for item in netIdListener {
-            item.didUpdatePermissionWithError(error)
+            item.didUpdatePermissionWithError(permissionResponseStatus, error)
         }
     }
 }
@@ -287,7 +550,7 @@ extension NetIdService: AuthorizationViewDelegate {
         }
     }
 
-    public func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController) {
-        authorize(destinationScheme: destinationScheme, currentViewController: presentingViewController)
+    public func didTapContinue(universalLink: String?, presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
+        authorize(universalLink: universalLink, currentViewController: presentingViewController, authFlow: authFlow)
     }
 }

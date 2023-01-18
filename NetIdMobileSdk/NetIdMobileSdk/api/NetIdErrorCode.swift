@@ -32,5 +32,7 @@ public enum NetIdErrorCode: String {
          InitializationError,
          TemporarilyUnavailable,
          ClientError,
-         StateMismatch
+         StateMismatch,
+         NoIdAppInstalled,
+         Other
 }

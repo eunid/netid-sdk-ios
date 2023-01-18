@@ -14,25 +14,34 @@
 
 import Foundation
 
-public struct NetIdPrivacySettings: Decodable, CustomStringConvertible {
-    public let type: String
-    public let status: NetIdPrivacySettingsStatus?
+public struct NetIdPrivacySettings: Decodable, Encodable, CustomStringConvertible {
+    public let type: NetIdPrivacySettingsType
+    public let status: NetIdPermissionStatus?
     public let value: String?
     public let changedAt: String
 
-    public init(type: String, status: NetIdPrivacySettingsStatus, value: String, changedAt: String) {
+    public init(type: NetIdPrivacySettingsType = .OTHER, status: NetIdPermissionStatus, value: String, changedAt: String) {
         self.type = type
         self.status = status
         self.value = value
         self.changedAt = changedAt
     }
 
-    public var description: String {
-        "NetIdPrivacySettings(type: \(type), status: \(status ?? NetIdPrivacySettingsStatus.invalid), value: \(value ?? ""), changedAt: \(changedAt))"
-    }
-
     private enum CodingKeys: String, CodingKey {
         case type, changedAt = "changed_at", value, status
     }
+    
+    public var description: String {
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(self)
+        return String(data: data, encoding: .utf8) ?? "{}"
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(type, forKey: .type)
+        try container.encodeIfPresent(status, forKey: .status)
+        try container.encodeIfPresent(value, forKey: .value)
+        try container.encodeIfPresent(changedAt, forKey: .changedAt)
+    }
 }
-

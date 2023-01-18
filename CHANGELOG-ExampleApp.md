@@ -8,6 +8,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - Use bottom sheet UI for authorization view
+- Use correct name of netID
 
 ### Added
 - Basic UI setup
@@ -15,5 +16,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Web Authorization 
 - Permission Management section 
 - Hard- and Soft-Login integration
+- Added default claims
+- Close bottom sheet by pressing anywhere inside the grayed out area
+- Added possibility to set additional optional claims in the app
+- Added ui tests
 
+### Fixed
+- Align sheet to bottom
 

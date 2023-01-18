@@ -14,14 +14,27 @@
 
 import SwiftUI
 
+/**
+ This a sample appliaction, that demonstrates the use of the ``NetIdMobileSdk``.
+ Basically, this app provides a step-by-step approach for using the authorization flow of the sdk.
+ * Initialize the sdk.
+ * Choose which flow to use for authorization.
+ * Authorize using the desired flow (a bootom sheet is presented for this step).
+ * End session.
+ 
+ */
+
 @main
 struct NetIdMobileSdk_AppApp: App {
 
-    let serviceViewModel = ServiceViewModel()
+    @StateObject private var serviceViewModel = ServiceViewModel()
 
     var body: some Scene {
         WindowGroup {
-            ContentView().environmentObject(serviceViewModel)
+            ContentView().onOpenURL(perform: { url in
+                serviceViewModel.resumeSession(url)
+            })
+            .environmentObject(serviceViewModel)
         }
     }
 }

@@ -13,11 +13,19 @@
 // limitations under the License.
 
 import SwiftUI
+import NetIdMobileSdk
 
+/**
+ The main view of the sample application.
+ It consits of several buttons, that represent the different steps during an authorization process. Additionally, feedback is logged to  text view.
+ */
 struct ContentView: View {
 
     @EnvironmentObject var serviceViewModel: ServiceViewModel
     @State private var showingAlert = false
+    @State private var extraClaimShippingAddress = false
+    @State private var extraClaimBirthdate = false
+    @State var selectedStyle:NetIdLayerStyle = .Solid
 
     var body: some View {
         ZStack {
@@ -25,10 +33,12 @@ struct ContentView: View {
                 Text("net_id_service_title")
                         .padding()
                         .font(.title2)
-
+                
                 HStack(alignment: .center, spacing: 50) {
                     Button {
-                        serviceViewModel.initializeNetIdService()
+                        serviceViewModel.initializeNetIdService(
+                            extraClaimShippingAddress: extraClaimShippingAddress,
+                            extraClaimBirthdate: extraClaimBirthdate)
                     } label: {
                         Text("initialize_button_title")
                                 .frame(maxWidth: .infinity)
@@ -58,12 +68,16 @@ struct ContentView: View {
                             .cornerRadius(5)
                             .disabled(!serviceViewModel.authenticationEnabled)
                             .alert("choose_auth_flow_title", isPresented: $showingAlert) {
-                                Button("Soft-Login") {
-                                    serviceViewModel.authFlow = .Soft
+                                Button("Permission") {
+                                    serviceViewModel.authFlow = .Permission
                                     serviceViewModel.authorizeNetIdService()
                                 }
-                                Button("Hard-Login") {
-                                    serviceViewModel.authFlow = .Hard
+                                Button("Login") {
+                                    serviceViewModel.authFlow = .Login
+                                    serviceViewModel.authorizeNetIdService()
+                                }
+                                Button("Login + Permission") {
+                                    serviceViewModel.authFlow = .LoginPermission
                                     serviceViewModel.authorizeNetIdService()
                                 }
                             }
@@ -92,6 +106,23 @@ struct ContentView: View {
                             .frame(width: 20, height: 20, alignment: .center)
                 }
                         .padding(.horizontal, 20)
+
+                VStack(alignment: .center, spacing: 10) {
+                    Text("net_id_service_extra_claims")
+                        .padding()
+                        .font(Font.system(size: 15))
+                        .frame(maxWidth: .infinity, alignment: .topLeading)
+                    
+                    HStack(alignment: .center, spacing: 25) {
+                        Toggle(isOn: $extraClaimShippingAddress) {
+                            Text("shipping_address").font(Font.system(size: 12))
+                        }.disabled(!serviceViewModel.initializationEnabled)
+                        
+                        Toggle(isOn: $extraClaimBirthdate) {
+                            Text("birthdate").font(Font.system(size: 12))
+                        }.disabled(!serviceViewModel.initializationEnabled)
+                    }
+                }
 
                 Text("permission_management_title")
                         .padding()
@@ -134,8 +165,8 @@ struct ContentView: View {
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             .padding(.horizontal, 20)
                             .font(Font.system(size: 13))
+                            .accessibilityIdentifier("LogView")
                 }
-
                 Button {
                     serviceViewModel.endSession()
                 } label: {
@@ -150,7 +181,7 @@ struct ContentView: View {
             }
                     .padding(.horizontal, 20)
                     .zIndex(1)
-
+            
             if serviceViewModel.authorizationViewVisible {
 
                 Rectangle()
@@ -158,18 +189,31 @@ struct ContentView: View {
                         .ignoresSafeArea()
                         .transition(.opacity)
                         .zIndex(2)
+                        .onTapGesture {
+                            NetIdService.sharedInstance.didTapDismiss()
+                        }
 
                 VStack {
                     Spacer()
                     serviceViewModel.getAuthorizationView()
-                            .padding(.bottom, 20)
+                            .padding(.bottom, 12)
                             .cornerRadius(12)
                             .shadow(radius: 7)
                 }
+                        .padding(.bottom, -12)
                         .transition(.move(edge: .bottom))
                         .ignoresSafeArea()
                         .zIndex(3)
             }
+        }
+        Picker("Style", selection: $selectedStyle) {
+            Text("Solid").tag(NetIdLayerStyle.Solid)
+            Text("Outline").tag(NetIdLayerStyle.Outline)
+        }
+        .pickerStyle(SegmentedPickerStyle())
+        .onChange(of: selectedStyle) {style in
+            NetIdService.sharedInstance.setLayerStyle(style)
+            serviceViewModel.logText += "Switched style\n"
         }
     }
 }

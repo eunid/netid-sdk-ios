@@ -14,6 +14,12 @@
 
 import Foundation
 
+/**
+ Enumeartion of the flows that are supported by the SDK.
+ ``Permission`` sets the scope "permission" only.
+ ``Login`` sets the scope "openid" only.
+ ``LoginPermission`` sets both the scopes "openid" and "permission"
+ */
 public enum NetIdAuthFlow {
-    case Soft, Hard
+    case Permission, Login, LoginPermission
 }

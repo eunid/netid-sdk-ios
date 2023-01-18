@@ -32,13 +32,28 @@ class ServiceViewModel: NSObject, ObservableObject {
     @Published var userInfoStatusColor = Color.gray
 
     @Published var logText = ""
-    @Published var authFlow: NetIdAuthFlow = .Soft
+    @Published var authFlow: NetIdAuthFlow = .Permission
 
-    func initializeNetIdService() {
+    func initializeNetIdService(extraClaimShippingAddress: Bool, extraClaimBirthdate: Bool) {
         initializationEnabled = false
         NetIdService.sharedInstance.registerListener(self)
-        let config = NetIdConfig(host: "broker.netid.de", clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
-                redirectUri: "de.netid.mobile.sdk.NetIdMobileSdk:/oauth2redirect/example-provider", originUrlScheme: "netIdExample")
+        
+        // Initialize configuration for the SDK.
+        // It is possible to customize the layer for the permission and login flow to a certain extend.
+        // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default vaules will apply instead.
+        let loginLayerConfig = LoginLayerConfig()
+        let permissionLayerConfig = PermissionLayerConfig()
+        let snippetShippingAddress = (extraClaimShippingAddress) ? ", \"shipping_address\": null" : ""
+        let snippetBirthdate = (extraClaimBirthdate) ? ", \"birthdate\": null" : ""
+        let claims = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}\(snippetShippingAddress)\(snippetBirthdate)}}"
+                
+        let config = NetIdConfig(
+            clientId: "2f9d690d-9a48-4e9d-a8b8-9a8866b621f2",
+            redirectUri: "https://eunid.github.io/redirectApp",
+            claims: claims,
+            promptWeb: "consent",
+            loginLayerConfig: loginLayerConfig,
+            permissionLayerConfig: permissionLayerConfig)
         NetIdService.sharedInstance.initialize(config)
     }
 
@@ -62,9 +77,14 @@ class ServiceViewModel: NSObject, ObservableObject {
     func updatePermission() {
         updatePermissionEnabled = false
         // these values are only for demonstration purpose
-        NetIdService.sharedInstance.updatePermission(NetIdPermissionUpdate(idConsent: "VALID",
-                iabTc: "CPdfZIAPdfZIACnABCDECbCkAP_AAAAAAAYgIzJd9D7dbXFDefx_SPt0OYwW0NBXCuQCChSAA2AFVAOQcLQA02EaMATAhiACEQIAolIBAAEEHAFEAECQQIAEAAHsAgSEhAAKIAJEEBEQAAIQAAoKAAAAAAAIgAABoASAmBiQS5bmRUCAOIAQRgBIgggBCIADAgMBBEAIABgIAIIIgSgAAQAAAKIAAAAAARAAAASGgFABcAEMAPwAgoBaQEiAJ2AUiAxgBnwqASAEMAJgAXABHAEcALSAkEBeYDPh0EIABYAFQAMgAcgA-AEAALgAZAA0AB4AD6AIYAigBMACfAFwAXQAxABmADeAHMAPwAhgBLACYAE0AKMAUoAsQBbgDDAGiAPaAfgB-gEDAIoARaAjgCOgEpALEAWmAuYC6gF5AMUAbQA3ABxADnAHUAPQAi8BIICRAE7AKHAXmAwYBjADJAGVAMsAZmAz4BrADiwHjgPrAg0BDkhAbAAWABkAFwAQwAmABcADEAGYAN4AjgBSgCxAIoARwAlIBaQC5gGKANoAc4A6gB6AEggJEAScAz4B45KBAAAgABYAGQAOAAfAB4AEQAJgAXAAxABmADaAIYARwAowBSgC3AH4ARwAk4BaQC6gGKANwAdQBF4CRAF5gMsAZ8A1gCGoSBeAAgABYAFQAMgAcgA8AEAAMgAaAA8gCGAIoATAAngBvADmAH4AQgAhgBHACWAE0AKUAW4AwwB7QD8AP0AgYBFICNAI4ASkAuYBigDaAG4AOIAegBIgCdgFDgKRAXmAwYBkgDPoGsAayA4IB44EOREAYAQwA_AEiAJ2AUiAz4ZAHACGAEwARwBHAEnALzAZ8UgXAALAAqABkADkAHwAgABkADQAHkAQwBFACYAE8AKQAYgAzABzAD8AIYAUYApQBYgC3AGjAPwA_QCLQEcAR0AlIBcwC8gGKANoAbgA9ACLwEiAJOATsAocBeYDGAGSAMsAZ9A1gDWQHBAPHAhm.f_gAAAAAAsgA"),
-                collapseSyncId: false)
+        NetIdService.sharedInstance.updatePermission(NetIdPermissionUpdate(
+            idConsent: .VALID,
+            iabTc: "CPdfZIAPdfZIACnABCDECbCkAP_AAAAAAAYgIzJd9D7dbXFDefx_SPt0OYwW0NBXCuQCChSAA2AFVAOQcLQA02EaMATAhiACEQIAolIBAAEEHAFEAECQQIAEAAHsAgSEhAAKIAJEEBEQAAIQAAoKAAAAAAAIgAABoASAmBiQS5bmRUCAOIAQRgBIgggBCIADAgMBBEAIABgIAIIIgSgAAQAAAKIAAAAAARAAAASGgFABcAEMAPwAgoBaQEiAJ2AUiAxgBnwqASAEMAJgAXABHAEcALSAkEBeYDPh0EIABYAFQAMgAcgA-AEAALgAZAA0AB4AD6AIYAigBMACfAFwAXQAxABmADeAHMAPwAhgBLACYAE0AKMAUoAsQBbgDDAGiAPaAfgB-gEDAIoARaAjgCOgEpALEAWmAuYC6gF5AMUAbQA3ABxADnAHUAPQAi8BIICRAE7AKHAXmAwYBjADJAGVAMsAZmAz4BrADiwHjgPrAg0BDkhAbAAWABkAFwAQwAmABcADEAGYAN4AjgBSgCxAIoARwAlIBaQC5gGKANoAc4A6gB6AEggJEAScAz4B45KBAAAgABYAGQAOAAfAB4AEQAJgAXAAxABmADaAIYARwAowBSgC3AH4ARwAk4BaQC6gGKANwAdQBF4CRAF5gMsAZ8A1gCGoSBeAAgABYAFQAMgAcgA8AEAAMgAaAA8gCGAIoATAAngBvADmAH4AQgAhgBHACWAE0AKUAW4AwwB7QD8AP0AgYBFICNAI4ASkAuYBigDaAG4AOIAegBIgCdgFDgKRAXmAwYBkgDPoGsAayA4IB44EOREAYAQwA_AEiAJ2AUiAz4ZAHACGAEwARwBHAEnALzAZ8UgXAALAAqABkADkAHwAgABkADQAHkAQwBFACYAE8AKQAYgAzABzAD8AIYAUYApQBYgC3AGjAPwA_QCLQEcAR0AlIBcwC8gGKANoAbgA9ACLwEiAJOATsAocBeYDGAGSAMsAZ9A1gDWQHBAPHAhm.f_gAAAAAAsgA")
+        )
+    }
+
+    func resumeSession(_ url: URL) {
+        NetIdService.sharedInstance.resumeSession(url)
     }
 
     func endSession() {
@@ -88,10 +108,10 @@ extension ServiceViewModel: NetIdServiceDelegate {
     func didFinishInitializationWithError(_ error: NetIdError?) {
         if let errorCode = error?.code.rawValue {
             initializationStatusColor = Color.red
-            logText.append("Net ID service initialization failed \n" + errorCode + "\n")
+            logText.append("netID service initialization failed \n" + errorCode + "\n")
         } else {
             initializationStatusColor = Color.green
-            logText.append("Net ID service initialized successfully\n")
+            logText.append("netID service initialized successfully\n")
             authenticationEnabled = true
         }
     }
@@ -105,7 +125,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
         endSessionEnabled = true
         updatePermissionEnabled = true
         fetchPermissionsEnabled = true
-        logText.append("Net ID service authorized successfully\n" + accessToken + "\n")
+        logText.append("netID service authorized successfully\n" + accessToken + "\n")
     }
 
     func didFinishAuthenticationWithError(_ error: NetIdError?) {
@@ -115,28 +135,28 @@ extension ServiceViewModel: NetIdServiceDelegate {
         authenticationStatusColor = Color.red
         if let errorCode = error?.code.rawValue {
             authenticationStatusColor = Color.red
-            logText.append("Net ID service authorization failed: " + errorCode + "\n")
+            logText.append("netID service authorization failed: " + errorCode + "\n")
             authenticationEnabled = true
         } else {
             authenticationStatusColor = Color.green
-            logText.append("Net ID service authorization successfully\n")
+            logText.append("netID service authorization successfully\n")
         }
     }
 
     public func didFetchUserInfo(_ userInfo: UserInfo) {
         userInfoStatusColor = Color.green
         userInfoEnabled = true
-        logText.append("Fetched user info successfully: \(userInfo.description)")
+        logText.append("netID service user info - fetch finished successfully: \(userInfo)\n")
     }
 
     public func didFetchUserInfoWithError(_ error: NetIdError) {
         userInfoEnabled = true
         userInfoStatusColor = Color.red
-        logText.append("User info fetch failed: " + error.code.rawValue + "\n")
+        logText.append("netID service user info - fetch failed: " + error.code.rawValue + "\n")
     }
 
     public func didEndSession() {
-        logText.append("Net ID service did end session successfully\n")
+        logText.append("netID service did end session successfully\n")
         authenticationStatusColor = Color.gray
         userInfoStatusColor = Color.gray
         authenticationEnabled = true
@@ -146,7 +166,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
     }
 
     func didEncounterNetworkError(_ error: NetIdError) {
-        logText.append("Net ID service did encounter a network error in process: \(error.process)\n")
+        logText.append("netID service did encounter a network error in process: \(error.process)\n")
         let alert = UIAlertController(title: NSLocalizedString("network_error_alert_title", comment: ""),
                 message: NSLocalizedString("network_error_alert_description", comment: ""),
                 preferredStyle: .alert)
@@ -175,7 +195,7 @@ extension ServiceViewModel: NetIdServiceDelegate {
     }
 
     public func didCancelAuthentication(_ error: NetIdError) {
-        logText.append("Net ID service user did cancel authentication in process: \(error.process)\n")
+        logText.append("netID service user did cancel authentication in process: \(error.process)\n")
         withAnimation {
             authorizationViewVisible = false
         }
@@ -190,36 +210,91 @@ extension ServiceViewModel: NetIdServiceDelegate {
             userInfoStatusColor = Color.yellow
             userInfoEnabled = true
         case .PermissionRead:
-            //TODO
             logText.append("")
         case .PermissionWrite:
-            //TODO
             logText.append("")
         }
     }
 
-    public func didFetchPermissions(_ permissions: Permissions) {
-        logText.append("didFetchPermissions \(permissions.description) \n")
+    public func didFetchPermissions(_ permissions: PermissionReadResponse) {
+        logText.append("netID service permission - fetch finished successfully\n")
+        switch (permissions.statusCode) {
+            case PermissionResponseStatus.PERMISSIONS_FOUND:
+                logText.append("Permissions: \(permissions)\n")
+            case PermissionResponseStatus.PERMISSIONS_NOT_FOUND:
+                logText.append("No permissions found\n")
+            default:
+                logText.append("This should not happen\n")
+        }
         fetchPermissionsEnabled = true
     }
 
-    public func didFetchPermissionsWithError(_ error: NetIdError) {
-        logText.append("didFetchPermissionsWithError \(error.code.rawValue)\n")
+    public func didFetchPermissionsWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
+        switch (permissionResponseStatus) {
+            case PermissionResponseStatus.NO_TOKEN:
+                // no token was passed (handled by SDK should not happen)
+                logText.append("No bearer token in request available.\n")
+            case PermissionResponseStatus.TOKEN_ERROR:
+                // current token expired / is invalid
+                logText.append("Token error - token refresh / reauthorization necessary\n")
+            case PermissionResponseStatus.TPID_EXISTENCE_ERROR:
+                // netID Account was deleted
+                logText.append("netID Account was deleted\n")
+            case PermissionResponseStatus.TAPP_NOT_ALLOWED:
+                // Invalid configuration of client
+                logText.append("Client not authorized to use permission management\n")
+            case PermissionResponseStatus.PERMISSIONS_NOT_FOUND:
+                // Missing permissions
+                logText.append("Permissions for tpid not found\n")
+            default:
+                logText.append("netID service permission - fetch failed with error: \(error.code)\n")
+        }
+        if (error.msg != nil) {
+            logText.append("original error message: \(error.msg!)\n")
+        }
         fetchPermissionsEnabled = true
     }
 
-    public func didUpdatePermission() {
-        logText.append("didUpdatePermission \n")
+    public func didUpdatePermission(_ subjectIdentifiers: SubjectIdentifiers) {
+        logText.append("netID service permission - update finished successfully\n")
+        logText.append("Returned: \(subjectIdentifiers)\n")
         updatePermissionEnabled = true
     }
 
-    public func didUpdatePermissionWithError(_ error: NetIdError) {
-        logText.append("didUpdatePermissionWithError \(error.code.rawValue)\n")
+    public func didUpdatePermissionWithError(_ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError) {
+        switch (permissionResponseStatus) {
+            case PermissionResponseStatus.NO_TOKEN:
+                // no token was passed (handled by SDK should not happen)
+                logText.append("No bearer token in request available.\n")
+            case PermissionResponseStatus.TOKEN_ERROR:
+                // current token expired / is invalid
+                logText.append("Token error - token refresh / reauthorization necessary\n")
+            case PermissionResponseStatus.TPID_EXISTENCE_ERROR:
+                    // netID Account was deleted
+                    logText.append("netID Account was deleted\n")
+            case PermissionResponseStatus.TAPP_NOT_ALLOWED:
+                    // Invalid configuration of client
+                    logText.append("Client not authorized to use permission management\n")
+            case PermissionResponseStatus.PERMISSION_PARAMETERS_ERROR:
+                    // Invalid parameter payload
+                    logText.append("Syntactic or semantic error in a permission\n")
+            case PermissionResponseStatus.NO_PERMISSIONS:
+                    // No permission parameter given
+                    logText.append("Parameters are missing. At least one permission must be set.\n")
+            case PermissionResponseStatus.NO_REQUEST_BODY:
+                    // Request body missing
+                    logText.append("Required request body is missing\n")
+            case PermissionResponseStatus.JSON_PARSE_ERROR:
+                    // Error parsing JSON body
+                    logText.append("Invalid JSON body, parse error\n")
+            default:
+                logText.append("netID service permission - update failed with error: \(error.code)\n")
+        }
+
+        if (error.msg != nil) {
+            logText.append("original error message: \(error.msg!)\n")
+        }
         updatePermissionEnabled = true
     }
-
-    public func didTransmitInvalidToken() {
-        logText.append("didTransmitInvalidToken \n")
-
-    }
+    
 }

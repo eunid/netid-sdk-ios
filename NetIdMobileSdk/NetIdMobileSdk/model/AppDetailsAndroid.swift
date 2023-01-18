@@ -16,4 +16,5 @@ import Foundation
 
 struct AppDetailsAndroid: Decodable {
     let applicationId: String
+    let verifiedAppLink: String
 }

@@ -14,47 +14,52 @@
 
 import Foundation
 
-public struct UserInfo: Decodable, CustomStringConvertible {
-    public init(sub: String, birthdate: String, givenName: String, familyName: String) {
+public struct UserInfo: Decodable, Encodable, CustomStringConvertible {
+
+    public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
+                givenName: String, familyName: String, email: String) {
         self.sub = sub
         self.birthdate = birthdate
+        self.emailVerified = emailVerified
+        self.address = address
+        self.gender = gender
+        self.shippingAddress = shippingAddress
         self.givenName = givenName
         self.familyName = familyName
+        self.email = email
     }
-
-//    public init(sub: String, birthdate: String, emailVerified: Bool, address: Address, gender: String, shippingAddress: ShippingAddress,
-//                givenName: String, familyName: String, email: String) {
-//        self.sub = sub
-//        self.birthdate = birthdate
-//        self.emailVerified = emailVerified
-//        self.address = address
-//        self.gender = gender
-//        self.shippingAddress = shippingAddress
-//        self.givenName = givenName
-//        self.familyName = familyName
-//        self.email = email
-//    }
-
+    
     public let sub: String
-    public let birthdate: String
-//    public let emailVerified: Bool
-//    public let address: Address
-//    public let gender: String
-//    public let shippingAddress: ShippingAddress
-    public let givenName: String
-    public let familyName: String
-
-//    public let email: String
-
+    public let birthdate: Optional<String>
+    public let emailVerified: Optional<Bool>
+    public let address: Optional<Address>
+    public let gender: Optional<String>
+    public let shippingAddress: Optional<ShippingAddress>
+    public let givenName: Optional<String>
+    public let familyName: Optional<String>
+    public let email: Optional<String>
+    
     private enum CodingKeys: String, CodingKey {
-        case sub, birthdate, givenName = "given_name", familyName = "family_name"
+        case sub, birthdate, emailVerified = "email_verified", address, gender,
+             shippingAddress = "shipping_address", givenName = "given_name", familyName = "family_name", email
     }
 
     public var description: String {
-        "UserInfo(sub: \(sub), birthdate: \(birthdate), givenName: \(givenName), familyName: \(familyName))"
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(self)
+        return String(data: data, encoding: .utf8) ?? "{}"
     }
-//    private enum CodingKeys: String, CodingKey {
-//        case sub, birthdate, emailVerified = "email_verified", address, gender,
-//             shippingAddress = "shipping_address", givenName = "given_name", familyName = "family_name", email
-//    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encodeIfPresent(sub, forKey: .sub)
+        try container.encodeIfPresent(birthdate, forKey: .birthdate)
+        try container.encodeIfPresent(emailVerified, forKey: .emailVerified)
+        try container.encodeIfPresent(address, forKey: .address)
+        try container.encodeIfPresent(gender, forKey: .gender)
+        try container.encodeIfPresent(shippingAddress, forKey: .shippingAddress)
+        try container.encodeIfPresent(givenName, forKey: .givenName)
+        try container.encodeIfPresent(familyName, forKey: .familyName)
+        try container.encodeIfPresent(email, forKey: .email)
+    }
 }

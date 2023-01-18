@@ -14,6 +14,7 @@
 
 import XCTest
 @testable import NetIdMobileSdk
+import SwiftUI
 
 class NetIdMobileSdkTests: XCTestCase {
 

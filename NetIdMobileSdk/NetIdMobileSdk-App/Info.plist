@@ -6,8 +6,8 @@
 	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>gmxmail</string>
-		<string>webdemail</string>
+		<string>x-gmxmail-netid-v1</string>
+		<string>x-webdemail-netid-v1</string>
 	</array>
 </dict>
 </plist>

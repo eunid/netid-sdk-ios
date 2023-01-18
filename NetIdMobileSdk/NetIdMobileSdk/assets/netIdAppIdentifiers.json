@@ -5,14 +5,16 @@
       "name": "GMX",
       "icon": "logo_gmx",
       "typeFaceIcon": "typeface_gmx",
-      "backgroundColor": "#FF402FD2",
+      "backgroundColor": "#FF1E50A0",
       "foregroundColor": "#FFFFFFFF",
       "iOS": {
         "bundleIdentifier": "de.gmx.mobile.ios.mail",
-        "scheme": "gmxmail"
+        "scheme": "x-gmxmail-netid-v1",
+        "universalLink": "https://sso.gmx.net/authorize-app2app"
       },
       "android": {
-        "applicationId": "de.gmx.mobile.android.mail"
+        "applicationId": "de.gmx.mobile.android.mail",
+        "verifiedAppLink": "https://sso.gmx.net/authorize-app2app"
       }
     },
     {
@@ -20,14 +22,16 @@
       "name": "WEB.DE",
       "icon": "logo_web_de",
       "typeFaceIcon": "typeface_webde",
-      "backgroundColor": "#FFF7AD0A",
-      "foregroundColor": "#FF212121",
+      "backgroundColor": "#FFFFD800",
+      "foregroundColor": "#FF333333",
       "iOS": {
         "bundleIdentifier": "de.web.mobile.ios.mail",
-        "scheme": "webdemail"
+        "scheme": "x-webdemail-netid-v1",
+        "universalLink": "https://sso.web.de/authorize-app2app"
       },
       "android": {
-        "applicationId": "de.web.mobile.android.mail"
+        "applicationId": "de.web.mobile.android.mail",
+        "verifiedAppLink": "https://sso.web.de/authorize-app2app"
       }
     }
   ]

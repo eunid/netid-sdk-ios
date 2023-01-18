@@ -20,12 +20,19 @@ class Webservice {
 
     private let session = URLSession.shared
     private let log = Logger.shared
-
+        
     private init() {
 
     }
 
-    func performRequest(_ request: BaseRequest, callback: @escaping (_ responseData: Data?, _ error: Error?) -> Void) {
+    /**
+      * Performs a web request to fetch information, permissions, or set permissions related to an authorized user.
+      * The result of the request is provided via the given callback instance.
+      *
+      * @param request a request to make, can be any of [UserInfoRequest], [PermissionReadRequest] or [PermissionWriteRequest]
+      * @param callback a callback instance receiving callbacks when the request is complete
+      */
+    func performRequest(_ request: BaseRequest, callback: @escaping (_ responseData: Data?, _ permissionResponseStatus: PermissionResponseStatus, _ error: NetIdError?) -> Void) {
         guard let url = request.getUrlComponents().url else {
             log.error("Unable to get components URL")
             return
@@ -41,22 +48,77 @@ class Webservice {
         }
 
         let task = session.dataTask(with: urlRequest) { [self] data, response, error in
+            var errorProcess = NetIdErrorProcess.Configuration
+            var statusCode = PermissionResponseStatus.UNKNOWN
+
+            let body = (data != nil) ? String(decoding: data!, as: UTF8.self) : ""
+            switch request {
+            case is PermissionReadRequest:
+                errorProcess = .PermissionRead
+            case is PermissionWriteRequest:
+                errorProcess = .PermissionWrite
+            case is UserInfoRequest:
+                errorProcess = .UserInfo
+            default:
+                DispatchQueue.main.async {
+                    callback(nil, statusCode, nil)
+                }
+            }
+
             guard error == nil else {
                 log.error("Request error: " + (error?.localizedDescription ?? "") + " for URL: " + (urlRequest.url?.absoluteString ?? ""))
+                let err = NetIdError(code: .Unknown, process: errorProcess, msg: error?.localizedDescription)
+
                 DispatchQueue.main.async {
-                    callback(nil, error)
+                    callback(nil, statusCode, err)
+                }
+                return
+            }
+            let httpResponse = response as! HTTPURLResponse
+            
+            // We got back a response, but the HTTP error code does not signal a successful call.
+            if (httpResponse.statusCode > 299) {
+                let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+                var errorCode = NetIdErrorCode.Unknown
+                if let responseJSON = responseJSON as? [String: Any]  {
+                    switch request {
+                    case is PermissionReadRequest:
+                        statusCode = PermissionResponseStatus(rawValue: responseJSON["status_code"] as! String) ?? .UNKNOWN
+                        errorCode = (statusCode  == PermissionResponseStatus.TPID_EXISTENCE_ERROR) ? NetIdErrorCode.Other : NetIdErrorCode.InvalidRequest
+                    case is PermissionWriteRequest:
+                        statusCode = PermissionResponseStatus(rawValue: responseJSON["status_code"] as! String) ?? .UNKNOWN
+                        errorCode = (statusCode  == PermissionResponseStatus.TPID_EXISTENCE_ERROR) ? NetIdErrorCode.Other : NetIdErrorCode.InvalidRequest
+                    case is UserInfoRequest:
+                        statusCode = .UNKNOWN
+                        if httpResponse.statusCode == 401 {
+                            errorCode = .UnauthorizedClient
+                        } else {
+                            errorCode = .InvalidRequest
+                        }
+                    default:
+                        DispatchQueue.main.async {
+                            callback(nil, statusCode, nil)
+                        }
+                    }
+                }
+                let err = NetIdError(code: errorCode, process: errorProcess, msg: body)
+                
+                DispatchQueue.main.async {
+                    callback(nil, statusCode, err)
                 }
                 return
             }
 
+            // The call was successful, check if we got back data, too.
+            // This should never fail, but we will yield an error just in case.
             if let data = data {
                 DispatchQueue.main.async {
-                    callback(data, nil)
+                    callback(data, statusCode, nil)
                 }
             } else {
                 log.error("Response does not contain any data")
                 DispatchQueue.main.async {
-                    callback(nil, nil)
+                    callback(nil, statusCode, nil)
                 }
             }
         }

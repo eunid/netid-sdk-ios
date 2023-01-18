@@ -18,5 +18,5 @@ import UIKit
 public protocol AuthorizationViewDelegate: AnyObject {
     func didTapDismiss()
 
-    func didTapContinue(destinationScheme: String?, presentingViewController: UIViewController)
+    func didTapContinue(universalLink: String?, presentingViewController: UIViewController, authFlow: NetIdAuthFlow)
 }
