@@ -45,6 +45,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - claims is now a simple string on the external interface
 - Change schemas for id apps
 - Make use of new redirectUrl and host
+- Updated resources
 
 ### Fixed
 - Url schemes error
