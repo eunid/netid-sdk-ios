@@ -1,14 +1,14 @@
-<svg width="22" height="20" viewBox="0 0 22 20" fill="none" xmlns="http://www.w3.org/2000/svg">
-<mask id="mask0_916_10787" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="9" y="0" width="13" height="10">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M9.47095 0H21.1967V9.28604H9.47095V0Z" fill="white"/>
+<svg width="26" height="25" viewBox="0 0 26 25" fill="none" xmlns="http://www.w3.org/2000/svg">
+<mask id="mask0_1259_944" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="11" y="0" width="15" height="12">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.3651 0.5H25.436V11.6432H11.3651V0.5Z" fill="white"/>
 </mask>
-<g mask="url(#mask0_916_10787)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M9.47095 5.60332L10.7486 4.3562L13.1558 6.76381L19.9594 -0.00012207L21.1967 1.20737L13.118 9.28593L9.47095 5.60332Z" fill="#76B72A"/>
+<g mask="url(#mask0_1259_944)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M11.3651 7.22413L12.8983 5.72759L15.787 8.61672L23.9513 0.5L25.436 1.94899L15.7415 11.6433L11.3651 7.22413Z" fill="#76B72A"/>
 </g>
-<mask id="mask1_916_10787" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="20" height="20">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.0540161H19.8702V20H0V0.0540161Z" fill="white"/>
+<mask id="mask1_1259_944" style="mask-type:luminance" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="25">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M0 0.564941H23.8442V24.5001H0V0.564941Z" fill="white"/>
 </mask>
-<g mask="url(#mask1_916_10787)">
-<path fill-rule="evenodd" clip-rule="evenodd" d="M19.2552 5.4719L18.2203 6.50684C18.8088 8.46099 18.6769 9.98903 16.6258 12.0401L14.2434 14.4223L5.57778 5.75668L7.97697 3.35748C10.5257 0.808533 12.6444 0.997565 15.102 2.5128L16.0587 1.55607C13.0168 -0.519599 10.1463 -0.647432 7.03252 2.46616L-6.10352e-05 9.49874L10.5014 20L17.5338 12.9676C20.1329 10.3683 20.3331 8.10485 19.2552 5.4719Z" fill="white"/>
+<g mask="url(#mask1_1259_944)">
+<path fill-rule="evenodd" clip-rule="evenodd" d="M23.1062 7.0664L21.8643 8.30833C22.5705 10.6533 22.4122 12.487 19.9509 14.9483L17.0921 17.8069L6.69329 7.40813L9.57232 4.5291C12.6308 1.47036 15.1732 1.6972 18.1223 3.51548L19.2704 2.3674C15.6201 -0.123397 12.1755 -0.276796 8.43897 3.45951L-0.00012207 11.8986L12.6016 24.5001L21.0405 16.0612C24.1594 12.9421 24.3997 10.2259 23.1062 7.0664Z" fill="white"/>
 </g>
 </svg>
