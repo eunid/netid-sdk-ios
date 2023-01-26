@@ -28,163 +28,148 @@ struct ContentView: View {
     @State var selectedStyle:NetIdLayerStyle = .Solid
 
     var body: some View {
-        ZStack {
-            VStack(alignment: .center, spacing: 10) {
-                Text("net_id_service_title")
+            ZStack {
+                VStack(alignment: .center, spacing: 10) {
+                    Text("net_id_service_title")
                         .padding()
                         .font(.title2)
-                
-                HStack(alignment: .center, spacing: 50) {
-                    Button {
-                        serviceViewModel.initializeNetIdService(
-                            extraClaimShippingAddress: extraClaimShippingAddress,
-                            extraClaimBirthdate: extraClaimBirthdate)
-                    } label: {
-                        Text("initialize_button_title")
+                    
+                    HStack(alignment: .center, spacing: 50) {
+                        Button {
+                            serviceViewModel.initializeNetIdService(
+                                extraClaimShippingAddress: extraClaimShippingAddress,
+                                extraClaimBirthdate: extraClaimBirthdate)
+                        } label: {
+                            Text("initialize_button_title")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(serviceViewModel.initializationEnabled ? Color.white : Color.gray)
-                    }
-                            .padding(10)
-                            .background(Color.green)
-                            .cornerRadius(5)
-                            .disabled(!serviceViewModel.initializationEnabled)
-
-                    Circle()
+                        }
+                        .padding(10)
+                        .background(Color.green)
+                        .cornerRadius(5)
+                        .disabled(!serviceViewModel.initializationEnabled)
+                        
+                        Circle()
                             .fill(serviceViewModel.initializationStatusColor)
                             .frame(width: 20, height: 20, alignment: .center)
-                }
-                        .padding(.horizontal, 20)
-
-                HStack(alignment: .center, spacing: 50) {
-                    Button {
-                        showingAlert = true
-                    } label: {
-                        Text("authorize_button_title")
+                    }
+                    .padding(.horizontal, 20)
+                    
+                    HStack(alignment: .center, spacing: 50) {
+                        Button {
+                            showingAlert = true
+                        } label: {
+                            Text("authorize_button_title")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(serviceViewModel.authenticationEnabled ? Color.white : Color.gray)
-                    }
-                            .padding(10)
-                            .background(Color.blue)
-                            .cornerRadius(5)
-                            .disabled(!serviceViewModel.authenticationEnabled)
-                            .alert("choose_auth_flow_title", isPresented: $showingAlert) {
-                                Button("Permission") {
-                                    serviceViewModel.authFlow = .Permission
-                                    serviceViewModel.authorizeNetIdService()
-                                }
-                                Button("Login") {
-                                    serviceViewModel.authFlow = .Login
-                                    serviceViewModel.authorizeNetIdService()
-                                }
-                                Button("Login + Permission") {
-                                    serviceViewModel.authFlow = .LoginPermission
-                                    serviceViewModel.authorizeNetIdService()
-                                }
-                            }
-
-                    Circle()
+                        }
+                        .padding(10)
+                        .background(Color.blue)
+                        .cornerRadius(5)
+                        .disabled(!serviceViewModel.authenticationEnabled)
+                        Circle()
                             .fill(serviceViewModel.authenticationStatusColor)
                             .frame(width: 20, height: 20, alignment: .center)
-                }
-                        .padding(.horizontal, 20)
-
-                HStack(alignment: .center, spacing: 50) {
-                    Button {
-                        serviceViewModel.fetchUserInfo()
-                    } label: {
-                        Text("user_info_button_title")
+                    }
+                    .padding(.horizontal, 20)
+                    
+                    HStack(alignment: .center, spacing: 50) {
+                        Button {
+                            serviceViewModel.fetchUserInfo()
+                        } label: {
+                            Text("user_info_button_title")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(serviceViewModel.userInfoEnabled ? Color.white : Color.gray)
-                    }
-                            .padding(10)
-                            .background(Color.yellow)
-                            .cornerRadius(5)
-                            .disabled(!serviceViewModel.userInfoEnabled)
-
-                    Circle()
+                        }
+                        .padding(10)
+                        .background(Color.yellow)
+                        .cornerRadius(5)
+                        .disabled(!serviceViewModel.userInfoEnabled)
+                        
+                        Circle()
                             .fill(serviceViewModel.userInfoStatusColor)
                             .frame(width: 20, height: 20, alignment: .center)
-                }
-                        .padding(.horizontal, 20)
-
-                VStack(alignment: .center, spacing: 10) {
-                    Text("net_id_service_extra_claims")
+                    }
+                    .padding(.horizontal, 20)
+                    
+                    VStack(alignment: .center, spacing: 10) {
+                        Text("net_id_service_extra_claims")
+                            .padding()
+                            .font(Font.system(size: 14))
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+                        
+                        HStack(alignment: .center, spacing: 25) {
+                            Toggle(isOn: $extraClaimShippingAddress) {
+                                Text("shipping_address").font(Font.system(size: 11))
+                            }.disabled(!serviceViewModel.initializationEnabled)
+                            
+                            Toggle(isOn: $extraClaimBirthdate) {
+                                Text("birthdate").font(Font.system(size: 11))
+                            }.disabled(!serviceViewModel.initializationEnabled)
+                        }
+                    }
+                    
+                    Text("permission_management_title")
                         .padding()
-                        .font(Font.system(size: 15))
+                        .font(.body)
                         .frame(maxWidth: .infinity, alignment: .topLeading)
                     
                     HStack(alignment: .center, spacing: 25) {
-                        Toggle(isOn: $extraClaimShippingAddress) {
-                            Text("shipping_address").font(Font.system(size: 12))
-                        }.disabled(!serviceViewModel.initializationEnabled)
-                        
-                        Toggle(isOn: $extraClaimBirthdate) {
-                            Text("birthdate").font(Font.system(size: 12))
-                        }.disabled(!serviceViewModel.initializationEnabled)
-                    }
-                }
-
-                Text("permission_management_title")
-                        .padding()
-                        .font(.body)
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-
-                HStack(alignment: .center, spacing: 25) {
-                    Button {
-                        serviceViewModel.fetchPermissions()
-                    } label: {
-                        Text("fetch_permissions_button_title")
+                        Button {
+                            serviceViewModel.fetchPermissions()
+                        } label: {
+                            Text("fetch_permissions_button_title")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(serviceViewModel.fetchPermissionsEnabled ? Color.white : Color.gray)
-                    }
-                            .padding(10)
-                            .background(Color.orange)
-                            .cornerRadius(5)
-                            .disabled(!serviceViewModel.fetchPermissionsEnabled)
-                    Button {
-                        serviceViewModel.updatePermission()
-                    } label: {
-                        Text("update_permission_button_title")
+                        }
+                        .padding(10)
+                        .background(Color.orange)
+                        .cornerRadius(5)
+                        .disabled(!serviceViewModel.fetchPermissionsEnabled)
+                        Button {
+                            serviceViewModel.updatePermission()
+                        } label: {
+                            Text("update_permission_button_title")
                                 .frame(maxWidth: .infinity)
                                 .foregroundColor(serviceViewModel.updatePermissionEnabled ? Color.white : Color.gray)
+                        }
+                        .padding(10)
+                        .background(Color.orange)
+                        .cornerRadius(5)
+                        .disabled(!serviceViewModel.updatePermissionEnabled)
                     }
-                            .padding(10)
-                            .background(Color.orange)
-                            .cornerRadius(5)
-                            .disabled(!serviceViewModel.updatePermissionEnabled)
-                }
-                        .padding(.horizontal, 20)
-
-                Text("log_text_title")
+                    .padding(.horizontal, 20)
+                    
+                    Text("log_text_title")
                         .padding()
                         .font(.body)
                         .frame(maxWidth: .infinity, alignment: .topLeading)
-
-                ScrollView {
-                    Text(serviceViewModel.logText)
+                    
+                    ScrollView {
+                        Text(serviceViewModel.logText)
                             .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
                             .padding(.horizontal, 20)
                             .font(Font.system(size: 13))
                             .accessibilityIdentifier("LogView")
-                }
-                Button {
-                    serviceViewModel.endSession()
-                } label: {
-                    Text("end_session_button_title")
+                    }
+                    Button {
+                        serviceViewModel.endSession()
+                    } label: {
+                        Text("end_session_button_title")
                             .frame(maxWidth: .infinity)
                             .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
+                    }
+                    .padding(10)
+                    .background(Color.red)
+                    .cornerRadius(5)
+                    .disabled(!serviceViewModel.endSessionEnabled)
                 }
-                        .padding(10)
-                        .background(Color.red)
-                        .cornerRadius(5)
-                        .disabled(!serviceViewModel.endSessionEnabled)
-            }
-                    .padding(.horizontal, 20)
-                    .zIndex(1)
-            
-            if serviceViewModel.authorizationViewVisible {
-
-                Rectangle()
+                .padding(.horizontal, 20)
+                .zIndex(1)
+                
+                if serviceViewModel.authorizationViewVisible {
+                    
+                    Rectangle()
                         .foregroundColor(Color.black.opacity(0.5))
                         .ignoresSafeArea()
                         .transition(.opacity)
@@ -192,29 +177,72 @@ struct ContentView: View {
                         .onTapGesture {
                             NetIdService.sharedInstance.didTapDismiss()
                         }
-
-                VStack {
-                    Spacer()
-                    serviceViewModel.getAuthorizationView()
+                    
+                    VStack {
+                        Spacer()
+                        serviceViewModel.getAuthorizationView()
                             .padding(.bottom, 12)
                             .cornerRadius(12)
                             .shadow(radius: 7)
+                    }
+                    .padding(.bottom, -12)
+                    .transition(.move(edge: .bottom))
+                    .ignoresSafeArea()
+                    .zIndex(3)
                 }
-                        .padding(.bottom, -12)
-                        .transition(.move(edge: .bottom))
+                
+                if showingAlert {
+                    Rectangle()
+                        .foregroundColor(Color.black.opacity(0.5))
                         .ignoresSafeArea()
-                        .zIndex(3)
+                        .transition(.opacity)
+                        .zIndex(2)
+                        .onTapGesture {
+                            showingAlert.toggle()
+                        }
+                    VStack {
+                        Text("choose_auth_flow_title")
+                            .padding()
+                        
+                        Button(action: {
+                            serviceViewModel.authFlow = .Permission
+                            showingAlert.toggle()
+                            serviceViewModel.authorizeNetIdService()
+                        }) {Text("Permission")}
+                            .padding(5)
+             
+                        Button(action: {
+                            serviceViewModel.authFlow = .Login
+                            showingAlert.toggle()
+                            serviceViewModel.authorizeNetIdService()
+                        }) {Text("Login")}
+                            .padding(5)
+             
+                        Button(action: {
+                            serviceViewModel.authFlow = .LoginPermission
+                            showingAlert.toggle()
+                            serviceViewModel.authorizeNetIdService()
+                        }) {Text("Login + Permission")}
+                            .padding(10)
+                    }
+                    .background(Color.white)
+                    .cornerRadius(10)
+                    .shadow(radius: 5)
+                    .padding(.vertical, 90)
+                    .padding(.horizontal, 80)
+                    .zIndex(3)
+                }
+
             }
-        }
-        Picker("Style", selection: $selectedStyle) {
-            Text("Solid").tag(NetIdLayerStyle.Solid)
-            Text("Outline").tag(NetIdLayerStyle.Outline)
-        }
-        .pickerStyle(SegmentedPickerStyle())
-        .onChange(of: selectedStyle) {style in
-            NetIdService.sharedInstance.setLayerStyle(style)
-            serviceViewModel.logText += "Switched style\n"
-        }
+            Picker("Style", selection: $selectedStyle) {
+                Text("Solid").tag(NetIdLayerStyle.Solid)
+                Text("Outline").tag(NetIdLayerStyle.Outline)
+            }
+            .pickerStyle(SegmentedPickerStyle())
+            .onChange(of: selectedStyle) {style in
+                NetIdService.sharedInstance.setLayerStyle(style)
+                serviceViewModel.logText += "Switched style\n"
+            }
     }
 }
 
