@@ -67,10 +67,6 @@ struct ContentView: View {
                         .background(Color.blue)
                         .cornerRadius(5)
                         .disabled(!serviceViewModel.authenticationEnabled)
-                        /*                            .alert(isPresented: $showingAlert) {
-                         Alert(title: Text("Title"), message: Text("Please select an option"), primaryButton: .default(Text("Option 1"), action: { self.selectedOption = 1; self.showAlert = false }), secondaryButton: .default(Text("Option 2"), action: { self.selectedOption = 2; self.showAlert = false }), dismissButton: .default(Text("Option 3"), action: { self.selectedOption = 3; self.showAlert = false }))
-                         }*/
-                        
                         Circle()
                             .fill(serviceViewModel.authenticationStatusColor)
                             .frame(width: 20, height: 20, alignment: .center)
@@ -99,16 +95,16 @@ struct ContentView: View {
                     VStack(alignment: .center, spacing: 10) {
                         Text("net_id_service_extra_claims")
                             .padding()
-                            .font(Font.system(size: 15))
+                            .font(Font.system(size: 14))
                             .frame(maxWidth: .infinity, alignment: .topLeading)
                         
                         HStack(alignment: .center, spacing: 25) {
                             Toggle(isOn: $extraClaimShippingAddress) {
-                                Text("shipping_address").font(Font.system(size: 12))
+                                Text("shipping_address").font(Font.system(size: 11))
                             }.disabled(!serviceViewModel.initializationEnabled)
                             
                             Toggle(isOn: $extraClaimBirthdate) {
-                                Text("birthdate").font(Font.system(size: 12))
+                                Text("birthdate").font(Font.system(size: 11))
                             }.disabled(!serviceViewModel.initializationEnabled)
                         }
                     }

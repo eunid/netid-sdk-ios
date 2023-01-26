@@ -91,9 +91,9 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         app.buttons["Authorisieren"].tap()
         sleep(2)
 
-        let alert = app.alerts["Bitte wähle Deinen Authorisierungsprozess."]
+        let alert = app.staticTexts["Bitte wähle Deinen Authorisierungsprozess."]
         XCTAssertTrue(alert.exists)
-        alert.buttons["Login"].tap()
+        app.buttons["Login"].tap()
         app.buttons["Weitere Anmeldeoptionen"].tap()
         XCTAssertFalse(app.buttons["Service initialisieren"].isEnabled)
         XCTAssertTrue(app.buttons["Authorisieren"].isEnabled)
@@ -112,12 +112,15 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         app.buttons["Authorisieren"].tap()
         sleep(2)
 
-        app.alerts["Bitte wähle Deinen Authorisierungsprozess."].scrollViews.otherElements.buttons["Login"].tap()
-        app.buttons["Login mit netID"].tap()
-        let alert = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let alert = app.staticTexts["Bitte wähle Deinen Authorisierungsprozess."]
         XCTAssertTrue(alert.exists)
-        alert.buttons["Fortfahren"].tap()
-        
+        app.buttons["Login"].tap()
+        app.buttons["Login mit netID"].tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        XCTAssertTrue(springboard.exists)
+        let continueBtn = springboard.buttons["Fortfahren"].exists ? springboard.buttons["Fortfahren"] : springboard.buttons["Continue"]
+        continueBtn.tap()
+
         // Catch the webview
         sleep(2)
         let webViewQuery:XCUIElementQuery = app.descendants(matching: .webView)
@@ -134,6 +137,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         mail.tap()
         mail.typeText(LOGIN)
         XCTAssertEqual(LOGIN, mail.value as! String)
+        mail.typeText("\n")
         webView.buttons["Weiter"].tap()
         
         let password = webView.secureTextFields["Passwort"]
@@ -172,12 +176,15 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Authorisieren"].isEnabled)
         app.buttons["Authorisieren"].tap()
 
-        app.alerts["Bitte wähle Deinen Authorisierungsprozess."].scrollViews.otherElements.buttons["Permission"].tap()
-        app.buttons["Zustimmen mit netID"].tap()
-        let alert = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let alert = app.staticTexts["Bitte wähle Deinen Authorisierungsprozess."]
         XCTAssertTrue(alert.exists)
-        alert.buttons["Fortfahren"].tap()
-        
+        app.buttons["Permission"].tap()
+        app.buttons["Zustimmen mit netID"].tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        XCTAssertTrue(springboard.exists)
+        let continueBtn = springboard.buttons["Fortfahren"].exists ? springboard.buttons["Fortfahren"] : springboard.buttons["Continue"]
+        continueBtn.tap()
+
         // Catch the webview
         sleep(2)
         let webViewQuery:XCUIElementQuery = app.descendants(matching: .webView)
@@ -193,6 +200,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         mail.tap()
         mail.typeText(LOGIN)
         XCTAssertEqual(LOGIN, mail.value as! String)
+        mail.typeText("\n")
         webView.buttons["Weiter"].tap()
         
         let password = webView.secureTextFields["Passwort"]
