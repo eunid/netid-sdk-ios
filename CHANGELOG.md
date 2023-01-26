@@ -46,6 +46,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Change schemas for id apps
 - Make use of new redirectUrl and host
 - Updated resources
+- Changed minimum iOS version to 14
 
 ### Fixed
 - Url schemes error
