@@ -60,13 +60,16 @@ struct AuthorizationPermissionView: View {
                     Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
+                    + Text(String(format: LocalizableUtil.netIdLocalizable(
+                        "authorization_view_legal_info_part_two"), appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
+
                     + Text(
                     LocalizableUtil.netIdLocalizable(
                         "authorization_view_legal_info_select")).underline().font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
-                    + Text(String(format: LocalizableUtil.netIdLocalizable(
-                        "authorization_view_legal_info_part_two"), appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
+                    + Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_three")).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 } else if (appIdentifiers.count == 1) {
                     Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
@@ -75,12 +78,18 @@ struct AuthorizationPermissionView: View {
                     + Text(String(format: LocalizableUtil.netIdLocalizable(
                         "authorization_view_legal_info_part_two"), appIdentifiers[selectedAppIndex].name)).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
+
+                    + Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_three")).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 } else {
                     Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
  
                     + Text(String(format: LocalizableUtil.netIdLocalizable(
                         "authorization_view_legal_info_part_two"), LocalizableUtil.netIdLocalizable("authorization_view_net_id"))).font(Font.system(size: 12, weight: .regular))
+                    .foregroundColor(Color("legalInfoColor", bundle: bundle))
+
+                    + Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_three")).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
                 }
             }
