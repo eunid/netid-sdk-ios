@@ -115,6 +115,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         let alert = app.staticTexts["Bitte wähle Deinen Authorisierungsprozess."]
         XCTAssertTrue(alert.exists)
         app.buttons["Login"].tap()
+        sleep(2)
         app.buttons["Login mit netID"].tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         XCTAssertTrue(springboard.exists)
@@ -138,7 +139,6 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         mail.typeText(LOGIN)
         XCTAssertEqual(LOGIN, mail.value as! String)
         mail.typeText("\n")
-        webView.buttons["Weiter"].tap()
         
         let password = webView.secureTextFields["Passwort"]
         password.tap()
@@ -179,6 +179,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         let alert = app.staticTexts["Bitte wähle Deinen Authorisierungsprozess."]
         XCTAssertTrue(alert.exists)
         app.buttons["Permission"].tap()
+        sleep(2)
         app.buttons["Zustimmen mit netID"].tap()
         let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
         XCTAssertTrue(springboard.exists)
@@ -201,7 +202,6 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         mail.typeText(LOGIN)
         XCTAssertEqual(LOGIN, mail.value as! String)
         mail.typeText("\n")
-        webView.buttons["Weiter"].tap()
         
         let password = webView.secureTextFields["Passwort"]
         password.tap()
@@ -245,14 +245,4 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         }
     }
     
-    func testBlah() throws {
-        
-        let app = XCUIApplication()
-        let shippingAddressSwitch = app.switches["shipping_address"]
-        shippingAddressSwitch.tap()
-        app.switches["birthdate"].tap()
-        app.buttons["Service initialisieren"].tap()
-        shippingAddressSwitch.tap()
-        
-    }
 }
