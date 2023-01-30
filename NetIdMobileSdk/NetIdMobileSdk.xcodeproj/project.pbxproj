@@ -69,7 +69,6 @@
 		B661617C288EDAB4004F7ACB /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661617B288EDAB4004F7ACB /* UserInfo.swift */; };
 		B661617E288EDB6F004F7ACB /* Address.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661617D288EDB6F004F7ACB /* Address.swift */; };
 		B6616180288EDBEB004F7ACB /* ShippingAddress.swift in Sources */ = {isa = PBXBuildFile; fileRef = B661617F288EDBEB004F7ACB /* ShippingAddress.swift */; };
-		B66A07CA287D62C100A68E08 /* netID MobileSDK.docc in Sources */ = {isa = PBXBuildFile; fileRef = B66A07C9287D62C100A68E08 /* netID MobileSDK.docc */; };
 		B66A07D0287D62C100A68E08 /* NetIdMobileSdk.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */; };
 		B66A07D5287D62C100A68E08 /* NetIdMobileSdkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A07D4287D62C100A68E08 /* NetIdMobileSdkTests.swift */; };
 		B66A07D6287D62C100A68E08 /* NetIdMobileSdk.h in Headers */ = {isa = PBXBuildFile; fileRef = B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -242,7 +241,6 @@
 		B661617F288EDBEB004F7ACB /* ShippingAddress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShippingAddress.swift; sourceTree = "<group>"; };
 		B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = NetIdMobileSdk.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NetIdMobileSdk.h; sourceTree = "<group>"; };
-		B66A07C9287D62C100A68E08 /* netID MobileSDK.docc */ = {isa = PBXFileReference; lastKnownFileType = folder.documentationcatalog; path = "netID MobileSDK.docc"; sourceTree = "<group>"; };
 		B66A07CF287D62C100A68E08 /* NetIdMobileSdkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = NetIdMobileSdkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B66A07D4287D62C100A68E08 /* NetIdMobileSdkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdMobileSdkTests.swift; sourceTree = "<group>"; };
 		B66A07E3287D641800A68E08 /* NetIdMobileSdk-App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "NetIdMobileSdk-App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -548,7 +546,6 @@
 				B6616172288E856A004F7ACB /* model */,
 				2BEE602228883B470064661C /* UI */,
 				B66A07C8287D62C100A68E08 /* NetIdMobileSdk.h */,
-				B66A07C9287D62C100A68E08 /* netID MobileSDK.docc */,
 				2FF2DB58D173116137DD18CE /* api */,
 				D692AC0C9C87EF2738DEBB6B /* webservice */,
 				D692A89B8CCB0AF20188F653 /* util */,
@@ -993,7 +990,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B66A07CA287D62C100A68E08 /* netID MobileSDK.docc in Sources */,
 				2FF2DFCBA26C5B11DA66DBFA /* NetIdService.swift in Sources */,
 				515A2A9B2938EFC90015A104 /* IdAppAgent.swift in Sources */,
 				2FF2DD417BEBC9BF673CFD4A /* NetIdConfig.swift in Sources */,
