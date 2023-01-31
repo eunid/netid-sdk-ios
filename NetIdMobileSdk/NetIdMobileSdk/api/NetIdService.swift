@@ -144,6 +144,10 @@ open class NetIdService: NSObject {
         }
     }
     
+    /**
+     Returns the currently set layer style.
+     - Returns Currently set style.
+     */
     public func getLayerStyle() -> NetIdLayerStyle {
         return layerStyle
     }
