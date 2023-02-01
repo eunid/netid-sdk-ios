@@ -15,10 +15,23 @@
 import Foundation
 
 protocol AppAuthManagerDelegate: AnyObject {
+    /**
+     Delegate function for handling callbacks from  initialization of the netID SDK.
+     On a successful call, error will be nil. The concrete implementation of this function has to take care of proper error handling (e.g. passing it on).
+     - Parameter error: The ``NetIdError`` that occurred, nil otherwise.
+     */
     func didFinishInitializationWithError(_ error: NetIdError?)
 
+    /**
+     Delegate function for handling callbacks from the authentication process.
+     On a successful call, error will be nil. The concrete implementation of this function has to take care of proper error handling (e.g. passing it on).
+     - Parameter error: The ``NetIdError`` that occurred, nil otherwise.
+     */
     func didFinishAuthenticationWithError(_ error: NetIdError?)
 
+    /**
+     Delegate function that gets called when a session ends.
+     */
     func didEndSession()
 }
 
