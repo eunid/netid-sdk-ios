@@ -40,7 +40,7 @@ Besides the `clientId`, the `redirectUri` is the most important parameter in the
 In order to make Universal Links work, you have to provide a link in the form of an uri (e.g. https://eunid.github.io/redirectApp) and host a special file named `apple-app-site-association` on that very same domain (in this example https://eunid.github.io/.well-known/apple-app-site-association).
 The format of that file is explained in detail [here](https://developer.apple.com/documentation/xcode/supporting-associated-domains).
 
-In Xcode make sure to add your domain to the list of `Associated Domains` in the section `Signing & Capabilities` of your app. You must add your domain for `webcredentials` as well as for `applinks` to make it work both in app2web and app2app scenarios.
+In Xcode make sure to add your domain to the list of `Associated Domains` in the section `Signing & Capabilities` of your app. You must add your domain for `applinks` to make it work both in app2web and app2app scenarios.
 
 <img src="images/netIdSdk_xcode_associate_domains.png" alt="netID SDK example app - add associated domains" style="width:800px;"/>
 
