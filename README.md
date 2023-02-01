@@ -111,6 +111,16 @@ let loginLayerConfig = LoginLayerConfig(
     continueText: "Continue text")
 ``` 
 
+And when using permission flow, the dialog can be customized as well:
+```swift
+let permissionLayerConfig = PermissionLayerConfig(
+    logoId: "custom_logo_resource_name",
+    headlineText: "Headline text", 
+    legalText: "Legal text", 
+    continueText: "Continue text")
+``` 
+Keep in mind that you can not customize the complete legal text in the dialog. The second part of it is predefined by netID.
+
 The SDK will figure out by itself, if Account Provider apps like [GMX](https://apps.apple.com/de/app/gmx-mail-cloud/id417352269) or [web.de](https://apps.apple.com/de/app/web-de-mail-cloud/id368948250) are installed. If so, the SDK will always prefer the app2app-flow instead of app2web when communicating with the netID authorization service. When at least one of those apps is found, the call to `getAuthorizationView` will return a slightly different layout, exposing the installed apps:
 <table>
     <tr>
@@ -207,8 +217,8 @@ let loginLayerConfig = LoginLayerConfig()
 let permissionLayerConfig = PermissionLayerConfig()
 let claims = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\": {\"essential\": true}}}"
 let config = NetIdConfig(
-    clientId: "26e016e7-54c7-4ffd-bee0-782a9a4f87d6",
-    redirectUri: "https://netid-sdk-web.letsdev.de/redirect",
+    clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
+    redirectUri: "https://eunid.github.io/redirectApp",
     claims: claims,
     promptWeb: "consent",
     loginLayerConfig: loginLayerConfig,
@@ -220,7 +230,6 @@ Then, just request the buttons you need to trigger your desired auth flow. E.g. 
 
 ```swift
 NetIdService.sharedInstance.continueButtonPermissionFlow(continueText: "")
-    .disabled(serviceViewModel.endSessionEnabled)
 ```
 With the optional parameter ``continueText``it is possible to alter the default text to a more personal liking. If set to an empty string or omitted completely, a default will be used.
 
@@ -229,7 +238,6 @@ Note that if any Account Provider apps are installed, there will be the possibil
 ```swift
 ForEach((NetIdService.sharedInstance.getKeysForAccountProviderApps()), id: \.self) { key in
     NetIdService.sharedInstance.permissionButtonForAccountProviderApp(key: key, continueText: key)
-        .disabled(serviceViewModel.endSessionEnabled)
 }
 ```
 Again, using the optional parameter ``continuteText`` will alter the text on the button - otherwise all buttons will have the standard text displayed.
@@ -239,7 +247,6 @@ For the login and/or login+permission flow, you can request a button to initiate
 ```swift
 NetIdService.sharedInstance.continueButtonLoginFlow(authFlow: .Login, continueText: "")
     .foregroundColor(serviceViewModel.endSessionEnabled ? Color.white : Color.gray)
-    .disabled(serviceViewModel.endSessionEnabled)
 ```
 
 And if you prefer app2app, you can request respective buttons for each Account Provider this way:
@@ -247,6 +254,5 @@ And if you prefer app2app, you can request respective buttons for each Account P
 ```swift
 ForEach(NetIdService.sharedInstance.getKeysForAccountProviderApps(), id: \.self) { key in
     NetIdService.sharedInstance.loginButtonForAccountProviderApp(authFlow: .Login, key: key)
-        .disabled(serviceViewModel.endSessionEnabled)
 }
 ```
