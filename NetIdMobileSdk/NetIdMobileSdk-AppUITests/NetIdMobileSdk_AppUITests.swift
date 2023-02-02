@@ -18,7 +18,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
 
     private let app = XCUIApplication()
     
-    // These consts define data for logging into one of the account providers.
+    // These constants define data for logging into one of the account providers.
     // These value have to be adjusted.
     private let LOGIN = "your-mail@account.provider"
     private let PASSWORD = "superSecretPassword"
@@ -225,7 +225,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Authorisieren"].isEnabled)
     }
 
-    
+    // Test that extra claims can only be changed before initialisation.
     func testExtraClaimsOnlyBeforeInitialising() throws {
         XCTAssertTrue(app.buttons["Service initialisieren"].isEnabled)
         XCTAssertTrue(app.switches["shipping_address"].isEnabled)
