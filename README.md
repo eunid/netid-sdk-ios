@@ -36,7 +36,34 @@ The parameters have the following meaning:
 | loginLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the login flow. Can be nil. |
 | permissionLayerConfig | A set of strings, that can be used to customize the appearance of the layer for the permission flow. Can be nil. |
 
-Besides the `clientId`, the `redirectUri` is the most important parameter in the configuration. The `redirectUri` is a link that is called by the authorization service to get back to your app once the authorization process has finished. As this is a rather crucial process, the netID SDK makes use of Universal Links to ensure proper and secure communication between the authorization service and your app. 
+Besides the `clientId`, the `redirectUri` is the most important parameter in the configuration. The `redirectUri` is a link that is called by the authorization service to get back to your app once the authorization process has finished. To make your app capable of reacting to that uri, you have to instruct it to fetch it like in this example from the demo app:
+
+```swift
+@main
+struct NetIdMobileSdk_AppApp: App {
+
+    @StateObject private var serviceViewModel = ServiceViewModel()
+
+    var body: some Scene {
+        WindowGroup {
+            ContentView().onOpenURL(perform: { url in
+                serviceViewModel.resumeSession(url)
+            })
+            .environmentObject(serviceViewModel)
+        }
+    }
+}
+```
+
+And then, by implementing the function `resumeSession` your app has to inform the netID SDK, that an authorization response has been delivered:
+
+```swift
+func resumeSession(_ url: URL) {
+    NetIdService.sharedInstance.resumeSession(url)
+}
+```
+
+As this is a rather crucial process, the netID SDK makes use of Universal Links to ensure proper and secure communication between the authorization service and your app. 
 In order to make Universal Links work, you have to provide a link in the form of an uri (e.g. https://eunid.github.io/redirectApp) and host a special file named `apple-app-site-association` on that very same domain (in this example https://eunid.github.io/.well-known/apple-app-site-association).
 The format of that file is explained in detail [here](https://developer.apple.com/documentation/xcode/supporting-associated-domains).
 
@@ -45,6 +72,9 @@ In Xcode make sure to add your domain to the list of `Associated Domains` in the
 <img src="images/netIdSdk_xcode_associate_domains.png" alt="netID SDK example app - add associated domains" style="width:800px;"/>
 
 To learn more about Universal Links, see the corresponding documentation [here](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc).
+
+
+netIDservice.resumeSession(url) 
 
 Finally, initialize the NetIdService itself with the aforementioned configuration.
 ```swift
