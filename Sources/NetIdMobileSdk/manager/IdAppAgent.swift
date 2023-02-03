@@ -14,7 +14,6 @@
 
 import Foundation
 import AppAuth
-import AppAuthCore
 
 /**
  An implementation of [OIDExternalUserAgent] for making use of id apps as external user-agents.

@@ -80,7 +80,6 @@
 		B66A0803287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B66A0802287D641900A68E08 /* NetIdMobileSdk_AppUITestsLaunchTests.swift */; };
 		B66E34C328858697001C937D /* netIdAppIdentifiers.json in Resources */ = {isa = PBXBuildFile; fileRef = B66E34C228858697001C937D /* netIdAppIdentifiers.json */; };
 		B6B22D232880276300F45264 /* AppAuth in Frameworks */ = {isa = PBXBuildFile; productRef = B6B22D222880276300F45264 /* AppAuth */; };
-		B6B22D252880276300F45264 /* AppAuthCore in Frameworks */ = {isa = PBXBuildFile; productRef = B6B22D242880276300F45264 /* AppAuthCore */; };
 		D692A4A1B8C8F360A887DEBF /* UserInfoRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692ABA93CF874069DC0E636 /* UserInfoRequest.swift */; };
 		D692A4D3C8CB9416BC2169B5 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AECFE5C71DDD154FCC3A /* Logger.swift */; };
 		D692A5B324DB3046EE5067CC /* LocalizableUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = D692AEA622C9D0187769924E /* LocalizableUtil.swift */; };
@@ -290,7 +289,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				B6B22D232880276300F45264 /* AppAuth in Frameworks */,
-				B6B22D252880276300F45264 /* AppAuthCore in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -745,7 +743,6 @@
 			name = NetIdMobileSdk;
 			packageProductDependencies = (
 				B6B22D222880276300F45264 /* AppAuth */,
-				B6B22D242880276300F45264 /* AppAuthCore */,
 			);
 			productName = NetIdMobileSdk;
 			productReference = B66A07C5287D62C100A68E08 /* NetIdMobileSdk.framework */;
@@ -1573,7 +1570,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Examples/NetIdMobileSdk-App/NetIdMobileSdkApp.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Examples/NetIdMobileSdk-App/Preview Content\"";
@@ -1596,7 +1593,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = PP_netID;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "netID-SDK-appstore";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DemoAppDevCert;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1613,7 +1610,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Examples/NetIdMobileSdk-App/NetIdMobileSdkApp.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Examples/NetIdMobileSdk-App/Preview Content\"";
@@ -1636,7 +1633,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = PP_netID;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "netID-SDK-appstore";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DemoAppDevCert;
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1836,11 +1833,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
 			productName = AppAuth;
-		};
-		B6B22D242880276300F45264 /* AppAuthCore */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = B6B22D212880276200F45264 /* XCRemoteSwiftPackageReference "AppAuth-iOS" */;
-			productName = AppAuthCore;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
