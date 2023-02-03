@@ -1,0 +1,802 @@
+{
+  "builtTestProducts" : [
+    {
+      "binaryPath" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdkPackageTests.xctest/Contents/MacOS/NetIdMobileSdkPackageTests",
+      "productName" : "NetIdMobileSdkPackageTests"
+    }
+  ],
+  "copyCommands" : {
+    "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/Assets.xcassets" : {
+      "inputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/Assets.xcassets"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "directory",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/Assets.xcassets"
+        }
+      ]
+    },
+    "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/de.lproj/NetIdMobileSdkLocalizable.strings" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/SupportingFiles/de.lproj/NetIdMobileSdkLocalizable.strings"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/de.lproj/NetIdMobileSdkLocalizable.strings"
+        }
+      ]
+    },
+    "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/en.lproj/NetIdMobileSdkLocalizable.strings" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/SupportingFiles/en.lproj/NetIdMobileSdkLocalizable.strings"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/en.lproj/NetIdMobileSdkLocalizable.strings"
+        }
+      ]
+    },
+    "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/Info.plist" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/Info.plist"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/Info.plist"
+        }
+      ]
+    },
+    "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/netIdAppIdentifiers.json" : {
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/assets/netIdAppIdentifiers.json"
+        }
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk_NetIdMobileSdk.bundle/netIdAppIdentifiers.json"
+        }
+      ]
+    }
+  },
+  "pluginDescriptions" : [
+
+  ],
+  "swiftCommands" : {
+    "C.NetIdMobileSdk-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "importPath" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/AuthorizationLoginView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/AuthorizationPermissionView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/AuthorizationViewDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/RadioButtonView.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdAuthFlow.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdButtonStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdConfig.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdError.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdErrorCode.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdErrorProcess.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdLayerStyle.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdService.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdServiceDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/extension/Color+NetIdMobileSdk.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/extension/UIApplication+NetIdMobileSdk.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/AppAuthManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/AppAuthManagerDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/IdAppAgent.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/PermissionManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/PermissionManagerDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/UserInfoManager.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/UserInfoManagerDelegate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/Address.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/AppDetailsAndroid.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/AppDetailsIOS.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/AppIdentifier.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/NetIdAppIdentifiers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/ShippingAddress.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/UserInfo.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPermissionStatus.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPermissionUpdate.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPrivacySettings.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPrivacySettingsType.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionReadResponse.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionResponseStatus.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionUpdateErrorResponse.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionUpdateResponse.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/SubjectIdentifiers.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/AuthorizationUtil.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/LocalizableUtil.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/Logger.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/ReachabilityUtil.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/TokenUtil.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/WebserviceConstants.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/Webservice.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/BaseRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/HttpMethod.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/RequestQuery.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/permission/PermissionReadRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/permission/PermissionWriteRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/userInfo/UserInfoRequest.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/DerivedSources/resource_bundle_accessor.swift"
+        },
+        {
+          "kind" : "virtual",
+          "name" : "<NetIdMobileSdk-debug.module-resources>"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/iOS/OIDAuthState+IOS.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/iOS/OIDAuthorizationService+IOS.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/iOS/OIDExternalUserAgentCatalyst.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/iOS/OIDExternalUserAgentIOS.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/iOS/OIDExternalUserAgentIOSCustomBrowser.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/macOS/LoopbackHTTPServer/OIDLoopbackHTTPServer.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/macOS/OIDAuthState+Mac.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/macOS/OIDAuthorizationService+Mac.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/macOS/OIDExternalUserAgentMac.m.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/macOS/OIDRedirectHTTPHandler.m.o"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "NetIdMobileSdk",
+      "moduleOutputPath" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.swiftmodule",
+      "objects" : [
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/AuthorizationLoginView.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/AuthorizationPermissionView.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/AuthorizationViewDelegate.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/RadioButtonView.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdAuthFlow.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdButtonStyle.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdConfig.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdError.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdErrorCode.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdErrorProcess.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdLayerStyle.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdService.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdServiceDelegate.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/extension/Color+NetIdMobileSdk.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/extension/UIApplication+NetIdMobileSdk.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/AppAuthManager.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/AppAuthManagerDelegate.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/IdAppAgent.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/PermissionManager.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/PermissionManagerDelegate.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/UserInfoManager.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/UserInfoManagerDelegate.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/Address.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/AppDetailsAndroid.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/AppDetailsIOS.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/AppIdentifier.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/NetIdAppIdentifiers.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/ShippingAddress.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/UserInfo.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPermissionStatus.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPermissionUpdate.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPrivacySettings.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPrivacySettingsType.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionReadResponse.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionResponseStatus.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionUpdateErrorResponse.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionUpdateResponse.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/SubjectIdentifiers.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/AuthorizationUtil.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/LocalizableUtil.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/Logger.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/ReachabilityUtil.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/TokenUtil.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/WebserviceConstants.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/Webservice.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/BaseRequest.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/HttpMethod.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/RequestQuery.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/permission/PermissionReadRequest.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/permission/PermissionWriteRequest.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/userInfo/UserInfoRequest.swift.o",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/resource_bundle_accessor.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx10.13",
+        "-swift-version",
+        "5",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-g",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-Xcc",
+        "-fmodule-map-file=/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/checkouts/AppAuth-iOS/Source/AppAuth",
+        "-Xcc",
+        "-fmodule-map-file=/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuthCore.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/checkouts/AppAuth-iOS/Source/AppAuthCore",
+        "-module-cache-path",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-emit-objc-header",
+        "-emit-objc-header-path",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/NetIdMobileSdk-Swift.h",
+        "-color-diagnostics",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator16.2.sdk",
+        "-target",
+        "x86_64-apple-ios13.0-simulator"
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/AuthorizationLoginView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/AuthorizationPermissionView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/AuthorizationViewDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/UI/RadioButtonView.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdAuthFlow.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdButtonStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdConfig.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdError.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdErrorCode.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdErrorProcess.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdLayerStyle.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdService.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/api/NetIdServiceDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/extension/Color+NetIdMobileSdk.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/extension/UIApplication+NetIdMobileSdk.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/AppAuthManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/AppAuthManagerDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/IdAppAgent.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/PermissionManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/PermissionManagerDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/UserInfoManager.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/manager/UserInfoManagerDelegate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/Address.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/AppDetailsAndroid.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/AppDetailsIOS.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/AppIdentifier.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/NetIdAppIdentifiers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/ShippingAddress.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/UserInfo.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPermissionStatus.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPermissionUpdate.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPrivacySettings.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/NetIdPrivacySettingsType.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionReadResponse.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionResponseStatus.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionUpdateErrorResponse.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/PermissionUpdateResponse.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/model/permission/SubjectIdentifiers.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/AuthorizationUtil.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/LocalizableUtil.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/Logger.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/ReachabilityUtil.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/TokenUtil.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/util/WebserviceConstants.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/Webservice.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/BaseRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/HttpMethod.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/RequestQuery.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/permission/PermissionReadRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/permission/PermissionWriteRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/webservice/request/userInfo/UserInfoRequest.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/resource_bundle_accessor.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.swiftmodule"
+        }
+      ],
+      "sources" : [
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/AuthorizationLoginView.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/AuthorizationPermissionView.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/AuthorizationViewDelegate.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/UI/RadioButtonView.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdAuthFlow.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdButtonStyle.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdConfig.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdError.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdErrorCode.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdErrorProcess.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdLayerStyle.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdService.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/api/NetIdServiceDelegate.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/extension/Color+NetIdMobileSdk.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/extension/UIApplication+NetIdMobileSdk.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/AppAuthManager.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/AppAuthManagerDelegate.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/IdAppAgent.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/PermissionManager.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/PermissionManagerDelegate.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/UserInfoManager.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/manager/UserInfoManagerDelegate.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/Address.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/AppDetailsAndroid.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/AppDetailsIOS.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/AppIdentifier.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/NetIdAppIdentifiers.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/ShippingAddress.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/UserInfo.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPermissionStatus.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPermissionUpdate.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPrivacySettings.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/NetIdPrivacySettingsType.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionReadResponse.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionResponseStatus.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionUpdateErrorResponse.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/PermissionUpdateResponse.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/model/permission/SubjectIdentifiers.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/AuthorizationUtil.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/LocalizableUtil.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/Logger.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/ReachabilityUtil.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/TokenUtil.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/util/WebserviceConstants.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/Webservice.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/BaseRequest.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/HttpMethod.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/RequestQuery.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/permission/PermissionReadRequest.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/permission/PermissionWriteRequest.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Sources/NetIdMobileSdk/webservice/request/userInfo/UserInfoRequest.swift",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/DerivedSources/resource_bundle_accessor.swift"
+      ],
+      "tempsPath" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build",
+      "wholeModuleOptimization" : false
+    },
+    "C.NetIdMobileSdkTests-debug.module" : {
+      "executable" : "/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/swiftc",
+      "importPath" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug",
+      "inputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Tests/NetIdMobileSdkTests/NetIdMobileSdkTests.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.swiftmodule"
+        }
+      ],
+      "isLibrary" : true,
+      "moduleName" : "NetIdMobileSdkTests",
+      "moduleOutputPath" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdkTests.swiftmodule",
+      "objects" : [
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdkTests.build/NetIdMobileSdkTests.swift.o"
+      ],
+      "otherArguments" : [
+        "-target",
+        "arm64-apple-macosx11.0",
+        "-swift-version",
+        "5",
+        "-enable-batch-mode",
+        "-index-store-path",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/index/store",
+        "-Onone",
+        "-enable-testing",
+        "-g",
+        "-j10",
+        "-DSWIFT_PACKAGE",
+        "-DDEBUG",
+        "-Xcc",
+        "-fmodule-map-file=/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuth.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/checkouts/AppAuth-iOS/Source/AppAuth",
+        "-Xcc",
+        "-fmodule-map-file=/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/AppAuthCore.build/module.modulemap",
+        "-Xcc",
+        "-I",
+        "-Xcc",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/checkouts/AppAuth-iOS/Source/AppAuthCore",
+        "-module-cache-path",
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/ModuleCache",
+        "-parseable-output",
+        "-parse-as-library",
+        "-color-diagnostics",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX13.1.sdk",
+        "-F",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/Library/Frameworks",
+        "-I",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-L",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/usr/lib",
+        "-sdk",
+        "/Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator16.2.sdk",
+        "-target",
+        "x86_64-apple-ios13.0-simulator"
+      ],
+      "outputs" : [
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdkTests.build/NetIdMobileSdkTests.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdkTests.swiftmodule"
+        }
+      ],
+      "sources" : [
+        "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/Tests/NetIdMobileSdkTests/NetIdMobileSdkTests.swift"
+      ],
+      "tempsPath" : "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdkTests.build",
+      "wholeModuleOptimization" : false
+    }
+  },
+  "swiftFrontendCommands" : {
+
+  },
+  "testDiscoveryCommands" : {
+
+  }
+}

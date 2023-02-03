@@ -1,0 +1,4 @@
+module AppAuthCore {
+    umbrella "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/checkouts/AppAuth-iOS/Source/AppAuthCore"
+    export *
+}
