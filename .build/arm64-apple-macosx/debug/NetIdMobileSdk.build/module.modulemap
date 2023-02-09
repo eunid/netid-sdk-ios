@@ -1,4 +1,0 @@
-module NetIdMobileSdk {
-    header "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/arm64-apple-macosx/debug/NetIdMobileSdk.build/NetIdMobileSdk-Swift.h"
-    requires objc
-}

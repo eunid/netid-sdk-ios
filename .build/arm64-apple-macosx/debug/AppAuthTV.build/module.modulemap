@@ -1,4 +1,0 @@
-module AppAuthTV {
-    umbrella "/Users/tbachmor/workspace/united/netid/netid-sdk-ios/.build/checkouts/AppAuth-iOS/Source/AppAuthTV"
-    export *
-}
