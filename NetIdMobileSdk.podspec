@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "NetIdMobileSdk"
-  spec.version      = "0.0.1"
+  spec.version      = "1.0.0"
   spec.summary      = "An SDK for interfacing with netID authorization and privacy management services."
 
   spec.description  = <<-DESC
@@ -19,10 +19,10 @@ Pod::Spec.new do |spec|
 
   spec.platform      = :ios, "14.0"
   spec.swift_version = '5'
-  spec.source        = { :git => "https://github.com/eunid/netid-sdk-ios.git", :tag => "main" }
+  spec.source        = { :git => "https://github.com/eunid/netid-sdk-ios.git", :tag => spec.version }
 
   spec.ios.source_files      = "Sources/NetIdMobileSdk/**/*.swift"
   spec.ios.framework         = "AppAuth"
-  spec.ios.dependency "AppAuth", "~> 1.5.0"
+  spec.ios.dependency "AppAuth", "~> 1.5"
 
 end

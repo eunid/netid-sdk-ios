@@ -286,3 +286,21 @@ ForEach(NetIdService.sharedInstance.getKeysForAccountProviderApps(), id: \.self)
     NetIdService.sharedInstance.loginButtonForAccountProviderApp(authFlow: .Login, key: key)
 }
 ```
+
+## Adding the libray to your own project
+
+`netID MobielSDK for iOS` is available as Pod and . To include it in your own project, add the following dependency:
+
+With Swift Package Manager, add the following dependency to your Package.swift:
+
+```
+dependencies: [
+    .package(url: "https://github.com/eunid/netid-sdk-ios.git", .upToNextMajor(from: "1.0.0"))
+]
+````
+
+With CocoaPods, add the following line to your Podfile:
+
+```
+pod 'NetIdMobileSdk'
+```
