@@ -73,9 +73,6 @@ In Xcode make sure to add your domain to the list of `Associated Domains` in the
 
 To learn more about Universal Links, see the corresponding documentation [here](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc).
 
-
-netIDservice.resumeSession(url) 
-
 Finally, initialize the NetIdService itself with the aforementioned configuration.
 ```swift
 NetIdService.sharedInstance.initialize(config)
@@ -189,7 +186,6 @@ To get rid of the current session, the ```NetIdService.endsession()``` has to be
 
 Subsequent calls now can be made to use different aspects of the service.
 
-
 ```swift
 NetIdService.sharedInstance.endSession()
 ```
@@ -289,7 +285,7 @@ ForEach(NetIdService.sharedInstance.getKeysForAccountProviderApps(), id: \.self)
 
 ## Adding the libray to your own project
 
-`netID MobielSDK for iOS` is available as Pod and . To include it in your own project, add the following dependency:
+`netID MobielSDK for iOS` can be consumed as a package for the Swift Package Manager and as a Cocoa Pod. To include it in your own project, add the following dependency:
 
 With Swift Package Manager, add the following dependency to your Package.swift:
 
