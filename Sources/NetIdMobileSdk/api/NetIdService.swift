@@ -186,7 +186,7 @@ open class NetIdService: NSObject {
      */
     @ViewBuilder
     public func continueButtonPermissionFlow(continueText: String = "") -> some View {
-        let bundle = Bundle(for: NetIdService.self)
+        let bundle = Bundle.module
         
         let vc = UIApplication.shared.visibleViewController
         Button {
@@ -217,7 +217,7 @@ open class NetIdService: NSObject {
      */
     @ViewBuilder
     public func continueButtonLoginFlow(authFlow: NetIdAuthFlow, continueText: String = "") -> some View {
-        let bundle = Bundle(for: NetIdService.self)
+        let bundle = Bundle.module
 
         let vc = UIApplication.shared.visibleViewController
 
@@ -276,7 +276,7 @@ open class NetIdService: NSObject {
      */
     @ViewBuilder
     public func permissionButtonForAccountProviderApp(key: String, continueText: String = "") -> some View {
-        let bundle = Bundle(for: NetIdService.self)
+        let bundle = Bundle.module
         
         let vc = UIApplication.shared.visibleViewController
 
@@ -316,7 +316,7 @@ open class NetIdService: NSObject {
      */
     @ViewBuilder
     public func loginButtonForAccountProviderApp(authFlow: NetIdAuthFlow, key: String) -> some View {
-        let bundle = Bundle(for: NetIdService.self)
+        let bundle = Bundle.module
         
         let vc = UIApplication.shared.visibleViewController
 
@@ -558,3 +558,11 @@ extension NetIdService: AuthorizationViewDelegate {
         authorize(universalLink: universalLink, currentViewController: presentingViewController, authFlow: authFlow)
     }
 }
+
+#if !USES_SWIFT_PACKAGE_MANAGER
+
+extension Bundle {
+    static var module:Bundle { Bundle(identifier: "de.netid.mobile.sdk.NetIdMobileSdk")! }
+}
+
+#endif

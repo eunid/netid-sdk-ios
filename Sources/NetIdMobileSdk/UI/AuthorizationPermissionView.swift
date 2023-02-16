@@ -23,7 +23,7 @@ struct AuthorizationPermissionView: View {
     var headlineText = LocalizableUtil.netIdLocalizable("authorization_view_private_settings")
     var legalText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
-    private let bundle = Bundle(for: NetIdService.self)
+    private let bundle = Bundle.module
     private let style = NetIdService.sharedInstance.getLayerStyle()
     @Environment(\.colorScheme) var colorScheme
 

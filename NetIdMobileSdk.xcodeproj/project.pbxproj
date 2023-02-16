@@ -1570,7 +1570,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Examples/NetIdMobileSdk-App/NetIdMobileSdkApp.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Examples/NetIdMobileSdk-App/Preview Content\"";
@@ -1593,7 +1593,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = PP_netID;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DemoAppDevCert;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "netID-SDK-appstore";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -1610,7 +1610,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = "Examples/NetIdMobileSdk-App/NetIdMobileSdkApp.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Examples/NetIdMobileSdk-App/Preview Content\"";
@@ -1633,7 +1633,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "de.netid.mobile.sdk.NetIdMobileSdk-App";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = PP_netID;
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = DemoAppDevCert;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = "netID-SDK-appstore";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;

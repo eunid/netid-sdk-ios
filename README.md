@@ -20,9 +20,9 @@ let claims = "{\"userinfo\":{\"email\": {\"essential\": true}, \"email_verified\
 let config = NetIdConfig(
                 clientId: "XXXXXXXX-XXXX-XXXX-XXXX-XXXXXXXXXXXX",
                 redirectUri: "https://eunid.github.io/redirectApp",
-                claims: claims
+                claims: claims,
                 promptWeb: nil,
-                loginLayerConfig: nil
+                loginLayerConfig: nil,
                 permissionLayerConfig: nil)
 ```
 
