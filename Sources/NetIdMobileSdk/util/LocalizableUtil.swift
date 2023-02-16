@@ -23,10 +23,10 @@ class LocalizableUtil {
     static func netIdLocalizable(_ localizableKey: String) -> String {
         if #available(iOS 15, *) {
             return String(localized: String.LocalizationValue(localizableKey), table: Constants.localizableTableName,
-                   bundle: Bundle(for: LocalizableUtil.self), locale: Locale.current, comment: "")
+                          bundle: Bundle.module, locale: Locale.current, comment: "")
         } else {
             // Fallback on earlier versions
-            let bundle = Bundle(for: NetIdService.self)
+            let bundle = Bundle.module
             return bundle.localizedString(forKey: localizableKey, value: nil, table: Constants.localizableTableName)
         }
     }

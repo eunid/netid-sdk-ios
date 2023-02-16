@@ -23,7 +23,7 @@ struct AuthorizationLoginView: View {
     var headlineText = LocalizableUtil.netIdLocalizable("authorization_login_view_email_login")
     var loginText = LocalizableUtil.netIdLocalizable("authorization_login_view_continue_with")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
-    private let bundle = Bundle(for: NetIdService.self)
+    private let bundle = Bundle.module
     private let style = NetIdService.sharedInstance.getLayerStyle()
     @Environment(\.colorScheme) var colorScheme
 

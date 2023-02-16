@@ -25,7 +25,7 @@ class AuthorizationWayUtil {
     class func checkNetIdAuth() -> [AppIdentifier] {
         var installedAppIdentifiers = [AppIdentifier]()
 
-        if let path = Bundle(for: self).path(forResource: Constants.netIdAppIdentifiers, ofType: Constants.jsonFileType) {
+        if let path = Bundle.module.path(forResource: Constants.netIdAppIdentifiers, ofType: Constants.jsonFileType) {
             do {
                 let data = try Data(contentsOf: URL(fileURLWithPath: path), options: .mappedIfSafe)
                 let appIdentifiers: NetIdAppIdentifiers = try JSONDecoder().decode(NetIdAppIdentifiers.self, from: data)

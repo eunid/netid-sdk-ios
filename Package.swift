@@ -46,7 +46,10 @@ let package = Package(
             dependencies: [.product(name: "AppAuth", package: "AppAuth-iOS")],
             path: "Sources/NetIdMobileSdk",
             resources: [
-                .process("assets"),
+		.process("assets"),
+            ],
+            swiftSettings: [
+              .define("USES_SWIFT_PACKAGE_MANAGER")
             ]),
         .testTarget(
             name: "NetIdMobileSdkTests",
