@@ -4,7 +4,7 @@
 <dict>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
-		<string>x-webdemail-netid-v1xxx</string>
+		<string>x-webdemail-netid-v1</string>
 		<string>x-gmxmail-netid-v1</string>
 	</array>
 </dict>
