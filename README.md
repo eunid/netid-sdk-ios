@@ -206,6 +206,45 @@ NetIdService.sharedInstance.updatePermissions()
 ```
 Updates the permissions object. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
 
+## Implementing the NetIdServiceDelegate
+
+To be able to react to callbacks regarding the aforementioned functions, your application must conform to the `NetIdServiceDelegate` protocol. Depending on your type of application, you must not implemnt all callbacks in full detail (e.g. if you never intent to fetch user information, you could just implement a stub here), hence we only list the most important ones here.
+
+```swift
+/**
+ Delegate function that gets called when the SDK could not be initialized correctly.
+ In this case, a ``NetIdError`` is returned which holds more information about the error.
+ - Parameter Error description.
+ */
+func didFinishInitializationWithError(_ error: NetIdError?)
+
+/**
+ Delegate function that gets called when the authentication process finished successfully.
+ In this case, an access token is returned.
+ - Parameter Access token.
+ */
+func didFinishAuthentication(_ accessToken: String)
+
+/**
+ Delegate function that gets called when user information could not be retrieved.
+ In this case, a ``NetIdError`` is returned which holds more information about the error.
+ - Parameter Error description.
+ */
+func didFinishAuthenticationWithError(_ error: NetIdError?)
+
+/**
+ Delegate function that gets called when a session ends.
+ */
+func didEndSession()
+
+/**
+ Delegate function that gets called when the authentication process got canceled.
+ In this case, a ``NetIdError`` is returned which holds more information about the error.
+ - Parameter Error description.
+ */
+func didCancelAuthentication(_ error: NetIdError)
+```
+
 ## Button workflow
 
 As stated in the beginning, there is another way to interact with the SDK. In the so called <i>button workflow</i> you can decide to not use the preconfigured forms and texts but build your very own dialogs.
