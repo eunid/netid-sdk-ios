@@ -73,9 +73,6 @@ In Xcode make sure to add your domain to the list of `Associated Domains` in the
 
 To learn more about Universal Links, see the corresponding documentation [here](https://developer.apple.com/documentation/xcode/allowing-apps-and-websites-to-link-to-your-content?language=objc).
 
-
-netIDservice.resumeSession(url) 
-
 Finally, initialize the NetIdService itself with the aforementioned configuration.
 ```swift
 NetIdService.sharedInstance.initialize(config)
@@ -189,7 +186,6 @@ To get rid of the current session, the ```NetIdService.endsession()``` has to be
 
 Subsequent calls now can be made to use different aspects of the service.
 
-
 ```swift
 NetIdService.sharedInstance.endSession()
 ```
@@ -209,6 +205,45 @@ Fetches the permissions object. On success `didFetchPermissions` is called on th
 NetIdService.sharedInstance.updatePermissions()
 ```
 Updates the permissions object. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
+
+## Implementing the NetIdServiceDelegate
+
+To be able to react to callbacks regarding the aforementioned functions, your application must conform to the `NetIdServiceDelegate` protocol. Depending on your type of application, you must not implemnt all callbacks in full detail (e.g. if you never intent to fetch user information, you could just implement a stub here), hence we only list the most important ones here.
+
+```swift
+/**
+ Delegate function that gets called when the SDK could not be initialized correctly.
+ In this case, a ``NetIdError`` is returned which holds more information about the error.
+ - Parameter Error description.
+ */
+func didFinishInitializationWithError(_ error: NetIdError?)
+
+/**
+ Delegate function that gets called when the authentication process finished successfully.
+ In this case, an access token is returned.
+ - Parameter Access token.
+ */
+func didFinishAuthentication(_ accessToken: String)
+
+/**
+ Delegate function that gets called when user information could not be retrieved.
+ In this case, a ``NetIdError`` is returned which holds more information about the error.
+ - Parameter Error description.
+ */
+func didFinishAuthenticationWithError(_ error: NetIdError?)
+
+/**
+ Delegate function that gets called when a session ends.
+ */
+func didEndSession()
+
+/**
+ Delegate function that gets called when the authentication process got canceled.
+ In this case, a ``NetIdError`` is returned which holds more information about the error.
+ - Parameter Error description.
+ */
+func didCancelAuthentication(_ error: NetIdError)
+```
 
 ## Button workflow
 
@@ -285,4 +320,22 @@ And if you prefer app2app, you can request respective buttons for each Account P
 ForEach(NetIdService.sharedInstance.getKeysForAccountProviderApps(), id: \.self) { key in
     NetIdService.sharedInstance.loginButtonForAccountProviderApp(authFlow: .Login, key: key)
 }
+```
+
+## Adding the libray to your own project
+
+`netID MobielSDK for iOS` can be consumed as a package for the Swift Package Manager and as a Cocoa Pod. To include it in your own project, add the following dependency:
+
+With Swift Package Manager, add the following dependency to your Package.swift:
+
+```
+dependencies: [
+    .package(url: "https://github.com/eunid/netid-sdk-ios.git", .upToNextMajor(from: "1.0.0"))
+]
+````
+
+With CocoaPods, add the following line to your Podfile:
+
+```
+pod 'NetIdMobileSdk'
 ```

@@ -202,6 +202,7 @@ struct ContentView: View {
                         }
                     VStack {
                         Text("choose_auth_flow_title")
+                            .foregroundColor(Color.black)
                             .padding()
                         
                         Button(action: {
