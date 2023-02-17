@@ -337,5 +337,6 @@ dependencies: [
 With CocoaPods, add the following line to your Podfile:
 
 ```
-pod 'NetIdMobileSdk'
+pod 'NetIdMobileSdk', :git => 'https://github.com/eunid/netid-sdk-ios.git', :tag => '1.0.0'
 ```
+
