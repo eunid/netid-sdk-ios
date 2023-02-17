@@ -562,7 +562,17 @@ extension NetIdService: AuthorizationViewDelegate {
 #if !USES_SWIFT_PACKAGE_MANAGER
 
 extension Bundle {
-    static var module:Bundle { Bundle(identifier: "de.netid.mobile.sdk.NetIdMobileSdk")! }
+    // Make sure that we do return the correct bundle (if used as a library via Cocopods).
+    static var module:Bundle {
+        for bundle in allBundles {
+            let resourceBundleURL = bundle.url(forResource: "NetIdMobileSdk", withExtension: "bundle")
+            if (resourceBundleURL != nil) {
+                return Bundle(url: resourceBundleURL!)!
+            }
+        }
+        // Default fallback
+        return Bundle(for: NetIdService.self)
+    }
 }
 
 #endif
