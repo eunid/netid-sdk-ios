@@ -49,6 +49,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated resources
 - Changed minimum iOS version to 14
 - Removed unused plattform macos
+- Added flexible bundle handling
 
 ### Fixed
 - Url schemes error
