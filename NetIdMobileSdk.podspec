@@ -20,6 +20,7 @@ Pod::Spec.new do |spec|
   spec.platform      = :ios, "14.0"
   spec.swift_version = '5'
   spec.source        = { :git => "https://github.com/eunid/netid-sdk-ios.git", :tag => spec.version }
+  spec.info_plist    = { 'CFBundleIdentifier' => 'de.netid.mobile.sdk.NetIdMobileSdk' }
 
   spec.ios.source_files      = "Sources/NetIdMobileSdk/**/*.swift"
   spec.ios.dependency "AppAuth", "~> 1.5"
