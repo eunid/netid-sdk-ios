@@ -21,7 +21,7 @@ Pod::Spec.new do |spec|
   spec.swift_version = '5'
   spec.source        = { :git => "https://github.com/eunid/netid-sdk-ios.git", :tag => spec.version }
   spec.pod_target_xcconfig = { 'PRODUCT_BUNDLE_IDENTIFIER': 'de.netid.mobile.sdk.NetIdMobileSdk' }
-  spec.resource_bundles    = { 'de.netid.mobile.sdk.NetIdMobileSdk' => ['Sources/NetIdMobileSdk/UI/*{xcassets}'] }
+  spec.resource_bundles    = { 'NetIdMobileSdk' => ['Sources/NetIdMobileSdk/UI/*{xcassets}', 'Sources/NetIdMobileSdk/assets/*json'] }
 
   spec.ios.source_files      = "Sources/NetIdMobileSdk/**/*.swift"
   spec.ios.dependency "AppAuth", "~> 1.5"
