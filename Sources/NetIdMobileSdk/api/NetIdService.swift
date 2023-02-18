@@ -568,7 +568,7 @@ extension Bundle {
         
         /// Returns the `Bundle` instance that holds the resources for NetIdService
         let frameworkBundle = Bundle(for: NetIdService.self)
-        // When using CocoaPods, resources are moved into a separate resource bundle "NetIdSDKAssets", load that
+        // When using CocoaPods, resources are moved into a separate resource bundle "NetIdMobileSdk", load that
         let resourceBundleURL = frameworkBundle.url(forResource: "NetIdMobileSdk", withExtension: "bundle")
         // fails in case not used via Cocopods
         if (resourceBundleURL != nil) {
