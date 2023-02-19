@@ -562,17 +562,21 @@ extension NetIdService: AuthorizationViewDelegate {
 #if !USES_SWIFT_PACKAGE_MANAGER
 
 extension Bundle {
+       
     // Make sure that we do return the correct bundle (if used as a library via Cocopods).
-    static var module:Bundle {
-        for bundle in allBundles {
-            let resourceBundleURL = bundle.url(forResource: "NetIdMobileSdk", withExtension: "bundle")
-            if (resourceBundleURL != nil) {
-                return Bundle(url: resourceBundleURL!)!
-            }
+    static let module: Bundle = {
+        
+        /// Returns the `Bundle` instance that holds the resources for NetIdService
+        let frameworkBundle = Bundle(for: NetIdService.self)
+        // When using CocoaPods, resources are moved into a separate resource bundle "NetIdMobileSdk", load that
+        let resourceBundleURL = frameworkBundle.url(forResource: "NetIdMobileSdk", withExtension: "bundle")
+        // fails in case not used via Cocopods
+        if (resourceBundleURL != nil) {
+            return Bundle(url: resourceBundleURL!)!
         }
-        // Default fallback
-        return Bundle(for: NetIdService.self)
-    }
+        // Alternatively just return the framework bundle itself (xcode build and not SPM)
+        return frameworkBundle
+    }()
 }
 
 #endif
