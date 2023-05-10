@@ -33,7 +33,7 @@ struct AuthorizationPermissionView: View {
     var body: some View {
         VStack(spacing: 10) {
             HStack {
-                Image(logoId.isEmpty ? "96x96_n-a" : logoId, bundle: bundle)
+                Image(logoId.isEmpty ? "96x96_n-a" : logoId, bundle: logoId.isEmpty ? bundle : nil)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 32, alignment: .leading)
