@@ -60,4 +60,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make get/update permission possible in permission flow
 - Fixed an edge case when resuming a session
 - Fixed app2app redirect
+- Fixed loading of custom logo when using the SDK via SPM/CocoaPods
+
 

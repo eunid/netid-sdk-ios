@@ -31,7 +31,7 @@ public struct LoginLayerConfig {
 
 public struct PermissionLayerConfig {
     /// References an icon asset by name to be set during permission flow (in the upper left corner of the dialog).
-    public var logoId: String?
+    public var logoName: String?
     /// Sets the text of the headline (beneath the logo).
     public var headlineText: String?
     /// Sets the text of the first part of the legal information text. However, the second part is fixed and can not be set.
@@ -39,8 +39,8 @@ public struct PermissionLayerConfig {
     /// Sets the text of the continue button at the bottom of the dialog.
     public var continueText: String?
     
-    public init(logoId: String? = nil, headlineText: String? = nil, legalText: String? = nil, continueText: String? = nil) {
-        self.logoId = logoId
+    public init(logoName: String? = nil, headlineText: String? = nil, legalText: String? = nil, continueText: String? = nil) {
+        self.logoName = logoName
         self.headlineText = headlineText
         self.legalText = legalText
         self.continueText = continueText
