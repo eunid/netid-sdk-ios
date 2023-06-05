@@ -141,7 +141,7 @@ let loginLayerConfig = LoginLayerConfig(
 And when using permission flow, the dialog can be customized as well:
 ```swift
 let permissionLayerConfig = PermissionLayerConfig(
-    logoId: "custom_logo_resource_name",
+    logoName: "custom_logo_resource_name",
     headlineText: "Headline text", 
     legalText: "Legal text", 
     continueText: "Continue text")
