@@ -324,19 +324,19 @@ ForEach(NetIdService.sharedInstance.getKeysForAccountProviderApps(), id: \.self)
 
 ## Adding the libray to your own project
 
-`netID MobielSDK for iOS` can be consumed as a package for the Swift Package Manager and as a Cocoa Pod. To include it in your own project, add the following dependency:
+`netID MobileSDK for iOS` can be consumed as a package for the Swift Package Manager and as a Cocoa Pod. To include it in your own project, add the following dependency:
 
 With Swift Package Manager, add the following dependency to your Package.swift:
 
 ```
 dependencies: [
-    .package(url: "https://github.com/eunid/netid-sdk-ios.git", .upToNextMajor(from: "1.0.0"))
+    .package(url: "https://github.com/eunid/netid-sdk-ios.git", .upToNextMajor(from: "1.0.1"))
 ]
 ````
 
 With CocoaPods, add the following line to your Podfile:
 
 ```
-pod 'NetIdMobileSdk', :git => 'https://github.com/eunid/netid-sdk-ios.git', :tag => '1.0.0'
+pod 'NetIdMobileSdk', :git => 'https://github.com/eunid/netid-sdk-ios.git', :tag => '1.0.1'
 ```
 
