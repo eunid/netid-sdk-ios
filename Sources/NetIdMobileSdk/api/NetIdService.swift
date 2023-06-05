@@ -115,7 +115,7 @@ open class NetIdService: NSObject {
         case .Permission:
             let config = netIdConfig?.permissionLayerConfig
             return AnyView(AuthorizationPermissionView(delegate: self, presentingViewController: currentViewController,
-                                                 appIdentifiers: netIdApps, logoId: (config?.logoId) ?? "", headlineText: (config?.headlineText) ?? "", legalText: (config?.legalText) ?? "", continueText: (config?.continueText) ?? ""))
+                                                 appIdentifiers: netIdApps, logoName: (config?.logoName) ?? "", headlineText: (config?.headlineText) ?? "", legalText: (config?.legalText) ?? "", continueText: (config?.continueText) ?? ""))
         case .LoginPermission, .Login:
             let config = netIdConfig?.loginLayerConfig
             return AnyView(AuthorizationLoginView(delegate: self, presentingViewController: currentViewController,

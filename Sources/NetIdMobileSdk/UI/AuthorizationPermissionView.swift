@@ -19,7 +19,7 @@ struct AuthorizationPermissionView: View {
     weak var delegate: AuthorizationViewDelegate?
     var presentingViewController: UIViewController
     var appIdentifiers = [AppIdentifier]()
-    var logoId = String("logo_net_id")
+    var logoName = String("logo_net_id")
     var headlineText = LocalizableUtil.netIdLocalizable("authorization_view_private_settings")
     var legalText = LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one")
     var continueText = LocalizableUtil.netIdLocalizable("authorization_view_agree_and_continue_with_net_id")
@@ -33,7 +33,7 @@ struct AuthorizationPermissionView: View {
     var body: some View {
         VStack(spacing: 10) {
             HStack {
-                Image(logoId.isEmpty ? "96x96_n-a" : logoId, bundle: logoId.isEmpty ? bundle : nil)
+                Image(logoName.isEmpty ? "96x96_n-a" : logoName, bundle: logoName.isEmpty ? bundle : nil)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 100, height: 32, alignment: .leading)

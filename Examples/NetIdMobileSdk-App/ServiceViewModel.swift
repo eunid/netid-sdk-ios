@@ -40,7 +40,7 @@ class ServiceViewModel: NSObject, ObservableObject {
         
         // Initialize configuration for the SDK.
         // It is possible to customize the layer for the permission and login flow to a certain extend.
-        // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default vaules will apply instead.
+        // Therefor, PermissionLayerConfig and LoginLayerConfig are used. If they are not set, default values will apply instead.
         let loginLayerConfig = LoginLayerConfig()
         let permissionLayerConfig = PermissionLayerConfig()
         let snippetShippingAddress = (extraClaimShippingAddress) ? ", \"shipping_address\": null" : ""
