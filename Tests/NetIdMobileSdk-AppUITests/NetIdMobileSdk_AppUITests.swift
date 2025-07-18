@@ -20,8 +20,8 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
     
     // These constants define data for logging into one of the account providers.
     // These value have to be adjusted.
-    private let LOGIN = "donbachi@gmx.net"
-    private let PASSWORD = "sywsyt-bidRof-hyqxo7"
+    private let LOGIN = "your-mail@account.provider"
+    private let PASSWORD = "superSecretPassword"
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
