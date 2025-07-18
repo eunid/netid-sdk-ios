@@ -20,8 +20,8 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
     
     // These constants define data for logging into one of the account providers.
     // These value have to be adjusted.
-    private let LOGIN = "your-mail@account.provider"
-    private let PASSWORD = "superSecretPassword"
+    private let LOGIN = "donbachi@gmx.net"
+    private let PASSWORD = "sywsyt-bidRof-hyqxo7"
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.
@@ -166,6 +166,71 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         XCTAssertTrue(app.buttons["Authorisieren"].isEnabled)
     }
 
+    // Do complete login flow cycle.
+    func testSetAccessTokenOkay() throws {
+        XCTAssertTrue(app.buttons["Service initialisieren"].isEnabled)
+        XCTAssertFalse(app.buttons["Authorisieren"].isEnabled)
+        app.buttons["Service initialisieren"].tap()
+        sleep(2)
+        XCTAssertFalse(app.buttons["Service initialisieren"].isEnabled)
+        XCTAssertTrue(app.buttons["Authorisieren"].isEnabled)
+        app.buttons["Authorisieren"].tap()
+        sleep(2)
+        
+        let alert = app.staticTexts["Bitte wähle Deinen Authorisierungsprozess."]
+        XCTAssertTrue(alert.exists)
+        app.buttons["Login"].tap()
+        sleep(2)
+        app.buttons["Login mit netID"].tap()
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        XCTAssertTrue(springboard.exists)
+        let continueBtn = springboard.buttons["Fortfahren"].exists ? springboard.buttons["Fortfahren"] : springboard.buttons["Continue"]
+        continueBtn.tap()
+        
+            // Catch the webview
+        sleep(2)
+        let webViewQuery:XCUIElementQuery = app.descendants(matching: .webView)
+        let webView = webViewQuery.element(boundBy: 0)
+        
+            // If there was a login (or attempt) at a former time, we first need to go back one step.
+        let link = webView.staticTexts["E-Mail-Adresse ändern"]
+        if (link.exists) {
+            link.tap()
+            sleep(2)
+        }
+        
+        let mail = webView.textFields.element(boundBy: 0)
+        mail.tap()
+        mail.typeText(LOGIN)
+        XCTAssertEqual(LOGIN, mail.value as! String)
+        mail.typeText("\n")
+        
+        let password = webView.secureTextFields["Passwort"]
+        password.tap()
+        password.typeText(PASSWORD)
+        password.typeText("\n")
+        sleep(2)
+        
+        webView.buttons["Daten übermitteln"].tap()
+        sleep(2)
+        XCTAssertTrue(findInLog(search: "netID service authorized successfully"))
+        
+        app.buttons["Laden"].tap()
+        sleep(2)
+        
+        XCTAssertTrue(findInLog(search: "netID service permission - fetch failed with error: UnauthorizedClient"))
+        app.buttons["Aktualisieren"].tap()
+        sleep(2)
+        XCTAssertTrue(findInLog(search: "netID service permission - update failed with error: UnauthorizedClient"))
+        app.buttons["UserInfo laden"].tap()
+        sleep(2)
+        XCTAssertTrue(findInLog(search: "netID service user info - fetch finished successfully:"))
+        
+            // At the end, we end the session and test if the "Authorisieren" button is enabled again.
+        app.buttons["Session beenden"].tap()
+        XCTAssertTrue(app.buttons["Authorisieren"].isEnabled)
+    }
+    
     // Do complete permission flow cycle.
     func testPermissionFlowOkay() throws {
         XCTAssertTrue(app.buttons["Service initialisieren"].isEnabled)

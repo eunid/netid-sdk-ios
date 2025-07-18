@@ -23,6 +23,7 @@
 "net_id_service_extra_claims" = "Zusätzliche **optional claims** für Login-Flow";
 "permission_management_title" = "Permission Management";
 "update_permission_button_title" = "Aktualisieren";
+"set_access_token" = "Access token setzen";
 "fetch_permissions_button_title" = "Laden";
 "log_text_title" = "Logs:";
 "choose_auth_flow_title" = "Bitte wähle Deinen Authorisierungsprozess.";
