@@ -47,6 +47,11 @@ class AppAuthManager: NSObject {
         getAuthState()?.lastTokenResponse?.accessToken
     }
 
+    public func setAccessToken(_ accessToken: String) {
+        let lastTokenResponse = getAuthState()?.lastTokenResponse
+        lastTokenResponse?.setValue(accessToken, forKey: "accessToken")
+    }
+    
     public func getPermissionToken() -> String? {
         // Fallback for getting a permission token as long as there is no refresh token flow (and only permission scope was requested).
         guard let token = getAuthState()?.lastTokenResponse?.idToken else {
@@ -54,7 +59,7 @@ class AppAuthManager: NSObject {
         }
         return TokenUtil.getPermissionTokenFrom(token)
     }
-
+    
     public func getAuthState() -> OIDAuthState? {
         if (authState != nil) {
             return authState

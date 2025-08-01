@@ -139,7 +139,18 @@ struct ContentView: View {
                         .disabled(!serviceViewModel.updatePermissionEnabled)
                     }
                     .padding(.horizontal, 20)
-                    
+                    Button {
+                        serviceViewModel.setAccessToken()
+                    } label: {
+                        Text("set_access_token")
+                            .frame(maxWidth: .infinity)
+                            .foregroundColor(serviceViewModel.updatePermissionEnabled ? Color.white : Color.gray)
+                    }
+                    .padding(10)
+                    .background(Color.orange)
+                    .cornerRadius(5)
+                    .disabled(!serviceViewModel.updatePermissionEnabled)
+
                     Text("log_text_title")
                         .padding()
                         .font(.body)

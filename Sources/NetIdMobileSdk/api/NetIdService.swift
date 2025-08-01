@@ -414,7 +414,7 @@ open class NetIdService: NSObject {
             Logger.shared.info("netID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didFetchPermissionsWithError(.UNKNOWN, NetIdError(code: .UnauthorizedClient, process: .PermissionRead))
+                    item.didFetchPermissionsWithError(.TOKEN_ERROR, NetIdError(code: .UnauthorizedClient, process: .PermissionRead))
                 }
                 return
             }
@@ -432,7 +432,7 @@ open class NetIdService: NSObject {
             Logger.shared.info("netID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
                 for item in netIdListener {
-                    item.didUpdatePermissionWithError(.UNKNOWN, NetIdError(code: .UnauthorizedClient, process: .PermissionWrite))
+                    item.didUpdatePermissionWithError(.TOKEN_ERROR, NetIdError(code: .UnauthorizedClient, process: .PermissionWrite))
                 }
                 return
             }
@@ -456,6 +456,15 @@ open class NetIdService: NSObject {
             }
             return false
         }
+    }
+    
+    /**
+     Sets an access token, overwriting the actual token in the SDK.
+     This makes most sense after initializing the SDK and getting a token.
+     - Parameter accessToken: access token to set, of type ``String``
+     */
+    public func setAccessToken(_ accessToken: String) {
+        appAuthManager?.setAccessToken(accessToken)
     }
 }
 

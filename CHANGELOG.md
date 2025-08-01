@@ -24,6 +24,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added LSApplicationQueriesSchemes in Info.plist
 - Added demo app for button worflow
 - Documented some functions
+- Added special function to set an access token externaly. For debugging purposes only.
 
 ### Changed
 - Added more information to user info

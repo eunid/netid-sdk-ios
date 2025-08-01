@@ -83,6 +83,11 @@ class ServiceViewModel: NSObject, ObservableObject {
         )
     }
 
+    func setAccessToken() {
+        let accessToken = "<INSERT_EXPIRED_TOKEN_HERE>"
+        NetIdService.sharedInstance.setAccessToken(accessToken)
+    }
+    
     func resumeSession(_ url: URL) {
         NetIdService.sharedInstance.resumeSession(url)
     }
