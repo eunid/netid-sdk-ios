@@ -152,11 +152,12 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
 
         app.buttons["Laden"].tap()
         sleep(2)
-        
-        XCTAssertTrue(findInLog(search: "netID service permission - fetch failed with error: UnauthorizedClient"))
+        XCTAssertTrue(findInLog(search: "Token error - token refresh / reauthorization necessary"))
+
         app.buttons["Aktualisieren"].tap()
         sleep(2)
-        XCTAssertTrue(findInLog(search: "netID service permission - update failed with error: UnauthorizedClient"))
+        XCTAssertTrue(findInLog(search: "Token error - token refresh / reauthorization necessary"))
+
         app.buttons["UserInfo laden"].tap()
         sleep(2)
         XCTAssertTrue(findInLog(search: "netID service user info - fetch finished successfully:"))
@@ -215,18 +216,17 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         sleep(2)
         XCTAssertTrue(findInLog(search: "netID service authorized successfully"))
         
-        app.buttons["Laden"].tap()
+        app.buttons["Abgelaufenes access token setzen"].tap()
         sleep(2)
         
-        XCTAssertTrue(findInLog(search: "netID service permission - fetch failed with error: UnauthorizedClient"))
         app.buttons["Aktualisieren"].tap()
         sleep(2)
-        XCTAssertTrue(findInLog(search: "netID service permission - update failed with error: UnauthorizedClient"))
+        XCTAssertTrue(findInLog(search: "Token error - token refresh / reauthorization necessary"))
         app.buttons["UserInfo laden"].tap()
         sleep(2)
-        XCTAssertTrue(findInLog(search: "netID service user info - fetch finished successfully:"))
+        XCTAssertTrue(findInLog(search: "netID service user info - fetch failed: NoAuth"))
         
-            // At the end, we end the session and test if the "Authorisieren" button is enabled again.
+        // At the end, we end the session and test if the "Authorisieren" button is enabled again.
         app.buttons["Session beenden"].tap()
         XCTAssertTrue(app.buttons["Authorisieren"].isEnabled)
     }

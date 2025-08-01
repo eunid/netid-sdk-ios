@@ -206,6 +206,11 @@ NetIdService.sharedInstance.updatePermissions()
 ```
 Updates the permissions object. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
 
+```swift
+NetIdService.sharedInstance.setAccessToken(_ accessToken: String)
+```
+This is a testing function, where an external access token can be set. Usefull for testing the different flows. Usually, this function is not used and can be safely ignored.
+
 ## Implementing the NetIdServiceDelegate
 
 To be able to react to callbacks regarding the aforementioned functions, your application must conform to the `NetIdServiceDelegate` protocol. Depending on your type of application, you must not implemnt all callbacks in full detail (e.g. if you never intent to fetch user information, you could just implement a stub here), hence we only list the most important ones here.
