@@ -22,8 +22,12 @@ class PermissionManager: NSObject {
         super.init()
     }
 
-    public func fetchPermissions(accessToken: String, collapseSyncId: Bool) {
-        let permissionReadRequest = PermissionReadRequest(accessToken: accessToken, collapseSyncId: collapseSyncId)
+    public func fetchPermissions(accessToken: String, collapseSyncId: Bool, fetchOptions: Set<NetIdIdentifierOption>) {
+        let permissionReadRequest = PermissionReadRequest(
+            accessToken: accessToken,
+            collapseSyncId: collapseSyncId,
+            fetchOptions: fetchOptions
+        )
         Webservice.shared.performRequest(permissionReadRequest, callback: { data, permissionResponseStatus, error in
             guard (error == nil) else {
                 self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, error!)
@@ -43,9 +47,18 @@ class PermissionManager: NSObject {
         })
     }
 
-    public func updatePermission(accessToken: String, permission: NetIdPermissionUpdate, collapseSyncId: Bool) {
-        let permissionWriteRequest = PermissionWriteRequest(accessToken: accessToken, permission: permission,
-                collapseSyncId: collapseSyncId)
+    public func updatePermission(
+        accessToken: String,
+        permission: NetIdPermissionUpdate,
+        collapseSyncId: Bool,
+        fetchOptions: Set<NetIdIdentifierOption>
+    ) {
+        let permissionWriteRequest = PermissionWriteRequest(
+            accessToken: accessToken,
+            permission: permission,
+            collapseSyncId: collapseSyncId,
+            fetchOptions: fetchOptions
+        )
         Webservice.shared.performRequest(permissionWriteRequest, callback: { data, permissionResponseStatus, error in
             guard (error == nil) else {
                 self.delegate?.didUpdatePermissionWithError(permissionResponseStatus, error!)

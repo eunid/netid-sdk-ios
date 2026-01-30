@@ -407,9 +407,10 @@ open class NetIdService: NSObject {
 
     /**
      Fetch permissions.
-     - Parameter collapseSyncId: boolean value to indicate whether syncId is used or not.
+     - Parameter collapseSyncId: boolean value to indicate whether syncId is used or not. This value is omitted if fetch options are used.
+     - Parameter fetchOptions: a set of ``NetIdIdentifierOption`` elements. Determines which identifiers are fetched. The default is no options.
      */
-    public func fetchPermissions(collapseSyncId: Bool = true) {
+    public func fetchPermissions(collapseSyncId: Bool = true, fetchOptions: Set<NetIdIdentifierOption> = []) {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("netID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
@@ -418,16 +419,21 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            permissionManager?.fetchPermissions(accessToken: accessToken, collapseSyncId: collapseSyncId)
+            permissionManager?.fetchPermissions(accessToken: accessToken, collapseSyncId: collapseSyncId, fetchOptions: fetchOptions)
         }
     }
 
     /**
      Update permissions.
      - Parameter permission: permissions to set of type ``NetIdPermissionUpdate``.
-     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
+     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not. This value is omitted if fetch options are used.
+     - Parameter fetchOptions: a set of ``NetIdIdentifierOption`` elements. Determines which identifiers are fetched. The default is no options.
      */
-    public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {
+    public func updatePermission(
+        _ permission: NetIdPermissionUpdate,
+        collapseSyncId: Bool = true,
+        fetchOptions: Set<NetIdIdentifierOption> = []
+    ) {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("netID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
@@ -436,7 +442,12 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            permissionManager?.updatePermission(accessToken: accessToken, permission: permission, collapseSyncId: collapseSyncId)
+            permissionManager?.updatePermission(
+                accessToken: accessToken,
+                permission: permission,
+                collapseSyncId: collapseSyncId,
+                fetchOptions: fetchOptions
+            )
         }
     }
 
