@@ -76,7 +76,7 @@ class AppAuthManager: NSObject {
      */
     private func readState() -> OIDAuthState? {
         if let data = UserDefaults(suiteName: STORE_NAME)?.object(forKey: KEY_STATE) as? Data {
-            if let savedAuthState = try? NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? OIDAuthState {
+            if let savedAuthState = try? NSKeyedUnarchiver.unarchivedObject(ofClass: OIDAuthState.self, from: data) {
                 return savedAuthState
             }
         }
