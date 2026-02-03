@@ -17,20 +17,22 @@ import Foundation
 public struct SubjectIdentifiers: Decodable, Encodable, CustomStringConvertible {
     public let tpId: String?
     public let syncId: String?
+    public let eTpId: String?
 
-    public init(tpId: String, syncId: String) {
+    public init(tpId: String, syncId: String, eTpId: String) {
         self.tpId = tpId
         self.syncId = syncId
+        self.eTpId = eTpId
     }
 
     private enum CodingKeys: String, CodingKey {
         case tpId = "tpid"
         case syncId = "sync_id"
+        case eTpId = "etpid"
     }
     
     public var description: String {
-        let encoder = JSONEncoder()
-        guard let data = try? encoder.encode(self), let result = String(data: data, encoding: .utf8) else {
+        guard let data = try? JSONEncoder().encode(self), let result = String(data: data, encoding: .utf8) else {
             return "{}"
         }
         return result
@@ -40,5 +42,6 @@ public struct SubjectIdentifiers: Decodable, Encodable, CustomStringConvertible 
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encodeIfPresent(tpId, forKey: .tpId)
         try container.encodeIfPresent(syncId, forKey: .syncId)
+        try container.encodeIfPresent(eTpId, forKey: .eTpId)
     }
 }
