@@ -18,7 +18,10 @@ public struct NetIdPermissionUpdate: Codable {
     public var idConsent: Optional<NetIdPermissionStatus>
     public var iabTc: Optional<String>
 
-    private enum CodingKeys : String, CodingKey { case idConsent = "idconsent", iabTc = "iab_tc_string" }
+    private enum CodingKeys : String, CodingKey {
+        case idConsent = "idconsent"
+        case iabTc = "iab_tc_string"
+    }
 
     public init(idConsent: NetIdPermissionStatus?, iabTc: String?) {
         self.idConsent = idConsent
@@ -27,8 +30,10 @@ public struct NetIdPermissionUpdate: Codable {
     
     public var description: String {
         let encoder = JSONEncoder()
-        let data = try! encoder.encode(self)
-        return String(data: data, encoding: .utf8) ?? "{}"
+        guard let data = try? encoder.encode(self), let result = String(data: data, encoding: .utf8) else {
+            return "{}"
+        }
+        return result
     }
     
     public func encode(to encoder: Encoder) throws {

@@ -24,13 +24,16 @@ public struct SubjectIdentifiers: Decodable, Encodable, CustomStringConvertible 
     }
 
     private enum CodingKeys: String, CodingKey {
-        case tpId = "tpid", syncId = "sync_id"
+        case tpId = "tpid"
+        case syncId = "sync_id"
     }
     
     public var description: String {
         let encoder = JSONEncoder()
-        let data = try! encoder.encode(self)
-        return String(data: data, encoding: .utf8) ?? "{}"
+        guard let data = try? encoder.encode(self), let result = String(data: data, encoding: .utf8) else {
+            return "{}"
+        }
+        return result
     }
     
     public func encode(to encoder: Encoder) throws {

@@ -31,7 +31,7 @@ class IdAppAgent: NSObject, OIDExternalUserAgent {
 
     public func present(_ request: OIDExternalUserAgentRequest, session: OIDExternalUserAgentSession) -> Bool {
         // return if a flow is already running
-        if(externalUserAgentFlowInProgress){
+        if externalUserAgentFlowInProgress {
             return false
         }
 
@@ -42,23 +42,25 @@ class IdAppAgent: NSObject, OIDExternalUserAgent {
         // Note that we cannot handle an error via the completionhandler as it is asynchronous
         UIApplication.shared.open(
             request.externalUserAgentRequestURL(),
-            options: [.universalLinksOnly : true]) { started in
-                // if not started cancel with error
-                if(!started) {
-                    let url = (self.request?.externalUserAgentRequestURL().absoluteString) ?? "Unknown"
-                    let error = OIDErrorUtilities.error(
-                        with: OIDErrorCode.browserOpenError,
-                        underlyingError: nil,
-                        description: "Failed to open Universal Link: " + url)
-                    self.cleanup()
-                    session.failExternalUserAgentFlowWithError(error)
-                }
+            options: [.universalLinksOnly : true]
+        ) { started in
+            // if not started cancel with error
+            if !started {
+                let url = (self.request?.externalUserAgentRequestURL().absoluteString) ?? "Unknown"
+                let error = OIDErrorUtilities.error(
+                    with: OIDErrorCode.browserOpenError,
+                    underlyingError: nil,
+                    description: "Failed to open Universal Link: " + url
+                )
+                self.cleanup()
+                session.failExternalUserAgentFlowWithError(error)
             }
+        }
         return true
     }
 
     public func dismiss(animated: Bool, completion: @escaping () -> Void) {
-        if(!externalUserAgentFlowInProgress){
+        guard externalUserAgentFlowInProgress else {
             return
         }
         cleanup()
@@ -70,5 +72,4 @@ class IdAppAgent: NSObject, OIDExternalUserAgent {
         session = nil
         request = nil
     }
-
 }

@@ -15,24 +15,25 @@
 import Foundation
 
 public enum NetIdErrorCode: String {
-    case Timeout,
-         NoAuth,
-         NetworkError,
-         JsonDeserializationError,
-         InvalidDiscoveryDocument,
-         Unknown,
-         AuthorizationCanceledByUser,
-         MissingBrowser,
-         InvalidRequest,
-         UnauthorizedClient,
-         AccessDenied,
-         UnsupportedResponseType,
-         InvalidScope,
-         ServerError,
-         InitializationError,
-         TemporarilyUnavailable,
-         ClientError,
-         StateMismatch,
-         NoIdAppInstalled,
-         Other
+    case Timeout
+    case NoAuth
+    case NetworkError
+    case JsonDeserializationError
+    case ResponseDataMissing
+    case InvalidDiscoveryDocument
+    case Unknown
+    case AuthorizationCanceledByUser
+    case MissingBrowser
+    case InvalidRequest
+    case UnauthorizedClient
+    case AccessDenied
+    case UnsupportedResponseType
+    case InvalidScope
+    case ServerError
+    case InitializationError
+    case TemporarilyUnavailable
+    case ClientError
+    case StateMismatch
+    case NoIdAppInstalled
+    case Other
 }

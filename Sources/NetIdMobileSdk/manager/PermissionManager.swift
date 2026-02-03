@@ -29,20 +29,26 @@ class PermissionManager: NSObject {
             fetchOptions: fetchOptions
         )
         Webservice.shared.performRequest(permissionReadRequest, callback: { data, permissionResponseStatus, error in
-            guard (error == nil) else {
-                self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, error!)
+            if let error {
+                self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, error)
                 return
             }
 
-            guard let data = data else {
-                self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, error!)
+            guard let data else {
+                self.delegate?.didFetchPermissionsWithError(
+                    permissionResponseStatus,
+                    NetIdError(code: .ResponseDataMissing, process: .PermissionRead)
+                )
                 return
             }
 
             if let permissions = try? JSONDecoder().decode(PermissionReadResponse.self, from: data) {
                 self.delegate?.didFetchPermissions(permissions)
             } else {
-                self.delegate?.didFetchPermissionsWithError(permissionResponseStatus, NetIdError(code: .JsonDeserializationError, process: .PermissionRead))
+                self.delegate?.didFetchPermissionsWithError(
+                    permissionResponseStatus,
+                    NetIdError(code: .JsonDeserializationError, process: .PermissionRead)
+                )
             }
         })
     }
@@ -60,13 +66,16 @@ class PermissionManager: NSObject {
             fetchOptions: fetchOptions
         )
         Webservice.shared.performRequest(permissionWriteRequest, callback: { data, permissionResponseStatus, error in
-            guard (error == nil) else {
-                self.delegate?.didUpdatePermissionWithError(permissionResponseStatus, error!)
+            if let error {
+                self.delegate?.didUpdatePermissionWithError(permissionResponseStatus, error)
                 return
             }
             
-            guard let data = data else {
-                self.delegate?.didUpdatePermissionWithError(permissionResponseStatus, error!)
+            guard let data else {
+                self.delegate?.didUpdatePermissionWithError(
+                    permissionResponseStatus,
+                    NetIdError(code: .ResponseDataMissing, process: .PermissionWrite)
+                )
                 return
             }
 

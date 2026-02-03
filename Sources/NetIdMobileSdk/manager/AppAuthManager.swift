@@ -61,7 +61,7 @@ class AppAuthManager: NSObject {
     }
     
     public func getAuthState() -> OIDAuthState? {
-        if (authState != nil) {
+        if let authState {
             return authState
         }
         
@@ -137,8 +137,8 @@ class AppAuthManager: NSObject {
     public func authorizeWeb(presentingViewController: UIViewController, authFlow: NetIdAuthFlow) {
         var scopes: [String] = []
         var additionalParameters = [keyClaims: netIdConfig?.claims ?? ""]
-        if (netIdConfig?.promptWeb != nil) {
-            additionalParameters[keyPrompt] = netIdConfig?.promptWeb
+        if let promptWeb = netIdConfig?.promptWeb {
+            additionalParameters[keyPrompt] = promptWeb
         }
 
         switch authFlow {
@@ -162,25 +162,33 @@ class AppAuthManager: NSObject {
                     responseType: OIDResponseTypeCode,
                     additionalParameters: additionalParameters)
 
-                if (authState != nil) {
+                if authState != nil {
                     self.delegate?.didFinishAuthenticationWithError(nil)
                 }
 
-                currentAuthorizationFlow =
-                        OIDAuthState.authState(byPresenting: request, presenting: presentingViewController) { [self] authState, error in
-                            if let authState = authState {
-                                self.authState = authState
-                                Logger.shared.debug("Got authorization tokens. Access token: " +
-                                        "\(authState.lastTokenResponse?.accessToken ?? "nil")")
-                                writeState()
-                                self.delegate?.didFinishAuthenticationWithError(nil)
-                            } else {
-                                Logger.shared
-                                        .error("Authorization with clientID: \(clientId) and redirectUri: \(redirectUri) failed with error: \(error?.localizedDescription ?? "Unknown error")")
-                                self.delegate?.didFinishAuthenticationWithError(
-                                        NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Authentication))
-                            }
+                currentAuthorizationFlow = OIDAuthState
+                    .authState(
+                        byPresenting: request,
+                        presenting: presentingViewController
+                    ) {
+                        [self] authState, error in
+                        if let authState {
+                            self.authState = authState
+                            Logger.shared.debug(
+                                "Got authorization tokens. Access token: " + "\(authState.lastTokenResponse?.accessToken ?? "nil")"
+                            )
+                            writeState()
+                            self.delegate?.didFinishAuthenticationWithError(nil)
+                        } else {
+                            Logger.shared.error(
+                                "Authorization with clientID: \(clientId) and redirectUri: \(redirectUri) failed with error: " +
+                                "\(error?.localizedDescription ?? "Unknown error")"
+                            )
+                            self.delegate?.didFinishAuthenticationWithError(
+                                NetIdError(code: NetIdErrorCode.NoAuth, process: NetIdErrorProcess.Authentication)
+                            )
                         }
+                    }
             }
         }
     }

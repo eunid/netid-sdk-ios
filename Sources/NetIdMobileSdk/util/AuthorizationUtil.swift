@@ -44,13 +44,9 @@ class AuthorizationWayUtil {
 
     class func isAppInstalled(_ urlScheme: String) -> Bool {
         let appScheme = "\(urlScheme)://app"
-        let appUrl = URL(string: appScheme)
+        guard let appUrl = URL(string: appScheme) else { return false }
 
-        if UIApplication.shared.canOpenURL(appUrl! as URL) {
-            return true
-        } else {
-            return false
-        }
+        return UIApplication.shared.canOpenURL(appUrl)
     }
 
     class func createAuthorizeDeepLink(_ scheme: String, originScheme: String) -> URL? {

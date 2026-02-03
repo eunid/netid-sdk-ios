@@ -211,8 +211,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
             default:
                 logText.append("netID service permission - fetch failed with error: \(error.code)\n")
         }
-        if (error.msg != nil) {
-            logText.append("original error message: \(error.msg!)\n")
+        if let errorMessage = error.msg {
+            logText.append("original error message: \(errorMessage)\n")
         }
         fetchPermissionsEnabled = true
     }
@@ -253,8 +253,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
                 logText.append("netID service permission - update failed with error: \(error.code)\n")
         }
 
-        if (error.msg != nil) {
-            logText.append("original error message: \(error.msg!)\n")
+        if let errorMessage = error.msg {
+            logText.append("original error message: \(errorMessage)\n")
         }
         updatePermissionEnabled = true
     }
