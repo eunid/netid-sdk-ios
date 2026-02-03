@@ -15,20 +15,17 @@
 import Foundation
 
 public struct NetIdPrivacySettings: Decodable, Encodable, CustomStringConvertible {
-    public let type: NetIdPrivacySettingsType
-    public let status: NetIdPermissionStatus?
-    public let value: String?
-    public let changedAt: String
+    public let idConsent: NetIdPrivacySettingsIdConsent?
+    public let iabTcString: NetIdPrivacySettingsIabTcString?
 
-    public init(type: NetIdPrivacySettingsType = .OTHER, status: NetIdPermissionStatus, value: String, changedAt: String) {
-        self.type = type
-        self.status = status
-        self.value = value
-        self.changedAt = changedAt
+    public init(idConsent: NetIdPrivacySettingsIdConsent, iabTcString: NetIdPrivacySettingsIabTcString) {
+        self.idConsent = idConsent
+        self.iabTcString = iabTcString
     }
 
     private enum CodingKeys: String, CodingKey {
-        case type, changedAt = "changed_at", value, status
+        case idConsent = "idconsent"
+        case iabTcString = "iab_tcstring"
     }
     
     public var description: String {
@@ -39,9 +36,7 @@ public struct NetIdPrivacySettings: Decodable, Encodable, CustomStringConvertibl
     
     public func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
-        try container.encodeIfPresent(type, forKey: .type)
-        try container.encodeIfPresent(status, forKey: .status)
-        try container.encodeIfPresent(value, forKey: .value)
-        try container.encodeIfPresent(changedAt, forKey: .changedAt)
+        try container.encodeIfPresent(idConsent, forKey: .idConsent)
+        try container.encodeIfPresent(iabTcString, forKey: .iabTcString)
     }
 }

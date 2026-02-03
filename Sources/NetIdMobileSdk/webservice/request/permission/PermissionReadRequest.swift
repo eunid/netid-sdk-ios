@@ -15,7 +15,6 @@
 import Foundation
 
 class PermissionReadRequest: BaseRequest {
-
     private let accessToken: String
     private let collapseSyncId: Bool
     private let fetchOptions: Set<NetIdIdentifierOption>

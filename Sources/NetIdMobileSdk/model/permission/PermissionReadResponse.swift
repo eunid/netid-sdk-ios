@@ -17,16 +17,18 @@ import Foundation
 public struct PermissionReadResponse: Decodable, Encodable, CustomStringConvertible {
     public let statusCode: PermissionResponseStatus
     public let subjectIdentifiers: SubjectIdentifiers?
-    public let netIdPrivacySettings: [NetIdPrivacySettings?]
+    public let netIdPrivacySettings: NetIdPrivacySettings?
 
-    public init(statusCode: PermissionResponseStatus, subjectIdentifiers: SubjectIdentifiers, netIdPrivacySettings: [NetIdPrivacySettings]) {
+    public init(statusCode: PermissionResponseStatus, subjectIdentifiers: SubjectIdentifiers, netIdPrivacySettings: NetIdPrivacySettings) {
         self.statusCode = statusCode
         self.subjectIdentifiers = subjectIdentifiers
         self.netIdPrivacySettings = netIdPrivacySettings
     }
 
     private enum CodingKeys: String, CodingKey {
-        case statusCode = "status_code", subjectIdentifiers = "subject_identifiers", netIdPrivacySettings = "netid_privacy_settings"
+        case statusCode = "status_code"
+        case subjectIdentifiers = "subject_identifiers"
+        case netIdPrivacySettings = "netid_privacy_settings"
     }
     
     public var description: String {

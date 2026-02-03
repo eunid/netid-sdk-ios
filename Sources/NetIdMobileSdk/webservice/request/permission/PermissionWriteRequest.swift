@@ -15,7 +15,6 @@
 import Foundation
 
 class PermissionWriteRequest: BaseRequest {
-
     private let accessToken: String
     private let permission: NetIdPermissionUpdate
     private let collapseSyncId: Bool
