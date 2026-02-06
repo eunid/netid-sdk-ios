@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		2B2550F72F32435A00FD32BF /* NetIdPrivacySettingsIdConsent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2550F62F32434300FD32BF /* NetIdPrivacySettingsIdConsent.swift */; };
 		2B2550F92F32436A00FD32BF /* NetIdPrivacySettingsIabTcString.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2550F82F32436000FD32BF /* NetIdPrivacySettingsIabTcString.swift */; };
+		2B2550FB2F32537400FD32BF /* PermissionIdentifierOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2550FA2F32536300FD32BF /* PermissionIdentifierOption.swift */; };
+		2B2550FD2F360C0000FD32BF /* SessionUserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2550FC2F360BF900FD32BF /* SessionUserDefaults.swift */; };
 		2B3FC659288AAAE400EF824B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2B3FC65B288AAAE400EF824B /* Localizable.strings */; };
 		2B3FC65E288B1A3F00EF824B /* ServiceViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */; };
 		2B9F2F3D28A6735B00B5F2BD /* RadioButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B9F2F3C28A6735B00B5F2BD /* RadioButtonView.swift */; };
@@ -173,6 +175,8 @@
 /* Begin PBXFileReference section */
 		2B2550F62F32434300FD32BF /* NetIdPrivacySettingsIdConsent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdPrivacySettingsIdConsent.swift; sourceTree = "<group>"; };
 		2B2550F82F32436000FD32BF /* NetIdPrivacySettingsIabTcString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetIdPrivacySettingsIabTcString.swift; sourceTree = "<group>"; };
+		2B2550FA2F32536300FD32BF /* PermissionIdentifierOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PermissionIdentifierOption.swift; sourceTree = "<group>"; };
+		2B2550FC2F360BF900FD32BF /* SessionUserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SessionUserDefaults.swift; sourceTree = "<group>"; };
 		2B3FC65A288AAAE400EF824B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2B3FC65C288AAAE500EF824B /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceViewModel.swift; sourceTree = "<group>"; };
@@ -575,15 +579,17 @@
 		B66A07E4287D641800A68E08 /* NetIdMobileSdk-App */ = {
 			isa = PBXGroup;
 			children = (
-				B6616173288E9320004F7ACB /* Info.plist */,
-				2B3FC656288AAAD000EF824B /* SupportingFiles */,
-				B66A07E5287D641800A68E08 /* NetIdMobileSdk_AppApp.swift */,
-				B66A07E7287D641800A68E08 /* ContentView.swift */,
 				B66A07E9287D641900A68E08 /* Assets.xcassets */,
+				B66A07E7287D641800A68E08 /* ContentView.swift */,
+				2FF2D91FE51FEBCB8CE6AEEE /* extension */,
+				B6616173288E9320004F7ACB /* Info.plist */,
+				B66A07E5287D641800A68E08 /* NetIdMobileSdk_AppApp.swift */,
+				B661617A288EBA11004F7ACB /* NetIdMobileSdkApp.entitlements */,
+				2B2550FA2F32536300FD32BF /* PermissionIdentifierOption.swift */,
 				B66A07EB287D641900A68E08 /* Preview Content */,
 				2B3FC65D288B1A3F00EF824B /* ServiceViewModel.swift */,
-				2FF2D91FE51FEBCB8CE6AEEE /* extension */,
-				B661617A288EBA11004F7ACB /* NetIdMobileSdkApp.entitlements */,
+				2B2550FC2F360BF900FD32BF /* SessionUserDefaults.swift */,
+				2B3FC656288AAAD000EF824B /* SupportingFiles */,
 			);
 			name = "NetIdMobileSdk-App";
 			path = "Examples/NetIdMobileSdk-App";
@@ -1069,10 +1075,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2550FB2F32537400FD32BF /* PermissionIdentifierOption.swift in Sources */,
 				B66A07E8287D641800A68E08 /* ContentView.swift in Sources */,
 				2B3FC65E288B1A3F00EF824B /* ServiceViewModel.swift in Sources */,
 				B66A07E6287D641800A68E08 /* NetIdMobileSdk_AppApp.swift in Sources */,
 				2FF2D7369B75FA88C4468B64 /* UIApplication+NetIdMobileSdkApp.swift in Sources */,
+				2B2550FD2F360C0000FD32BF /* SessionUserDefaults.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
