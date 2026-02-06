@@ -199,12 +199,27 @@ Fetches the user information object. On success `didFetchUserInfo` is called on 
 ```swift
 NetIdService.sharedInstance.fetchPermissions()
 ```
-Fetches the permissions object. On success `didFetchPermissions` is called on the delegate, returning the requested information. Otherwise `didFetchPermissionsWithError` gets called, returning a description of the error.
+Fetches the permissions object. The `TPID` identifier is requested as default. On success `didFetchPermissions` is called on the delegate, returning the requested information. Otherwise `didFetchPermissionsWithError` gets called, returning a description of the error.
 
 ```swift
-NetIdService.sharedInstance.updatePermissions()
+NetIdService.sharedInstance.fetchPermissions(
+    fetchOptions: Set([.tagProtocolIdentifier, .synchronizationIdentifier, .encryptedTagProtocolIdentifier])
+)
 ```
-Updates the permissions object. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
+Fetches the permission object and requests all identifiers contained by the `fetchOptions` set.
+
+```swift
+NetIdService.sharedInstance.updatePermissions(permission)
+```
+Updates the permissions object with a given `NetIdPermissionUpdate`. The `TPID` identifier is requested as default. On success `didUpdatePermissions` is called on the delegate, returning the requested information. Otherwise `didUpdatePermissionsWithError` gets called, returning a description of the error.
+
+```swift
+NetIdService.sharedInstance.updatePermissions(
+    permission,
+    fetchOptions: Set([.tagProtocolIdentifier, .synchronizationIdentifier, .encryptedTagProtocolIdentifier])
+)
+```
+Updates the permissions object with a given `NetIdPermissionUpdate` instance and requests all identifiers contained by the `fetchOptions` set.
 
 ```swift
 NetIdService.sharedInstance.setAccessToken(_ accessToken: String)
