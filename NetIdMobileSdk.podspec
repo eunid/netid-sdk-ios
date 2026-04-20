@@ -1,7 +1,7 @@
 Pod::Spec.new do |spec|
 
   spec.name         = "NetIdMobileSdk"
-  spec.version      = "1.0.1"
+  spec.version      = "1.2.0"
   spec.summary      = "An SDK for interfacing with netID authorization and privacy management services."
 
   spec.description  = <<-DESC
