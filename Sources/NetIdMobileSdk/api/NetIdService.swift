@@ -90,7 +90,7 @@ open class NetIdService: NSObject {
     public func resumeSession(_ url: URL) {
         // Try to resume session with provided url
         if let authManager = appAuthManager, let authorizationFlow = authManager.currentAuthorizationFlow {
-            if (authorizationFlow.resumeExternalUserAgentFlow(with: url)) {
+            if authorizationFlow.resumeExternalUserAgentFlow(with: url) {
                 // end session after sucessfull processing
                 authManager.currentAuthorizationFlow = nil
             }
@@ -221,7 +221,7 @@ open class NetIdService: NSObject {
 
         let vc = UIApplication.shared.visibleViewController
 
-        if (authFlow == .Permission) {
+        if authFlow == .Permission {
             EmptyView()
         } else {
             Button {
@@ -283,7 +283,7 @@ open class NetIdService: NSObject {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         let keys = getKeysForAccountProviderApps()
         let index = keys.firstIndex(of: key) ?? -1
-        if ((netIdApps.isEmpty) || (index < 0)) {
+        if (netIdApps.isEmpty) || (index < 0) {
             EmptyView()
         } else {
             let result = netIdApps[index]
@@ -323,17 +323,20 @@ open class NetIdService: NSObject {
         let netIdApps = AuthorizationWayUtil.checkNetIdAuth()
         let keys = getKeysForAccountProviderApps()
         let index = keys.firstIndex(of: key) ?? -1
-        if ((netIdApps.isEmpty) || (index < 0)) {
+        if (netIdApps.isEmpty) || (index < 0) {
             EmptyView()
         } else {
             let result = netIdApps[index]
             
-            if (authFlow == .Permission) {
+            if authFlow == .Permission {
                 EmptyView()
             } else {
-                
                 Button {
-                    self.didTapContinue(universalLink: result.iOS.universalLink, presentingViewController: vc ?? UIViewController(), authFlow: authFlow)
+                    self.didTapContinue(
+                        universalLink: result.iOS.universalLink,
+                        presentingViewController: vc ?? UIViewController(),
+                        authFlow: authFlow
+                    )
                 } label: {
                     ZStack {
                         Image(netIdLogoResource, bundle: bundle)
@@ -407,9 +410,10 @@ open class NetIdService: NSObject {
 
     /**
      Fetch permissions.
-     - Parameter collapseSyncId: boolean value to indicate whether syncId is used or not.
+     - Parameter collapseSyncId: boolean value to indicate whether syncId is used or not. This value is omitted if fetch options are used.
+     - Parameter fetchOptions: a set of ``NetIdIdentifierOption`` elements. Determines which identifiers are fetched. The default is no options.
      */
-    public func fetchPermissions(collapseSyncId: Bool = true) {
+    public func fetchPermissions(collapseSyncId: Bool = true, fetchOptions: Set<NetIdIdentifierOption> = []) {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("netID Service will fetch permissions.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
@@ -418,16 +422,21 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            permissionManager?.fetchPermissions(accessToken: accessToken, collapseSyncId: collapseSyncId)
+            permissionManager?.fetchPermissions(accessToken: accessToken, collapseSyncId: collapseSyncId, fetchOptions: fetchOptions)
         }
     }
 
     /**
      Update permissions.
      - Parameter permission: permissions to set of type ``NetIdPermissionUpdate``.
-     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not.
+     - Parameter collapseSyncId: boolean value to indicate if syncId is used or not. This value is omitted if fetch options are used.
+     - Parameter fetchOptions: a set of ``NetIdIdentifierOption`` elements. Determines which identifiers are fetched. The default is no options.
      */
-    public func updatePermission(_ permission: NetIdPermissionUpdate, collapseSyncId: Bool = true) {
+    public func updatePermission(
+        _ permission: NetIdPermissionUpdate,
+        collapseSyncId: Bool = true,
+        fetchOptions: Set<NetIdIdentifierOption> = []
+    ) {
         if handleConnection(.PermissionRead) {
             Logger.shared.info("netID Service will update permission.")
             guard let accessToken = appAuthManager?.getPermissionToken() else {
@@ -436,7 +445,12 @@ open class NetIdService: NSObject {
                 }
                 return
             }
-            permissionManager?.updatePermission(accessToken: accessToken, permission: permission, collapseSyncId: collapseSyncId)
+            permissionManager?.updatePermission(
+                accessToken: accessToken,
+                permission: permission,
+                collapseSyncId: collapseSyncId,
+                fetchOptions: fetchOptions
+            )
         }
     }
 
@@ -477,7 +491,7 @@ extension NetIdService: AppAuthManagerDelegate {
             } else {
                 Logger.shared.info("netID Service initialization finished")
                 item.didFinishInitializationWithError(nil)
-                if (appAuthManager?.getAuthState() != nil) {
+                if appAuthManager?.getAuthState() != nil {
                     didFinishAuthenticationWithError(nil)
                 }
             }
@@ -580,8 +594,8 @@ extension Bundle {
         // When using CocoaPods, resources are moved into a separate resource bundle "NetIdMobileSdk", load that
         let resourceBundleURL = frameworkBundle.url(forResource: "NetIdMobileSdk", withExtension: "bundle")
         // fails in case not used via Cocopods
-        if (resourceBundleURL != nil) {
-            return Bundle(url: resourceBundleURL!)!
+        if let resourceBundleURL {
+            return Bundle(url: resourceBundleURL) ?? .main
         }
         // Alternatively just return the framework bundle itself (xcode build and not SPM)
         return frameworkBundle

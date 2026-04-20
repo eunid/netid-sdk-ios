@@ -54,7 +54,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         XCTAssertTrue(log.exists)
         let lines = log.label.components(separatedBy: "\n")
         for line in lines {
-            if (line.hasPrefix(search)) {
+            if line.hasPrefix(search) {
                 return true
             }
         }
@@ -129,7 +129,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         
         // If there was a login (or attempt) at a former time, we first need to go back one step.
         let link = webView.staticTexts["E-Mail-Adresse ändern"]
-        if (link.exists) {
+        if link.exists {
             link.tap()
             sleep(2)
         }
@@ -195,7 +195,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         
             // If there was a login (or attempt) at a former time, we first need to go back one step.
         let link = webView.staticTexts["E-Mail-Adresse ändern"]
-        if (link.exists) {
+        if link.exists {
             link.tap()
             sleep(2)
         }
@@ -258,7 +258,7 @@ class NetIdMobileSdk_AppUITests: XCTestCase {
         
         // If there was a login (or attempt) at a former time, we first need to go back one step.
         let link = webView.staticTexts["E-Mail-Adresse ändern"]
-        if (link.exists) {
+        if link.exists {
             link.tap()
             sleep(2)
         }

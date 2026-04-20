@@ -51,7 +51,11 @@ class Webservice {
             var errorProcess = NetIdErrorProcess.Configuration
             var statusCode = PermissionResponseStatus.UNKNOWN
 
-            let body = (data != nil) ? String(decoding: data!, as: UTF8.self) : ""
+            let body = if let data {
+                String(decoding: data, as: UTF8.self)
+            } else {
+                ""
+            }
             switch request {
             case is PermissionReadRequest:
                 errorProcess = .PermissionRead
@@ -74,19 +78,25 @@ class Webservice {
                 }
                 return
             }
-            let httpResponse = response as! HTTPURLResponse
-            
+
+            guard let httpResponse = response as? HTTPURLResponse else {
+                log.error("Received response is not an HTTPURLResponse. Aborting.")
+                return
+            }
+
             // We got back a response, but the HTTP error code does not signal a successful call.
-            if (httpResponse.statusCode > 299) {
-                let responseJSON = try? JSONSerialization.jsonObject(with: data!, options: [])
+            if httpResponse.statusCode > 299 {
+                let responseJSON = try? JSONSerialization.jsonObject(with: data ?? Data(), options: [])
                 var errorCode = NetIdErrorCode.Unknown
                 if let responseJSON = responseJSON as? [String: Any]  {
                     switch request {
                     case is PermissionReadRequest:
-                        statusCode = PermissionResponseStatus(rawValue: responseJSON["status_code"] as! String) ?? .UNKNOWN
+                        let statusString = responseJSON["status_code"] as? String ?? ""
+                        statusCode = PermissionResponseStatus(rawValue: statusString) ?? .UNKNOWN
                         errorCode = (statusCode  == PermissionResponseStatus.TPID_EXISTENCE_ERROR) ? NetIdErrorCode.Other : NetIdErrorCode.InvalidRequest
                     case is PermissionWriteRequest:
-                        statusCode = PermissionResponseStatus(rawValue: responseJSON["status_code"] as! String) ?? .UNKNOWN
+                        let statusString = responseJSON["status_code"] as? String ?? ""
+                        statusCode = PermissionResponseStatus(rawValue: statusString) ?? .UNKNOWN
                         errorCode = (statusCode  == PermissionResponseStatus.TPID_EXISTENCE_ERROR) ? NetIdErrorCode.Other : NetIdErrorCode.InvalidRequest
                     case is UserInfoRequest:
                         statusCode = .UNKNOWN
@@ -111,7 +121,7 @@ class Webservice {
 
             // The call was successful, check if we got back data, too.
             // This should never fail, but we will yield an error just in case.
-            if let data = data {
+            if let data {
                 DispatchQueue.main.async {
                     callback(data, statusCode, nil)
                 }

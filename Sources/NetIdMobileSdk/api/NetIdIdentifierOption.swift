@@ -12,28 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Foundation
-
-public enum NetIdErrorCode: String {
-    case Timeout
-    case NoAuth
-    case NetworkError
-    case JsonDeserializationError
-    case ResponseDataMissing
-    case InvalidDiscoveryDocument
-    case Unknown
-    case AuthorizationCanceledByUser
-    case MissingBrowser
-    case InvalidRequest
-    case UnauthorizedClient
-    case AccessDenied
-    case UnsupportedResponseType
-    case InvalidScope
-    case ServerError
-    case InitializationError
-    case TemporarilyUnavailable
-    case ClientError
-    case StateMismatch
-    case NoIdAppInstalled
-    case Other
+public enum NetIdIdentifierOption: String {
+    case tagProtocolIdentifier = "TPID"
+    case synchronizationIdentifier = "SYNC_ID"
+    case encryptedTagProtocolIdentifier = "ETPID"
 }

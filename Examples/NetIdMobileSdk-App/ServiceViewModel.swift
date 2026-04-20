@@ -17,7 +17,6 @@ import NetIdMobileSdk
 import SwiftUI
 
 class ServiceViewModel: NSObject, ObservableObject {
-
     @Published var initializationEnabled = true
     @Published var authenticationEnabled = false
     @Published var userInfoEnabled = false
@@ -33,6 +32,14 @@ class ServiceViewModel: NSObject, ObservableObject {
 
     @Published var logText = ""
     @Published var authFlow: NetIdAuthFlow = .Permission
+
+    @Published var selectedPermissionIdentifierOption: PermissionIdentifierOption = SessionUserDefaults.getPermissionIdentifierOption(
+        defaultValue: .default
+    ) {
+        didSet {
+            SessionUserDefaults.savePermissionIdentifierOption(selectedPermissionIdentifierOption)
+        }
+    }
 
     func initializeNetIdService(extraClaimShippingAddress: Bool, extraClaimBirthdate: Bool) {
         initializationEnabled = false
@@ -71,16 +78,32 @@ class ServiceViewModel: NSObject, ObservableObject {
 
     func fetchPermissions() {
         fetchPermissionsEnabled = false
-        NetIdService.sharedInstance.fetchPermissions(collapseSyncId: false)
+
+        if selectedPermissionIdentifierOption == .allIdentifiers {
+            NetIdService.sharedInstance.fetchPermissions(
+                fetchOptions: Set([.tagProtocolIdentifier, .synchronizationIdentifier, .encryptedTagProtocolIdentifier])
+            )
+        } else {
+            NetIdService.sharedInstance.fetchPermissions()
+        }
     }
 
     func updatePermission() {
         updatePermissionEnabled = false
         // these values are only for demonstration purpose
-        NetIdService.sharedInstance.updatePermission(NetIdPermissionUpdate(
+        let permissionUpdate = NetIdPermissionUpdate(
             idConsent: .VALID,
-            iabTc: "CPdfZIAPdfZIACnABCDECbCkAP_AAAAAAAYgIzJd9D7dbXFDefx_SPt0OYwW0NBXCuQCChSAA2AFVAOQcLQA02EaMATAhiACEQIAolIBAAEEHAFEAECQQIAEAAHsAgSEhAAKIAJEEBEQAAIQAAoKAAAAAAAIgAABoASAmBiQS5bmRUCAOIAQRgBIgggBCIADAgMBBEAIABgIAIIIgSgAAQAAAKIAAAAAARAAAASGgFABcAEMAPwAgoBaQEiAJ2AUiAxgBnwqASAEMAJgAXABHAEcALSAkEBeYDPh0EIABYAFQAMgAcgA-AEAALgAZAA0AB4AD6AIYAigBMACfAFwAXQAxABmADeAHMAPwAhgBLACYAE0AKMAUoAsQBbgDDAGiAPaAfgB-gEDAIoARaAjgCOgEpALEAWmAuYC6gF5AMUAbQA3ABxADnAHUAPQAi8BIICRAE7AKHAXmAwYBjADJAGVAMsAZmAz4BrADiwHjgPrAg0BDkhAbAAWABkAFwAQwAmABcADEAGYAN4AjgBSgCxAIoARwAlIBaQC5gGKANoAc4A6gB6AEggJEAScAz4B45KBAAAgABYAGQAOAAfAB4AEQAJgAXAAxABmADaAIYARwAowBSgC3AH4ARwAk4BaQC6gGKANwAdQBF4CRAF5gMsAZ8A1gCGoSBeAAgABYAFQAMgAcgA8AEAAMgAaAA8gCGAIoATAAngBvADmAH4AQgAhgBHACWAE0AKUAW4AwwB7QD8AP0AgYBFICNAI4ASkAuYBigDaAG4AOIAegBIgCdgFDgKRAXmAwYBkgDPoGsAayA4IB44EOREAYAQwA_AEiAJ2AUiAz4ZAHACGAEwARwBHAEnALzAZ8UgXAALAAqABkADkAHwAgABkADQAHkAQwBFACYAE8AKQAYgAzABzAD8AIYAUYApQBYgC3AGjAPwA_QCLQEcAR0AlIBcwC8gGKANoAbgA9ACLwEiAJOATsAocBeYDGAGSAMsAZ9A1gDWQHBAPHAhm.f_gAAAAAAsgA")
+            iabTc: "CPdfZIAPdfZIACnABCDECbCkAP_AAAAAAAYgIzJd9D7dbXFDefx_SPt0OYwW0NBXCuQCChSAA2AFVAOQcLQA02EaMATAhiACEQIAolIBAAEEHAFEAECQQIAEAAHsAgSEhAAKIAJEEBEQAAIQAAoKAAAAAAAIgAABoASAmBiQS5bmRUCAOIAQRgBIgggBCIADAgMBBEAIABgIAIIIgSgAAQAAAKIAAAAAARAAAASGgFABcAEMAPwAgoBaQEiAJ2AUiAxgBnwqASAEMAJgAXABHAEcALSAkEBeYDPh0EIABYAFQAMgAcgA-AEAALgAZAA0AB4AD6AIYAigBMACfAFwAXQAxABmADeAHMAPwAhgBLACYAE0AKMAUoAsQBbgDDAGiAPaAfgB-gEDAIoARaAjgCOgEpALEAWmAuYC6gF5AMUAbQA3ABxADnAHUAPQAi8BIICRAE7AKHAXmAwYBjADJAGVAMsAZmAz4BrADiwHjgPrAg0BDkhAbAAWABkAFwAQwAmABcADEAGYAN4AjgBSgCxAIoARwAlIBaQC5gGKANoAc4A6gB6AEggJEAScAz4B45KBAAAgABYAGQAOAAfAB4AEQAJgAXAAxABmADaAIYARwAowBSgC3AH4ARwAk4BaQC6gGKANwAdQBF4CRAF5gMsAZ8A1gCGoSBeAAgABYAFQAMgAcgA8AEAAMgAaAA8gCGAIoATAAngBvADmAH4AQgAhgBHACWAE0AKUAW4AwwB7QD8AP0AgYBFICNAI4ASkAuYBigDaAG4AOIAegBIgCdgFDgKRAXmAwYBkgDPoGsAayA4IB44EOREAYAQwA_AEiAJ2AUiAz4ZAHACGAEwARwBHAEnALzAZ8UgXAALAAqABkADkAHwAgABkADQAHkAQwBFACYAE8AKQAYgAzABzAD8AIYAUYApQBYgC3AGjAPwA_QCLQEcAR0AlIBcwC8gGKANoAbgA9ACLwEiAJOATsAocBeYDGAGSAMsAZ9A1gDWQHBAPHAhm.f_gAAAAAAsgA"
         )
+
+        if selectedPermissionIdentifierOption == .allIdentifiers {
+            NetIdService.sharedInstance.updatePermission(
+                permissionUpdate,
+                fetchOptions: Set([.tagProtocolIdentifier, .synchronizationIdentifier, .encryptedTagProtocolIdentifier])
+            )
+        } else {
+            NetIdService.sharedInstance.updatePermission(permissionUpdate)
+        }
     }
 
     func setAccessToken() {
@@ -254,8 +277,8 @@ extension ServiceViewModel: NetIdServiceDelegate {
             default:
                 logText.append("netID service permission - fetch failed with error: \(error.code)\n")
         }
-        if (error.msg != nil) {
-            logText.append("original error message: \(error.msg!)\n")
+        if let errorMessage = error.msg {
+            logText.append("original error message: \(errorMessage)\n")
         }
         fetchPermissionsEnabled = true
     }
@@ -296,10 +319,9 @@ extension ServiceViewModel: NetIdServiceDelegate {
                 logText.append("netID service permission - update failed with error: \(error.code)\n")
         }
 
-        if (error.msg != nil) {
-            logText.append("original error message: \(error.msg!)\n")
+        if let errorMessage = error.msg {
+            logText.append("original error message: \(errorMessage)\n")
         }
         updatePermissionEnabled = true
     }
-    
 }

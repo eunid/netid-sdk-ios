@@ -56,7 +56,7 @@ struct AuthorizationPermissionView: View {
                 .padding(.horizontal, 0)
 
             VStack(spacing: 10) {
-                if (appIdentifiers.count > 1) {
+                if appIdentifiers.count > 1 {
                     Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
@@ -71,7 +71,7 @@ struct AuthorizationPermissionView: View {
 
                     + Text(LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_three")).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
-                } else if (appIdentifiers.count == 1) {
+                } else if appIdentifiers.count == 1 {
                     Text(legalText.isEmpty ? LocalizableUtil.netIdLocalizable("authorization_view_legal_info_part_one") : legalText).font(Font.system(size: 12, weight: .regular))
                     .foregroundColor(Color("legalInfoColor", bundle: bundle))
 
@@ -94,7 +94,7 @@ struct AuthorizationPermissionView: View {
                 }
             }
                     .onTapGesture(perform: {
-                        if (appIdentifiers.count > 1) {
+                        if appIdentifiers.count > 1 {
                             showAvailableAppSelection = true
                         }
                     })
@@ -137,7 +137,7 @@ struct AuthorizationPermissionView: View {
 
                     if index != (appIdentifiers.count - 1) {
                         Divider()
-                                .frame(maxHeight:1).background(Color("dividerColor",    bundle: bundle))
+                                .frame(maxHeight:1).background(Color("dividerColor", bundle: bundle))
                                 .padding(.leading, 50)
                                 .padding(.trailing, 0)
                     }

@@ -25,7 +25,7 @@ struct ContentView: View {
     @State private var showingAlert = false
     @State private var extraClaimShippingAddress = false
     @State private var extraClaimBirthdate = false
-    @State var selectedStyle:NetIdLayerStyle = .Solid
+    @State private var selectedStyle: NetIdLayerStyle = .Solid
 
     var body: some View {
             ZStack {
@@ -108,12 +108,22 @@ struct ContentView: View {
                             }.disabled(!serviceViewModel.initializationEnabled)
                         }
                     }
-                    
-                    Text("permission_management_title")
-                        .padding()
-                        .font(.body)
-                        .frame(maxWidth: .infinity, alignment: .topLeading)
-                    
+
+                    HStack {
+                        Text("permission_management_title")
+                            .padding(.vertical)
+                            .font(.body)
+                            .frame(maxWidth: .infinity, alignment: .topLeading)
+
+                        Picker("Select a permission identifier option", selection: $serviceViewModel.selectedPermissionIdentifierOption) {
+                            ForEach(PermissionIdentifierOption.allCases, id: \.self) { option in
+                                Text(option.rawValue)
+                            }
+                        }
+                        .pickerStyle(.menu)
+                        .accentColor(.black)
+                    }
+
                     HStack(alignment: .center, spacing: 25) {
                         Button {
                             serviceViewModel.fetchPermissions()
@@ -138,7 +148,7 @@ struct ContentView: View {
                         .cornerRadius(5)
                         .disabled(!serviceViewModel.updatePermissionEnabled)
                     }
-                    .padding(.horizontal, 20)
+
                     Button {
                         serviceViewModel.setAccessToken()
                     } label: {

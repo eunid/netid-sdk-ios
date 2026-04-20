@@ -1,4 +1,4 @@
-// Copyright 2022 European netID Foundation (https://enid.foundation)
+// Copyright 2026 European netID Foundation (https://enid.foundation)
 //
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
@@ -12,8 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Foundation
-
-public enum NetIdPrivacySettingsType: String, Encodable, Decodable {
-    case IDCONSENT = "IDCONSENT", IAB_TC_STRING = "IAB_TC_STRING", OTHER = "OTHER"
+enum PermissionIdentifierOption: String, CaseIterable {
+    case `default` = "Default"
+    case allIdentifiers = "All Identifiers"
 }

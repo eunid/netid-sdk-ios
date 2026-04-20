@@ -15,15 +15,16 @@
 import Foundation
 
 class PermissionWriteRequest: BaseRequest {
-
     private let accessToken: String
     private let permission: NetIdPermissionUpdate
     private let collapseSyncId: Bool
+    private let fetchOptions: Set<NetIdIdentifierOption>
 
-    init(accessToken: String, permission: NetIdPermissionUpdate, collapseSyncId: Bool) {
+    init(accessToken: String, permission: NetIdPermissionUpdate, collapseSyncId: Bool, fetchOptions: Set<NetIdIdentifierOption>) {
         self.accessToken = accessToken
         self.permission = permission
         self.collapseSyncId = collapseSyncId
+        self.fetchOptions = fetchOptions
         super.init()
     }
 
@@ -42,15 +43,8 @@ class PermissionWriteRequest: BaseRequest {
     override func addHttpHeaderFields(_ httpHeaderFields: inout [String: String]) {
         httpHeaderFields[WebserviceConstants.AUTHORIZATION_HTTP_HEADER_KEY] =
                 WebserviceConstants.AUTHORIZATION_HTTP_HEADER_BEARER + accessToken
-        if collapseSyncId {
-            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
-                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_WRITE
-        } else {
-            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
-                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_WRITE_AUDIT
-        }
-        httpHeaderFields[WebserviceConstants.CONTENT_TYPE_HEADER_KEY] =
-                WebserviceConstants.CONTENT_TYPE_PERMISSION_WRITE
+        httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] = WebserviceConstants.ACCEPT_HEADER_PERMISSION_WRITE
+        httpHeaderFields[WebserviceConstants.CONTENT_TYPE_HEADER_KEY] = WebserviceConstants.CONTENT_TYPE_PERMISSION_WRITE
     }
 
     override func getScheme() -> String {
@@ -63,5 +57,10 @@ class PermissionWriteRequest: BaseRequest {
 
     override func getPath() -> String {
         WebserviceConstants.PERMISSION_WRITE_PATH
+    }
+
+    override func addRequestParameters(_ requestQuery: RequestQuery) {
+        let fetchOptionParameterValue = FetchOptionsUtil.queryParameterValue(for: fetchOptions, collapseSyncId: collapseSyncId)
+        requestQuery.addParameter(WebserviceConstants.PERMISSION_QUERY_PARAM_IDENTIFIER_KEY, withValue: fetchOptionParameterValue)
     }
 }

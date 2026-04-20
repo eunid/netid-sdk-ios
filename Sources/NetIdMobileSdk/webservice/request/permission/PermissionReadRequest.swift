@@ -15,13 +15,14 @@
 import Foundation
 
 class PermissionReadRequest: BaseRequest {
-
     private let accessToken: String
     private let collapseSyncId: Bool
+    private let fetchOptions: Set<NetIdIdentifierOption>
 
-    init(accessToken: String, collapseSyncId: Bool) {
+    init(accessToken: String, collapseSyncId: Bool, fetchOptions: Set<NetIdIdentifierOption>) {
         self.accessToken = accessToken
         self.collapseSyncId = collapseSyncId
+        self.fetchOptions = fetchOptions
         super.init()
     }
 
@@ -32,13 +33,7 @@ class PermissionReadRequest: BaseRequest {
     override func addHttpHeaderFields(_ httpHeaderFields: inout [String: String]) {
         httpHeaderFields[WebserviceConstants.AUTHORIZATION_HTTP_HEADER_KEY] =
                 WebserviceConstants.AUTHORIZATION_HTTP_HEADER_BEARER + accessToken
-        if collapseSyncId {
-            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
-                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_READ
-        } else {
-            httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] =
-                    WebserviceConstants.ACCEPT_HEADER_PERMISSION_READ_AUDIT
-        }
+        httpHeaderFields[WebserviceConstants.ACCEPT_HEADER_KEY] = WebserviceConstants.ACCEPT_HEADER_PERMISSION_READ
     }
 
     override func getScheme() -> String {
@@ -54,6 +49,7 @@ class PermissionReadRequest: BaseRequest {
     }
 
     override func addRequestParameters(_ requestQuery: RequestQuery) {
-        super.addRequestParameters(requestQuery)
+        let fetchOptionParameterValue = FetchOptionsUtil.queryParameterValue(for: fetchOptions, collapseSyncId: collapseSyncId)
+        requestQuery.addParameter(WebserviceConstants.PERMISSION_QUERY_PARAM_IDENTIFIER_KEY, withValue: fetchOptionParameterValue)
     }
 }

@@ -72,7 +72,7 @@ struct AuthorizationLoginView: View {
                 .padding(12)
                 .background((style == .Solid) ? Color(hex: result.backgroundColor) : Color("netIdTransparentColor"))
                 .cornerRadius(5)
-                .overlay(RoundedRectangle(cornerRadius: 5).stroke(outlineColor!))
+                .overlay(RoundedRectangle(cornerRadius: 5).stroke(outlineColor ?? .black))
                 .padding(.horizontal, 20)
             }
             
