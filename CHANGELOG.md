@@ -5,6 +5,24 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ## [Unreleased]
+
+## [1.2.0] - 2026-04-20
+
+### Changed
+- Use new permission management API 1.6 calls
+
+## [1.1.0] - 2025-08-01
+
+### Added
+- Added special function to set an access token externaly. For debugging purposes only.
+
+## [1.0.1] - 2023-06-05
+
+### Fixed
+- Fixed loading of custom logo when using the SDK via SPM/CocoaPods
+
+## [1.0.0] - 2023-02-19
+
 ### Added
 - Project setup
 - Integration of AppAuth library
@@ -24,7 +42,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Added LSApplicationQueriesSchemes in Info.plist
 - Added demo app for button worflow
 - Documented some functions
-- Added special function to set an access token externaly. For debugging purposes only.
 
 ### Changed
 - Added more information to user info
@@ -51,7 +68,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Changed minimum iOS version to 14
 - Removed unused plattform macos
 - Added flexible bundle handling
-- Use new permission management API 1.6 calls
 
 ### Fixed
 - Url schemes error
@@ -62,6 +78,5 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Make get/update permission possible in permission flow
 - Fixed an edge case when resuming a session
 - Fixed app2app redirect
-- Fixed loading of custom logo when using the SDK via SPM/CocoaPods
 
 
